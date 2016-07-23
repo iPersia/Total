@@ -102,11 +102,7 @@
                 string url = e.Link.LinkData.ToString();
                 if (type == "版面")
                 {
-                    //MobileNewSmthForm.Browser.AddBoard(url, linkLabel.Text);
-                    //MobileNewSmthForm.Browser.Show();
-                    //BoardForm boardForm = new BoardForm(url);
-                    //boardForm.StartPosition = FormStartPosition.CenterScreen;
-                    //boardForm.Show();
+                    TabbedBrowserForm.Instance.AddBoard(url, linkLabel.Text);
                 }
 
                 if (type == "目录")

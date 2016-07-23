@@ -16,10 +16,12 @@
     /// </summary>
     public partial class TabbedBrowserForm : Form
     {
+        #region Singleton
         /// <summary>
         /// 
         /// </summary>
         public static readonly TabbedBrowserForm Instance = new TabbedBrowserForm();
+        #endregion
 
         #region Variable
         /// <summary>
@@ -48,12 +50,16 @@
         private UserActivityHook _uahKey = new UserActivityHook(false, true);
         #endregion
 
+        #region Ctor
         /// <summary>
         /// 
         /// </summary>
         TabbedBrowserForm()
         {
             InitializeComponent();
+            LoginForm.LoginStatusChanged += new LoginStatusChangedHandler(LoginForm_LoginStatusChanged);
+            _uahKey.KeyUp += new EventHandler<KeyExEventArgs>(Global_KeyUp);
+            _uahKey.Start();
         }
 
         /// <summary>
@@ -62,90 +68,8 @@
         TabbedBrowserForm(Form parent)
             : this()
         {
-            this._parentForm = parent;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnShown(EventArgs e)
-        {
-            base.OnShown(e);
-            LoginForm.LoginStatusChanged += new LoginStatusChangedHandler(LoginForm_LoginStatusChanged);
-            //_uahKey.KeyPress += new EventHandler<KeyPressExEventArgs>(Global_KeyPress);
-            _uahKey.KeyDown += new EventHandler<KeyExEventArgs>(Global_KeyDown);
-            _uahKey.KeyUp += new EventHandler<KeyExEventArgs>(Global_KeyUp);
-            _uahKey.Start();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected void Global_KeyPress(object sender, KeyPressExEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("Global_KeyPress - " + HookUtil.GetForegroundWindowThreadProcessName());
-            System.Diagnostics.Debug.WriteLine("Global_KeyPress - " + e.KeyChar);
-            //if (HookUtil.GetForegroundWindowThreadProcessName() == "Nzl.Web.Forms" && e.Modifiers != 0)
-            //{
-            //    //if (e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey)
-            //    if (e.Control && e.KeyCode == Keys.T)
-            //    {
-            //        System.Diagnostics.Debug.WriteLine("Global_KeyDown - " + e.KeyCode + "\t" + e.KeyValue + "\t" + e.KeyData);
-            //        ShowTop10s();
-            //    }
-            //}
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected void Global_KeyDown(object sender, KeyExEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("Global_KeyDown - " + HookUtil.GetForegroundWindowThreadProcessName());
-            System.Diagnostics.Debug.WriteLine("Global_KeyDown - " +
-                                   "Control.ModifierKeys " + Control.ModifierKeys + "\t" +
-                                   "Modifiers " + e.Modifiers + "\t" +
-                                   "Alt " + e.Alt + "\t" +
-                                   "Control " + e.Control + "\t" +
-                                   "Shift " + e.Shift + "\t" +
-                                   e.KeyCode + "\t" + e.KeyValue + "\t" + e.KeyData);
-            if (HookUtil.GetForegroundWindowThreadProcessName() == "Nzl.Web.Forms" && e.Modifiers != 0)
-            {
-                //if (e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey)
-                if (e.Control && e.KeyCode == Keys.T)
-                {
-                    System.Diagnostics.Debug.WriteLine("Global_KeyDown - " + e.KeyCode + "\t" + e.KeyValue + "\t" + e.KeyData);
-                    ShowTop10s();
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected void Global_KeyUp(object sender, KeyExEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("Global_KeyUp - " + HookUtil.GetForegroundWindowThreadProcessName());
-            System.Diagnostics.Debug.WriteLine("Global_KeyUp - " +
-                                               "Control.ModifierKeys " + Control.ModifierKeys + "\t" +
-                                               "Modifiers " + e.Modifiers + "\t" +
-                                               "Alt " + e.Alt + "\t" +
-                                               "Control " + e.Control + "\t" +
-                                               "Shift " + e.Shift + "\t" + 
-                                               e.KeyCode + "\t" + e.KeyValue + "\t" + e.KeyData);
-            if (HookUtil.GetForegroundWindowThreadProcessName() == "Nzl.Web.Forms")
-            {
-                //if ((e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey) && Control.ModifierKeys == Keys.Control)
-                if (e.KeyCode == Keys.T && Control.ModifierKeys == Keys.Control)
-                {   
-                    ShowTop10s();
-                }
-            }
-        }
+            this._parentForm = parent;            
+        }        
 
         /// <summary>
         /// 
@@ -155,7 +79,9 @@
         {
             this._parentForm = parent;
         }
+        #endregion
 
+        #region Topic
         /// <summary>
         /// 
         /// </summary>
@@ -172,8 +98,9 @@
                 System.Diagnostics.Debug.WriteLine(tp.Name + "'s Size is- " + tp.Size);
             }
         }
+        #endregion
 
-
+        #region Board
         /// <summary>
         /// 
         /// </summary>
@@ -210,24 +137,9 @@
                 this.AddTopic(e.Link.LinkData.ToString(), linkLabel.Text);
             }
         }
+        #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TBF_IDLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                UserForm userForm = new UserForm(e.Link.LinkData.ToString());
-                userForm.StartPosition = FormStartPosition.CenterScreen;
-                userForm.ShowDialog(this);
-            }
-        }
-
-
+        #region TabPages
         /// <summary>
         /// 
         /// </summary>
@@ -264,7 +176,6 @@
             }
         }
 
-        #region event handler.
         /// <summary>
         /// 
         /// </summary>
@@ -286,7 +197,7 @@
             e.Cancel = true;
             this._parentForm.Focus();
         }
-                
+
         /// <summary>
         /// 
         /// </summary>
@@ -296,11 +207,38 @@
         {
             if (this.tcTopics.SelectedIndex > -1)
             {
-                this.tcTopics.TabPages.RemoveAt(this.tcTopics.SelectedIndex);
+                TabPage tp = this.tcTopics.TabPages[this.tcTopics.SelectedIndex];
+                this.tcTopics.TabPages.Remove(tp);
+                tp.Dispose();
+                GC.Collect();
+            }
+        }
+        #endregion
+
+        #region Event handler
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected void Global_KeyUp(object sender, KeyExEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Global_KeyUp - " + HookUtil.GetForegroundWindowThreadProcessName());
+            System.Diagnostics.Debug.WriteLine("Global_KeyUp - " +
+                                               "Control.ModifierKeys " + Control.ModifierKeys + "\t" +
+                                               "Modifiers " + e.Modifiers + "\t" +
+                                               "Alt " + e.Alt + "\t" +
+                                               "Control " + e.Control + "\t" +
+                                               "Shift " + e.Shift + "\t" +
+                                               e.KeyCode + "\t" + e.KeyValue + "\t" + e.KeyData);
+            if (HookUtil.GetForegroundWindowThreadProcessName() == "Nzl.Web.Smth")
+            {
+                if ((e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey) && Control.ModifierKeys == Keys.Control)
+                {
+                    ShowTop10s();
+                }
             }
         }
 
-        #region Event handler
         /// <summary>
         /// 
         /// </summary>
@@ -309,6 +247,22 @@
         private void LoginForm_LoginStatusChanged(object sender, LoginEventArgs e)
         {
             SetButtonVisibleByLogInStatus(e.IsLogin);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TBF_IDLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                UserForm userForm = new UserForm(e.Link.LinkData.ToString());
+                userForm.StartPosition = FormStartPosition.CenterScreen;
+                userForm.ShowDialog(this);
+            }
         }
 
         /// <summary>
@@ -387,24 +341,7 @@
         private void btnMessge_Click(object sender, EventArgs e)
         {
             ShowFormOnCenterParent(MessageCenterForm.Instance);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="form"></param>
-        private void ShowFormOnCenterParent(Form form)
-        {
-            if (form != null && form.IsDisposed == false)
-            {
-                form.StartPosition = FormStartPosition.Manual;
-                int centerX = this.Location.X + this.Size.Width / 2;
-                int centerY = this.Location.Y + this.Size.Height / 2;
-                form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
-                form.Show();
-                form.Focus();
-            }
-        }
+        }        
 
         /// <summary>
         /// 
@@ -425,6 +362,57 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            foreach (TabPage tp in this.tcTopics.TabPages)
+            {
+                tp.Dispose();
+            }
+
+            this.tcTopics.TabPages.Clear();
+            GC.Collect();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            if (this._parentForm != null)
+            {
+                this._parentForm.Focus();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnLoadTop_Click(object sender, EventArgs e)
+        {
+            ShowTop10s();
+        }
+        #endregion
+
+        #region Private
+        /// <summary>
+        /// 
+        /// </summary>
         private void SetButtonVisibleByLogInStatus(bool flag)
         {
             if (this.IsDisposed == false)
@@ -442,8 +430,8 @@
                         this.linklblUserID.Links.Clear();
                         this.linklblUserID.Links.Add(welcomeStr.Length, LoginForm.UserID.Length, LoginForm.UserID);
 
-                        this.linklblUserID.LinkClicked -= new LinkLabelLinkClickedEventHandler(linklblUserID_LinkClicked);
-                        this.linklblUserID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblUserID_LinkClicked);
+                        this.linklblUserID.LinkClicked -= new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
+                        this.linklblUserID.LinkClicked += new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
                         this.btnLogon.Text = "Log Out";
                     }
                     else
@@ -456,25 +444,6 @@
 
                 this.btnFavor.Visible = flag;
                 this.btnMail.Visible = flag;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void linklblUserID_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            lock (this.linklblUserID)
-            {
-                LinkLabel linkLabel = sender as LinkLabel;
-                if (linkLabel != null)
-                {
-                    UserForm userForm = new UserForm(e.Link.LinkData.ToString());
-                    userForm.StartPosition = FormStartPosition.CenterParent;
-                    userForm.ShowDialog(this);
-                }
             }
         }
 
@@ -526,50 +495,22 @@
             this._dicWindows.Add(key, t);
             return t;
         }
-        #endregion
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnClear_Click(object sender, EventArgs e)
+        /// <param name="form"></param>
+        private void ShowFormOnCenterParent(Form form)
         {
-            this.tcTopics.TabPages.Clear();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnHome_Click(object sender, EventArgs e)
-        {
-            if (this._parentForm != null)
+            if (form != null && form.IsDisposed == false)
             {
-                this._parentForm.Focus();
+                form.StartPosition = FormStartPosition.Manual;
+                int centerX = this.Location.X + this.Size.Width / 2;
+                int centerY = this.Location.Y + this.Size.Height / 2;
+                form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
+                form.Show();
+                form.Focus();
             }
-        }
-        #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnLoadTop_Click(object sender, EventArgs e)
-        {
-            ShowTop10s();
         }
 
         /// <summary>
@@ -587,5 +528,6 @@
                 form.Visible = !form.Visible;
             }
         }
+        #endregion
     }
 }

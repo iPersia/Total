@@ -86,18 +86,18 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="state"></param>
-        protected override void DoWork(UrlInfo info)
+        /// <param name="wp"></param>
+        /// <returns></returns>
+        protected override IList<BaseItem> GetItems(WebPage wp)
         {
-            base.DoWork(info);
-            IList<Topic> topics = TopicFactory.GetTopics(info.WebPage);
+            IList<Topic> topics = TopicFactory.GetTopics(wp);
             IList<BaseItem> items = new List<BaseItem>();
             foreach (Topic topic in topics)
             {
                 items.Add(topic);
             }
 
-            info.Result = items;
+            return items;
         }
 
         /// <summary>

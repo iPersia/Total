@@ -186,15 +186,7 @@
         /// <param name="state"></param>
         protected override void DoWork(UrlInfo info)
         {
-            base.DoWork(info);
-            IList<Thread> threads = ThreadFactory.CreateThreads(info.WebPage, this);
-            IList<BaseItem> list = new List<BaseItem>();
-            foreach (Thread thread in threads)
-            {
-                list.Add(thread);
-            }
-
-            info.Result = list;
+            base.DoWork(info);            
         }
 
         /// <summary>
@@ -225,6 +217,23 @@
         protected override Panel GetContainer()
         {
             return this.panel;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="wp"></param>
+        /// <returns></returns>
+        protected override IList<BaseItem> GetItems(WebPage wp)
+        {
+            IList<Thread> threads = ThreadFactory.CreateThreads(wp, this);
+            IList<BaseItem> list = new List<BaseItem>();
+            foreach (Thread thread in threads)
+            {
+                list.Add(thread);
+            }
+
+            return list;
         }
 
         /// <summary>

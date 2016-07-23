@@ -2,7 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;     
+    using System.ComponentModel;
+    using System.Windows.Forms;
     using System.Linq;
     using System.Text;
     using Nzl.Web.Page;
@@ -132,6 +133,16 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IList<Control> Controls
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// 
         /// </summary>

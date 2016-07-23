@@ -16,8 +16,16 @@
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    public delegate Control CreateControlCallback(BaseItem item);
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class BaseControl : UserControl
     {
+        #region variable
         /// <summary>
         /// 
         /// </summary>
@@ -48,7 +56,9 @@
         /// Control =  Control
         /// </summary>
         private Dictionary<string, Control> _dicControl = new Dictionary<string, Control>();
+        #endregion
 
+        #region Ctor
         /// <summary>
         /// 
         /// </summary>
@@ -57,7 +67,9 @@
         {
 
         }
+        #endregion
 
+        #region override
         /// <summary>
         /// 
         /// </summary>
@@ -85,15 +97,7 @@
                 }
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="baseUrl"></param>
-        protected virtual Panel GetContainer()
-        {
-            return null;
-        }
+        #endregion
 
         /// <summary>
         /// 
@@ -124,6 +128,15 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="baseUrl"></param>
+        protected virtual Panel GetContainer()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         protected virtual string GetCurrentUrl()
         {
@@ -138,66 +151,7 @@
         {
             return info.BaseUrl + "?p=" + info.Index;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected bool FetchPage()
-        {
-            UrlInfo info = new UrlInfo(this._urlInfo);
-            return FetchPage(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected bool FetchPrevPage()
-        {
-            UrlInfo info = new UrlInfo(this._urlInfo);
-            info.Index = this._urlInfo.Index - 1;
-            return FetchPage(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected bool FetchNextPage()
-        {
-            UrlInfo info = new UrlInfo(this._urlInfo);
-            info.Index = this._urlInfo.Index + 1;
-            return FetchPage(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected bool FetchLastPage()
-        {
-            UrlInfo info = new UrlInfo(this._urlInfo);
-            info.Index = this._urlInfo.Total;
-            return FetchPage(info);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected bool FetchPage(UrlInfo urlInfo)
-        {
-            if (urlInfo.Index > 0 && urlInfo.Index <= urlInfo.Total)
-            {
-                this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
-                this.bwFetchPage.DoWork += new System.ComponentModel.DoWorkEventHandler(bwFetchPage_DoWork);
-                this.bwFetchPage.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(bwFetchPage_RunWorkerCompleted);
-                this.bwFetchPage.RunWorkerAsync(urlInfo);
-#if (DEBUG)
-                Nzl.Web.Util.CommonUtil.ShowMessage(System.DateTime.Now + "\t " + this.GetType().ToString() + "\n FetecPage's index is equal to " + urlInfo.Index);
-#endif
-                return true;
-            }
-
-            return false;
-        }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -233,6 +187,19 @@
         /// <param name="info"></param>
         protected virtual void DoWork(UrlInfo info)
         {
+            this.UpdatePageInfo(info.WebPage, info);
+            info.Result = this.GetItems(info.WebPage);
+            info.Controls = this.PrepareControls(info.Result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="wp"></param>
+        /// <returns></returns>
+        protected virtual IList<BaseItem> GetItems(WebPage wp)
+        {
+            return null;
         }
 
         /// <summary>
@@ -304,12 +271,7 @@
                 if (info.Status == PageStatus.Normal)
                 {
                     LoginForm.UpdateLoginStatus(info.WebPage);
-                    this.UpdatePageInfo(info.WebPage, info);
-                    IList<BaseItem> items = this.PrepareInfos(info); ;
-                    if (items != null)
-                    {
-                        this.UpdateView(this.PrepareControls(items), info.IsAppend);
-                    }
+                    this.UpdateView(info.Controls, info.IsAppend);
                 }
                 else
                 {
@@ -338,67 +300,7 @@
         {
             return info.Result as IList<BaseItem>;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bwFetchPage_DoWork(object sender, DoWorkEventArgs e)
-        {
-            lock (this._isDoingWorkLocker)
-            {
-                try
-                {
-                    BackgroundWorker bw = sender as BackgroundWorker;
-                    UrlInfo urlInfo = e.Argument as UrlInfo;
-                    string targetUrl = this.GetUrl(urlInfo);
-                    WebPage wp = WebPageFactory.CreateWebPage(targetUrl);
-                    if (CheckPage(wp, urlInfo))
-                    {
-                        urlInfo.WebPage = wp;
-                        e.Result = urlInfo;
-                        DoWorkBase(e);
-
-                        MessageQueue.Enqueue(MessageFactory.CreateMessage(this.GetType().ToString(), "Get webpage '" + targetUrl + "' success!"));
-                    }
-
-                    e.Result = urlInfo;
-                }
-                catch (Exception exp)
-                {
-                    if (Program.LoggerEnabled)
-                    {
-                        Program.Logger.Error(exp.Message);
-                    }
-
-                    (e.Argument as UrlInfo).Status = PageStatus.UnKnown;
-                    MessageQueue.Enqueue(MessageFactory.CreateMessage(exp));
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bwFetchPage_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Error != null)
-            {
-                MessageBox.Show(e.Error.Message);
-            }
-            else if (e.Cancelled)
-            {
-                MessageBox.Show("Canceled");
-            }
-            else
-            {
-                WorkerCompletedBase(e);
-            }
-        }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -462,7 +364,10 @@
                         }
                     }
 
-                    Control newControl = CreateControl(item);
+                    CreateControlCallback callback = new CreateControlCallback(CreateControl);
+                    Control newControl = this.Invoke(callback, new object[] { item }) as Control;
+
+                    //Control newControl = CreateControl(item);
                     this._dicControl.Add(item.ID, newControl);
                     return newControl;
                 }
@@ -537,5 +442,126 @@
                 }
             }
         }
+
+        #region FetchPage
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bwFetchPage_DoWork(object sender, DoWorkEventArgs e)
+        {
+            lock (this._isDoingWorkLocker)
+            {
+                try
+                {
+                    BackgroundWorker bw = sender as BackgroundWorker;
+                    UrlInfo urlInfo = e.Argument as UrlInfo;
+                    string targetUrl = this.GetUrl(urlInfo);
+                    WebPage wp = WebPageFactory.CreateWebPage(targetUrl);
+                    if (CheckPage(wp, urlInfo))
+                    {
+                        urlInfo.WebPage = wp;
+                        e.Result = urlInfo;
+                        DoWorkBase(e);
+
+                        MessageQueue.Enqueue(MessageFactory.CreateMessage(this.GetType().ToString(), "Get webpage '" + targetUrl + "' success!"));
+                    }
+
+                    e.Result = urlInfo;
+                }
+                catch (Exception exp)
+                {
+                    if (Program.LoggerEnabled)
+                    {
+                        Program.Logger.Error(exp.Message);
+                    }
+
+                    (e.Argument as UrlInfo).Status = PageStatus.UnKnown;
+                    MessageQueue.Enqueue(MessageFactory.CreateMessage(exp));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bwFetchPage_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MessageBox.Show(e.Error.Message);
+            }
+            else if (e.Cancelled)
+            {
+                MessageBox.Show("Canceled");
+            }
+            else
+            {
+                WorkerCompletedBase(e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected bool FetchPage()
+        {
+            UrlInfo info = new UrlInfo(this._urlInfo);
+            return FetchPage(info);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected bool FetchPrevPage()
+        {
+            UrlInfo info = new UrlInfo(this._urlInfo);
+            info.Index = this._urlInfo.Index - 1;
+            return FetchPage(info);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected bool FetchNextPage()
+        {
+            UrlInfo info = new UrlInfo(this._urlInfo);
+            info.Index = this._urlInfo.Index + 1;
+            return FetchPage(info);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected bool FetchLastPage()
+        {
+            UrlInfo info = new UrlInfo(this._urlInfo);
+            info.Index = this._urlInfo.Total;
+            return FetchPage(info);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected bool FetchPage(UrlInfo urlInfo)
+        {
+            if (urlInfo.Index > 0 && urlInfo.Index <= urlInfo.Total)
+            {
+                this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
+                this.bwFetchPage.DoWork += new System.ComponentModel.DoWorkEventHandler(bwFetchPage_DoWork);
+                this.bwFetchPage.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(bwFetchPage_RunWorkerCompleted);
+                this.bwFetchPage.RunWorkerAsync(urlInfo);
+#if (DEBUG)
+                Nzl.Web.Util.CommonUtil.ShowMessage(System.DateTime.Now + "\t " + this.GetType().ToString() + "\n FetecPage's index is equal to " + urlInfo.Index);
+#endif
+                return true;
+            }
+
+            return false;
+        }
+        #endregion
     }
 }

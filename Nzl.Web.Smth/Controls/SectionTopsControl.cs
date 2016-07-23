@@ -92,14 +92,18 @@
         {
             base.DoWork(info);
             info.Subject = SmthUtil.GetSectionTitle(info.WebPage);
-            IList<Topic> topics = TopicFactory.GetTop10Topics(info.WebPage);
+        }
+
+        protected override IList<BaseItem> GetItems(WebPage wp)
+        {
+            IList<Topic> topics = TopicFactory.GetTop10Topics(wp);
             IList<BaseItem> list = new List<BaseItem>();
             foreach (Topic topic in topics)
             {
                 list.Add(topic);
             }
 
-            info.Result = list;
+            return list;
         }
 
         /// <summary>
