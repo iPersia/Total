@@ -13,7 +13,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class MessageCenterForm : Form
+    public partial class MessageCenterForm : BaseForm
     {
         /// <summary>
         /// 

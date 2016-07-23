@@ -13,7 +13,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class BoardNavigatorForm : Form
+    public partial class BoardNavigatorForm : BaseForm
     {
         /// <summary>
         /// 

@@ -8,11 +8,17 @@
     using Nzl.Web.Util;
     using Nzl.Web.Page;
     using Nzl.Web.Smth.Controls;
+
     /// <summary>
     /// 
     /// </summary>
-    public partial class FavorForm : Form
+    public partial class FavorForm : BaseForm
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnFavorBoardLinkLableClicked; 
+
         /// <summary>
         /// 
         /// </summary>
@@ -35,7 +41,6 @@
             base.OnShown(e);
             LoadFavor();
         }
-
 
         /// <summary>
         /// 
@@ -146,12 +151,9 @@
         /// <param name="e"></param>
         private void BoardControlLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
+            if (this.OnFavorBoardLinkLableClicked != null)
             {
-                BoardForm boardForm = new BoardForm(e.Link.LinkData.ToString());
-                boardForm.StartPosition = FormStartPosition.CenterScreen;
-                boardForm.Show();
+                this.OnFavorBoardLinkLableClicked(sender, e);
             }
         }
     }

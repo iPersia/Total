@@ -305,12 +305,28 @@
             FavorForm form = this.GetRegisteredForm<FavorForm>();
             if (form != null)
             {
+                form.OnFavorBoardLinkLableClicked -= FavorForm_OnFavorBoardLinkLableClicked;
+                form.OnFavorBoardLinkLableClicked += FavorForm_OnFavorBoardLinkLableClicked;
                 form.StartPosition = FormStartPosition.Manual;
                 int centerX = this.Location.X + this.Size.Width / 2;
                 int centerY = this.Location.Y + this.Size.Height / 2;
                 form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
                 form.Show();
                 form.Focus();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FavorForm_OnFavorBoardLinkLableClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                TabbedBrowserForm.Instance.AddBoard(e.Link.LinkData.ToString(), linkLabel.Text);
             }
         }
 
@@ -528,6 +544,6 @@
                 form.Visible = !form.Visible;
             }
         }
-        #endregion
+        #endregion        
     }
 }
