@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9BB55927-8255-4CE3-9384-22670BFDAE5E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nzl.Web.ProductClawer</RootNamespace>
+    <AssemblyName>Nzl.Web.ProductClawer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseDespatcher.cs" />
+    <Compile Include="BaseProductClawer.cs" />
+    <Compile Include="Clawers\The10010Clawer.cs" />
+    <Compile Include="Clawers\The360buyClawer.cs" />
+    <Compile Include="Clawers\The360buyPriceImageReader.cs" />
+    <Compile Include="Clawers\The51BuyClawer.cs" />
+    <Compile Include="Clawers\TheAmazonCNClawer.cs" />
+    <Compile Include="Clawers\TheAmazonUSClawer.cs" />
+    <Compile Include="Clawers\TheDangdangClawer.cs" />
+    <Compile Include="Clawers\TheNeweggClawer.cs" />
+    <Compile Include="Clawers\TheYiHaoDianClawer.cs" />
+    <Compile Include="Currency.cs" />
+    <Compile Include="ProductClawerDepatcher.cs" />
+    <Compile Include="ProductClawerFactory.cs" />
+    <Compile Include="ProductClawerScheduler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProductClawerUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nzl.Web.Core\Nzl.Web.Core.csproj">
+      <Project>{87C3C98E-3F1A-4BAF-968B-53F5AF6231AE}</Project>
+      <Name>Nzl.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Web.Interface\Nzl.Web.Interface.csproj">
+      <Project>{30B2DE94-CA85-4FFC-97BA-4E681E807400}</Project>
+      <Name>Nzl.Web.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Web.Page\Nzl.Web.Page.csproj">
+      <Project>{58BC70F0-3FF6-4095-87AC-08A4B7C00F58}</Project>
+      <Name>Nzl.Web.Page</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Web.Util\Nzl.Web.Util.csproj">
+      <Project>{6CBA8F35-E6F4-4A6D-876F-38EA9DE4649A}</Project>
+      <Name>Nzl.Web.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

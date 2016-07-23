@@ -1,0 +1,122 @@
+﻿<Processes>
+  <Process>
+    <ID>TOTALCMD</ID>
+    <Name>Total Commander</Name>
+  </Process>
+  <Process>
+    <ID>Everything</ID>
+    <Name>Everything</Name>
+  </Process>
+  <Process>
+    <ID>devenv</ID>
+    <Name>Visual Studio</Name>
+  </Process>
+  <Process>
+    <ID>ssexp</ID>
+    <Name>Visual SourceSafe</Name>
+  </Process>
+  <Process>
+    <ID>plsqldev</ID>
+    <Name>PL/SQL</Name>
+  </Process>
+  <Process>
+    <ID>wps</ID>
+    <Name>WPS Word</Name>
+  </Process>
+  <Process>
+    <ID>et</ID>
+    <Name>WPS Excel</Name>
+  </Process>
+  <Process>
+    <ID>wpp</ID>
+    <Name>WPS PowerPoint</Name>
+  </Process>
+  <Process>
+    <ID>Foxmail</ID>
+    <Name>Foxmail</Name>
+  </Process>
+  <Process>
+    <ID>notepad++</ID>
+    <Name>Notepad++</Name>
+  </Process>
+  <Process>
+    <ID>Uedit32</ID>
+    <Name>Ultra Edit</Name>
+  </Process>
+  <Process>
+    <ID>notepad</ID>
+    <Name>Notepad</Name>
+  </Process>
+  <Process>
+    <ID>calc</ID>
+    <Name>Calculator</Name>
+  </Process>
+  <Process>
+    <ID>firefox</ID>
+    <Name>Firefox</Name>
+  </Process>
+  <Process>
+    <ID>iexplore</ID>
+    <Name>Internet Explorer</Name>
+  </Process>
+  <Process>
+    <ID>chrome</ID>
+    <Name>Google Chrome</Name>
+  </Process>
+  <Process>
+    <ID>QQ</ID>
+    <Name>QQ</Name>
+  </Process>
+  <Process>
+    <ID>Fetion</ID>
+    <Name>CMCC Fetion</Name>
+  </Process>
+  <Process>
+    <ID>taskmgr</ID>
+    <Name>Task manager</Name>
+  </Process>
+  <Process>
+    <ID>cmd</ID>
+    <Name>Command Processor</Name>
+  </Process>
+  <Process>
+    <ID>regedit</ID>
+    <Name>Registry Editor</Name>
+  </Process>
+  <Process>
+    <ID>explorer</ID>
+    <Name>Windows Explorer</Name>
+  </Process>
+  <Process>
+    <ID>dwm</ID>
+    <Name>Desktop Window Manager</Name>
+  </Process>  
+  <Process>
+    <ID>sidebar</ID>
+    <Name>Side Bar</Name>
+  </Process>
+  <Process>
+    <ID>avp</ID>
+    <Name>Kaspersky</Name>
+  </Process>
+  <Process>
+    <ID>vmware</ID>
+    <Name>VMware Workstation</Name>
+  </Process>
+  <Process>
+    <ID>War3</ID>
+    <Name>WarCraft III</Name>
+  </Process>
+  <Process>
+    <ID>ccrc</ID>
+    <Name>IBM ClearCase Remote Client</Name>
+  </Process>
+  <Process>
+    <ID>UASClient</ID>
+    <Name>User Activity Monitor</Name>
+  </Process>
+  <Process>
+    <ID>UASServer</ID>
+    <Name>User Activity Supervisor</Name>
+  </Process>
+</Processes>

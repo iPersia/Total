@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C5CD7FF9-FB2D-47E1-966B-E46F169DA312}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nzl.Web.Rss</RootNamespace>
+    <AssemblyName>Nzl.Web.Rss</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Nzl.Web.Forms\bin\Debug\RssReaders\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Nzl.Web.Forms\bin\Release\RssReaders\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BaseRssReader.cs" />
+    <Compile Include="Reader\CnBetaRssReader.cs" />
+    <Compile Include="Reader\EngadgetCNRssReader.cs" />
+    <Compile Include="Reader\TechWebRssReader.cs" />
+    <Compile Include="Reader\WeiPhoneRssReader.cs" />
+    <Compile Include="Reader\SmzcmFxRssReader.cs" />
+    <Compile Include="Reader\SmzdmRssReader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nzl.Web.Core\Nzl.Web.Core.csproj">
+      <Project>{87C3C98E-3F1A-4BAF-968B-53F5AF6231AE}</Project>
+      <Name>Nzl.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Web.Interface\Nzl.Web.Interface.csproj">
+      <Project>{30B2DE94-CA85-4FFC-97BA-4E681E807400}</Project>
+      <Name>Nzl.Web.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Web.Util\Nzl.Web.Util.csproj">
+      <Project>{6CBA8F35-E6F4-4A6D-876F-38EA9DE4649A}</Project>
+      <Name>Nzl.Web.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

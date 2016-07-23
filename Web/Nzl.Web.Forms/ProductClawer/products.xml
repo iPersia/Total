@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="gb2312"?>
+<infor>
+  <configuration>
+    <MaxAsyncInvokeCount>16</MaxAsyncInvokeCount>
+    <ThreadDelayTime>2000</ThreadDelayTime>
+  </configuration>
+  <productlist>
+    <product id="2s">
+      <name>小米2s</name>
+      <url>http://item.jd.com/864722.html</url>
+      <interval>1000</interval>
+      <targetprice>1500</targetprice>
+    </product>
+  </productlist>
+  <productlist>
+    <product id="ip5b">
+      <name>iPhone 5 Black</name>
+      <url>http://mall.10010.com/goodsdetail/111212076031.html</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+  </productlist>
+  <productlist>
+    <product id="ip4-w">
+      <name>iPhone 4 White</name>
+      <url>http://www.amazon.cn/Apple-苹果-iPhone-4-3G智能手机/dp/B0063CD1GO/</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+    <product id="ip4-w">
+      <name>iPhone 4 White</name>
+      <url>http://item.51buy.com/item-247859.html</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+    <product id="ip4-w">
+      <name>iPhone 4 White</name>
+      <url>http://item.jd.com/539349.html</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+    <product id="ip4-b">
+      <name>iPhone 4 Black</name>
+      <url>http://item.jd.com/539348.html</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+    <product id="ip2-w">
+      <name>iPad 2 White</name>
+      <url>http://item.jd.com/389283.html</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+    <product id="ip2-b">
+      <name>iPad 2 Black</name>
+      <url>http://item.jd.com/386364.html</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+  </productlist>
+  <productlist>
+    <product id="ue900">
+      <name>ue900</name>
+      <url>http://item.51buy.com/item-448742.html</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+    <product id="ue9000">
+      <name>ue9000</name>
+      <url>http://item.51buy.com/item-448746.html</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+    <product id="tf15">
+      <name>tf15</name>
+      <url>http://item.51buy.com/item-448751.html</url>
+      <interval>5000</interval>
+      <targetprice>1000</targetprice>
+    </product>
+    <product id="t200b">
+      <name>t200b</name>
+      <url>http://item.51buy.com/item-4477.html</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+    <product id="t200b">
+      <name>t200b</name>
+      <url>http://www.360buy.com/product/107523.html</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+    <product id="t200b">
+      <name>t200b</name>
+      <url>http://www.amazon.cn/惠威-HiVi-T200B-音乐监听大师级音箱/dp/B0010LDZIM/</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+    <product id="mkiii">
+      <name>mkiii</name>
+      <url>http://item.51buy.com/item-17245.html</url>
+      <interval>5000</interval>
+      <targetprice>1500</targetprice>
+    </product>
+    <product id="mkiii">
+      <name>mkiii</name>
+      <url>http://www.360buy.com/product/132647.html</url>
+      <interval>5000</interval>
+      <targetprice>1500</targetprice>
+    </product>
+    <product id="mkiii">
+      <name>mkiii</name>
+      <url>http://www.amazon.cn/惠威-HIVI-M200KIII-电子分频原木豪华版音箱/dp/B001GIOFTM/</url>
+      <interval>5000</interval>
+      <targetprice>1500</targetprice>
+    </product>
+    <product id="se425t">
+      <name>se425t</name>
+      <url>http://item.51buy.com/item-135413.html</url>
+      <interval>5000</interval>
+      <targetprice>1500</targetprice>
+    </product>
+    <product id="se425s">
+      <name>se425s</name>
+      <url>http://item.51buy.com/item-135412.html</url>
+      <interval>5000</interval>
+      <targetprice>1500</targetprice>
+    </product>
+    <product id="se535t">
+      <name>se535t</name>
+      <url>http://item.51buy.com/item-82607.html</url>
+      <interval>5000</interval>
+      <targetprice>1500</targetprice>
+    </product>
+    <product id="se535c">
+      <name>se535c</name>
+      <url>http://item.51buy.com/item-82608.html</url>
+      <interval>5000</interval>
+      <targetprice>2000</targetprice>
+    </product>
+    <product id="se535r">
+      <name>se535r</name>
+      <url>http://item.51buy.com/item-297968.html</url>
+      <interval>5000</interval>
+      <targetprice>1500</targetprice>
+    </product>
+    <product id="x10">
+      <name>image-x10</name>
+      <url>http://www.amazon.cn/杰士-Klipsch-IMAGE-X10-HEADPHONES-小巧的外观-极端的舒适感-真正值得您投资的聆听体验/dp/B008428ZGW/</url>
+      <interval>5000</interval>
+      <targetprice>1000</targetprice>
+    </product>
+  </productlist>
+</infor>

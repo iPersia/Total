@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CC66877D-1318-489F-A26C-6B4E035C3846}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nzl.Test.Algorithm</RootNamespace>
+    <AssemblyName>Nzl.Test.Algorithm</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test_Basic.cs" />
+    <Compile Include="Test_BinarySearchTree.cs" />
+    <Compile Include="Test_Combination.cs" />
+    <Compile Include="Test_DualSum.cs" />
+    <Compile Include="Test_DynamicProgramming.cs" />
+    <Compile Include="Test_OrderStatistics.cs" />
+    <Compile Include="Test_Permutation.cs" />
+    <Compile Include="Test_RedBlackTree.cs" />
+    <Compile Include="Test_Sort.cs" />
+    <Compile Include="Util.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Algorithm\Nzl.Algorithm.DynamicProgramming\Nzl.Algorithm.DynamicProgramming.csproj">
+      <Project>{C1C55A0D-4EA6-412C-8327-6A6B20FA21BB}</Project>
+      <Name>Nzl.Algorithm.DynamicProgramming</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Algorithm\Nzl.Algorithm.OrderStatistics\Nzl.Algorithm.OrderStatistic.csproj">
+      <Project>{E2FD571B-A9CC-40C3-A7FE-C205990D9EDC}</Project>
+      <Name>Nzl.Algorithm.OrderStatistic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Algorithm\Nzl.Algorithm.Selection\Nzl.Algorithm.Selection.csproj">
+      <Project>{6F242EA5-420C-49A1-A539-563C133A5214}</Project>
+      <Name>Nzl.Algorithm.Selection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Algorithm\Nzl.Algorithm.Sort\Nzl.Algorithm.Sort.csproj">
+      <Project>{81AE7B79-72B2-4849-B564-C30C4EF02F4C}</Project>
+      <Name>Nzl.Algorithm.Sort</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Algorithm\Nzl.Algorithm\Nzl.Algorithm.csproj">
+      <Project>{3A7D554D-1255-40EC-B899-2A53FD2B3192}</Project>
+      <Name>Nzl.Algorithm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Nzl.Core.Interface\Nzl.Core.Interface.csproj">
+      <Project>{20D023A0-3B04-4331-9865-C162CD3EE61E}</Project>
+      <Name>Nzl.Core.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Nzl.Core\Nzl.Core.csproj">
+      <Project>{6546DB92-03A3-4690-B60F-322D1B4F5660}</Project>
+      <Name>Nzl.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataStructure\Nzl.DataStructure.Basic\Nzl.DataStructure.Basic.csproj">
+      <Project>{333B5704-9A49-4FBA-A541-BD8AFD2C0583}</Project>
+      <Name>Nzl.DataStructure.Basic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataStructure\Nzl.DataStructure.BinarySearchTree\Nzl.DataStructure.BinarySearchTree.csproj">
+      <Project>{ADCCA630-9048-457F-A296-000C3286C104}</Project>
+      <Name>Nzl.DataStructure.BinarySearchTree</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataStructure\Nzl.DataStructure.RedBlackTree\Nzl.DataStructure.RedBlackTree.csproj">
+      <Project>{5EA8ABF0-C091-43C6-B5DB-D6811C8BBA79}</Project>
+      <Name>Nzl.DataStructure.RedBlackTree</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataStructure\Nzl.DataStructure\Nzl.DataStructure.csproj">
+      <Project>{152B3524-65C9-4C12-96BF-E99A7DFB5A0F}</Project>
+      <Name>Nzl.DataStructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

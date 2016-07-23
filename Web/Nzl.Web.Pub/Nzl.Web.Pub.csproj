@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C10413A3-CBD9-4896-A90D-D6CD3D001588}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nzl.Web.Pub</RootNamespace>
+    <AssemblyName>Nzl.Web.Pub</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SHDocVw">
+      <HintPath>Dll\SHDocVw.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\MessageForm.Designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\NavigatorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\NavigatorForm.Designer.cs">
+      <DependentUpon>NavigatorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\BoardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\BoardControl.Designer.cs">
+      <DependentUpon>BoardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\BoardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\BoardForm.Designer.cs">
+      <DependentUpon>BoardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\BoardNavigatorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\BoardNavigatorForm.Designer.cs">
+      <DependentUpon>BoardNavigatorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\BoardSrcForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\BoardSrcForm.Designer.cs">
+      <DependentUpon>BoardSrcForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\FavorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\FavorForm.Designer.cs">
+      <DependentUpon>FavorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\Mail.cs" />
+    <Compile Include="MobileNewSmth\MailBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\MailBoxForm.Designer.cs">
+      <DependentUpon>MailBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\MailControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\MailControl.Designer.cs">
+      <DependentUpon>MailControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\MailDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\MailDetailForm.Designer.cs">
+      <DependentUpon>MailDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\MobileNewSmthForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\MobileNewSmthForm.Designer.cs">
+      <DependentUpon>MobileNewSmthForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\NewMailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\NewMailForm.Designer.cs">
+      <DependentUpon>NewMailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\NewThreadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\NewThreadForm.Designer.cs">
+      <DependentUpon>NewThreadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\SettingItems.cs" />
+    <Compile Include="MobileNewSmth\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\Thread.cs" />
+    <Compile Include="MobileNewSmth\ThreadControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\ThreadControl.Designer.cs">
+      <DependentUpon>ThreadControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\TopControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\TopControl.Designer.cs">
+      <DependentUpon>TopControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\Topic.cs" />
+    <Compile Include="MobileNewSmth\TopicControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\TopicControl.Designer.cs">
+      <DependentUpon>TopicControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\TopicForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\TopicForm.Designer.cs">
+      <DependentUpon>TopicForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\TopicSrcForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\TopicSrcForm.Designer.cs">
+      <DependentUpon>TopicSrcForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\UserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\UserForm.Designer.cs">
+      <DependentUpon>UserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobileNewSmth\WebBrowserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileNewSmth\WebBrowserForm.Designer.cs">
+      <DependentUpon>WebBrowserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MobileNewSmth\Settings.cs" />
+    <EmbeddedResource Include="Common\MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\NavigatorForm.resx">
+      <DependentUpon>NavigatorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\BoardControl.resx">
+      <DependentUpon>BoardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\BoardForm.resx">
+      <DependentUpon>BoardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\BoardNavigatorForm.resx">
+      <DependentUpon>BoardNavigatorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\BoardSrcForm.resx">
+      <DependentUpon>BoardSrcForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\FavorForm.resx">
+      <DependentUpon>FavorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\MailBoxForm.resx">
+      <DependentUpon>MailBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\MailControl.resx">
+      <DependentUpon>MailControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\MailDetailForm.resx">
+      <DependentUpon>MailDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\MobileNewSmthForm.resx">
+      <DependentUpon>MobileNewSmthForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\NewMailForm.resx">
+      <DependentUpon>NewMailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\NewThreadForm.resx">
+      <DependentUpon>NewThreadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\ThreadControl.resx">
+      <DependentUpon>ThreadControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\TopControl.resx">
+      <DependentUpon>TopControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\TopicControl.resx">
+      <DependentUpon>TopicControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\TopicForm.resx">
+      <DependentUpon>TopicForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\TopicSrcForm.resx">
+      <DependentUpon>TopicSrcForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\UserForm.resx">
+      <DependentUpon>UserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobileNewSmth\WebBrowserForm.resx">
+      <DependentUpon>WebBrowserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Components\Nzl.Log4Net\Nzl.Log4Net.csproj">
+      <Project>{181FE707-E161-4722-9F38-6AAAB6FAA106}</Project>
+      <Name>Nzl.Log4Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Util\Nzl.Util\Nzl.Util.csproj">
+      <Project>{B9DE9CFF-D84E-4BF9-A615-CF7F4519F139}</Project>
+      <Name>Nzl.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Web.Core\Nzl.Web.Core.csproj">
+      <Project>{87C3C98E-3F1A-4BAF-968B-53F5AF6231AE}</Project>
+      <Name>Nzl.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Web.Interface\Nzl.Web.Interface.csproj">
+      <Project>{30B2DE94-CA85-4FFC-97BA-4E681E807400}</Project>
+      <Name>Nzl.Web.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Web.Page\Nzl.Web.Page.csproj">
+      <Project>{58BC70F0-3FF6-4095-87AC-08A4B7C00F58}</Project>
+      <Name>Nzl.Web.Page</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Web.Util\Nzl.Web.Util.csproj">
+      <Project>{6CBA8F35-E6F4-4A6D-876F-38EA9DE4649A}</Project>
+      <Name>Nzl.Web.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

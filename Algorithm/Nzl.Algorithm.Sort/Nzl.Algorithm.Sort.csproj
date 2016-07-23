@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{81AE7B79-72B2-4849-B564-C30C4EF02F4C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nzl.Algorithm.Sort</RootNamespace>
+    <AssemblyName>Nzl.Algorithm.Sort</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BubbleSort`T.cs" />
+    <Compile Include="HeapSort`T.cs" />
+    <Compile Include="InsertionSort`T.cs" />
+    <Compile Include="MergeSort`T.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuickSort.DoubleIndexed.cs">
+      <DependentUpon>QuickSort`T.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickSort.InsertionIntegratedParts.cs">
+      <DependentUpon>QuickSort`T.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickSort.InsertionIntegratedFinal.cs">
+      <DependentUpon>QuickSort`T.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickSort.Median.cs">
+      <DependentUpon>QuickSort`T.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickSort.Property.cs">
+      <DependentUpon>QuickSort`T.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickSort`T.cs" />
+    <Compile Include="QuickSort.Randomized.cs">
+      <DependentUpon>QuickSort`T.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickSort.SplitEnd.cs">
+      <DependentUpon>QuickSort`T.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickSort.Standard.cs">
+      <DependentUpon>QuickSort`T.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickSort.Util.cs">
+      <DependentUpon>QuickSort`T.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickSortType.cs" />
+    <Compile Include="OrderStyle.cs" />
+    <Compile Include="SortType.cs" />
+    <Compile Include="SortWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nzl.Algorithm\Nzl.Algorithm.csproj">
+      <Project>{3A7D554D-1255-40EC-B899-2A53FD2B3192}</Project>
+      <Name>Nzl.Algorithm</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
