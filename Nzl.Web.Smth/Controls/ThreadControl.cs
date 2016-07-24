@@ -18,7 +18,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnIDLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
 
         /// <summary>
         /// 
@@ -143,7 +143,7 @@
                 {
                     this.linklblReply.Visible = true;
                     this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, thread.ReplyUrl);
-                    this.linklblReply.Tag = new Thread(thread);
+                    this.linklblReply.Tag = thread;
                 }
 
                 ///Mail url
@@ -151,7 +151,7 @@
                 {
                     this.linklblMail.Visible = true;
                     this.linklblMail.Links.Add(0, this.linklblMail.Text.Length, thread.MailUrl);
-                    this.linklblMail.Tag = new Thread(thread);
+                    this.linklblMail.Tag = thread;
                 }
 
                 ///Transfer url
@@ -159,7 +159,7 @@
                 {
                     this.linklblTransfer.Visible = true;
                     this.linklblTransfer.Links.Add(0, this.linklblTransfer.Text.Length, thread.TransferUrl);
-                    this.linklblTransfer.Tag = new Thread(thread);
+                    this.linklblTransfer.Tag = thread;
                 }
 
                 ///Edit url
@@ -167,7 +167,7 @@
                 {
                     this.linklblEdit.Visible = true;
                     this.linklblEdit.Links.Add(0, this.linklblEdit.Text.Length, thread.EditUrl);
-                    this.linklblEdit.Tag = new Thread(thread);
+                    this.linklblEdit.Tag = thread;
                 }
 
                 ///Delete url
@@ -175,7 +175,7 @@
                 {
                     this.linklblDelete.Visible = true;
                     this.linklblDelete.Links.Add(0, this.linklblDelete.Text.Length, thread.DeleteUrl);
-                    this.linklblDelete.Tag = new Thread(thread);
+                    this.linklblDelete.Tag = thread;
                 }
 
                 ///Add content.
@@ -241,9 +241,9 @@
         /// <param name="e"></param>
         private void linklblID_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnIDLinkClicked != null)
+            if (this.OnUserLinkClicked != null)
             {
-                this.OnIDLinkClicked(sender, e);
+                this.OnUserLinkClicked(sender, e);
                 e.Link.Visited = true;
             }
         }
@@ -377,6 +377,7 @@
             {
                 this.richtxtContent.SelectAll();
                 Clipboard.SetData(DataFormats.Rtf, this.richtxtContent.SelectedRtf);
+                this.richtxtContent.DeselectAll();
                 e.Link.Visited = true;
             }
         }
@@ -450,15 +451,16 @@
 
                     ///Colored the replied thread content.
                     {
-                        string replayPattern = @"【 在 [a-zA-z][a-zA-Z0-9]{1,11} (\(([^\(]+)?\) )?的大作中提到: 】";
-                        MatchCollection mc = CommonUtil.GetMatchCollection(replayPattern, thread.Content);
+                        string text = this.richtxtContent.Text;
+                        string replayPattern = @"【 在 [a-zA-z][a-zA-Z0-9]{1,11} (\((.+)?\) )?的大作中提到: 】[^\r^\n]*[\r\n]+(\:[^\r^\n]*[\r\n]*)*";
+                        MatchCollection mc = CommonUtil.GetMatchCollection(replayPattern, text);
                         if (mc != null && mc.Count > 0)
                         {
                             string from = mc[0].Groups[0].Value;
                             int index = this.richtxtContent.Text.IndexOf(from);
                             if (index >= 0)
                             {
-                                this.richtxtContent.Select(index, this.richtxtContent.Text.Length - index);
+                                this.richtxtContent.Select(index, from.Length);
                                 this.richtxtContent.SelectionColor = Color.FromArgb(96,96,96);
                                 this.richtxtContent.DeselectAll();
                             }
@@ -467,8 +469,9 @@
 
                     ///Colored the From IP.
                     {
+                        string text = this.richtxtContent.Text;
                         string ipPattern = @"--[\r\n]+(修改:[a-zA-z][a-zA-Z0-9]{1,11} FROM (\d+\.){3}(\*|\d+)[\r\n]+)?FROM (\d+\.){3}(\*|\d+)";
-                        MatchCollection mc = CommonUtil.GetMatchCollection(ipPattern, thread.Content);
+                        MatchCollection mc = CommonUtil.GetMatchCollection(ipPattern, text);
                         if (mc != null && mc.Count > 0)
                         {
                             string from = mc[mc.Count - 1].Groups[0].Value;

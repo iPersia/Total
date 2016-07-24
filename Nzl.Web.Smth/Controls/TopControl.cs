@@ -36,7 +36,9 @@
             this.linklblTop.Links.Add(0, this.linklblTop.Text.Length, topic.Uri);
             if (topic.Replies > 0)
             {
-                this.linklblTop.Text = this.linklblTop.Text + " (" + topic.Replies + ") ";
+                this.lblReplies.Visible = true;
+                this.lblReplies.Text = "(" + topic.Replies + ")";
+                this.lblReplies.Left = this.linklblTop.Left + this.linklblTop.Width + 1;
             }
         }
 

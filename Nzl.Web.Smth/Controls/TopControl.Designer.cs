@@ -31,11 +31,13 @@
             this.panel = new System.Windows.Forms.Panel();
             this.linklblTop = new System.Windows.Forms.LinkLabel();
             this.lblIndex = new System.Windows.Forms.Label();
+            this.lblReplies = new System.Windows.Forms.Label();
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel
             // 
+            this.panel.Controls.Add(this.lblReplies);
             this.panel.Controls.Add(this.linklblTop);
             this.panel.Controls.Add(this.lblIndex);
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -63,6 +65,16 @@
             this.lblIndex.TabIndex = 0;
             this.lblIndex.Text = "10";
             // 
+            // lblReplies
+            // 
+            this.lblReplies.AutoSize = true;
+            this.lblReplies.Location = new System.Drawing.Point(73, 14);
+            this.lblReplies.Name = "lblReplies";
+            this.lblReplies.Size = new System.Drawing.Size(23, 12);
+            this.lblReplies.TabIndex = 6;
+            this.lblReplies.Text = "(0)";
+            this.lblReplies.Visible = false;
+            // 
             // TopControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -81,5 +93,6 @@
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.Label lblIndex;
         private System.Windows.Forms.LinkLabel linklblTop;
+        private System.Windows.Forms.Label lblReplies;
     }
 }

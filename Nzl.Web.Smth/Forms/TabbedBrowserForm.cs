@@ -2,14 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
-    using System.Drawing;
-    using System.Linq;
-    using System.Text;
+    using System.Text.RegularExpressions;
     using System.Windows.Forms;
     using Nzl.Hook;
+    using Nzl.Web.Page;
+    using Nzl.Web.Smth.Common;
     using Nzl.Web.Smth.Controls;
+    using Nzl.Web.Smth.Datas;
+    using Nzl.Web.Smth.Utils;
+    using Nzl.Web.Util;
 
     /// <summary>
     /// 
@@ -88,14 +89,146 @@
         /// <param name="url"></param>
         public void AddTopic(string url, string subject)
         {
-            TabPage tp = GetTabPage(url, subject);
-            if (tp != null)
+            string key = "tp" + url;
+            ///Exsits
             {
-                System.Diagnostics.Debug.WriteLine(this.tcTopics.GetType().ToString() + " before select tabpage - " + tp.Name);
-                this.tcTopics.SelectedTab = tp;
-                System.Diagnostics.Debug.WriteLine(this.tcTopics.GetType().ToString() + " after select tabpage - " + tp.Name);
-                this.Text = subject;
-                System.Diagnostics.Debug.WriteLine(tp.Name + "'s Size is- " + tp.Size);
+                TabPage tp = GetTabPage(url);
+                if (tp != null)
+                {
+                    this.tcTopics.SelectedTab = tp;
+                    this.Text = subject;
+                    return;
+                }
+            }
+
+            ///NOT Exsits
+            {
+                TabPage tp = new TabPage();
+                tp.Name = key;
+                //tp.Text = subject==null ? "Unknown" : subject.Length > 8 ? subject.Substring(0, 8) + ".." : "" + subject;
+                tp.Text = subject;
+                tp.ToolTipText = subject;
+                this.tcTopics.TabPages.Add(tp);
+
+                TopicBrowserControl tbc = new TopicBrowserControl();
+                tbc.Name = "tbc" + url;
+                tbc.TopicUrl = url;
+                tbc.Dock = DockStyle.Fill;
+                tbc.OnThreadDeleteLinkClicked += Tbc_OnThreadDeleteLinkClicked;
+                tbc.OnThreadEditLinkClicked += Tbc_OnThreadEditLinkClicked;
+                tbc.OnThreadMailLinkClicked += Tbc_OnThreadMailLinkClicked;
+                tbc.OnThreadQueryTypeLinkClicked += Tbc_OnThreadQueryTypeLinkClicked;
+                tbc.OnThreadReplyLinkClicked += Tbc_OnThreadReplyLinkClicked;
+                tbc.OnThreadTransferLinkClicked += Tbc_OnThreadTransferLinkClicked;
+                tbc.OnThreadUserLinkClicked += TBF_IDLinkClicked;
+                tbc.OnTopicReplyLinkClicked += Tbc_OnTopicReplyLinkClicked;
+                tp.Controls.Add(tbc);                
+            }
+        }
+
+        private void Tbc_OnTopicReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, e.Link.Description, "Re: " + this.tcTopics.SelectedTab.ToolTipText);
+            threadForm.StartPosition = FormStartPosition.CenterParent;
+            if (DialogResult.OK == threadForm.ShowDialog(this))
+            {
+                e.Link.Tag = "Success";
+            }
+        }
+
+        private void Tbc_OnThreadTransferLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ///throw new NotImplementedException();
+        }
+
+        private void Tbc_OnThreadReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                Thread thread = linkLabel.Tag as Thread;
+                if (thread != null)
+                {
+                    NewThreadForm newThreadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText, thread.ReplyUrl, "Re: " + this.tcTopics.SelectedTab.ToolTipText, SmthUtil.GetReplyContent(thread), true);
+                    newThreadForm.StartPosition = FormStartPosition.CenterParent;
+                    if (DialogResult.OK == newThreadForm.ShowDialog(this))
+                    {
+                        e.Link.Tag = "Success";
+                    }
+                }
+            }
+        }
+
+        private void Tbc_OnThreadQueryTypeLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                string userID = Nzl.Web.Util.CommonUtil.GetMatch(@"au=(?'ID'[a-zA-z][a-zA-Z0-9]{1,11})", e.Link.LinkData.ToString(), 1);
+                TopicForm topicForm = new TopicForm(Nzl.Web.Util.CommonUtil.GetUrlBase(e.Link.LinkData.ToString()), userID);
+                topicForm.StartPosition = FormStartPosition.CenterParent;
+                topicForm.ShowDialog(this);
+            }
+        }
+
+        private void Tbc_OnThreadMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                Thread thread = linkLabel.Tag as Thread;
+                if (thread != null)
+                {
+                    NewMailForm newMailForm = new NewMailForm(thread.ID, "Re: " + this.tcTopics.SelectedTab.ToolTipText, SmthUtil.GetReplyContent(thread));
+                    newMailForm.StartPosition = FormStartPosition.CenterParent;
+                    newMailForm.ShowDialog(this);
+                }
+            }
+        }
+
+        private void Tbc_OnThreadEditLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                Thread thread = linkLabel.Tag as Thread;
+                if (thread != null)
+                {
+                    Regex regex = new Regex(@"\s*FROM\s[\d, \., \*]+");
+                    string content = regex.Replace(thread.Tag.ToString(), "");
+                    content = CommonUtil.ReplaceSpecialChars(content);
+                    content = SmthUtil.TrimUrls(content);
+                    NewThreadForm newThreadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText, thread.EditUrl, "Re: " + this.tcTopics.SelectedTab.ToolTipText, content, false);
+                    newThreadForm.StartPosition = FormStartPosition.CenterParent;
+                    if (DialogResult.OK == newThreadForm.ShowDialog(this))
+                    {
+                        e.Link.Tag = "Success";
+                    }
+                }
+            }
+        }
+
+        private void Tbc_OnThreadDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                Thread thread = linkLabel.Tag as Thread;
+                if (thread != null)
+                {
+                    MessageForm confirmForm = new MessageForm("提示", "确认删除此信息？");
+                    confirmForm.StartPosition = FormStartPosition.CenterParent;
+                    DialogResult dlgResult = confirmForm.ShowDialog(this);
+                    if (dlgResult == DialogResult.OK)
+                    {
+                        WebPage page = WebPageFactory.CreateWebPage(thread.DeleteUrl);
+                        string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", page.Html, "Result");
+                        if (result != null && result.Contains("成功"))
+                        {
+                            e.Link.Tag = "Success";
+                        }
+                    }
+                }
             }
         }
         #endregion
@@ -108,20 +241,35 @@
         /// <param name="title"></param>
         public void AddBoard(string url, string title)
         {
-            TabPage tp = new TabPage();
-            tp.Name = "tp" + url; ;
-            tp.Text = "[" + title + "]";
-            tp.ToolTipText = tp.Text;
-            this.tcTopics.TabPages.Add(tp);
-            this.tcTopics.SelectedTab = tp;
-                
+            string key = "tp" + url;
+            ///Exsits
+            {
+                TabPage tp = GetTabPage(url);
+                if (tp != null)
+                {
+                    this.tcTopics.SelectedTab = tp;
+                    this.Text = title;
+                    return;
+                }
+            }
 
-            BoardBrowserControl bbc = new BoardBrowserControl(url);
-            bbc.OnTopicLinkClicked += new LinkLabelLinkClickedEventHandler(BoardBrowserControl_OnTopicLinkClicked);
-            bbc.OnTopicCreateIDLinkClicked += new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
-            bbc.OnTopicLastIDLinkClicked += new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
-            bbc.Dock = DockStyle.Fill;
-            tp.Controls.Add(bbc);
+            ///NOT Exsits
+            {
+                TabPage tp = new TabPage();
+                tp.Name = "tp" + url; ;
+                tp.Text = "[" + title + "]";
+                tp.ToolTipText = tp.Text;
+                this.tcTopics.TabPages.Add(tp);
+                this.tcTopics.SelectedTab = tp;
+
+
+                BoardBrowserControl bbc = new BoardBrowserControl(url);
+                bbc.OnTopicLinkClicked += new LinkLabelLinkClickedEventHandler(BoardBrowserControl_OnTopicLinkClicked);
+                bbc.OnTopicCreateIDLinkClicked += new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
+                bbc.OnTopicLastIDLinkClicked += new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
+                bbc.Dock = DockStyle.Fill;
+                tp.Controls.Add(bbc);
+            }            
         }
 
         /// <summary>
@@ -145,7 +293,7 @@
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        private TabPage GetTabPage(string url, string subject)
+        private TabPage GetTabPage(string url)
         {
             lock (this.tcTopics)
             {
@@ -155,24 +303,7 @@
                     return this.tcTopics.TabPages[key];
                 }
 
-                TabPage tp = new TabPage();
-                tp.Name = key;
-                //tp.Text = subject==null ? "Unknown" : subject.Length > 8 ? subject.Substring(0, 8) + ".." : "" + subject;
-                tp.Text = subject;
-                tp.ToolTipText = subject;      
-                this.tcTopics.TabPages.Add(tp);
-                
-                System.Diagnostics.Debug.WriteLine(this.tcTopics.GetType().ToString() + " add tabpage - " + tp.Name);
-                System.Diagnostics.Debug.WriteLine(tp.Name + "'s Size is- " + tp.Size);
-
-                TopicBrowserControl tbc = new TopicBrowserControl();                
-                tbc.Name = "tbc" +　url;
-                System.Diagnostics.Debug.WriteLine(tbc.GetType().ToString() + " - " + tbc.Name + " - Created");
-                tbc.TopicUrl = url;                
-                System.Diagnostics.Debug.WriteLine(tbc.GetType().ToString() + " - " + tbc.Name + " - is ADDED TO tp");
-                tp.Controls.Add(tbc);
-                tbc.Dock = DockStyle.Fill;
-                return tp;
+                return null;
             }
         }
 

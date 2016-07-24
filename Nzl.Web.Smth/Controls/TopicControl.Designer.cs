@@ -34,11 +34,13 @@
             this.lblLastDT = new System.Windows.Forms.Label();
             this.lblCreateDT = new System.Windows.Forms.Label();
             this.linklblTopic = new System.Windows.Forms.LinkLabel();
+            this.lblReplies = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblReplies);
             this.panel1.Controls.Add(this.linklblLastID);
             this.panel1.Controls.Add(this.linklblCreateID);
             this.panel1.Controls.Add(this.lblLastDT);
@@ -91,13 +93,22 @@
             // linklblTopic
             // 
             this.linklblTopic.AutoSize = true;
-            this.linklblTopic.Font = new System.Drawing.Font("SimSun", 9F);
+            this.linklblTopic.Font = new System.Drawing.Font("宋体", 9F);
             this.linklblTopic.Location = new System.Drawing.Point(18, 6);
             this.linklblTopic.Name = "linklblTopic";
-            this.linklblTopic.Size = new System.Drawing.Size(59, 12);
+            this.linklblTopic.Size = new System.Drawing.Size(35, 12);
             this.linklblTopic.TabIndex = 0;
             this.linklblTopic.TabStop = true;
-            this.linklblTopic.Text = "Topic (0)";
+            this.linklblTopic.Text = "Topic";
+            // 
+            // lblReplies
+            // 
+            this.lblReplies.AutoSize = true;
+            this.lblReplies.Location = new System.Drawing.Point(62, 6);
+            this.lblReplies.Name = "lblReplies";
+            this.lblReplies.Size = new System.Drawing.Size(23, 12);
+            this.lblReplies.TabIndex = 5;
+            this.lblReplies.Text = "(0)";
             // 
             // TopicControl
             // 
@@ -120,5 +131,6 @@
         private System.Windows.Forms.LinkLabel linklblLastID;
         private System.Windows.Forms.LinkLabel linklblCreateID;
         private System.Windows.Forms.Label lblLastDT;
+        private System.Windows.Forms.Label lblReplies;
     }
 }

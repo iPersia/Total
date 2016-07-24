@@ -19,6 +19,48 @@
     /// </summary>
     public partial class TopicBrowserControl : BaseControl, IContainsThread
     {
+        #region events.
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnThreadUserLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnThreadQueryTypeLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnThreadReplyLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnTopicReplyLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnThreadMailLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnThreadTransferLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnThreadEditLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnThreadDeleteLinkClicked;
+        #endregion
+
         #region Variable
         /// <summary>
         /// 
@@ -249,6 +291,24 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        protected override string GetCurrentUrl()
+        {
+            return base.GetCurrentUrl() + (string.IsNullOrEmpty(this._targetUserID) ? "" : "&au=" + this._targetUserID);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override string GetUrl(UrlInfo info)
+        {
+            return base.GetUrl(info) + (string.IsNullOrEmpty(this._targetUserID) ? "" : "&au=" + this._targetUserID);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="thread"></param>
         /// <returns></returns>
         private ThreadControl CreateThreadControl(Thread thread)
@@ -256,7 +316,7 @@
             int width = this.panel.Width - 4;
             ThreadControl tc = new ThreadControl(width);
             tc.Thread = thread;
-            tc.OnIDLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnIDClicked);
+            tc.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
             tc.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
             tc.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
             tc.OnDeleteLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
@@ -309,7 +369,7 @@
         
         #endregion
 
-         #region Event handler
+        #region Event handler
         /// <summary>
         /// 
         /// </summary>
@@ -544,13 +604,25 @@
         /// <param name="e"></param>
         private void btnReply_Click(object sender, EventArgs e)
         {
-            NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, this._postUrl, "Re: " + this._subject);
-            threadForm.StartPosition = FormStartPosition.CenterParent;
-            if (DialogResult.OK == threadForm.ShowDialog(this))
+            if (this.OnTopicReplyLinkClicked!=null)
             {
-                this.SetUrlInfo(false);
-                this.FetchLastPage();
+                LinkLabel.Link link = new LinkLabel.Link();
+                link.Description = this._postUrl;
+                LinkLabelLinkClickedEventArgs exe = new LinkLabelLinkClickedEventArgs(link);                
+                this.OnTopicReplyLinkClicked(sender, exe);
+                if (exe.Link.Tag.ToString() == "Success")
+                {
+                    this.SetUrlInfo(false);
+                    this.FetchLastPage();
+                }
             }
+            //NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, this._postUrl, "Re: " + this._subject);
+            //threadForm.StartPosition = FormStartPosition.CenterParent;
+            //if (DialogResult.OK == threadForm.ShowDialog(this))
+            //{
+            //    this.SetUrlInfo(false);
+            //    this.FetchLastPage();
+            //}
         }        
 
         /// <summary>
@@ -558,15 +630,19 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ThreadControl_OnIDClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ThreadControl_OnUserClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
+            if (this.OnThreadUserLinkClicked != null)
             {
-                UserForm userForm = new UserForm(e.Link.LinkData.ToString());
-                userForm.StartPosition = FormStartPosition.CenterParent;
-                userForm.ShowDialog(this);
+                this.OnThreadUserLinkClicked(sender, e);
             }
+            //LinkLabel linkLabel = sender as LinkLabel;
+            //if (linkLabel != null)
+            //{
+            //    UserForm userForm = new UserForm(e.Link.LinkData.ToString());
+            //    userForm.StartPosition = FormStartPosition.CenterParent;
+            //    userForm.ShowDialog(this);
+            //}
         }
 
         /// <summary>
@@ -576,14 +652,18 @@
         /// <param name="e"></param>
         private void ThreadControl_OnQueryTypeLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
+            if (this.OnThreadQueryTypeLinkClicked != null)
             {
-                string userID = Nzl.Web.Util.CommonUtil.GetMatch(@"au=(?'ID'[a-zA-z][a-zA-Z0-9]{1,11})", e.Link.LinkData.ToString(), 1);
-                TopicForm topicForm = new TopicForm(Nzl.Web.Util.CommonUtil.GetUrlBase(e.Link.LinkData.ToString()), userID);
-                topicForm.StartPosition = FormStartPosition.CenterParent;
-                topicForm.ShowDialog(this);
+                this.OnThreadQueryTypeLinkClicked(sender, e);
             }
+            //LinkLabel linkLabel = sender as LinkLabel;
+            //if (linkLabel != null)
+            //{
+            //    string userID = Nzl.Web.Util.CommonUtil.GetMatch(@"au=(?'ID'[a-zA-z][a-zA-Z0-9]{1,11})", e.Link.LinkData.ToString(), 1);
+            //    TopicForm topicForm = new TopicForm(Nzl.Web.Util.CommonUtil.GetUrlBase(e.Link.LinkData.ToString()), userID);
+            //    topicForm.StartPosition = FormStartPosition.CenterParent;
+            //    topicForm.ShowDialog(this);
+            //}
         }
 
         /// <summary>
@@ -593,21 +673,25 @@
         /// <param name="e"></param>
         private void ThreadControl_OnReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
+            if (this.OnThreadReplyLinkClicked != null)
             {
-                Thread thread = linkLabel.Tag as Thread;
-                if (thread != null)
-                {
-                    NewThreadForm newThreadForm = new NewThreadForm(this._topic, thread.ReplyUrl, "Re: " + this._topic, SmthUtil.GetReplyContent(thread), true);
-                    newThreadForm.StartPosition = FormStartPosition.CenterParent;
-                    if (DialogResult.OK == newThreadForm.ShowDialog(this))
-                    {
-                        this.SetUrlInfo(false);
-                        this.FetchLastPage();
-                    }
-                }
+                this.OnThreadReplyLinkClicked(sender, e);
             }
+            //LinkLabel linkLabel = sender as LinkLabel;
+            //if (linkLabel != null)
+            //{
+            //    Thread thread = linkLabel.Tag as Thread;
+            //    if (thread != null)
+            //    {
+            //        NewThreadForm newThreadForm = new NewThreadForm(this._topic, thread.ReplyUrl, "Re: " + this._topic, SmthUtil.GetReplyContent(thread), true);
+            //        newThreadForm.StartPosition = FormStartPosition.CenterParent;
+            //        if (DialogResult.OK == newThreadForm.ShowDialog(this))
+            //        {
+            //            this.SetUrlInfo(false);
+            //            this.FetchLastPage();
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -617,20 +701,22 @@
         /// <param name="e"></param>
         private void ThreadControl_OnMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
+            if (this.OnThreadMailLinkClicked != null)
             {
-                Thread thread = linkLabel.Tag as Thread;
-                if (thread != null)
-                {
-                    NewMailForm newMailForm = new NewMailForm(thread.ID, "Re: " + this._topic, SmthUtil.GetReplyContent(thread));
-                    newMailForm.StartPosition = FormStartPosition.CenterParent;
-                    newMailForm.ShowDialog(this);
-                }
+                this.OnThreadMailLinkClicked(sender, e);
             }
+            //LinkLabel linkLabel = sender as LinkLabel;
+            //if (linkLabel != null)
+            //{
+            //    Thread thread = linkLabel.Tag as Thread;
+            //    if (thread != null)
+            //    {
+            //        NewMailForm newMailForm = new NewMailForm(thread.ID, "Re: " + this._topic, SmthUtil.GetReplyContent(thread));
+            //        newMailForm.StartPosition = FormStartPosition.CenterParent;
+            //        newMailForm.ShowDialog(this);
+            //    }
+            //}
         }
-
-        
 
         /// <summary>
         /// 
@@ -639,9 +725,9 @@
         /// <param name="e"></param>
         private void ThreadControl_OnTransferLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
+            if (this.OnThreadTransferLinkClicked != null)
             {
+                this.OnThreadTransferLinkClicked(sender, e);
             }
         }
 
@@ -652,25 +738,34 @@
         /// <param name="e"></param>
         private void ThreadControl_OnEditLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
+            if (this.OnThreadEditLinkClicked != null)
             {
-                Thread thread = linkLabel.Tag as Thread;
-                if (thread != null)
+                this.OnThreadEditLinkClicked(sender, e);
+                if (e.Link.Tag.ToString() == "Success")
                 {
-                    Regex regex = new Regex(@"\s*FROM\s[\d, \., \*]+");
-                    string content = regex.Replace(thread.Tag.ToString(), "");
-                    content = CommonUtil.ReplaceSpecialChars(content);
-                    content = SmthUtil.TrimUrls(content);
-                    NewThreadForm newThreadForm = new NewThreadForm(this._topic, thread.EditUrl, "Re: " + this._topic, content, false);
-                    newThreadForm.StartPosition = FormStartPosition.CenterParent;
-                    if (DialogResult.OK == newThreadForm.ShowDialog(this))
-                    {
-                        this.SetUrlInfo(false);
-                        this.FetchLastPage();
-                    }
+                    this.SetUrlInfo(false);
+                    this.FetchLastPage();
                 }
             }
+            //LinkLabel linkLabel = sender as LinkLabel;
+            //if (linkLabel != null)
+            //{
+            //    Thread thread = linkLabel.Tag as Thread;
+            //    if (thread != null)
+            //    {
+            //        Regex regex = new Regex(@"\s*FROM\s[\d, \., \*]+");
+            //        string content = regex.Replace(thread.Tag.ToString(), "");
+            //        content = CommonUtil.ReplaceSpecialChars(content);
+            //        content = SmthUtil.TrimUrls(content);
+            //        NewThreadForm newThreadForm = new NewThreadForm(this._topic, thread.EditUrl, "Re: " + this._topic, content, false);
+            //        newThreadForm.StartPosition = FormStartPosition.CenterParent;
+            //        if (DialogResult.OK == newThreadForm.ShowDialog(this))
+            //        {
+            //            this.SetUrlInfo(false);
+            //            this.FetchLastPage();
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -680,26 +775,35 @@
         /// <param name="e"></param>
         private void ThreadControl_OnDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
+            if (this.OnThreadDeleteLinkClicked != null)
             {
-                Thread thread = linkLabel.Tag as Thread;
-                if (thread != null)
+                this.OnThreadDeleteLinkClicked(sender, e);
+                if (e.Link.Tag.ToString() == "Success")
                 {
-                    MessageForm confirmForm = new MessageForm("提示", "确认删除此信息？");
-                    confirmForm.StartPosition = FormStartPosition.CenterParent;
-                    DialogResult dlgResult = confirmForm.ShowDialog(this);
-                    if (dlgResult == DialogResult.OK)
-                    {
-                        WebPage page = WebPageFactory.CreateWebPage(thread.DeleteUrl);
-                        string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", page.Html, "Result");
-                        if (result != null && result.Contains("成功"))
-                        {
-                            this.FetchPage();
-                        }
-                    }
+                    this.SetUrlInfo(false);
+                    this.FetchPage();
                 }
             }
+            //LinkLabel linkLabel = sender as LinkLabel;
+            //if (linkLabel != null)
+            //{
+            //    Thread thread = linkLabel.Tag as Thread;
+            //    if (thread != null)
+            //    {
+            //        MessageForm confirmForm = new MessageForm("提示", "确认删除此信息？");
+            //        confirmForm.StartPosition = FormStartPosition.CenterParent;
+            //        DialogResult dlgResult = confirmForm.ShowDialog(this);
+            //        if (dlgResult == DialogResult.OK)
+            //        {
+            //            WebPage page = WebPageFactory.CreateWebPage(thread.DeleteUrl);
+            //            string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", page.Html, "Result");
+            //            if (result != null && result.Contains("成功"))
+            //            {
+            //                this.FetchPage();
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -710,24 +814,6 @@
         private void btnOpenInBrowser_Click(object sender, EventArgs e)
         {
             CommonUtil.OpenUrl(this.GetCurrentUrl());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected override string GetCurrentUrl()
-        {
-            return base.GetCurrentUrl() + (string.IsNullOrEmpty(this._targetUserID) ? "" : "&au=" + this._targetUserID);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected override string GetUrl(UrlInfo info)
-        {
-            return base.GetUrl(info) + (string.IsNullOrEmpty(this._targetUserID) ? "" : "&au=" + this._targetUserID);
         }
         #endregion
 
@@ -850,7 +936,7 @@
                 if (this._browserType == BrowserType.LastReply)
                 {
                     //Add the host thread.
-                    listThreadControl.Add(this.GetSavedControl(this._hostThread) as ThreadControl);
+                    //listThreadControl.Add(this.GetSavedControl(this._hostThread) as ThreadControl);
 
                     //Check whether need updating.
                     {

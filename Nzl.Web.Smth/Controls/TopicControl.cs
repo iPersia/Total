@@ -43,7 +43,9 @@
             this.Tag = topic;
             if (topic != null)
             {
-                this.linklblTopic.Text = CommonUtil.ReplaceSpecialChars(topic.Title) + " （" + topic.Replies + "）";
+                this.linklblTopic.Text = CommonUtil.ReplaceSpecialChars(topic.Title);
+                this.lblReplies.Text = "（" + topic.Replies + "）";
+                this.lblReplies.Left = this.linklblTopic.Left + this.linklblTopic.Width + 1;
                 this.linklblTopic.Links.Add(0, topic.Title.Length, topic.Uri);
                 this.lblCreateDT.Text = topic.CreateDateTime;
                 this.lblLastDT.Text = topic.LastThreadDateTime;

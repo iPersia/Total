@@ -46,7 +46,7 @@
             // lblFloor
             // 
             this.lblFloor.AutoSize = true;
-            this.lblFloor.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblFloor.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblFloor.Location = new System.Drawing.Point(13, 10);
             this.lblFloor.Name = "lblFloor";
             this.lblFloor.Size = new System.Drawing.Size(46, 12);
@@ -57,7 +57,7 @@
             // linklblID
             // 
             this.linklblID.AutoSize = true;
-            this.linklblID.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblID.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblID.Location = new System.Drawing.Point(60, 10);
             this.linklblID.Name = "linklblID";
             this.linklblID.Size = new System.Drawing.Size(89, 12);
@@ -93,7 +93,7 @@
             // 
             this.linklblDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblDelete.AutoSize = true;
-            this.linklblDelete.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblDelete.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblDelete.Location = new System.Drawing.Point(370, 10);
             this.linklblDelete.Name = "linklblDelete";
             this.linklblDelete.Size = new System.Drawing.Size(47, 12);
@@ -107,7 +107,7 @@
             // 
             this.linklblEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblEdit.AutoSize = true;
-            this.linklblEdit.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblEdit.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblEdit.Location = new System.Drawing.Point(335, 10);
             this.linklblEdit.Name = "linklblEdit";
             this.linklblEdit.Size = new System.Drawing.Size(33, 12);
@@ -121,7 +121,7 @@
             // 
             this.linklblTransfer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblTransfer.AutoSize = true;
-            this.linklblTransfer.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblTransfer.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblTransfer.Location = new System.Drawing.Point(497, 10);
             this.linklblTransfer.Name = "linklblTransfer";
             this.linklblTransfer.Size = new System.Drawing.Size(61, 12);
@@ -135,7 +135,7 @@
             // 
             this.linklblMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblMail.AutoSize = true;
-            this.linklblMail.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblMail.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblMail.Location = new System.Drawing.Point(420, 10);
             this.linklblMail.Name = "linklblMail";
             this.linklblMail.Size = new System.Drawing.Size(33, 12);
@@ -149,7 +149,7 @@
             // 
             this.linklblReply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblReply.AutoSize = true;
-            this.linklblReply.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblReply.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblReply.Location = new System.Drawing.Point(455, 10);
             this.linklblReply.Name = "linklblReply";
             this.linklblReply.Size = new System.Drawing.Size(40, 12);
@@ -163,7 +163,7 @@
             // 
             this.lblCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCopy.AutoSize = true;
-            this.lblCopy.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCopy.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCopy.Location = new System.Drawing.Point(560, 10);
             this.lblCopy.Name = "lblCopy";
             this.lblCopy.Size = new System.Drawing.Size(33, 12);
@@ -176,7 +176,7 @@
             // linklblQuryType
             // 
             this.linklblQuryType.AutoSize = true;
-            this.linklblQuryType.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblQuryType.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblQuryType.Location = new System.Drawing.Point(150, 10);
             this.linklblQuryType.Name = "linklblQuryType";
             this.linklblQuryType.Size = new System.Drawing.Size(58, 12);
@@ -187,7 +187,7 @@
             // lblDateTime
             // 
             this.lblDateTime.AutoSize = true;
-            this.lblDateTime.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblDateTime.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblDateTime.Location = new System.Drawing.Point(212, 10);
             this.lblDateTime.Name = "lblDateTime";
             this.lblDateTime.Size = new System.Drawing.Size(61, 12);

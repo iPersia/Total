@@ -50,12 +50,6 @@
         /// 
         /// </summary>
         private int _margin = 4;
-
-        /// <summary>
-        /// string = ID
-        /// Control =  Control
-        /// </summary>
-        private Dictionary<string, Control> _dicControl = new Dictionary<string, Control>();
         #endregion
 
         #region Ctor
@@ -331,49 +325,20 @@
             IList<Control> listThreacControl = new List<Control>();
             foreach (BaseItem item in list)
             {
-                listThreacControl.Add(this.GetSavedControl(item));
+                listThreacControl.Add(this.GetControl(item));
             }
 
             return listThreacControl;
         }
-
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        protected Control GetSavedControl(BaseItem item)
+        protected Control GetControl(BaseItem item)
         {
-            lock (this._dicControl)
-            {
-                if (item != null)
-                {
-                    if (this._dicControl.ContainsKey(item.ID))
-                    {
-                        Control tc = this._dicControl[item.ID];
-                        if (item.Updated == false)
-                        {
-                            return this._dicControl[item.ID];
-                        }
-                        else
-                        {
-                            item.Updated = false;
-                            this._dicControl.Remove(item.ID);
-                            tc.Dispose();
-                        }
-                    }
-
-                    CreateControlCallback callback = new CreateControlCallback(CreateControl);
-                    Control newControl = this.Invoke(callback, new object[] { item }) as Control;
-
-                    //Control newControl = CreateControl(item);
-                    this._dicControl.Add(item.ID, newControl);
-                    return newControl;
-                }
-
-                return null;
-            }
+            return this.Invoke(new CreateControlCallback(CreateControl), new object[] { item }) as Control;
         }
 
         /// <summary>

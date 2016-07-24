@@ -213,8 +213,12 @@
                                 Thread savedThread = iContainThread.GetSavedThread(thread.ID);
                                 if (savedThread != null && savedThread.Content == thread.Content)
                                 {
+                                    savedThread.DeleteUrl = thread.DeleteUrl;
+                                    savedThread.EditUrl = thread.EditUrl;
+                                    savedThread.MailUrl = thread.MailUrl;
+                                    savedThread.ReplyUrl = thread.ReplyUrl;
+                                    savedThread.TransferUrl = thread.TransferUrl;                                    
                                     threadList[i] = savedThread;
-                                    threadList[i].Updated = false;
                                     continue;
                                 }
 
