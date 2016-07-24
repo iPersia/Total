@@ -43,6 +43,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnBoardLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public event LinkLabelLinkClickedEventHandler OnThreadMailLinkClicked;
 
         /// <summary>
@@ -177,17 +182,7 @@
         {
             InitializeComponent();
         }
-
-        /// <summary>
-        /// Ctor.
-        /// </summary>
-        public TopicBrowserControl(string url, string subject)
-            : base()
-        {
-            this.SetBaseUrl(url);
-            this._subject = subject;
-        }
-
+                
         /// <summary>
         /// 
         /// </summary>
@@ -241,11 +236,9 @@
             if (info.Status == PageStatus.Normal)
             {
                 this.SaveThreads(info.Result as IList<BaseItem>);
-                this.UpdateText(info.WebPage);
-                this.GetTopicInfo(info.WebPage);
+                this.UpdateInfor(info.WebPage);
                 this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
-                this.lblPage2.Text = this.lblPage1.Text;
-                this.btnReply.Visible = LoginForm.IsLogin;
+                this.lblPage2.Text = this.lblPage1.Text;                
                 this._resultUrlInfo = info;
             }
 
@@ -345,28 +338,7 @@
         }
         #endregion
 
-        #region Get information
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="html"></param>
-        private void GetTopicInfo(object state)
-        {
-            WebPage wp = state as WebPage;
-            if (wp == null) return;
-            string html = wp.Html;
-            if (string.IsNullOrEmpty(html)) return;
-
-            this._subject = this._topic;//CommonUtil.GetMatch(@"<input type=\Whidden\W name=\Wsubject\W value=\W(?'subject'Re[0-9A-Z,%,~,-]+)\W\s/>", html, 1);
-            this._postUrl = CommonUtil.GetMatch(@"<form action=\W(?'post'/article/[\w, %2E, %5F]+/post/\d+)\W method=\Wpost\W>", html, 1);
-            if (string.IsNullOrEmpty(this._postUrl) == false)
-            {
-                this._postUrl.Replace("%2E", ".");
-                this._postUrl.Replace("%5F", "_");
-                this._postUrl = @"http://m.newsmth.net" + this._postUrl;
-            }
-        }
-        
+        #region Get information       
         #endregion
 
         #region Event handler
@@ -616,14 +588,38 @@
                     this.FetchLastPage();
                 }
             }
-            //NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, this._postUrl, "Re: " + this._subject);
-            //threadForm.StartPosition = FormStartPosition.CenterParent;
-            //if (DialogResult.OK == threadForm.ShowDialog(this))
-            //{
-            //    this.SetUrlInfo(false);
-            //    this.FetchLastPage();
-            //}
-        }        
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void linklblReply_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnTopicReplyLinkClicked != null)
+            {
+                this.OnTopicReplyLinkClicked(sender, e);
+                if (e.Link.Tag.ToString() == "Success")
+                {
+                    this.SetUrlInfo(false);
+                    this.FetchLastPage();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void linklblBoard_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnBoardLinkClicked != null)
+            {
+                this.OnBoardLinkClicked(sender, e);
+            }
+        }
 
         /// <summary>
         /// 
@@ -636,13 +632,6 @@
             {
                 this.OnThreadUserLinkClicked(sender, e);
             }
-            //LinkLabel linkLabel = sender as LinkLabel;
-            //if (linkLabel != null)
-            //{
-            //    UserForm userForm = new UserForm(e.Link.LinkData.ToString());
-            //    userForm.StartPosition = FormStartPosition.CenterParent;
-            //    userForm.ShowDialog(this);
-            //}
         }
 
         /// <summary>
@@ -656,14 +645,6 @@
             {
                 this.OnThreadQueryTypeLinkClicked(sender, e);
             }
-            //LinkLabel linkLabel = sender as LinkLabel;
-            //if (linkLabel != null)
-            //{
-            //    string userID = Nzl.Web.Util.CommonUtil.GetMatch(@"au=(?'ID'[a-zA-z][a-zA-Z0-9]{1,11})", e.Link.LinkData.ToString(), 1);
-            //    TopicForm topicForm = new TopicForm(Nzl.Web.Util.CommonUtil.GetUrlBase(e.Link.LinkData.ToString()), userID);
-            //    topicForm.StartPosition = FormStartPosition.CenterParent;
-            //    topicForm.ShowDialog(this);
-            //}
         }
 
         /// <summary>
@@ -677,21 +658,6 @@
             {
                 this.OnThreadReplyLinkClicked(sender, e);
             }
-            //LinkLabel linkLabel = sender as LinkLabel;
-            //if (linkLabel != null)
-            //{
-            //    Thread thread = linkLabel.Tag as Thread;
-            //    if (thread != null)
-            //    {
-            //        NewThreadForm newThreadForm = new NewThreadForm(this._topic, thread.ReplyUrl, "Re: " + this._topic, SmthUtil.GetReplyContent(thread), true);
-            //        newThreadForm.StartPosition = FormStartPosition.CenterParent;
-            //        if (DialogResult.OK == newThreadForm.ShowDialog(this))
-            //        {
-            //            this.SetUrlInfo(false);
-            //            this.FetchLastPage();
-            //        }
-            //    }
-            //}
         }
 
         /// <summary>
@@ -705,17 +671,6 @@
             {
                 this.OnThreadMailLinkClicked(sender, e);
             }
-            //LinkLabel linkLabel = sender as LinkLabel;
-            //if (linkLabel != null)
-            //{
-            //    Thread thread = linkLabel.Tag as Thread;
-            //    if (thread != null)
-            //    {
-            //        NewMailForm newMailForm = new NewMailForm(thread.ID, "Re: " + this._topic, SmthUtil.GetReplyContent(thread));
-            //        newMailForm.StartPosition = FormStartPosition.CenterParent;
-            //        newMailForm.ShowDialog(this);
-            //    }
-            //}
         }
 
         /// <summary>
@@ -747,25 +702,6 @@
                     this.FetchLastPage();
                 }
             }
-            //LinkLabel linkLabel = sender as LinkLabel;
-            //if (linkLabel != null)
-            //{
-            //    Thread thread = linkLabel.Tag as Thread;
-            //    if (thread != null)
-            //    {
-            //        Regex regex = new Regex(@"\s*FROM\s[\d, \., \*]+");
-            //        string content = regex.Replace(thread.Tag.ToString(), "");
-            //        content = CommonUtil.ReplaceSpecialChars(content);
-            //        content = SmthUtil.TrimUrls(content);
-            //        NewThreadForm newThreadForm = new NewThreadForm(this._topic, thread.EditUrl, "Re: " + this._topic, content, false);
-            //        newThreadForm.StartPosition = FormStartPosition.CenterParent;
-            //        if (DialogResult.OK == newThreadForm.ShowDialog(this))
-            //        {
-            //            this.SetUrlInfo(false);
-            //            this.FetchLastPage();
-            //        }
-            //    }
-            //}
         }
 
         /// <summary>
@@ -784,26 +720,6 @@
                     this.FetchPage();
                 }
             }
-            //LinkLabel linkLabel = sender as LinkLabel;
-            //if (linkLabel != null)
-            //{
-            //    Thread thread = linkLabel.Tag as Thread;
-            //    if (thread != null)
-            //    {
-            //        MessageForm confirmForm = new MessageForm("提示", "确认删除此信息？");
-            //        confirmForm.StartPosition = FormStartPosition.CenterParent;
-            //        DialogResult dlgResult = confirmForm.ShowDialog(this);
-            //        if (dlgResult == DialogResult.OK)
-            //        {
-            //            WebPage page = WebPageFactory.CreateWebPage(thread.DeleteUrl);
-            //            string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", page.Html, "Result");
-            //            if (result != null && result.Contains("成功"))
-            //            {
-            //                this.FetchPage();
-            //            }
-            //        }
-            //    }
-            //}
         }
 
         /// <summary>
@@ -821,23 +737,45 @@
         /// <summary>
         /// 
         /// </summary>
-        private void UpdateText(object state)
+        private void UpdateInfor(WebPage wp)
         {
-            WebPage wp = state as WebPage;
-            if (wp != null)
+            this._topic = SmthUtil.GetTopic(wp);
+            this.Text = this._topic + " - " + SmthUtil.GetBoard(wp);
+            if (string.IsNullOrEmpty(this._targetUserID) == false)
             {
-                this._topic = SmthUtil.GetTopic(wp);
-                this.Text = this._topic + " - " + SmthUtil.GetBoard(wp);
-                if (string.IsNullOrEmpty(this._targetUserID) == false)
-                {
-                    this.Text = "只看" + this._targetUserID + " - " + this.Text;
-                }
-
-                if (this._parentControl != null)
-                {
-                    this._parentControl.Text = this.Text;
-                }
+                this.Text = "只看" + this._targetUserID + " - " + this.Text;
             }
+
+            if (this._parentControl != null)
+            {
+                this._parentControl.Text = this.Text;
+            }
+
+            this._subject = this._topic;//CommonUtil.GetMatch(@"<input type=\Whidden\W name=\Wsubject\W value=\W(?'subject'Re[0-9A-Z,%,~,-]+)\W\s/>", html, 1);
+            this._postUrl = CommonUtil.GetMatch(@"<form action=\W(?'post'/article/[\w, %2E, %5F]+/post/\d+)\W method=\Wpost\W>", wp.Html, 1);
+            if (string.IsNullOrEmpty(this._postUrl) == false)
+            {
+                this._postUrl.Replace("%2E", ".");
+                this._postUrl.Replace("%5F", "_");
+                this._postUrl = @"http://m.newsmth.net" + this._postUrl;
+
+                this.linklblReply.Visible = true;
+                this.linklblReply.Links.Clear();
+                this.linklblReply.Links.Add(0, 5, this._postUrl);
+            }
+
+            string board = SmthUtil.GetBoard(wp);
+            if (board != null)
+            {
+                string engBoardName = CommonUtil.GetMatch(@"\((?'Board'.+)\)", board, "Board");
+                string chnBoardName = board.Replace("(" + engBoardName + ")", "");
+                this.linklblBoard.Visible = true;
+                this.linklblBoard.Text = chnBoardName;
+                this.linklblBoard.Links.Clear();
+                this.linklblBoard.Links.Add(0, board.Length, "http://m.newsmth.net/board/" + engBoardName);
+            }
+
+            this.linklblReply.Visible = LoginForm.IsLogin;
         }
 
         /// <summary>
@@ -863,7 +801,6 @@
             this.txtGoTo1.Enabled = flag;
             this.txtGoTo2.Enabled = flag;
             
-            this.btnReply.Enabled = flag;
             this.btnSettings.Enabled = flag;
         }        
 
@@ -1001,6 +938,6 @@
                 //this._loadingForm.Hide();
             }
         }
-        #endregion
+        #endregion       
     }
 }

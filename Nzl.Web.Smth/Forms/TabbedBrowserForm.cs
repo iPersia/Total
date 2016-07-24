@@ -28,7 +28,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private Dictionary<string, object> _dicWindows = new Dictionary<string, object>();        
+        private Dictionary<string, object> _dicWindows = new Dictionary<string, object>();
 
         /// <summary>
         /// 
@@ -69,8 +69,8 @@
         TabbedBrowserForm(Form parent)
             : this()
         {
-            this._parentForm = parent;            
-        }        
+            this._parentForm = parent;
+        }
 
         /// <summary>
         /// 
@@ -89,27 +89,20 @@
         /// <param name="url"></param>
         public void AddTopic(string url, string subject)
         {
+            this.Text = subject; 
             string key = "tp" + url;
             ///Exsits
             {
                 TabPage tp = GetTabPage(url);
                 if (tp != null)
                 {
-                    this.tcTopics.SelectedTab = tp;
-                    this.Text = subject;
+                    this.tcTopics.SelectedTab = tp;                    
                     return;
                 }
             }
 
             ///NOT Exsits
             {
-                TabPage tp = new TabPage();
-                tp.Name = key;
-                //tp.Text = subject==null ? "Unknown" : subject.Length > 8 ? subject.Substring(0, 8) + ".." : "" + subject;
-                tp.Text = subject;
-                tp.ToolTipText = subject;
-                this.tcTopics.TabPages.Add(tp);
-
                 TopicBrowserControl tbc = new TopicBrowserControl();
                 tbc.Name = "tbc" + url;
                 tbc.TopicUrl = url;
@@ -122,17 +115,44 @@
                 tbc.OnThreadTransferLinkClicked += Tbc_OnThreadTransferLinkClicked;
                 tbc.OnThreadUserLinkClicked += TBF_IDLinkClicked;
                 tbc.OnTopicReplyLinkClicked += Tbc_OnTopicReplyLinkClicked;
-                tp.Controls.Add(tbc);                
+                tbc.OnBoardLinkClicked += Tbc_OnBoardLinkClicked;
+
+                TabPage tp = new TabPage();
+                tp.Name = key;
+                tp.Text = subject==null ? "Unknown" : subject.Length > 8 ? subject.Substring(0, 8) + ".." : "" + subject; 
+                //tp.Text = subject;
+                tp.ToolTipText = subject;
+                tp.Controls.Add(tbc);
+                this.tcTopics.TabPages.Add(tp);                
+                this.tcTopics.SelectedTab = tp;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tbc_OnBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                this.AddBoard(e.Link.LinkData.ToString(), linkLabel.Text);
             }
         }
 
         private void Tbc_OnTopicReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, e.Link.Description, "Re: " + this.tcTopics.SelectedTab.ToolTipText);
+            NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, e.Link.LinkData.ToString(), "Re: " + this.tcTopics.SelectedTab.ToolTipText);
             threadForm.StartPosition = FormStartPosition.CenterParent;
             if (DialogResult.OK == threadForm.ShowDialog(this))
             {
                 e.Link.Tag = "Success";
+            }
+            else
+            {
+                e.Link.Tag = "Failure";
             }
         }
 
@@ -154,6 +174,10 @@
                     if (DialogResult.OK == newThreadForm.ShowDialog(this))
                     {
                         e.Link.Tag = "Success";
+                    }
+                    else
+                    {
+                        e.Link.Tag = "Failure";
                     }
                 }
             }
@@ -204,6 +228,10 @@
                     {
                         e.Link.Tag = "Success";
                     }
+                    else
+                    {
+                        e.Link.Tag = "Failure";
+                    }
                 }
             }
         }
@@ -227,6 +255,10 @@
                         {
                             e.Link.Tag = "Success";
                         }
+                        else
+                        {
+                            e.Link.Tag = "Failure";
+                        }
                     }
                 }
             }
@@ -241,35 +273,34 @@
         /// <param name="title"></param>
         public void AddBoard(string url, string title)
         {
-            string key = "tp" + url;
+            this.Text = title;
+            string key = "tp" + url;            
             ///Exsits
             {
                 TabPage tp = GetTabPage(url);
                 if (tp != null)
                 {
-                    this.tcTopics.SelectedTab = tp;
-                    this.Text = title;
+                    this.tcTopics.SelectedTab = tp;                    
                     return;
                 }
             }
 
             ///NOT Exsits
             {
-                TabPage tp = new TabPage();
-                tp.Name = "tp" + url; ;
-                tp.Text = "[" + title + "]";
-                tp.ToolTipText = tp.Text;
-                this.tcTopics.TabPages.Add(tp);
-                this.tcTopics.SelectedTab = tp;
-
-
                 BoardBrowserControl bbc = new BoardBrowserControl(url);
                 bbc.OnTopicLinkClicked += new LinkLabelLinkClickedEventHandler(BoardBrowserControl_OnTopicLinkClicked);
                 bbc.OnTopicCreateIDLinkClicked += new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
                 bbc.OnTopicLastIDLinkClicked += new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
                 bbc.Dock = DockStyle.Fill;
+
+                TabPage tp = new TabPage();
+                tp.Name = "tp" + url; ;
+                tp.Text = "[ " + title + " ]";
+                tp.ToolTipText = tp.Text;
                 tp.Controls.Add(bbc);
-            }            
+                this.tcTopics.TabPages.Add(tp);
+                this.tcTopics.SelectedTab = tp;
+            }
         }
 
         /// <summary>
@@ -488,7 +519,7 @@
         private void btnMessge_Click(object sender, EventArgs e)
         {
             ShowFormOnCenterParent(MessageCenterForm.Instance);
-        }        
+        }
 
         /// <summary>
         /// 

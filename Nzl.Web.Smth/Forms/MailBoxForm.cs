@@ -14,7 +14,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class MailBoxForm : BaseForm
+    public partial class MailBoxForm : Form
     {
         #region Variable
         /// <summary>

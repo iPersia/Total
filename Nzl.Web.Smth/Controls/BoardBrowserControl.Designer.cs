@@ -122,7 +122,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPage2.AutoSize = true;
-            this.lblPage2.Location = new System.Drawing.Point(183, 6);
+            this.lblPage2.Location = new System.Drawing.Point(118, 7);
             this.lblPage2.Name = "lblPage2";
             this.lblPage2.Size = new System.Drawing.Size(47, 12);
             this.lblPage2.TabIndex = 10;
@@ -132,9 +132,9 @@
             // btnLast2
             // 
             this.btnLast2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnLast2.Location = new System.Drawing.Point(324, 0);
+            this.btnLast2.Location = new System.Drawing.Point(229, 0);
             this.btnLast2.Name = "btnLast2";
-            this.btnLast2.Size = new System.Drawing.Size(75, 23);
+            this.btnLast2.Size = new System.Drawing.Size(45, 23);
             this.btnLast2.TabIndex = 9;
             this.btnLast2.TabStop = false;
             this.btnLast2.Text = "Last";
@@ -147,7 +147,7 @@
             this.btnFirst2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnFirst2.Location = new System.Drawing.Point(11, 0);
             this.btnFirst2.Name = "btnFirst2";
-            this.btnFirst2.Size = new System.Drawing.Size(75, 23);
+            this.btnFirst2.Size = new System.Drawing.Size(45, 23);
             this.btnFirst2.TabIndex = 8;
             this.btnFirst2.TabStop = false;
             this.btnFirst2.Text = "First";
@@ -158,9 +158,9 @@
             // btnNext2
             // 
             this.btnNext2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnNext2.Location = new System.Drawing.Point(243, 0);
+            this.btnNext2.Location = new System.Drawing.Point(178, 0);
             this.btnNext2.Name = "btnNext2";
-            this.btnNext2.Size = new System.Drawing.Size(75, 23);
+            this.btnNext2.Size = new System.Drawing.Size(45, 23);
             this.btnNext2.TabIndex = 2;
             this.btnNext2.TabStop = false;
             this.btnNext2.Text = "Next";
@@ -171,9 +171,9 @@
             // btnPrev2
             // 
             this.btnPrev2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnPrev2.Location = new System.Drawing.Point(92, 0);
+            this.btnPrev2.Location = new System.Drawing.Point(62, 0);
             this.btnPrev2.Name = "btnPrev2";
-            this.btnPrev2.Size = new System.Drawing.Size(75, 23);
+            this.btnPrev2.Size = new System.Drawing.Size(45, 23);
             this.btnPrev2.TabIndex = 1;
             this.btnPrev2.TabStop = false;
             this.btnPrev2.Text = "Prev";
@@ -227,7 +227,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPage1.AutoSize = true;
-            this.lblPage1.Location = new System.Drawing.Point(182, 6);
+            this.lblPage1.Location = new System.Drawing.Point(118, 6);
             this.lblPage1.Name = "lblPage1";
             this.lblPage1.Size = new System.Drawing.Size(47, 12);
             this.lblPage1.TabIndex = 8;
@@ -237,9 +237,9 @@
             // btnLast1
             // 
             this.btnLast1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnLast1.Location = new System.Drawing.Point(324, 0);
+            this.btnLast1.Location = new System.Drawing.Point(229, 0);
             this.btnLast1.Name = "btnLast1";
-            this.btnLast1.Size = new System.Drawing.Size(75, 23);
+            this.btnLast1.Size = new System.Drawing.Size(45, 23);
             this.btnLast1.TabIndex = 7;
             this.btnLast1.TabStop = false;
             this.btnLast1.Text = "Last";
@@ -252,7 +252,7 @@
             this.btnFirst1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnFirst1.Location = new System.Drawing.Point(11, 0);
             this.btnFirst1.Name = "btnFirst1";
-            this.btnFirst1.Size = new System.Drawing.Size(75, 23);
+            this.btnFirst1.Size = new System.Drawing.Size(45, 23);
             this.btnFirst1.TabIndex = 6;
             this.btnFirst1.TabStop = false;
             this.btnFirst1.Text = "First";
@@ -263,9 +263,9 @@
             // btnNext1
             // 
             this.btnNext1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnNext1.Location = new System.Drawing.Point(243, 0);
+            this.btnNext1.Location = new System.Drawing.Point(178, 0);
             this.btnNext1.Name = "btnNext1";
-            this.btnNext1.Size = new System.Drawing.Size(75, 23);
+            this.btnNext1.Size = new System.Drawing.Size(45, 23);
             this.btnNext1.TabIndex = 3;
             this.btnNext1.TabStop = false;
             this.btnNext1.Text = "Next";
@@ -276,9 +276,9 @@
             // btnPrev1
             // 
             this.btnPrev1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnPrev1.Location = new System.Drawing.Point(92, 0);
+            this.btnPrev1.Location = new System.Drawing.Point(62, 0);
             this.btnPrev1.Name = "btnPrev1";
-            this.btnPrev1.Size = new System.Drawing.Size(75, 23);
+            this.btnPrev1.Size = new System.Drawing.Size(45, 23);
             this.btnPrev1.TabIndex = 0;
             this.btnPrev1.TabStop = false;
             this.btnPrev1.Text = "Prev";

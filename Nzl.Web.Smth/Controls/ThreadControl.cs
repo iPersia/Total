@@ -71,6 +71,13 @@
             this.linklblEdit.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblEdit_LinkClicked);
             this.linklblDelete.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblDelete_LinkClicked);
             this.richtxtContent.MouseWheel += new MouseEventHandler(richtxtContent_MouseWheel);
+
+            System.Drawing.Font currentFont = this.richtxtContent.SelectionFont;
+            this.richtxtContent.Font = new Font(
+               currentFont.FontFamily,
+               12,//currentFont.Size,
+               FontStyle.Regular
+            );
         }
 
         /// <summary>
