@@ -88,6 +88,12 @@
     <Compile Include="Controls\BoardControl.Designer.cs">
       <DependentUpon>BoardControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SectionControl.Designer.cs">
+      <DependentUpon>SectionControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MailControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -96,6 +102,12 @@
     </Compile>
     <Compile Include="Controls\RichTextBoxEx.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\SectionNavigationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SectionNavigationControl.Designer.cs">
+      <DependentUpon>SectionNavigationControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SectionTopsControl.cs">
       <SubType>UserControl</SubType>
@@ -134,8 +146,10 @@
       <DependentUpon>TopicControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Datas\BaseItem.cs" />
+    <Compile Include="Datas\Board.cs" />
     <Compile Include="Datas\Mail.cs" />
     <Compile Include="Datas\Message.cs" />
+    <Compile Include="Datas\Section.cs" />
     <Compile Include="Datas\SmthBoards.cs" />
     <Compile Include="Datas\Thread.cs" />
     <Compile Include="Datas\Topic.cs" />
@@ -250,8 +264,14 @@
     <EmbeddedResource Include="Controls\BoardControl.resx">
       <DependentUpon>BoardControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SectionControl.resx">
+      <DependentUpon>SectionControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\MailControl.resx">
       <DependentUpon>MailControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SectionNavigationControl.resx">
+      <DependentUpon>SectionNavigationControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SectionTopsControl.resx">
       <DependentUpon>SectionTopsControl.cs</DependentUpon>

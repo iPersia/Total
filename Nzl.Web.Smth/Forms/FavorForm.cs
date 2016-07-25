@@ -124,7 +124,7 @@
                         string url = @"http://m.newsmth.net/board/" + mt.Groups["Url"].Value.ToString();
                         string title = mt.Groups["Title"].Value.ToString();
 
-                        BoardControl bc = new BoardControl(index++.ToString("00 - "), url, title);
+                        BoardControl bc = new BoardControl(url, title);
                         bc.OnLinkClicked += new LinkLabelLinkClickedEventHandler(BoardControlLink_LinkClicked);
                         bc.Top = accumulateHeight;
                         bc.Width = width;

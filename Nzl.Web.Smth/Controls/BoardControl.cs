@@ -24,16 +24,14 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        public BoardControl(string type, string url, string title)
+        public BoardControl(string url, string title)
             : this()
         {
-            this.lblType.Text = type;
-            this.linklblBorS.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblBorS_LinkClicked);
-            this.linklblBorS.Text = title;
-            this.linklblBorS.Tag = type;
-            LinkLabel.Link link = new LinkLabel.Link(0, this.linklblBorS.Text.Length, url);
-            link.Tag = type;
-            this.linklblBorS.Links.Add(link);            
+            this.linklblBoard.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblBorS_LinkClicked);
+            this.linklblBoard.Text = title;
+            LinkLabel.Link link = new LinkLabel.Link(0, this.linklblBoard.Text.Length, url);
+            link.Tag = "Board";
+            this.linklblBoard.Links.Add(link);
         }
 
         /// <summary>

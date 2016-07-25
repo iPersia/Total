@@ -100,12 +100,12 @@
             {
                 string type = e.Link.Tag.ToString();
                 string url = e.Link.LinkData.ToString();
-                if (type == "版面")
+                if (type == "Board")
                 {
                     TabbedBrowserForm.Instance.AddBoard(url, linkLabel.Text);
                 }
 
-                if (type == "目录")
+                if (type == "Section")
                 {
                     FetchPage(url);
                 }
@@ -135,18 +135,18 @@
                             string url = @"http://m.newsmth.net" + mt.Groups[2].Value.ToString();
                             string title = mt.Groups[3].Value.ToString();
 
-                            BoardControl bc = new BoardControl("目录", url, title);
-                            bc.OnLinkClicked += new LinkLabelLinkClickedEventHandler(BoardControlLink_LinkClicked);
-                            bc.Top = accumulateHeight;
-                            bc.Width = width;
+                            SectionControl sc = new SectionControl(url, title);
+                            sc.OnLinkClicked += new LinkLabelLinkClickedEventHandler(BoardControlLink_LinkClicked);
+                            sc.Top = accumulateHeight;
+                            sc.Width = width;
                             if (flag)
                             {
-                                bc.BackColor = Color.White;
+                                sc.BackColor = Color.White;
                             }
 
                             flag = !flag;
-                            accumulateHeight += bc.Height + 3;
-                            this.panel.Controls.Add(bc);                            
+                            accumulateHeight += sc.Height + 3;
+                            this.panel.Controls.Add(sc);                            
                         }
 
                         stat += mtColSection.Count + "个目录 ";
@@ -159,7 +159,7 @@
                             string url = @"http://m.newsmth.net" + mt.Groups[2].Value.ToString();
                             string title = mt.Groups[3].Value.ToString();
 
-                            BoardControl bc = new BoardControl("版面", url, title);
+                            BoardControl bc = new BoardControl(url, title);
                             bc.OnLinkClicked += new LinkLabelLinkClickedEventHandler(BoardControlLink_LinkClicked);
                             bc.Top = accumulateHeight;
                             bc.Width = width;
