@@ -73,11 +73,7 @@
             this.richtxtContent.MouseWheel += new MouseEventHandler(richtxtContent_MouseWheel);
 
             System.Drawing.Font currentFont = this.richtxtContent.SelectionFont;
-            this.richtxtContent.Font = new Font(
-               currentFont.FontFamily,
-               12,//currentFont.Size,
-               FontStyle.Regular
-            );
+            this.richtxtContent.Font = new Font(currentFont.FontFamily, 11, FontStyle.Regular);
         }
 
         /// <summary>
@@ -469,6 +465,7 @@
                             {
                                 this.richtxtContent.Select(index, from.Length);
                                 this.richtxtContent.SelectionColor = Color.FromArgb(96,96,96);
+                                this.richtxtContent.SelectionFont = new Font(this.richtxtContent.SelectionFont.FontFamily, 9, FontStyle.Regular);
                                 this.richtxtContent.DeselectAll();
                             }
                         }
@@ -487,6 +484,7 @@
                             {
                                 this.richtxtContent.Select(index, from.Length);
                                 this.richtxtContent.SelectionColor = Color.FromArgb(160, 160, 160);
+                                this.richtxtContent.SelectionFont = new Font(this.richtxtContent.SelectionFont.FontFamily, 9, FontStyle.Regular);
                                 this.richtxtContent.DeselectAll();
                             }
                         }
