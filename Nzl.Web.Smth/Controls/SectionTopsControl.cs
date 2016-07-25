@@ -26,6 +26,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private Control _parentControl = null;
 
         /// <summary>
@@ -53,15 +58,8 @@
             this._updatingTimer.Interval = 5 * 60 * 1000;//5 minutes.
             this._updatingTimer.Tick += new EventHandler(_updatingTimer_Tick);
             this._updatingTimer.Start();
-        }
-               
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
+
+            ///Fetch page.
             this.SetUrlInfo(false);
             this.FetchPage();
         }
@@ -115,10 +113,11 @@
         {
             TopControl tc = new TopControl(item as Topic);
             tc.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(TopControl_OnTopLinkClicked);
+            tc.OnTopBoardLinkClicked += TopControl_OnTopBoardLinkClicked; ;
             tc.Width = this.panelContainer.Width - 4;
             return tc;
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -129,7 +128,6 @@
             if (this._parentControl != null)
             {
                 this._parentControl.Text = info.Subject;
-                this._parentControl.Refresh();
             }
         }
 
@@ -164,6 +162,20 @@
             if (linklbl != null && this.OnTopLinkClicked != null)
             {
                 this.OnTopLinkClicked(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TopControl_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linklbl = sender as LinkLabel;
+            if (linklbl != null && this.OnTopBoardLinkClicked != null)
+            {
+                this.OnTopBoardLinkClicked(sender, e);
             }
         }
     }

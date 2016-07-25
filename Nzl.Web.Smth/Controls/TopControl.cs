@@ -17,11 +17,17 @@
         /// <summary>
         /// 
         /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
         TopControl()
         {
             InitializeComponent();
             this.Height = TopControlHeight;
             this.linklblTop.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblTop_LinkClicked);
+            this.linklblBoard.LinkClicked += LinklblBoard_LinkClicked;
         }
         
         /// <summary>
@@ -40,6 +46,14 @@
                 this.lblReplies.Text = "(" + topic.Replies + ")";
                 this.lblReplies.Left = this.linklblTop.Left + this.linklblTop.Width + 1;
             }
+
+            this.linklblBoard.Text = topic.Board;
+            this.linklblBoard.Links.Add(0, topic.Board.Length, topic.Board);
+            //string boardName = SmthBoards.Instance.GetBoardName(topic.Board);
+            //if (boardName != null)
+            //{
+            //    this.linklblBoard.Text = boardName;
+            //}
         }
 
         /// <summary>
@@ -64,6 +78,20 @@
             if (this.OnTopLinkClicked != null)
             {
                 this.OnTopLinkClicked(sender, e);
+                e.Link.Visited = true;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LinklblBoard_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnTopBoardLinkClicked != null)
+            {
+                this.OnTopBoardLinkClicked(sender, e);
                 e.Link.Visited = true;
             }
         }

@@ -111,7 +111,7 @@
                     Topic topic = new Topic();
                     topic.TopSeq = System.Convert.ToInt32(mt.Groups["TopSeq"].Value);
                     topic.Uri = @"http://m.newsmth.net" + mt.Groups["Url"].ToString();
-                    topic.Board = mt.Groups["Board"].ToString();
+                    topic.Board = mt.Groups["Board"].ToString().Replace("%5F", "_").Replace("%2E", ".");
                     topic.Index = mt.Groups["Index"].ToString();
                     topic.Title = CommonUtil.ReplaceSpecialChars(mt.Groups["Title"].ToString());
                     topic.Replies = mt.Groups["Replies"].Value.ToString() == "" ? 0 : System.Convert.ToInt32(mt.Groups["Replies"].Value);

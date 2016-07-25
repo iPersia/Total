@@ -71,17 +71,20 @@
         {
             try
             {
-                while (true && this.Visible)
+                while (true)
                 {
-                    Datas.Message msg = MessageQueue.Dequeue();
-                    if (msg != null)
+                    if (this.Focused)
                     {
-                        this.bgwMessager.ReportProgress(1, msg);
-                        System.Threading.Thread.Sleep(50);
-                    }
-                    else
-                    {
-                        System.Threading.Thread.Sleep(1500);
+                        Datas.Message msg = MessageQueue.Dequeue();
+                        if (msg != null)
+                        {
+                            this.bgwMessager.ReportProgress(1, msg);
+                            System.Threading.Thread.Sleep(50);
+                        }
+                        else
+                        {
+                            System.Threading.Thread.Sleep(1500);
+                        }
                     }
                 }
             }
@@ -124,7 +127,7 @@
             }
             else if (e.Cancelled)
             {
-                this.txtMsg.AppendText("MessgeQueue Error!");
+                this.txtMsg.AppendText("MessageQueue Error!");
             }
         }
 

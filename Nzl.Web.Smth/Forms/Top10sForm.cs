@@ -45,6 +45,22 @@
             this.Width = tbc.Width + 2 + this.Width - this.panelContainer.Width;
             this.Height = tbc.Height + 2 + this.Height - this.panelContainer.Height;
             tbc.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(tbc_OnTopLinkClicked);
+            tbc.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tbc_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linklbl = sender as LinkLabel;
+            if (linklbl != null)
+            {
+                TabbedBrowserForm.Instance.AddBoard(@"http://m.newsmth.net/board/" + e.Link.LinkData.ToString(), linklbl.Text);
+                TabbedBrowserForm.Instance.Show();
+            }
         }
 
         /// <summary>
@@ -58,7 +74,6 @@
             if (linklbl != null)
             {
                 TabbedBrowserForm.Instance.AddTopic(e.Link.LinkData.ToString(), linklbl.Text);
-                //SmthForm.Browser.AddTopic(e.Link.LinkData.ToString(), linklbl.Text);
                 TabbedBrowserForm.Instance.Show();
             }
         }

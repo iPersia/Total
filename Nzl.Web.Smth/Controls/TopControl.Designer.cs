@@ -29,14 +29,16 @@
         private void InitializeComponent()
         {
             this.panel = new System.Windows.Forms.Panel();
+            this.lblReplies = new System.Windows.Forms.Label();
             this.linklblTop = new System.Windows.Forms.LinkLabel();
             this.lblIndex = new System.Windows.Forms.Label();
-            this.lblReplies = new System.Windows.Forms.Label();
+            this.linklblBoard = new System.Windows.Forms.LinkLabel();
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel
             // 
+            this.panel.Controls.Add(this.linklblBoard);
             this.panel.Controls.Add(this.lblReplies);
             this.panel.Controls.Add(this.linklblTop);
             this.panel.Controls.Add(this.lblIndex);
@@ -45,6 +47,16 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(438, 40);
             this.panel.TabIndex = 0;
+            // 
+            // lblReplies
+            // 
+            this.lblReplies.AutoSize = true;
+            this.lblReplies.Location = new System.Drawing.Point(73, 14);
+            this.lblReplies.Name = "lblReplies";
+            this.lblReplies.Size = new System.Drawing.Size(23, 12);
+            this.lblReplies.TabIndex = 6;
+            this.lblReplies.Text = "(0)";
+            this.lblReplies.Visible = false;
             // 
             // linklblTop
             // 
@@ -65,15 +77,16 @@
             this.lblIndex.TabIndex = 0;
             this.lblIndex.Text = "10";
             // 
-            // lblReplies
+            // linklblBoard
             // 
-            this.lblReplies.AutoSize = true;
-            this.lblReplies.Location = new System.Drawing.Point(73, 14);
-            this.lblReplies.Name = "lblReplies";
-            this.lblReplies.Size = new System.Drawing.Size(23, 12);
-            this.lblReplies.TabIndex = 6;
-            this.lblReplies.Text = "(0)";
-            this.lblReplies.Visible = false;
+            this.linklblBoard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklblBoard.Location = new System.Drawing.Point(230, 15);
+            this.linklblBoard.Name = "linklblBoard";
+            this.linklblBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.linklblBoard.Size = new System.Drawing.Size(200, 11);
+            this.linklblBoard.TabIndex = 7;
+            this.linklblBoard.TabStop = true;
+            this.linklblBoard.Text = "Board";
             // 
             // TopControl
             // 
@@ -94,5 +107,6 @@
         private System.Windows.Forms.Label lblIndex;
         private System.Windows.Forms.LinkLabel linklblTop;
         private System.Windows.Forms.Label lblReplies;
+        private System.Windows.Forms.LinkLabel linklblBoard;
     }
 }

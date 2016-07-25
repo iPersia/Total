@@ -20,6 +20,11 @@
         /// 
         /// </summary>
         public event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
         #endregion
 
         #region Variable
@@ -54,6 +59,7 @@
                 SectionTopsControl tbc = new SectionTopsControl("http://m.newsmth.net/hot");                
                 tbc.SetParent(tp);
                 tbc.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(tbc_OnTopLinkClicked);
+                tbc.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
                 tp.Controls.Add(tbc);
                 this.tcTop10s.TabPages.Add(tp);
                 this.Size = new Size(tbc.Width + 8, tbc.Height + 26);
@@ -98,5 +104,19 @@
                 this.OnTopLinkClicked(sender, e);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tbc_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linklbl = sender as LinkLabel;
+            if (linklbl != null && this.OnTopBoardLinkClicked != null)
+            {
+                this.OnTopBoardLinkClicked(sender, e);
+            }
+        }        
     }
 }

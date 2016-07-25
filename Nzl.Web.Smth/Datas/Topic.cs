@@ -31,6 +31,7 @@
                 this.Replies = topic.Replies;
                 this.Title = topic.Title;
                 this.Uri = topic.Uri;
+                this.Board = topic.Board;
             }
         }
 
