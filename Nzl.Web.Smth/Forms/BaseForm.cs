@@ -24,6 +24,7 @@
         /// <param name="e"></param>
         private void BaseForm_Deactivate(object sender, EventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine(this.ToString() + " - BaseForm_Deactivate");
             this.Hide();
         }
     }

@@ -370,6 +370,7 @@
         /// <param name="isAppend"></param>
         protected virtual void UpdateView(IList<Control> ctls, bool isAppend)
         {
+            System.Diagnostics.Debug.WriteLine(this.ToString() + " - UpdateView");
             Panel container = GetContainer();
             if (container != null)
             {
@@ -379,7 +380,13 @@
                     int accumulateHeight = 0;
                     if (isAppend == false)
                     {
+                        foreach (Control ctl in container.Controls)
+                        {
+                            ctl.Dispose();
+                        }
+
                         container.Controls.Clear();
+                        GC.Collect();
                     }
                     else
                     {

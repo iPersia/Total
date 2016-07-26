@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Nzl.Web.Smth.Forms
 {
-    public partial class TestForm : Form
+    public partial class TestForm : BaseForm
     {
         public TestForm()
         {

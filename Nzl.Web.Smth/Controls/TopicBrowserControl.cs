@@ -587,6 +587,17 @@
                 }
             }
         }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            this.SetUrlInfo(false);
+            this.FetchPage();
+        }
 
         /// <summary>
         /// 
@@ -936,6 +947,6 @@
                 //this._loadingForm.Hide();
             }
         }
-        #endregion       
+        #endregion
     }
 }

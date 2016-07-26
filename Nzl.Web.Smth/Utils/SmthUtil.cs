@@ -176,5 +176,41 @@
                 return null;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string GetReplyTail()
+        {
+            return "\n\n\n"
+                 + "------------------"
+                 + "\n"
+                 + "->>[url=" 
+                 + GetReplyUrl()
+                 + "]水木PC客户端[/url]<<-";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string GetReplyUrl()
+        {
+            return "http://www.cnblogs.com/junier/archive/2013/03/25/2980547.html";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string GetReplyText()
+        {
+            return "------------------"
+                 + "\n"
+                 + "->>水木PC客户端#"
+                 + GetReplyUrl()
+                 + "<<-";
+        }
     }
 }

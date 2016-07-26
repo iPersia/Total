@@ -5,19 +5,19 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Clawer")]
+[assembly: AssemblyTitle("Nzl.Web.Page")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Nzl")]
-[assembly: AssemblyProduct("Clawer")]
-[assembly: AssemblyCopyright("Copyright © Nzl 2013")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyProduct("WebPage")]
+[assembly: AssemblyCopyright("Copyright © Nzl 2016")]
+[assembly: AssemblyTrademark("Nesus")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
+[assembly: ComVisible(true)]
 
 // The following Guid is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("3415612f-e6b3-4b08-8564-b6083e071095")]

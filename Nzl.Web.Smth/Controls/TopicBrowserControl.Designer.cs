@@ -54,6 +54,7 @@
             this.btnNext1 = new System.Windows.Forms.Button();
             this.btnPrev1 = new System.Windows.Forms.Button();
             this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.panel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelContainer.SuspendLayout();
@@ -263,6 +264,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnRefresh);
             this.panel1.Controls.Add(this.linklblBoard);
             this.panel1.Controls.Add(this.linklblReply);
             this.panel1.Controls.Add(this.btnSettings);
@@ -296,7 +298,7 @@
             // linklblReply
             // 
             this.linklblReply.AutoSize = true;
-            this.linklblReply.Location = new System.Drawing.Point(282, 7);
+            this.linklblReply.Location = new System.Drawing.Point(336, 7);
             this.linklblReply.Name = "linklblReply";
             this.linklblReply.Size = new System.Drawing.Size(35, 12);
             this.linklblReply.TabIndex = 16;
@@ -407,6 +409,19 @@
             this.btnPrev1.UseVisualStyleBackColor = true;
             this.btnPrev1.Click += new System.EventHandler(this.btnPrev_Click);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnRefresh.Location = new System.Drawing.Point(273, 1);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(56, 23);
+            this.btnRefresh.TabIndex = 18;
+            this.btnRefresh.TabStop = false;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseCompatibleTextRendering = true;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // TopicBrowserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -462,5 +477,6 @@
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.LinkLabel linklblReply;
         private System.Windows.Forms.LinkLabel linklblBoard;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

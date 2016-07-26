@@ -62,7 +62,12 @@
             _uahKey.KeyUp += new EventHandler<KeyExEventArgs>(Global_KeyUp);
             _uahKey.Start();
 
-            (new TestForm()).ShowDialog();
+            this.Activated += TabbedBrowserForm_Activated;
+        }
+
+        private void TabbedBrowserForm_Activated(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(this.ToString() + " - TabbedBrowserForm_Activated");
         }
 
         /// <summary>
@@ -450,6 +455,8 @@
             BoardNavigatorForm form = this.GetRegisteredForm<BoardNavigatorForm>();
             if (form != null)
             {
+                form.OnBoardLinkLableClicked -= Form_OnBoardLinkLableClicked;
+                form.OnBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
                 form.StartPosition = FormStartPosition.Manual;
                 int centerX = this.Location.X + this.Size.Width / 2;
                 int centerY = this.Location.Y + this.Size.Height / 2;
@@ -469,8 +476,8 @@
             FavorForm form = this.GetRegisteredForm<FavorForm>();
             if (form != null)
             {
-                form.OnFavorBoardLinkLableClicked -= FavorForm_OnFavorBoardLinkLableClicked;
-                form.OnFavorBoardLinkLableClicked += FavorForm_OnFavorBoardLinkLableClicked;
+                form.OnFavorBoardLinkLableClicked -= Form_OnBoardLinkLableClicked;
+                form.OnFavorBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
                 form.StartPosition = FormStartPosition.Manual;
                 int centerX = this.Location.X + this.Size.Width / 2;
                 int centerY = this.Location.Y + this.Size.Height / 2;
@@ -485,7 +492,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FavorForm_OnFavorBoardLinkLableClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Form_OnBoardLinkLableClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)

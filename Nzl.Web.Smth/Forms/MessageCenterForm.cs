@@ -73,18 +73,15 @@
             {
                 while (true)
                 {
-                    if (this.Focused)
+                    Datas.Message msg = MessageQueue.Dequeue();
+                    if (msg != null)
                     {
-                        Datas.Message msg = MessageQueue.Dequeue();
-                        if (msg != null)
-                        {
-                            this.bgwMessager.ReportProgress(1, msg);
-                            System.Threading.Thread.Sleep(50);
-                        }
-                        else
-                        {
-                            System.Threading.Thread.Sleep(1500);
-                        }
+                        this.bgwMessager.ReportProgress(1, msg);
+                        System.Threading.Thread.Sleep(50);
+                    }
+                    else
+                    {
+                        System.Threading.Thread.Sleep(1500);
                     }
                 }
             }

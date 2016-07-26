@@ -29,94 +29,34 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BoardNavigatorForm));
-            this.panel = new System.Windows.Forms.Panel();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.lblStat = new System.Windows.Forms.Label();
-            this.btnPrev = new System.Windows.Forms.Button();
-            this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.sncSection = new Nzl.Web.Smth.Controls.SectionNavigationControl();
             this.SuspendLayout();
             // 
-            // panel
+            // sncSection
             // 
-            this.panel.AutoScroll = true;
-            this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel.Location = new System.Drawing.Point(0, 0);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(301, 441);
-            this.panel.TabIndex = 0;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.IsSplitterFixed = true;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.lblStat);
-            this.splitContainer1.Panel1.Controls.Add(this.btnPrev);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.panel);
-            this.splitContainer1.Size = new System.Drawing.Size(301, 470);
-            this.splitContainer1.SplitterDistance = 25;
-            this.splitContainer1.TabIndex = 1;
-            this.splitContainer1.TabStop = false;
-            // 
-            // lblStat
-            // 
-            this.lblStat.AutoSize = true;
-            this.lblStat.Location = new System.Drawing.Point(104, 8);
-            this.lblStat.Name = "lblStat";
-            this.lblStat.Size = new System.Drawing.Size(29, 12);
-            this.lblStat.TabIndex = 1;
-            this.lblStat.Text = "Stat";
-            // 
-            // btnPrev
-            // 
-            this.btnPrev.Location = new System.Drawing.Point(12, 3);
-            this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(75, 23);
-            this.btnPrev.TabIndex = 0;
-            this.btnPrev.Text = "Prev";
-            this.btnPrev.UseVisualStyleBackColor = true;
-            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            this.sncSection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sncSection.Location = new System.Drawing.Point(0, 0);
+            this.sncSection.Name = "sncSection";
+            this.sncSection.Size = new System.Drawing.Size(314, 467);
+            this.sncSection.TabIndex = 0;
             // 
             // BoardNavigatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(301, 470);
-            this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.ClientSize = new System.Drawing.Size(314, 467);
+            this.Controls.Add(this.sncSection);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "BoardNavigatorForm";
             this.Text = "Board Navigator";
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button btnPrev;
-        private System.ComponentModel.BackgroundWorker bwFetchPage;
-        private System.Windows.Forms.Label lblStat;
+        private Controls.SectionNavigationControl sncSection;
     }
 }

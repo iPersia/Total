@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-namespace Nzl.Web.Smth.Forms
+﻿namespace Nzl.Web.Smth.Forms
 {
+    using System;
+    using System.Windows.Forms;
+    using Datas;
+
     public partial class MainForm : Form
     {
         #region Variable
@@ -40,6 +35,9 @@ namespace Nzl.Web.Smth.Forms
             this.Hide();
             this.ShowInTaskbar = false;
             this.nfiMain.Visible = true;
+
+            ///Load board's infor.
+            SmthBoards.Instance.Initilize();
 
             TabbedBrowserForm.Instance.SetParent(this);
             TabbedBrowserForm.Instance.Show();

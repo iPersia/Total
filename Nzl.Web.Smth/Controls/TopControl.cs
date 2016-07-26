@@ -9,6 +9,7 @@
     /// </summary>
     public partial class TopControl : UserControl
     {
+        #region Event
         /// <summary>
         /// 
         /// </summary>
@@ -18,7 +19,9 @@
         /// 
         /// </summary>
         public event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
+        #endregion
 
+        #region Ctor.
         /// <summary>
         /// 
         /// </summary>
@@ -47,15 +50,13 @@
                 this.lblReplies.Left = this.linklblTop.Left + this.linklblTop.Width + 1;
             }
 
-            this.linklblBoard.Text = topic.Board;
-            this.linklblBoard.Links.Add(0, topic.Board.Length, topic.Board);
-            //string boardName = SmthBoards.Instance.GetBoardName(topic.Board);
-            //if (boardName != null)
-            //{
-            //    this.linklblBoard.Text = boardName;
-            //}
+            string boardName = SmthBoards.Instance.GetBoardName(topic.Board);
+            this.linklblBoard.Text = string.IsNullOrEmpty(boardName) ? topic.Board : boardName;
+            this.linklblBoard.Links.Add(0, this.linklblBoard.Text.Length, topic.Board);
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// 
         /// </summary>
@@ -66,8 +67,9 @@
                 return 40;
             }
         }
+        #endregion
 
-
+        #region Eventhandler
         /// <summary>
         /// 
         /// </summary>
@@ -95,5 +97,6 @@
                 e.Link.Visited = true;
             }
         }
+        #endregion
     }
 }

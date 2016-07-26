@@ -8,8 +8,8 @@
     <ProjectGuid>{58BC70F0-3FF6-4095-87AC-08A4B7C00F58}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nzl.Web.WebPage</RootNamespace>
-    <AssemblyName>Nzl.Web.WebPage</AssemblyName>
+    <RootNamespace>Nzl.Web.Page</RootNamespace>
+    <AssemblyName>Nzl.Web.Page</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

@@ -3,6 +3,7 @@
     using System;
     using System.Windows.Forms;
     using Nzl.Web.Util;
+    using Utils;
 
     /// <summary>
     /// 
@@ -81,10 +82,7 @@
                 string postStr = "content=" + this.txtContent.Text;
 
 #if (true)
-                postStr += "\n\n\n"
-                         + "------------------"
-                         + "\n"
-                         + "->>[url=http://www.cnblogs.com/junier/archive/2013/03/25/2980547.html]水木PC客户端[/url]<<-";
+                postStr += SmthUtil.GetReplyTail();
 #endif
 
                 postStr += "&subject=" + this._subject;

@@ -417,7 +417,7 @@
                                 tempContent = new Regex(@"(?m)<script[^>]*>(\w|\W)*?</script[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(tempContent, "");
                                 tempContent = new Regex(@"(?m)<style[^>]*>(\w|\W)*?</style[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(tempContent, "");
                                 tempContent = new Regex(@"(?m)<select[^>]*>(\w|\W)*?</select[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(tempContent, "");
-                                Regex objReg = new System.Text.RegularExpressions.Regex("(<[^>]+?>)|&nbsp;", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                                Regex objReg = new System.Text.RegularExpressions.Regex("(<[.^>]+?>)|&nbsp;", RegexOptions.Multiline | RegexOptions.IgnoreCase);
                                 tempContent = objReg.Replace(tempContent, "");
                             }
 
@@ -446,6 +446,10 @@
                                 this.richtxtContent.InsertLink(ToRtfCode(thread.AnchorList[anchorCounter].Text),
                                                        thread.AnchorList[anchorCounter++].Url,
                                                        this.richtxtContent.Text.Length);
+
+
+                                System.Diagnostics.Debug.WriteLine(ToRtfCode(thread.AnchorList[anchorCounter - 1].Text));
+
                             }
                         }
                     }
@@ -455,7 +459,7 @@
                     ///Colored the replied thread content.
                     {
                         string text = this.richtxtContent.Text;
-                        string replayPattern = @"【 在 [a-zA-z][a-zA-Z0-9]{1,11} (\((.+)?\) )?的大作中提到: 】[^\r^\n]*[\r\n]+(\:[^\r^\n]*[\r\n]*)*";
+                        string replayPattern = @"【 在 [a-zA-z][a-zA-Z0-9]{1,11} (\((.+)?\) )?的大作中提到: 】[^\r^\n]*[\r\n]+(\:.*[\r\n]*)*";
                         MatchCollection mc = CommonUtil.GetMatchCollection(replayPattern, text);
                         if (mc != null && mc.Count > 0)
                         {
@@ -487,6 +491,19 @@
                                 this.richtxtContent.SelectionFont = new Font(this.richtxtContent.SelectionFont.FontFamily, 9, FontStyle.Regular);
                                 this.richtxtContent.DeselectAll();
                             }
+                        }
+                    }
+
+                    ///Colored the reply tail.
+                    {
+                        string text = this.richtxtContent.Text;
+                        string repleyContent = SmthUtil.GetReplyText();
+                        int index = text.IndexOf(repleyContent);
+                        if (index >= 0)
+                        {
+                            this.richtxtContent.Select(index, repleyContent.Length);
+                            this.richtxtContent.SelectionFont = new Font(this.richtxtContent.SelectionFont.FontFamily, 9, FontStyle.Regular);
+                            this.richtxtContent.DeselectAll();
                         }
                     }
                 }

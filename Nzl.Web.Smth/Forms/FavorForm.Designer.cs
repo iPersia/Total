@@ -29,55 +29,34 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FavorForm));
-            this.panel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
-            this.panel.SuspendLayout();
+            this.fcFavor = new Nzl.Web.Smth.Controls.FavorControl();
             this.SuspendLayout();
             // 
-            // panel
+            // fcFavor
             // 
-            this.panel.AutoScroll = true;
-            this.panel.Controls.Add(this.label1);
-            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel.Location = new System.Drawing.Point(0, 0);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(365, 539);
-            this.panel.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(150, 173);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Loading...";
+            this.fcFavor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fcFavor.Location = new System.Drawing.Point(0, 0);
+            this.fcFavor.Name = "fcFavor";
+            this.fcFavor.Size = new System.Drawing.Size(365, 539);
+            this.fcFavor.TabIndex = 0;
             // 
             // FavorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(365, 539);
-            this.Controls.Add(this.panel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Controls.Add(this.fcFavor);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FavorForm";
             this.Text = "Favor";
-            this.panel.ResumeLayout(false);
-            this.panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel;
-        private System.ComponentModel.BackgroundWorker bwFetchPage;
-        private System.Windows.Forms.Label label1;
+        private Controls.FavorControl fcFavor;
     }
 }

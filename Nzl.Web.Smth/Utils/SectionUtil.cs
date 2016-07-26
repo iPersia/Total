@@ -20,10 +20,12 @@
                 if (page != null && page.IsGood)
                 {
                     string pattern = @"(<li>|<li class=\Whl\W>)"
-                                   + @"(版面\|<a href=\W(?'BoardUrl'/board/(?'BoardCode'[\w,  \., \-, %2E, %5F]+))\W>(?'BoardName'[\w, ·]+))"
+                                   + @"("
+                                   + @"(版面\|<a href=\W(?'BoardUrl'/board/(?'BoardCode'[\w,  \., \-, %2E, %5F]+))\W>(?'BoardName'[^<]+)</a>(\|</a>)?)"
                                    + @"|"
-                                   + @"(<font color=\W#f60\W>目录</font>\|<a href=\W(?'SectionUrl'/section/(?'SectionCode'[\w, \., \-, %2E, %5F]+))\W>(?'SectionName'[\w, ·]+))"
-                                   + @"</a>\|(<a href=\W/hot/\d+\W style=\Wcolor:#f00\W>热点</a>)?</a></li>";
+                                   + @"(<font color=\W#f60\W>目录</font>\|<a href=\W(?'SectionUrl'/section/(?'SectionCode'[\w, \., \-, %2E, %5F]+))\W>(?'SectionName'[^<]+)</a>\|(<a href=\W/hot/\d+\W style=\Wcolor:#f00\W>热点</a>)?</a>)"
+                                   + @")"
+                                   + @"</li>";
                     MatchCollection mtCollection = CommonUtil.GetMatchCollection(pattern, page.Html);
                     if (mtCollection != null)
                     {

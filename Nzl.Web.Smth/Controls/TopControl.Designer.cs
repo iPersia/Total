@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.panel = new System.Windows.Forms.Panel();
+            this.linklblBoard = new System.Windows.Forms.LinkLabel();
             this.lblReplies = new System.Windows.Forms.Label();
             this.linklblTop = new System.Windows.Forms.LinkLabel();
             this.lblIndex = new System.Windows.Forms.Label();
-            this.linklblBoard = new System.Windows.Forms.LinkLabel();
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +47,17 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(438, 40);
             this.panel.TabIndex = 0;
+            // 
+            // linklblBoard
+            // 
+            this.linklblBoard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklblBoard.Location = new System.Drawing.Point(230, 14);
+            this.linklblBoard.Name = "linklblBoard";
+            this.linklblBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.linklblBoard.Size = new System.Drawing.Size(200, 12);
+            this.linklblBoard.TabIndex = 7;
+            this.linklblBoard.TabStop = true;
+            this.linklblBoard.Text = "Board";
             // 
             // lblReplies
             // 
@@ -76,17 +87,6 @@
             this.lblIndex.Size = new System.Drawing.Size(17, 12);
             this.lblIndex.TabIndex = 0;
             this.lblIndex.Text = "10";
-            // 
-            // linklblBoard
-            // 
-            this.linklblBoard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linklblBoard.Location = new System.Drawing.Point(230, 15);
-            this.linklblBoard.Name = "linklblBoard";
-            this.linklblBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.linklblBoard.Size = new System.Drawing.Size(200, 11);
-            this.linklblBoard.TabIndex = 7;
-            this.linklblBoard.TabStop = true;
-            this.linklblBoard.Text = "Board";
             // 
             // TopControl
             // 

@@ -62,7 +62,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -87,6 +86,12 @@
     </Compile>
     <Compile Include="Controls\BoardControl.Designer.cs">
       <DependentUpon>BoardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FavorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FavorControl.Designer.cs">
+      <DependentUpon>FavorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SectionControl.cs">
       <SubType>UserControl</SubType>
@@ -270,6 +275,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\BoardControl.resx">
       <DependentUpon>BoardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FavorControl.resx">
+      <DependentUpon>FavorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SectionControl.resx">
       <DependentUpon>SectionControl.cs</DependentUpon>
