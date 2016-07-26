@@ -235,7 +235,7 @@
         /// 
         /// </summary>
         /// <param name="state">State is RunWorkerCompletedEventArgs!</param>
-        protected void WorkerCompletedBase(object state)
+        protected void WorkCompletedBase(object state)
         {
             RunWorkerCompletedEventArgs e = state as RunWorkerCompletedEventArgs;
             try
@@ -243,7 +243,7 @@
                 UrlInfo urlInfo = e.Result as UrlInfo;
                 if (urlInfo != null)
                 {
-                    WorkerCompleted(urlInfo);
+                    WorkCompleted(urlInfo);
                 }
             }
             catch (Exception exp)
@@ -258,7 +258,7 @@
         /// 
         /// </summary>
         /// <param name="info"></param>
-        protected virtual void WorkerCompleted(UrlInfo info)
+        protected virtual void WorkCompleted(UrlInfo info)
         {
             if (info != null)
             {
@@ -465,7 +465,7 @@
             }
             else
             {
-                WorkerCompletedBase(e);
+                WorkCompletedBase(e);
             }
         }
 

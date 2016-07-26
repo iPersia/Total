@@ -15,6 +15,26 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sectionCode"></param>
+        /// <returns></returns>
+        public static string GetSectionUrl(string sectionCode)
+        {
+            return @"http://m.newsmth.net/section/" + sectionCode;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="boardCode"></param>
+        /// <returns></returns>
+        public static string GetBoardUrl(string boardCode)
+        {
+            return @"http://m.newsmth.net/board/" + boardCode;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public static bool GetLogInStatus(WebPage wp)
         {
@@ -136,11 +156,11 @@
         }
 
         /// <summary>
-        /// 
+        /// For section tops.
         /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
-        public static string GetSectionTitle(WebPage wp)
+        public static string GetSectionName(WebPage wp)
         {
             try
             {

@@ -104,9 +104,9 @@
         /// 
         /// </summary>
         /// <param name="state"></param>
-        protected override void WorkerCompleted(UrlInfo info)
+        protected override void WorkCompleted(UrlInfo info)
         {
-            base.WorkerCompleted(info);
+            base.WorkCompleted(info);
             UpdateBoardTitle(info.WebPage);
             this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
             this.lblPage2.Text = this.lblPage1.Text;

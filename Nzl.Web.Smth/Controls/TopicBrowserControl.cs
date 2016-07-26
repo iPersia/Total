@@ -201,11 +201,9 @@
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            this.panel.MouseWheel -= new MouseEventHandler(TopicForm_MouseWheel);
             this.panel.MouseWheel += new MouseEventHandler(TopicForm_MouseWheel);
             this.SetUrlInfo(1, false);
             this.SetBtnEnabled(!this.FetchPage());
-            System.Diagnostics.Debug.WriteLine(this.GetType().ToString() + this.GetHashCode() + " - " + this.Name + " - OnLoad");
         }
 
         /// <summary>
@@ -230,9 +228,9 @@
         /// 
         /// </summary>
         /// <param name="state"></param>
-        protected override void WorkerCompleted(UrlInfo info)
+        protected override void WorkCompleted(UrlInfo info)
         {
-            base.WorkerCompleted(info);
+            base.WorkCompleted(info);
             if (info.Status == PageStatus.Normal)
             {
                 this.SaveThreads(info.Result as IList<BaseItem>);
@@ -351,7 +349,7 @@
         {
             try
             {
-                int panelContainerHeight = this.splitContainer2.Panel1.Height; //panel容器高度
+                int panelContainerHeight = this.panelContainer.Height; //panel容器高度
 #if (DEBUG)
                 System.Diagnostics.Debug.WriteLine("---------------------***TopicForm_MouseWheel***---------------------");
                 System.Diagnostics.Debug.WriteLine("Sender is:" + sender.GetType().ToString());

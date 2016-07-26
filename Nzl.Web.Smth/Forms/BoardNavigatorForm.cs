@@ -117,68 +117,68 @@
         /// </summary>
         private void GetSectionsAndBoards(WebPage page)
         {
-            if (page != null && page.IsGood)
-            {
-                if (page != null && page.IsGood)
-                {                    
-                    MatchCollection mtColSection = CommonUtil.GetMatchCollection(@"(<li>|<li class=\Whl\W>)<font color=\W#f60\W>目录</font>\|<a href=\W(?'SectionUrl'/section/[\w, \., \-, %2E, %5F]+)\W>(?'SectionTitle'[\w, ·]+)</a>", page.Html);
-                    MatchCollection mtColBoard = CommonUtil.GetMatchCollection(@"(<li>|<li class=\Whl\W>)版面\|<a href=\W(?'BoardUrl'/board/[\w,  \., \-, %2E, %5F]+)\W>(?'BoardTitle'[\w, ·]+)</a>\|</a></li>", page.Html);
-                    int accumulateHeight = 0; 
-                    int width = this.panel.Width - 19;
-                    bool flag = false;
-                    this.panel.Controls.Clear();
-                    string stat = string.Empty;
-                    if (mtColSection != null)
-                    {
-                        foreach (Match mt in mtColSection)
-                        {
-                            string url = @"http://m.newsmth.net" + mt.Groups[2].Value.ToString();
-                            string title = mt.Groups[3].Value.ToString();
+            //if (page != null && page.IsGood)
+            //{
+            //    if (page != null && page.IsGood)
+            //    {                    
+            //        MatchCollection mtColSection = CommonUtil.GetMatchCollection(@"(<li>|<li class=\Whl\W>)<font color=\W#f60\W>目录</font>\|<a href=\W(?'SectionUrl'/section/[\w, \., \-, %2E, %5F]+)\W>(?'SectionTitle'[\w, ·]+)</a>", page.Html);
+            //        MatchCollection mtColBoard = CommonUtil.GetMatchCollection(@"(<li>|<li class=\Whl\W>)版面\|<a href=\W(?'BoardUrl'/board/[\w,  \., \-, %2E, %5F]+)\W>(?'BoardTitle'[\w, ·]+)</a>\|</a></li>", page.Html);
+            //        int accumulateHeight = 0; 
+            //        int width = this.panel.Width - 19;
+            //        bool flag = false;
+            //        this.panel.Controls.Clear();
+            //        string stat = string.Empty;
+            //        if (mtColSection != null)
+            //        {
+            //            foreach (Match mt in mtColSection)
+            //            {
+            //                string url = @"http://m.newsmth.net" + mt.Groups[2].Value.ToString();
+            //                string title = mt.Groups[3].Value.ToString();
 
-                            SectionControl sc = new SectionControl(url, title);
-                            sc.OnLinkClicked += new LinkLabelLinkClickedEventHandler(BoardControlLink_LinkClicked);
-                            sc.Top = accumulateHeight;
-                            sc.Width = width;
-                            if (flag)
-                            {
-                                sc.BackColor = Color.White;
-                            }
+            //                SectionControl sc = new SectionControl(url, title);
+            //                sc.OnLinkClicked += new LinkLabelLinkClickedEventHandler(BoardControlLink_LinkClicked);
+            //                sc.Top = accumulateHeight;
+            //                sc.Width = width;
+            //                if (flag)
+            //                {
+            //                    sc.BackColor = Color.White;
+            //                }
 
-                            flag = !flag;
-                            accumulateHeight += sc.Height + 3;
-                            this.panel.Controls.Add(sc);                            
-                        }
+            //                flag = !flag;
+            //                accumulateHeight += sc.Height + 3;
+            //                this.panel.Controls.Add(sc);                            
+            //            }
 
-                        stat += mtColSection.Count + "个目录 ";
-                    }
+            //            stat += mtColSection.Count + "个目录 ";
+            //        }
 
-                    if (mtColBoard != null)
-                    {
-                        foreach (Match mt in mtColBoard)
-                        {
-                            string url = @"http://m.newsmth.net" + mt.Groups[2].Value.ToString();
-                            string title = mt.Groups[3].Value.ToString();
+            //        if (mtColBoard != null)
+            //        {
+            //            foreach (Match mt in mtColBoard)
+            //            {
+            //                string url = @"http://m.newsmth.net" + mt.Groups[2].Value.ToString();
+            //                string title = mt.Groups[3].Value.ToString();
 
-                            BoardControl bc = new BoardControl(url, title);
-                            bc.OnLinkClicked += new LinkLabelLinkClickedEventHandler(BoardControlLink_LinkClicked);
-                            bc.Top = accumulateHeight;
-                            bc.Width = width;
-                            if (flag)
-                            {
-                                bc.BackColor = Color.White;
-                            }
+            //                BoardControl bc = new BoardControl(url, title);
+            //                bc.OnLinkClicked += new LinkLabelLinkClickedEventHandler(BoardControlLink_LinkClicked);
+            //                bc.Top = accumulateHeight;
+            //                bc.Width = width;
+            //                if (flag)
+            //                {
+            //                    bc.BackColor = Color.White;
+            //                }
 
-                            flag = !flag;
-                            accumulateHeight += bc.Height + 3;
-                            this.panel.Controls.Add(bc);
-                        }
+            //                flag = !flag;
+            //                accumulateHeight += bc.Height + 3;
+            //                this.panel.Controls.Add(bc);
+            //            }
 
-                        stat += mtColBoard.Count + "个版面";
-                    }
+            //            stat += mtColBoard.Count + "个版面";
+            //        }
 
-                    this.lblStat.Text = stat;
-                }
-            }
+            //        this.lblStat.Text = stat;
+            //    }
+            //}
         }        
 
         /// <summary>

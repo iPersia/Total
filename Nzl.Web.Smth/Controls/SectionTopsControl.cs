@@ -89,7 +89,7 @@
         protected override void DoWork(UrlInfo info)
         {
             base.DoWork(info);
-            info.Subject = SmthUtil.GetSectionTitle(info.WebPage);
+            info.Subject = SmthUtil.GetSectionName(info.WebPage);
         }
 
         protected override IList<BaseItem> GetItems(WebPage wp)
@@ -122,9 +122,9 @@
         /// 
         /// </summary>
         /// <param name="info"></param>
-        protected override void WorkerCompleted(UrlInfo info)
+        protected override void WorkCompleted(UrlInfo info)
         {
-            base.WorkerCompleted(info);
+            base.WorkCompleted(info);
             if (this._parentControl != null)
             {
                 this._parentControl.Text = info.Subject;

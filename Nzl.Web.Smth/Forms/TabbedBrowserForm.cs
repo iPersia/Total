@@ -61,6 +61,8 @@
             LoginForm.LoginStatusChanged += new LoginStatusChangedHandler(LoginForm_LoginStatusChanged);
             _uahKey.KeyUp += new EventHandler<KeyExEventArgs>(Global_KeyUp);
             _uahKey.Start();
+
+            (new TestForm()).ShowDialog();
         }
 
         /// <summary>

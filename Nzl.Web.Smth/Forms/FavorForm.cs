@@ -108,40 +108,40 @@
         /// </summary>
         private void GetFavors(WebPage page)
         {
-            if (page != null && page.IsGood)
-            {
-                MatchCollection mtFavor = CommonUtil.GetMatchCollection(@"(<li>|<li class=\Whl\W>)版面\|<a href=\W/board/(?'Url'[\w, %2E, %5F]+)\W>(?'Title'[\w, ·]+)\([\w, %2E, %5F]+\)</a></li>", page.Html);
-                if (mtFavor != null)
-                {
-                    int accumulateHeight = 0;
-                    int width = this.panel.Width;
-                    bool flag = false;
-                    this.panel.Controls.Clear();
-                    string stat = string.Empty;
-                    int index = 1;
-                    foreach (Match mt in mtFavor)
-                    {
-                        string url = @"http://m.newsmth.net/board/" + mt.Groups["Url"].Value.ToString();
-                        string title = mt.Groups["Title"].Value.ToString();
+            //if (page != null && page.IsGood)
+            //{
+            //    MatchCollection mtFavor = CommonUtil.GetMatchCollection(@"(<li>|<li class=\Whl\W>)版面\|<a href=\W/board/(?'Url'[\w, %2E, %5F]+)\W>(?'Title'[\w, ·]+)\([\w, %2E, %5F]+\)</a></li>", page.Html);
+            //    if (mtFavor != null)
+            //    {
+            //        int accumulateHeight = 0;
+            //        int width = this.panel.Width;
+            //        bool flag = false;
+            //        this.panel.Controls.Clear();
+            //        string stat = string.Empty;
+            //        int index = 1;
+            //        foreach (Match mt in mtFavor)
+            //        {
+            //            string url = @"http://m.newsmth.net/board/" + mt.Groups["Url"].Value.ToString();
+            //            string title = mt.Groups["Title"].Value.ToString();
 
-                        BoardControl bc = new BoardControl(url, title);
-                        bc.OnLinkClicked += new LinkLabelLinkClickedEventHandler(BoardControlLink_LinkClicked);
-                        bc.Top = accumulateHeight;
-                        bc.Width = width;
-                        if (flag)
-                        {
-                            bc.BackColor = Color.White;
-                        }
+            //            BoardControl bc = new BoardControl(url, title);
+            //            bc.OnLinkClicked += new LinkLabelLinkClickedEventHandler(BoardControlLink_LinkClicked);
+            //            bc.Top = accumulateHeight;
+            //            bc.Width = width;
+            //            if (flag)
+            //            {
+            //                bc.BackColor = Color.White;
+            //            }
 
-                        flag = !flag;
-                        accumulateHeight += bc.Height + 3;
-                        this.panel.Controls.Add(bc);
-                    }
+            //            flag = !flag;
+            //            accumulateHeight += bc.Height + 3;
+            //            this.panel.Controls.Add(bc);
+            //        }
 
-                    this.panel.Height = accumulateHeight;
-                    this.Height = accumulateHeight + 28;
-                }
-            }
+            //        this.panel.Height = accumulateHeight;
+            //        this.Height = accumulateHeight + 28;
+            //    }
+            //}
         }
 
         /// <summary>
