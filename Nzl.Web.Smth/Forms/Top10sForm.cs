@@ -20,6 +20,18 @@
         /// </summary>
         public static readonly Top10sForm Instance = new Top10sForm();
 
+        #region Event
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
@@ -55,11 +67,9 @@
         /// <param name="e"></param>
         private void Tbc_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LinkLabel linklbl = sender as LinkLabel;
-            if (linklbl != null)
+            if (this.OnTopBoardLinkClicked != null)
             {
-                TabbedBrowserForm.Instance.AddBoard(@"http://m.newsmth.net/board/" + e.Link.LinkData.ToString(), linklbl.Text);
-                TabbedBrowserForm.Instance.Show();
+                this.OnTopBoardLinkClicked(sender, e);
             }
         }
 
@@ -70,11 +80,9 @@
         /// <param name="e"></param>
         private void tbc_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LinkLabel linklbl = sender as LinkLabel;
-            if (linklbl != null)
+            if (this.OnTopLinkClicked != null)
             {
-                TabbedBrowserForm.Instance.AddTopic(e.Link.LinkData.ToString(), linklbl.Text);
-                TabbedBrowserForm.Instance.Show();
+                this.OnTopLinkClicked(sender, e);
             }
         }
 

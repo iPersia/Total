@@ -32,8 +32,9 @@
             this.panel = new System.Windows.Forms.Panel();
             this.scContainer = new System.Windows.Forms.SplitContainer();
             this.panelUp = new System.Windows.Forms.Panel();
-            this.linklblPrevious = new System.Windows.Forms.LinkLabel();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.linklblSectionName = new System.Windows.Forms.LinkLabel();
+            this.linklblPrevious = new System.Windows.Forms.LinkLabel();
             this.panelContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).BeginInit();
             this.scContainer.Panel1.SuspendLayout();
@@ -84,6 +85,7 @@
             // panelUp
             // 
             this.panelUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelUp.Controls.Add(this.btnRefresh);
             this.panelUp.Controls.Add(this.linklblSectionName);
             this.panelUp.Controls.Add(this.linklblPrevious);
             this.panelUp.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -91,6 +93,28 @@
             this.panelUp.Name = "panelUp";
             this.panelUp.Size = new System.Drawing.Size(317, 25);
             this.panelUp.TabIndex = 0;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(120, 0);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 2;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Visible = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // linklblSectionName
+            // 
+            this.linklblSectionName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklblSectionName.Location = new System.Drawing.Point(186, 6);
+            this.linklblSectionName.Name = "linklblSectionName";
+            this.linklblSectionName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.linklblSectionName.Size = new System.Drawing.Size(120, 12);
+            this.linklblSectionName.TabIndex = 1;
+            this.linklblSectionName.TabStop = true;
+            this.linklblSectionName.Text = "Section";
             // 
             // linklblPrevious
             // 
@@ -101,17 +125,6 @@
             this.linklblPrevious.TabIndex = 0;
             this.linklblPrevious.TabStop = true;
             this.linklblPrevious.Text = "Previous";
-            // 
-            // linklblSectionName
-            // 
-            this.linklblSectionName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linklblSectionName.Location = new System.Drawing.Point(106, 6);
-            this.linklblSectionName.Name = "linklblSectionName";
-            this.linklblSectionName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.linklblSectionName.Size = new System.Drawing.Size(200, 12);
-            this.linklblSectionName.TabIndex = 1;
-            this.linklblSectionName.TabStop = true;
-            this.linklblSectionName.Text = "Section";
             // 
             // SectionNavigationControl
             // 
@@ -139,5 +152,6 @@
         private System.Windows.Forms.Panel panelUp;
         private System.Windows.Forms.LinkLabel linklblPrevious;
         private System.Windows.Forms.LinkLabel linklblSectionName;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

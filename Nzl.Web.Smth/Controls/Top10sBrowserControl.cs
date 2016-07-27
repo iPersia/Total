@@ -58,7 +58,7 @@
                 TabPage tp = new TabPage();
                 SectionTopsControl tbc = new SectionTopsControl("http://m.newsmth.net/hot");                
                 tbc.SetParent(tp);
-                tbc.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(tbc_OnTopLinkClicked);
+                tbc.OnTopLinkClicked += Tbc_OnTopLinkClicked;
                 tbc.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
                 tp.Controls.Add(tbc);
                 this.tcTop10s.TabPages.Add(tp);
@@ -86,7 +86,8 @@
             SectionTopsControl tbc = new SectionTopsControl("http://m.newsmth.net/hot/" + this._sectionIndex++);
             TabPage tp = new TabPage();
             tbc.SetParent(tp);
-            tbc.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(tbc_OnTopLinkClicked);
+            tbc.OnTopLinkClicked += Tbc_OnTopLinkClicked;
+            tbc.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
             tp.Controls.Add(tbc);
             this.tcTop10s.TabPages.Add(tp);
         }
@@ -96,7 +97,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tbc_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Tbc_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
             if (linklbl != null && this.OnTopLinkClicked != null)

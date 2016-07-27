@@ -75,6 +75,12 @@
     <Compile Include="Controls\BaseControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\MailBoxControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MailBoxControl.Designer.cs">
+      <DependentUpon>MailBoxControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\BoardBrowserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -92,6 +98,12 @@
     </Compile>
     <Compile Include="Controls\FavorControl.Designer.cs">
       <DependentUpon>FavorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LoginControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LoginControl.Designer.cs">
+      <DependentUpon>LoginControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SectionControl.cs">
       <SubType>UserControl</SubType>
@@ -152,12 +164,14 @@
     </Compile>
     <Compile Include="Datas\BaseItem.cs" />
     <Compile Include="Datas\Board.cs" />
+    <Compile Include="Datas\LogStatus.cs" />
     <Compile Include="Datas\Mail.cs" />
     <Compile Include="Datas\Message.cs" />
     <Compile Include="Datas\Section.cs" />
     <Compile Include="Datas\SmthBoards.cs" />
     <Compile Include="Datas\Thread.cs" />
     <Compile Include="Datas\Topic.cs" />
+    <Compile Include="Datas\TreeNode.cs" />
     <Compile Include="Datas\UrlInfo.cs" />
     <Compile Include="Forms\BaseForm.cs">
       <SubType>Form</SubType>
@@ -261,14 +275,19 @@
     <Compile Include="Interfaces\IContainsThread.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\MailFactory.cs" />
     <Compile Include="Utils\MessageFactory.cs" />
     <Compile Include="Utils\MessageQueue.cs" />
     <Compile Include="Utils\SectionUtil.cs" />
     <Compile Include="Utils\SmthUtil.cs" />
+    <Compile Include="Utils\TextBoxUtil.cs" />
     <Compile Include="Utils\ThreadFactory.cs" />
     <Compile Include="Utils\TopicFactory.cs" />
     <EmbeddedResource Include="Common\MessageForm.resx">
       <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MailBoxControl.resx">
+      <DependentUpon>MailBoxControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\BoardBrowserControl.resx">
       <DependentUpon>BoardBrowserControl.cs</DependentUpon>
@@ -278,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\FavorControl.resx">
       <DependentUpon>FavorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LoginControl.resx">
+      <DependentUpon>LoginControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SectionControl.resx">
       <DependentUpon>SectionControl.cs</DependentUpon>

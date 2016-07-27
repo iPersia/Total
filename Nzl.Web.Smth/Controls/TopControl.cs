@@ -28,7 +28,7 @@
         TopControl()
         {
             InitializeComponent();
-            this.Height = TopControlHeight;
+            this.Height = ControlHeight;
             this.linklblTop.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblTop_LinkClicked);
             this.linklblBoard.LinkClicked += LinklblBoard_LinkClicked;
         }
@@ -60,7 +60,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public static int TopControlHeight
+        public static int ControlHeight
         {
             get
             {

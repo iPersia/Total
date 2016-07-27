@@ -9,7 +9,7 @@
     /// 
     /// </summary>
     public class Board : BaseItem
-    {
+    {  
         /// <summary>
         /// 
         /// </summary>

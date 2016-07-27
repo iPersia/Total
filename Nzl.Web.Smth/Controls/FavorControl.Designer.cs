@@ -31,14 +31,14 @@
             this.panelContainer = new System.Windows.Forms.Panel();
             this.panel = new System.Windows.Forms.Panel();
             this.scContainer = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelUp = new System.Windows.Forms.Panel();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.panelContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).BeginInit();
             this.scContainer.Panel1.SuspendLayout();
             this.scContainer.Panel2.SuspendLayout();
             this.scContainer.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelUp.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelContainer
@@ -67,7 +67,7 @@
             // 
             // scContainer.Panel1
             // 
-            this.scContainer.Panel1.Controls.Add(this.panel1);
+            this.scContainer.Panel1.Controls.Add(this.panelUp);
             // 
             // scContainer.Panel2
             // 
@@ -77,15 +77,15 @@
             this.scContainer.SplitterWidth = 1;
             this.scContainer.TabIndex = 1;
             // 
-            // panel1
+            // panelUp
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.btnRefresh);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(350, 25);
-            this.panel1.TabIndex = 0;
+            this.panelUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelUp.Controls.Add(this.btnRefresh);
+            this.panelUp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelUp.Location = new System.Drawing.Point(0, 0);
+            this.panelUp.Name = "panelUp";
+            this.panelUp.Size = new System.Drawing.Size(350, 25);
+            this.panelUp.TabIndex = 0;
             // 
             // btnRefresh
             // 
@@ -109,7 +109,7 @@
             this.scContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).EndInit();
             this.scContainer.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.panelUp.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -119,7 +119,7 @@
         private System.Windows.Forms.Panel panelContainer;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.SplitContainer scContainer;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelUp;
         private System.Windows.Forms.Button btnRefresh;
     }
 }

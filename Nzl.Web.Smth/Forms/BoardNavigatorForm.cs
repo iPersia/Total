@@ -19,6 +19,7 @@
         {
             InitializeComponent();
             this.sncSection.OnBoardLinkClicked += SncSection_OnBoardLinkClicked;
+            this.sncSection.SetParent(this);
         }
 
         /// <summary>

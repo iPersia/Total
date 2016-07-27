@@ -58,16 +58,21 @@
         TabbedBrowserForm()
         {
             InitializeComponent();
-            LoginForm.LoginStatusChanged += new LoginStatusChangedHandler(LoginForm_LoginStatusChanged);
+            LogStatus.Instance.LoginStatusChanged += Instance_LoginStatusChanged;
             _uahKey.KeyUp += new EventHandler<KeyExEventArgs>(Global_KeyUp);
             _uahKey.Start();
 
-            this.Activated += TabbedBrowserForm_Activated;
+            //(new TestForm()).ShowDialog(this);
         }
 
-        private void TabbedBrowserForm_Activated(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Instance_LoginStatusChanged(object sender, LogStatusEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(this.ToString() + " - TabbedBrowserForm_Activated");
+            SetButtonVisibleByLogInStatus(e.IsLogin);
         }
 
         /// <summary>
@@ -86,6 +91,19 @@
         public void SetParent(Form parent)
         {
             this._parentForm = parent;
+        }
+        #endregion
+
+        #region override
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            Top10sForm.Instance.OnTopLinkClicked += Instance_OnTopLinkClicked;
+            Top10sForm.Instance.OnTopBoardLinkClicked += Instance_OnTopBoardLinkClicked;
         }
         #endregion
 
@@ -149,6 +167,11 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Tbc_OnTopicReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, e.Link.LinkData.ToString(), "Re: " + this.tcTopics.SelectedTab.ToolTipText);
@@ -163,11 +186,21 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Tbc_OnThreadTransferLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ///throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Tbc_OnThreadReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
@@ -190,6 +223,11 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Tbc_OnThreadQueryTypeLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
@@ -202,6 +240,11 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Tbc_OnThreadMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
@@ -217,6 +260,11 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Tbc_OnThreadEditLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
@@ -243,6 +291,11 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Tbc_OnThreadDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
@@ -413,16 +466,6 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LoginForm_LoginStatusChanged(object sender, LoginEventArgs e)
-        {
-            SetButtonVisibleByLogInStatus(e.IsLogin);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void TBF_IDLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
@@ -441,8 +484,7 @@
         /// <param name="e"></param>
         private void btnLogIn_Click(object sender, EventArgs e)
         {
-            LoginForm.Instance.StartPosition = FormStartPosition.CenterParent;
-            LoginForm.Instance.ShowDialog(this);
+            ShowFormOnCenterParent(LoginForm.Instance);
         }
 
         /// <summary>
@@ -508,16 +550,17 @@
         /// <param name="e"></param>
         private void btnMail_Click(object sender, EventArgs e)
         {
-            MailBoxForm form = this.GetRegisteredForm<MailBoxForm>();
-            if (form != null)
-            {
-                form.StartPosition = FormStartPosition.Manual;
-                int centerX = this.Location.X + this.Size.Width / 2;
-                int centerY = this.Location.Y + this.Size.Height / 2;
-                form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
-                form.Show();
-                form.Focus();
-            }
+            (new TestForm()).Show();
+            //MailBoxForm form = this.GetRegisteredForm<MailBoxForm>();
+            //if (form != null)
+            //{
+            //    form.StartPosition = FormStartPosition.Manual;
+            //    int centerX = this.Location.X + this.Size.Width / 2;
+            //    int centerY = this.Location.Y + this.Size.Height / 2;
+            //    form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
+            //    form.Show();
+            //    form.Focus();
+            //}
         }
 
         /// <summary>
@@ -594,6 +637,36 @@
         {
             ShowTop10s();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Instance_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linklbl = sender as LinkLabel;
+            if (linklbl != null)
+            {
+                this.AddBoard(@"http://m.newsmth.net/board/" + e.Link.LinkData.ToString(), linklbl.Text);
+                this.Show();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Instance_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linklbl = sender as LinkLabel;
+            if (linklbl != null)
+            {
+                this.AddTopic(e.Link.LinkData.ToString(), linklbl.Text);
+                this.Show();
+            }
+        }
         #endregion
 
         #region Private
@@ -613,9 +686,9 @@
 #endif
 
                         string welcomeStr = "Welcome ";
-                        this.linklblUserID.Text = welcomeStr + LoginForm.UserID + "!";
+                        this.linklblUserID.Text = welcomeStr + LogStatus.Instance.UserID + "!";
                         this.linklblUserID.Links.Clear();
-                        this.linklblUserID.Links.Add(welcomeStr.Length, LoginForm.UserID.Length, LoginForm.UserID);
+                        this.linklblUserID.Links.Add(welcomeStr.Length, LogStatus.Instance.UserID.Length, LogStatus.Instance.UserID);
 
                         this.linklblUserID.LinkClicked -= new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
                         this.linklblUserID.LinkClicked += new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);

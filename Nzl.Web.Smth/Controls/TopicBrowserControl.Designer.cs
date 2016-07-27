@@ -43,6 +43,7 @@
             this.btnOpenInBrowser = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.linklblBoard = new System.Windows.Forms.LinkLabel();
             this.linklblReply = new System.Windows.Forms.LinkLabel();
             this.btnSettings = new System.Windows.Forms.Button();
@@ -53,8 +54,6 @@
             this.btnFirst1 = new System.Windows.Forms.Button();
             this.btnNext1 = new System.Windows.Forms.Button();
             this.btnPrev1 = new System.Windows.Forms.Button();
-            this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.panel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelContainer.SuspendLayout();
@@ -282,6 +281,19 @@
             this.panel1.Size = new System.Drawing.Size(850, 25);
             this.panel1.TabIndex = 0;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnRefresh.Location = new System.Drawing.Point(273, 1);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(56, 23);
+            this.btnRefresh.TabIndex = 18;
+            this.btnRefresh.TabStop = false;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseCompatibleTextRendering = true;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // linklblBoard
             // 
             this.linklblBoard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -409,19 +421,6 @@
             this.btnPrev1.UseVisualStyleBackColor = true;
             this.btnPrev1.Click += new System.EventHandler(this.btnPrev_Click);
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRefresh.Location = new System.Drawing.Point(273, 1);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(56, 23);
-            this.btnRefresh.TabIndex = 18;
-            this.btnRefresh.TabStop = false;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseCompatibleTextRendering = true;
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
             // TopicBrowserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -473,7 +472,6 @@
         private System.Windows.Forms.Button btnFirst1;
         private System.Windows.Forms.Button btnNext1;
         private System.Windows.Forms.Button btnPrev1;
-        private System.ComponentModel.BackgroundWorker bwFetchPage;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.LinkLabel linklblReply;
         private System.Windows.Forms.LinkLabel linklblBoard;

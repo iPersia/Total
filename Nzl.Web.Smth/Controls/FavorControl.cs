@@ -42,8 +42,7 @@
             this.SetUrlInfo(false);
             this.FetchPage();
             this.panel.MouseWheel += Panel_MouseWheel;
-
-            this.btnRefresh.Left = this.panel1.Width / 2 - this.btnRefresh.Width / 2;
+            this.btnRefresh.Left = this.panelUp.Width / 2 - this.btnRefresh.Width / 2;
         }
 
         private void Panel_MouseWheel(object sender, MouseEventArgs e)
@@ -138,6 +137,7 @@
         /// <param name="e"></param>
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            this.SetUrlInfo(false);
             this.FetchPage();
         }
         #endregion

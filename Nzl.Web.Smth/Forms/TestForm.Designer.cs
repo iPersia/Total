@@ -28,24 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.sectionNavigationControl1 = new Nzl.Web.Smth.Controls.SectionNavigationControl();
+            this.tcMail = new System.Windows.Forms.TabControl();
             this.SuspendLayout();
             // 
-            // sectionNavigationControl1
+            // tcMail
             // 
-            this.sectionNavigationControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.sectionNavigationControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sectionNavigationControl1.Location = new System.Drawing.Point(0, 0);
-            this.sectionNavigationControl1.Name = "sectionNavigationControl1";
-            this.sectionNavigationControl1.Size = new System.Drawing.Size(410, 565);
-            this.sectionNavigationControl1.TabIndex = 0;
+            this.tcMail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcMail.Location = new System.Drawing.Point(0, 0);
+            this.tcMail.Name = "tcMail";
+            this.tcMail.SelectedIndex = 0;
+            this.tcMail.Size = new System.Drawing.Size(797, 565);
+            this.tcMail.TabIndex = 0;
             // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(410, 565);
-            this.Controls.Add(this.sectionNavigationControl1);
+            this.ClientSize = new System.Drawing.Size(797, 565);
+            this.Controls.Add(this.tcMail);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "TestForm";
             this.Text = "TestForm";
             this.ResumeLayout(false);
@@ -54,6 +55,6 @@
 
         #endregion
 
-        private Controls.SectionNavigationControl sectionNavigationControl1;
+        private System.Windows.Forms.TabControl tcMail;
     }
 }

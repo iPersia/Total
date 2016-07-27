@@ -355,7 +355,15 @@
         /// <param name="e"></param>
         private void richtxtContent_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            Nzl.Web.Util.CommonUtil.OpenUrl(e.LinkText.Substring(e.LinkText.IndexOf("http:")));
+            int index = e.LinkText.LastIndexOf("http:");
+            if (index <0)
+            {
+                index = e.LinkText.LastIndexOf("https:");
+            }
+            if (index > 0)
+            {
+                Nzl.Web.Util.CommonUtil.OpenUrl(e.LinkText.Substring(index));
+            }
         }
 
         /// <summary>
@@ -469,7 +477,7 @@
                             {
                                 this.richtxtContent.Select(index, from.Length);
                                 this.richtxtContent.SelectionColor = Color.FromArgb(96,96,96);
-                                this.richtxtContent.SelectionFont = new Font(this.richtxtContent.SelectionFont.FontFamily, 9, FontStyle.Regular);
+                                this.richtxtContent.SelectionFont = new Font(this.richtxtContent.Font.FontFamily, 9, FontStyle.Regular);
                                 this.richtxtContent.DeselectAll();
                             }
                         }
@@ -488,7 +496,7 @@
                             {
                                 this.richtxtContent.Select(index, from.Length);
                                 this.richtxtContent.SelectionColor = Color.FromArgb(160, 160, 160);
-                                this.richtxtContent.SelectionFont = new Font(this.richtxtContent.SelectionFont.FontFamily, 9, FontStyle.Regular);
+                                this.richtxtContent.SelectionFont = new Font(this.richtxtContent.Font.FontFamily, 9, FontStyle.Regular);
                                 this.richtxtContent.DeselectAll();
                             }
                         }

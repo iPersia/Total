@@ -1,6 +1,6 @@
 ﻿namespace Nzl.Web.Smth.Controls
 {
-    partial class BoardBrowserControl
+    partial class MailBoxControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -348,12 +348,12 @@
             this.btnPrev2.UseVisualStyleBackColor = true;
             this.btnPrev2.Click += new System.EventHandler(this.btnPrev_Click);
             // 
-            // BoardBrowserControl
+            // MailBoxControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
-            this.Name = "BoardBrowserControl";
+            this.Name = "MailBoxControl";
             this.Size = new System.Drawing.Size(635, 544);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

@@ -20,11 +20,11 @@
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        public static IList<Topic> GetTop10Topics(WebPage page)
+        public static IList<Topic> CreateTop10Topics(WebPage page)
         {
             if (page != null && page.IsGood)
             {
-                return GetTop10Topics(page.Html);
+                return CreateTop10Topics(page.Html);
             }
 
             return null;
@@ -35,7 +35,7 @@
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        public static IList<Topic> GetTopics(WebPage page)
+        public static IList<Topic> CreateTopics(WebPage page)
         {
             if (page != null && page.IsGood)
             {
@@ -50,7 +50,7 @@
                         int endPos = html.IndexOf(@"</li>");
                         string content = html.Substring(startPos, endPos + @"</li>".Length - startPos);
                         html = html.Substring(endPos + @"</li>".Length);
-                        Topic topic = GetTopic(content);
+                        Topic topic = CreateTopic(content);
                         if (topic != null)
                         {
                             topicList.Add(topic);
@@ -68,7 +68,7 @@
         /// 
         /// </summary>
         /// <param name="content"></param>
-        private static Topic GetTopic(string content)
+        private static Topic CreateTopic(string content)
         {
             string pattern = @"(<li>|<li class=\Whla\W>)<div><a href=\W"
                            + @"(?'TopicUrl'/article/(?'Board'[\w, %2E, %5F]+)/(?'Index'\d+))\W(| "
@@ -100,7 +100,7 @@
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        private static IList<Topic> GetTop10Topics(string html)
+        private static IList<Topic> CreateTop10Topics(string html)
         {
             MatchCollection mtCollection = CommonUtil.GetMatchCollection(@"(?'TopSeq'\d{1,2})\|<a href=\W(?'Url'/article/(?'Board'[\w, %2E, %5F]+)/(?'Index'\d+))\W>(?'Title'[^<]+)(\(<span\s+style=\Wcolor:red\W>(?'Replies'\d+)</span>\))?</a></li>", html);
             IList<Topic> topicList = new List<Topic>();

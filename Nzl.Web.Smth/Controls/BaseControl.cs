@@ -168,10 +168,7 @@
             catch (Exception exp)
             {
                 e.Cancel = true;
-
-#if (DEBUG)
-                CommonUtil.ShowMessage(typeof(BaseControl), exp.Message);
-#endif
+                MessageQueue.Enqueue(MessageFactory.CreateMessage(exp));
             }
         }
 
@@ -264,8 +261,11 @@
             {
                 if (info.Status == PageStatus.Normal)
                 {
-                    LoginForm.UpdateLoginStatus(info.WebPage);
-                    this.UpdateView(info.Controls, info.IsAppend);
+                    LogStatus.Instance.UpdateLoginStatus(info.WebPage);
+                    if (info.Controls != null)
+                    {
+                        this.UpdateView(info.Controls, info.IsAppend);
+                    }
                 }
                 else
                 {
@@ -325,7 +325,11 @@
             IList<Control> listThreacControl = new List<Control>();
             foreach (BaseItem item in list)
             {
-                listThreacControl.Add(this.GetControl(item));
+                Control ctl = this.GetControl(item);
+                if (ctl != null)
+                {
+                    listThreacControl.Add(ctl);
+                }
             }
 
             return listThreacControl;
@@ -338,7 +342,8 @@
         /// <returns></returns>
         protected Control GetControl(BaseItem item)
         {
-            return this.Invoke(new CreateControlCallback(CreateControl), new object[] { item }) as Control;
+            object ctl = this.Invoke(new CreateControlCallback(CreateControl), new object[] { item });
+            return ctl==null ? null : ctl as Control;
         }
 
         /// <summary>

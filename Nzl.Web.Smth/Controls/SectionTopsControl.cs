@@ -44,7 +44,7 @@
         SectionTopsControl()
         {
             InitializeComponent();
-            this.panelContainer.Size = new Size(this.Width - 10, TopControl.TopControlHeight * 10 + 12);
+            this.panelContainer.Size = new Size(this.Width - 10, TopControl.ControlHeight * 10 + 12);
             this.Height = this.panelContainer.Height + 11;
         }
 
@@ -76,10 +76,11 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="info"></param>
         /// <returns></returns>
-        protected override string GetCurrentUrl()
+        protected override string GetUrl(UrlInfo info)
         {
-            return base.GetCurrentUrl();
+            return info.BaseUrl;
         }
 
         /// <summary>
@@ -94,7 +95,7 @@
 
         protected override IList<BaseItem> GetItems(WebPage wp)
         {
-            IList<Topic> topics = TopicFactory.GetTop10Topics(wp);
+            IList<Topic> topics = TopicFactory.CreateTop10Topics(wp);
             IList<BaseItem> list = new List<BaseItem>();
             foreach (Topic topic in topics)
             {
@@ -162,6 +163,7 @@
             if (linklbl != null && this.OnTopLinkClicked != null)
             {
                 this.OnTopLinkClicked(sender, e);
+                e.Link.Visited = true;
             }
         }
 
@@ -176,6 +178,7 @@
             if (linklbl != null && this.OnTopBoardLinkClicked != null)
             {
                 this.OnTopBoardLinkClicked(sender, e);
+                e.Link.Visited = true;
             }
         }
     }

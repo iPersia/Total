@@ -1,7 +1,9 @@
 ﻿namespace Nzl.Web.Smth.Datas
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Xml;
     using Page;
     using Utils;
 
@@ -22,6 +24,11 @@
         /// 
         /// </summary>
         private Dictionary<string, string> _dicBoards = new Dictionary<string, string>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private TreeNode _treenodeRoot = new TreeNode();
         #endregion
 
         #region Ctors.
@@ -41,7 +48,12 @@
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += Bw_DoWork;
             bw.RunWorkerCompleted += Bw_RunWorkerCompleted;
-            bw.RunWorkerAsync(@"http://m.newsmth.net/section");
+
+            WorkerArgs e = new WorkerArgs();
+            e.SectionUrl = @"http://m.newsmth.net/section";
+            e.Node = this._treenodeRoot;
+
+            bw.RunWorkerAsync(e);
         }
 
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -52,35 +64,61 @@
         {
             try
             {
-                Message msg = new Message();
-                msg.DateTime = System.DateTime.Now;
-                msg.Source = this.ToString();
-                msg.Detail = e.Argument as string;
-                msg.Type = MessageType.Information;
-                MessageQueue.Enqueue(msg);
-
-                WebPage wp = new WebPage(e.Argument as string);
-                IList<BaseItem> bsList = SectionUtil.GetSectionsAndBoards(wp);
-                foreach (BaseItem bi in bsList)
+                WorkerArgs args = e.Argument as WorkerArgs;
+                if (args != null)
                 {
-                    Board board = bi as Board;
-                    if (board != null)
-                    {
-                        this.AddBoard(board.Code, board.Name);
-                    }
+                    Message msg = new Message();
+                    msg.DateTime = System.DateTime.Now;
+                    msg.Source = this.ToString();
+                    msg.Detail = args.SectionUrl;
+                    msg.Type = MessageType.Information;
+                    MessageQueue.Enqueue(msg);
 
-                    Section section = bi as Section;
-                    if (section != null)
+                    WebPage wp = new WebPage(args.SectionUrl);
+                    IList<BaseItem> bsList = SectionUtil.GetSectionsAndBoards(wp);
+                    foreach (BaseItem bi in bsList)
                     {
-                        BackgroundWorker bw = new BackgroundWorker();
-                        bw.DoWork += Bw_DoWork;
-                        bw.RunWorkerCompleted += Bw_RunWorkerCompleted;
-                        bw.RunWorkerAsync(@"http://m.newsmth.net/section/" + section.Code);
+                        ///Board
+                        {
+                            Board board = bi as Board;
+                            if (board != null)
+                            {
+                                TreeNode tnBoard = new TreeNode();
+                                tnBoard.Item = board;
+                                tnBoard.Parent = args.Node;
+                                args.Node.AddChild(board.Code, tnBoard);
+
+                                this.AddBoard(board.Code, board.Name);
+                            }
+                        }
+
+                        ///Section
+                        {
+                            Section section = bi as Section;
+                            if (section != null)
+                            {
+                                TreeNode tnSection = new TreeNode();
+                                tnSection.Item = section;
+                                tnSection.Parent = args.Node;
+                                args.Node.AddChild(section.Code, tnSection);
+
+                                BackgroundWorker bw = new BackgroundWorker();
+                                bw.DoWork += Bw_DoWork;
+                                bw.RunWorkerCompleted += Bw_RunWorkerCompleted;
+
+                                WorkerArgs newArgs = new WorkerArgs();
+                                newArgs.SectionUrl = @"http://m.newsmth.net/section/" + section.Code;
+                                newArgs.Node = tnSection;
+
+                                bw.RunWorkerAsync(newArgs);
+                            }
+                        }
                     }
                 }
             }
-            catch
+            catch (Exception exp)
             {
+                MessageQueue.Enqueue(MessageFactory.CreateMessage(exp));
             }
         }
 
@@ -112,9 +150,29 @@
             }
             else
             {
-                try {
+                try
+                {
                     this._dicBoards.Add(engName, chnName);
-                }catch { };
+                }
+                catch { };
+            }
+        }
+
+        private class WorkerArgs
+        {
+            public string SectionUrl
+            {
+                get;
+                set;
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public TreeNode Node
+            {
+                get;
+                set;
             }
         }
         #endregion

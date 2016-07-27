@@ -5,7 +5,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public class Mail
+    public class Mail : BaseItem
     {
         /// <summary>
         /// 

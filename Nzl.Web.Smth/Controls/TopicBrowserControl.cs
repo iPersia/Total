@@ -304,18 +304,26 @@
         /// <returns></returns>
         private ThreadControl CreateThreadControl(Thread thread)
         {
-            int width = this.panel.Width - 4;
-            ThreadControl tc = new ThreadControl(width);
-            tc.Thread = thread;
-            tc.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
-            tc.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
-            tc.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
-            tc.OnDeleteLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
-            tc.OnReplyLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
-            tc.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
-            tc.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
-            tc.OnTextBoxMouseWheel += new MouseEventHandler(TopicForm_MouseWheel);
-            return tc;
+            try
+            {
+                int width = this.panel.Width - 4;
+                ThreadControl tc = new ThreadControl(width);
+                tc.Thread = thread;
+                tc.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
+                tc.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
+                tc.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
+                tc.OnDeleteLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
+                tc.OnReplyLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
+                tc.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
+                tc.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
+                tc.OnTextBoxMouseWheel += new MouseEventHandler(TopicForm_MouseWheel);
+                return tc;
+            }
+            catch (Exception e)
+            {
+                MessageQueue.Enqueue(MessageFactory.CreateMessage(e));
+                return null;
+            }
         }
         #endregion
 
@@ -784,7 +792,7 @@
                 this.linklblBoard.Links.Add(0, board.Length, "http://m.newsmth.net/board/" + engBoardName);
             }
 
-            this.linklblReply.Visible = LoginForm.IsLogin;
+            this.linklblReply.Visible = LogStatus.Instance.IsLogin;
         }
 
         /// <summary>

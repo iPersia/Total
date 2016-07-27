@@ -19,12 +19,26 @@
         /// </summary>
         public event LinkLabelLinkClickedEventHandler OnIDLinkClick;
 
+        #region Properties
+        /// <summary>
+        /// 
+        /// </summary>
+        public static int ControlHeight
+        {
+            get
+            {
+                return 45;
+            }
+        }
+        #endregion
+
         /// <summary>
         /// Ctor.
         /// </summary>
         public MailControl()
         {
             InitializeComponent();
+            this.Height = MailControl.ControlHeight;
             this.linklblAuthor.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblAuthor_LinkClicked);
             this.linklblTitle.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblTitle_LinkClicked);
         }

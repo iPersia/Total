@@ -14,7 +14,12 @@
     using Utils;
 
     /// <summary>
-    /// 
+    /// NOTE:
+    /// When clear the linklabel's links, the linklabel will lose focus.
+    /// This causes the SectionNavigationControl lost focus, and the 
+    /// SectionNavigationControl's contaier will deactive.
+    /// So when the linklabel lose focus, the SectionNavigationControl must
+    /// be focused.
     /// </summary>
     public partial class SectionNavigationControl : BaseControl
     {
@@ -35,6 +40,11 @@
         /// 
         /// </summary>
         private int _margin = 4;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Control _parentControl = null;
         #endregion
 
         #region Ctor.
@@ -44,6 +54,30 @@
         public SectionNavigationControl()
         {
             InitializeComponent();
+            this.linklblPrevious.LostFocus += LinklblPrevious_LostFocus;
+        }
+
+        /// <summary>
+        /// When clear the linklabel's links, the linklabel will lose focus.
+        /// This causes the SectionNavigationControl lost focus, and the 
+        /// SectionNavigationControl's contaier will deactive.
+        /// So when the linklabel lose focus, the SectionNavigationControl must
+        /// be focused.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LinklblPrevious_LostFocus(object sender, EventArgs e)
+        {
+            this.Focus();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctl"></param>
+        public void SetParent(Control ctl)
+        {
+            this._parentControl = ctl;
         }
         #endregion
 
@@ -55,6 +89,7 @@
             this.FetchPage();
             this.linklblPrevious.LinkClicked += LinklblPrevious_LinkClicked;
             this.panel.MouseWheel += Panel_MouseWheel;
+            this.btnRefresh.Left = this.panelUp.Width / 2 - this.btnRefresh.Width / 2;
         }
 
         #region override
@@ -155,8 +190,8 @@
         /// <param name="e"></param>
         private void Sc_OnLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.SetUrlInfo(false);
             this.SetBaseUrl(e.Link.LinkData.ToString());
+            this.SetUrlInfo(false);            
             this.FetchPage();
         }
 
@@ -184,6 +219,17 @@
             this.SetBaseUrl(e.Link.LinkData.ToString());
             this.FetchPage();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            this.SetUrlInfo(false);
+            this.FetchPage();
+        }
         #endregion
 
         #region private
@@ -207,8 +253,12 @@
                 ///Section name.
                 this.linklblSectionName.Text = CommonUtil.GetMatch(@"<div class=\Wmenu sp\W><a [^>]+>首页</a>\|(?'SectionName'[^<]+)</div>", wp.Html, "SectionName");
                 this.linklblSectionName.Links.Clear();
+                if (this._parentControl != null)
+                {
+                    this._parentControl.Text = this.linklblSectionName.Text;
+                }
             }
         }
-        #endregion
+        #endregion        
     }
 }
