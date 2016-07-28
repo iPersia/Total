@@ -215,7 +215,8 @@
                     return false;
                 }
 
-                if (wp.Html.Contains("<div class=\"sp hl f\">指定的版面不存在</div>"))
+                if (wp.Html.Contains("<div class=\"sp hl f\">指定的版面不存在</div>") ||
+                    wp.Html.Contains("<div class=\"sp hl f\">指定的文章不存在或链接错误</div>"))
                 {
                     info.Status = PageStatus.NotFound;
                     return false;
@@ -284,6 +285,15 @@
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="flag"></param>
+        protected virtual void SetCtlEnabled(bool flag)
+        {
+
         }
 
         /// <summary>
@@ -479,6 +489,8 @@
             {
                 WorkCompletedBase(e);
             }
+
+            this.SetCtlEnabled(true);
         }
 
         /// <summary>
@@ -534,6 +546,7 @@
 #if (DEBUG)
                 Nzl.Web.Util.CommonUtil.ShowMessage(System.DateTime.Now + "\t " + this.GetType().ToString() + "\n FetecPage's index is equal to " + urlInfo.Index);
 #endif
+                SetCtlEnabled(false);
                 return true;
             }
 

@@ -92,6 +92,36 @@
         {
             this._parentForm = parent;
         }
+
+        /// <summary>
+        /// Clear all tabpages and windows.
+        /// </summary>
+        public void Clear()
+        {
+            try
+            {
+                foreach (TabPage tp in this.tcTopics.TabPages)
+                {
+                    tp.Dispose();
+                }
+
+                this.tcTopics.TabPages.Clear();
+                GC.Collect();
+            }
+            catch { };
+
+            try
+            {
+                foreach (Form form in this._dicWindows.Values)
+                {
+                    form.Dispose();
+                }
+
+                this._dicWindows.Clear();
+                GC.Collect();
+            }
+            catch { };
+        }
         #endregion
 
         #region override
@@ -114,14 +144,14 @@
         /// <param name="url"></param>
         public void AddTopic(string url, string subject)
         {
-            this.Text = subject; 
+            this.Text = subject;
             string key = "tp" + url;
             ///Exsits
             {
                 TabPage tp = GetTabPage(url);
                 if (tp != null)
                 {
-                    this.tcTopics.SelectedTab = tp;                    
+                    this.tcTopics.SelectedTab = tp;
                     return;
                 }
             }
@@ -144,11 +174,11 @@
 
                 TabPage tp = new TabPage();
                 tp.Name = key;
-                tp.Text = subject==null ? "Unknown" : subject.Length > 8 ? subject.Substring(0, 8) + ".." : "" + subject; 
+                tp.Text = subject == null ? "Unknown" : subject.Length > 8 ? subject.Substring(0, 8) + ".." : "" + subject;
                 //tp.Text = subject;
                 tp.ToolTipText = subject;
                 tp.Controls.Add(tbc);
-                this.tcTopics.TabPages.Add(tp);                
+                this.tcTopics.TabPages.Add(tp);
                 this.tcTopics.SelectedTab = tp;
             }
         }
@@ -180,10 +210,6 @@
             {
                 e.Link.Tag = "Success";
             }
-            else
-            {
-                e.Link.Tag = "Failure";
-            }
         }
 
         /// <summary>
@@ -214,10 +240,6 @@
                     if (DialogResult.OK == newThreadForm.ShowDialog(this))
                     {
                         e.Link.Tag = "Success";
-                    }
-                    else
-                    {
-                        e.Link.Tag = "Failure";
                     }
                 }
             }
@@ -283,10 +305,6 @@
                     {
                         e.Link.Tag = "Success";
                     }
-                    else
-                    {
-                        e.Link.Tag = "Failure";
-                    }
                 }
             }
         }
@@ -315,10 +333,6 @@
                         {
                             e.Link.Tag = "Success";
                         }
-                        else
-                        {
-                            e.Link.Tag = "Failure";
-                        }
                     }
                 }
             }
@@ -334,13 +348,13 @@
         public void AddBoard(string url, string title)
         {
             this.Text = title;
-            string key = "tp" + url;            
+            string key = "tp" + url;
             ///Exsits
             {
                 TabPage tp = GetTabPage(url);
                 if (tp != null)
                 {
-                    this.tcTopics.SelectedTab = tp;                    
+                    this.tcTopics.SelectedTab = tp;
                     return;
                 }
             }
@@ -417,7 +431,10 @@
         {
             this.Hide();
             e.Cancel = true;
-            this._parentForm.Focus();
+            if (this._parentForm != null)
+            {
+                this._parentForm.Focus();
+            }
         }
 
         /// <summary>
@@ -550,7 +567,10 @@
         /// <param name="e"></param>
         private void btnMail_Click(object sender, EventArgs e)
         {
-            (new TestForm()).Show();
+            ShowFormOnCenterParent(MailBoxForm.Instance);
+
+            //ShowFormOnCenterParent(this.GetRegisteredForm<MailBoxForm>());
+
             //MailBoxForm form = this.GetRegisteredForm<MailBoxForm>();
             //if (form != null)
             //{

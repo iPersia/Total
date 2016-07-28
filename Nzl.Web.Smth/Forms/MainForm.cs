@@ -60,6 +60,25 @@
                 this.Hide();
                 this.nfiMain.Visible = true;
             }
+
+            try
+            {
+                TabbedBrowserForm.Instance.Hide();
+                TabbedBrowserForm.Instance.Clear();
+                TabbedBrowserForm.Instance.Dispose();
+                GC.Collect();
+                Top10sForm.Instance.Hide();
+                Top10sForm.Instance.Dispose();
+                GC.Collect();
+                LoginForm.Instance.Hide();
+                LoginForm.Instance.Dispose();
+                GC.Collect();
+                MessageCenterForm.Instance.Hide();
+                MessageCenterForm.Instance.Dispose();
+                GC.Collect();
+            }
+            catch
+            { }
         }
 
         /// <summary>

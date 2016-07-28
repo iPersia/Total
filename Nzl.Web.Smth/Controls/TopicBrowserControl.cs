@@ -203,7 +203,7 @@
             base.OnLoad(e);
             this.panel.MouseWheel += new MouseEventHandler(TopicForm_MouseWheel);
             this.SetUrlInfo(1, false);
-            this.SetBtnEnabled(!this.FetchPage());
+            this.FetchPage();
         }
 
         /// <summary>
@@ -239,8 +239,6 @@
                 this.lblPage2.Text = this.lblPage1.Text;                
                 this._resultUrlInfo = info;
             }
-
-            SetBtnEnabled(true);
         }
 
         /// <summary>
@@ -295,6 +293,34 @@
         protected override string GetUrl(UrlInfo info)
         {
             return base.GetUrl(info) + (string.IsNullOrEmpty(this._targetUserID) ? "" : "&au=" + this._targetUserID);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="flag"></param>
+        protected override void SetCtlEnabled(bool flag)
+        {
+            base.SetCtlEnabled(flag);
+            this.panel.Enabled = flag;
+
+            this.btnFirst1.Enabled = flag;
+            this.btnGo1.Enabled = flag;
+            this.btnLast1.Enabled = flag;
+            this.btnNext1.Enabled = flag;
+            this.btnPrev1.Enabled = flag;
+
+            this.btnFirst2.Enabled = flag;
+            this.btnGo2.Enabled = flag;
+            this.btnLast2.Enabled = flag;
+            this.btnNext2.Enabled = flag;
+            this.btnPrev2.Enabled = flag;
+
+            this.txtGoTo1.Enabled = flag;
+            this.txtGoTo2.Enabled = flag;
+
+            this.btnSettings.Enabled = flag;
+            this.btnRefresh.Enabled = flag;
         }
 
         /// <summary>
@@ -382,7 +408,7 @@
                         this.SetUrlInfo(true);
                         if (this._browserType == BrowserType.FirstReply)
                         {
-                            this.SetBtnEnabled(!this.FetchNextPage());
+                            this.FetchNextPage();
                         }
                         //else
                         //{
@@ -414,11 +440,11 @@
             if (this._browserType == BrowserType.FirstReply)
             {
                 this.SetUrlInfo(1, false);
-                this.SetBtnEnabled(!this.FetchPage());
+                this.FetchPage();
             }
             else
             {
-                this.SetBtnEnabled(!this.FetchLastPage());
+                this.FetchLastPage();
             }   
         }
 
@@ -432,11 +458,11 @@
             this.SetUrlInfo(false);
             if (this._browserType == BrowserType.LastReply)
             {
-                this.SetBtnEnabled(!this.FetchNextPage());
+                this.FetchNextPage();
             }
             else
             {
-                this.SetBtnEnabled(!this.FetchPrevPage());
+                this.FetchPrevPage();
             }
         }
 
@@ -450,11 +476,11 @@
             this.SetUrlInfo(false);
             if (this._browserType == BrowserType.FirstReply)
             {
-                this.SetBtnEnabled(!this.FetchNextPage());
+                this.FetchNextPage();
             }
             else
             {
-                this.SetBtnEnabled(!this.FetchPrevPage());
+                this.FetchPrevPage();
             };
         }
 
@@ -469,11 +495,11 @@
             if (this._browserType == BrowserType.LastReply)
             {
                 this.SetUrlInfo(1, false);
-                this.SetBtnEnabled(!this.FetchPage());
+                this.FetchPage();
             }
             else
             {
-                this.SetBtnEnabled(!this.FetchLastPage());
+                this.FetchLastPage();
             }            
         }
 
@@ -508,7 +534,7 @@
             else
             {
                 this._updatingTimer.Stop();
-                this.SetBtnEnabled(!this.FetchPage());
+                this.FetchPage();
             }
         }
 
@@ -520,7 +546,7 @@
         private void _updatingTimer_Tick(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            this.SetBtnEnabled(!this.FetchLastPage());
+            this.FetchLastPage();
         }
 
         /// <summary>
@@ -559,7 +585,7 @@
                     this.SetUrlInfo(this._resultUrlInfo.Total - pageIndex + 1, false);
                 }
 
-                this.SetBtnEnabled(!this.FetchPage());
+                this.FetchPage();
                 this.txtGoTo1.Text = this.txtGoTo2.Text = "";
             }
             catch (Exception exp)
@@ -588,7 +614,7 @@
                 link.Description = this._postUrl;
                 LinkLabelLinkClickedEventArgs exe = new LinkLabelLinkClickedEventArgs(link);                
                 this.OnTopicReplyLinkClicked(sender, exe);
-                if (exe.Link.Tag.ToString() == "Success")
+                if (exe.Link.Tag != null && exe.Link.Tag.ToString() == "Success")
                 {
                     this.SetUrlInfo(false);
                     this.FetchLastPage();
@@ -617,8 +643,9 @@
             if (this.OnTopicReplyLinkClicked != null)
             {
                 this.OnTopicReplyLinkClicked(sender, e);
-                if (e.Link.Tag.ToString() == "Success")
+                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Success")
                 {
+                    e.Link.Tag = null;
                     this.SetUrlInfo(false);
                     this.FetchLastPage();
                 }
@@ -713,8 +740,9 @@
             if (this.OnThreadEditLinkClicked != null)
             {
                 this.OnThreadEditLinkClicked(sender, e);
-                if (e.Link.Tag.ToString() == "Success")
+                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Success")
                 {
+                    e.Link.Tag = null;
                     this.SetUrlInfo(false);
                     this.FetchLastPage();
                 }
@@ -731,8 +759,9 @@
             if (this.OnThreadDeleteLinkClicked != null)
             {
                 this.OnThreadDeleteLinkClicked(sender, e);
-                if (e.Link.Tag.ToString() == "Success")
+                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Success")
                 {
+                    e.Link.Tag = null;
                     this.SetUrlInfo(false);
                     this.FetchPage();
                 }
@@ -794,32 +823,6 @@
 
             this.linklblReply.Visible = LogStatus.Instance.IsLogin;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="flag"></param>
-        private void SetBtnEnabled(bool flag)
-        {
-            this.panel.Enabled = flag;
-
-            this.btnFirst1.Enabled = flag;
-            this.btnGo1.Enabled = flag;
-            this.btnLast1.Enabled = flag;
-            this.btnNext1.Enabled = flag;
-            this.btnPrev1.Enabled = flag;
-            
-            this.btnFirst2.Enabled = flag;
-            this.btnGo2.Enabled = flag;
-            this.btnLast2.Enabled = flag;
-            this.btnNext2.Enabled = flag;
-            this.btnPrev2.Enabled = flag;
-
-            this.txtGoTo1.Enabled = flag;
-            this.txtGoTo2.Enabled = flag;
-            
-            this.btnSettings.Enabled = flag;
-        }        
 
         /// <summary>
         /// 

@@ -15,23 +15,18 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class BoardBrowserControl : BaseControl
+    public partial class XBoxControl : BaseControl
     {
         #region Event
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnTopicCreateIDLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnMailLinkClick;
 
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnTopicLastIDLinkClicked;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnTopicLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnUserLinkClick;
         #endregion
 
         #region Variable
@@ -39,34 +34,52 @@
         /// 
         /// </summary>
         private int _margin = 4;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Control _parentControl = null;
         #endregion
 
         #region Ctor.
         /// <summary>
         /// Ctor.
         /// </summary>
-        public BoardBrowserControl()
+        public XBoxControl()
         {
-            InitializeComponent();
-            this.Height = System.Windows.Forms.SystemInformation.VirtualScreen.Height - 200;
-            if (this.Height > 800)
-            {
-                this.Height = 800;
-            }
-
-            if (this.Height < 480)
-            {
-                this.Height = 480;
-            }
+            InitializeComponent();            
         }
 
         /// <summary>
         /// Ctor.
         /// </summary>
-        public BoardBrowserControl(string boardUrl)
+        public XBoxControl(string mailUrl)
             : this()
         {
-            this.SetBaseUrl(boardUrl);
+            this.SetBaseUrl(mailUrl);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctl"></param>
+        public void SetParent(Control ctl)
+        {
+            this._parentControl = ctl;
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// 
+        /// </summary>
+        [Browsable(true)]
+        public string Url
+        {
+            set
+            {
+                this.SetBaseUrl(value);
+            }
         }
         #endregion
 
@@ -78,7 +91,10 @@
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            this.MouseWheel += new MouseEventHandler(BoardForm_MouseWheel);
+
+            this.panel.Size = new Size(this.Width - 10, MailControl.ControlHeight * 10 + 11);
+            this.Height = this.panel.Height + 7 + 60;
+
             this.SetUrlInfo(false);
             this.FetchPage();
         }
@@ -90,11 +106,11 @@
         /// <returns></returns>
         protected override IList<BaseItem> GetItems(WebPage wp)
         {
-            IList<Topic> topics = TopicFactory.CreateTopics(wp);
+            IList<Mail> mails = MailFactory.CreateMails(wp);
             IList<BaseItem> items = new List<BaseItem>();
-            foreach (Topic topic in topics)
+            foreach (Mail mail in mails)
             {
-                items.Add(topic);
+                items.Add(mail);
             }
 
             return items;
@@ -107,7 +123,6 @@
         protected override void WorkCompleted(UrlInfo info)
         {
             base.WorkCompleted(info);
-            UpdateBoardTitle(info.WebPage);
             this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
             this.lblPage2.Text = this.lblPage1.Text;
         }
@@ -143,7 +158,7 @@
         /// <returns></returns>
         protected override Control CreateControl(BaseItem item)
         {
-            return this.CreateThreadControl(item as Topic);
+            return this.CreateMailControl(item as Mail);
         }
 
         /// <summary>
@@ -179,15 +194,45 @@
         /// </summary>
         /// <param name="thread"></param>
         /// <returns></returns>
-        private TopicControl CreateThreadControl(Topic topic)
+        private MailControl CreateMailControl(Mail mail)
         {
-            TopicControl tc = new TopicControl(topic);
-            tc.Width = this.panel.Width - 2;;
-            tc.Left = 1;
-            tc.OnTopicLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnTopicLinkClicked);
-            tc.OnCreateIDLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnCreateIDLinkClicked);
-            tc.OnLastIDLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnLastIDLinkClicked);
-            return tc;
+            MailControl tc = new MailControl(mail);
+            tc.Width = this.panel.Width - 4;
+            tc.OnMailLinkClick += Tc_OnMailLinkClick;
+            tc.OnUserLinkClick += Tc_OnUserLinkClick;
+           return tc;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tc_OnUserLinkClick(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnUserLinkClick != null)
+            {
+                this.OnUserLinkClick(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tc_OnMailLinkClick(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnMailLinkClick != null)
+            {
+                this.OnMailLinkClick(sender, e);
+                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Success")
+                {
+                    e.Link.Tag = null;
+                    this.SetUrlInfo(true);
+                    this.FetchPage();
+                }
+            }
         }
         #endregion
 
@@ -298,121 +343,11 @@
         private void btnOpenInBrower_Click(object sender, EventArgs e)
         {
             CommonUtil.OpenUrl(this.GetCurrentUrl());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BoardForm_MouseWheel(object sender, MouseEventArgs e)
-        {
-            try
-            {
-
-                int panelContainerHeight = this.splitContainer2.Panel1.Height; //panel容器高度
-#if (DEBUG)
-                System.Diagnostics.Debug.WriteLine("---------------------***TopicForm_MouseWheel***---------------------");
-                System.Diagnostics.Debug.WriteLine("Sender is:" + sender.GetType().ToString());
-                System.Diagnostics.Debug.WriteLine("panelContainerHeight:" + panelContainerHeight);
-#endif
-                if (this.panel.Height > panelContainerHeight)
-                {
-#if (DEBUG)
-                    System.Diagnostics.Debug.WriteLine("oldYPos:" + this.panel.Location.Y);
-                    System.Diagnostics.Debug.WriteLine("Delta  :" + e.Delta);
-#endif
-                    int newYPos = this.panel.Location.Y + e.Delta;
-                    newYPos = newYPos > this._margin ? this._margin : newYPos;
-                    newYPos = newYPos < panelContainerHeight - this.panel.Height - this._margin
-                         ? panelContainerHeight - this.panel.Height - this._margin : newYPos;
-#if (DEBUG)
-                    System.Diagnostics.Debug.WriteLine("newYPos:" + newYPos);
-#endif
-                    this.panel.Location = new Point(this.panel.Location.X, newYPos);
-                    if (newYPos == panelContainerHeight - this.panel.Height - this._margin)
-                    {
-                        this.SetUrlInfo(true);
-                        this.FetchNextPage();
-#if (DEBUG)
-                        System.Diagnostics.Debug.WriteLine("FetchNextPage: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + newYPos);
-#endif
-                    }
-                }
-            }
-            catch (Exception exp)
-            {
-                if (Program.LoggerEnabled)
-                {
-                    Program.Logger.Error(exp.Message);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TopicControl_OnTopicLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                if (this.OnTopicLinkClicked != null)
-                {
-                    this.OnTopicLinkClicked(sender, e);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TopicControl_OnCreateIDLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                if (this.OnTopicCreateIDLinkClicked != null)
-                {
-                    this.OnTopicCreateIDLinkClicked(sender, e);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TopicControl_OnLastIDLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                if (this.OnTopicLastIDLinkClicked != null)
-                {
-                    this.OnTopicLastIDLinkClicked(sender, e);
-                }
-            }
-        }
+        }       
         #endregion
 
-        #region private
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="wp"></param>
-        private void UpdateBoardTitle(WebPage wp)
-        {
-            if (wp != null && wp.IsGood)
-            {
-                this.Text = CommonUtil.GetMatch("<div class=\"menu sp\"><a href=\"/\" accesskey=\"0\">首页</a>\\|版面-(?'Region'.+)</div><div id=\"m_main\">", wp.Html, 1);
-            }
-        }        
+        #region privates.
+        
         #endregion
     }
 }

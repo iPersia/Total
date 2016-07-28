@@ -297,10 +297,10 @@
             // linklblBoard
             // 
             this.linklblBoard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linklblBoard.Location = new System.Drawing.Point(445, 7);
+            this.linklblBoard.Location = new System.Drawing.Point(545, 7);
             this.linklblBoard.Name = "linklblBoard";
             this.linklblBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.linklblBoard.Size = new System.Drawing.Size(200, 12);
+            this.linklblBoard.Size = new System.Drawing.Size(100, 12);
             this.linklblBoard.TabIndex = 17;
             this.linklblBoard.TabStop = true;
             this.linklblBoard.Text = "Board";

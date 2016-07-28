@@ -117,35 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="bwFetchPage.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+  <metadata name="panelContainer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>44</value>
+  <metadata name="panel1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA
-        AAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
-        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
-        /wD///8A////AP///wD///8A////AP///wD9+/YH9efKM+/Xplfu1KBe8NuuUPjt2Cb///8A////AP//
-        /wD///8A////AP///wD///8A////AP///wDs0JZn2Z8q1dKNAP/SjQD/1I8M8+O2YJ/z4LxC////AP//
-        /wD///8A////AP///wD///8A////AP38+Abitlyj0o0A/9KNAP/TjAD/5bxukfrz3h/8+eoU////AP//
-        /wD///8A////AP///wD///8A////AP///wDoxX6B0o0A/9KNAP/TjAD/6smIdfv14B7x2D7B+fO+P///
-        /wD///8A////AP///wD///8A////AP///wD68+QZ1JMO8NKNAP/SjQD/26I0yvv24hzu0xrl79c8wvz9
-        8A79/voG////AP///wD///8A////AP///wD///8A8dyyTNKNAP/SjQD/0osA/+vOiHXz4nKN7MoA//Xu
-        plfo8X6B9frhKuL221L4/fYS////AOv45DrI7baj7vnpMPPhvELSjQD/0o0A/9GJAP/05bRK79Uo1+zJ
-        AP/38rhG2+k4x+v0pGLh9dVateim07foo9Oq5I3/quSN/+X23Ez+/vwB6sqKdNumOMfrzJJr/PnqFO3Q
-        EO7syQD/8+qOcOTvbJPU5Ar17vWsUuz31Ebg9Mtk3fTUYu/66i7///8A////AP///wD///8A////AP78
-        8gzt0Bzj68oA/+7RKtX19bxC0eUC/dPjAP/Z5iDe5e9wjv///wD///8A////AP///wD///8A////AP//
-        /wD///8A8dxYp+vKAP/syQD/9uygXvD0qFbT5RDu0uMA/9LjAP/5++Ae////AP///wD///8A////AP//
-        /wD///8A////APv0zDLrzAzz68oA//ntrlD///8A+fveH+3zmmTw9axS////AP///wD///8A////AP//
-        /wD///8A////AP///wD///8A+/bUKvryxDr///8A////AP///wD///8A////AP///wD///8A////AP//
-        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
-        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
-        /wD///8A//8AAP//AAD//wAA8H8AAMH/AACG/wAAhP8AAIl9AACJYQAA2T8AAPiHAAD4xwAA/P8AAP//
-        AAD//wAA//8AAA==
-</value>
-  </data>
+  <metadata name="mbcMailBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

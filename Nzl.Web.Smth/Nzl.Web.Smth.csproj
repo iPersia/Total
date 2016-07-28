@@ -81,6 +81,12 @@
     <Compile Include="Controls\MailBoxControl.Designer.cs">
       <DependentUpon>MailBoxControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\XBoxControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\XBoxControl.Designer.cs">
+      <DependentUpon>XBoxControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\BoardBrowserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -194,11 +200,11 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MailBoxForm.cs">
+    <Compile Include="Forms\TestForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MailBoxForm.Designer.cs">
-      <DependentUpon>MailBoxForm.cs</DependentUpon>
+    <Compile Include="Forms\TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MailDetailForm.cs">
       <SubType>Form</SubType>
@@ -236,11 +242,11 @@
     <Compile Include="Forms\TabbedBrowserForm.Designer.cs">
       <DependentUpon>TabbedBrowserForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TestForm.cs">
+    <Compile Include="Forms\MailBoxForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\TestForm.Designer.cs">
-      <DependentUpon>TestForm.cs</DependentUpon>
+    <Compile Include="Forms\MailBoxForm.Designer.cs">
+      <DependentUpon>MailBoxForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ThreadForm.cs">
       <SubType>Form</SubType>
@@ -288,6 +294,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\MailBoxControl.resx">
       <DependentUpon>MailBoxControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\XBoxControl.resx">
+      <DependentUpon>XBoxControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\BoardBrowserControl.resx">
       <DependentUpon>BoardBrowserControl.cs</DependentUpon>
@@ -337,8 +346,8 @@
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MailBoxForm.resx">
-      <DependentUpon>MailBoxForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MailDetailForm.resx">
       <DependentUpon>MailDetailForm.cs</DependentUpon>
@@ -358,8 +367,8 @@
     <EmbeddedResource Include="Forms\TabbedBrowserForm.resx">
       <DependentUpon>TabbedBrowserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TestForm.resx">
-      <DependentUpon>TestForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MailBoxForm.resx">
+      <DependentUpon>MailBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ThreadForm.resx">
       <DependentUpon>ThreadForm.cs</DependentUpon>

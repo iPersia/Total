@@ -35,7 +35,7 @@
                            + @"(?'MailUrl'/mail/[a-z]+/\d+)\W"
                            + @"(?'IsNew'(\Wclass=\Wtop\W)?)>"
                            + @"(?'MailTitle'[^<]+)</a><br\s*/><a href=\W/user/query/"
-                           + @"(?'Author'[a-zA-z][a-zA-Z0-9]{1,11})\W>[a-zA-z][a-zA-Z0-9]{1,11}</a>\|"
+                           + @"(?'Author'[a-zA-z][a-zA-Z0-9]{1,11})(\.)?\W>[a-zA-z][a-zA-Z0-9]{1,11}(\.)?</a>\|"
                            + @"(?'DateTime'[0-9,\-]{10}\s[0-9,\:]{8})</li>";
 
             MatchCollection mtMailCollection = Nzl.Web.Util.CommonUtil.GetMatchCollection(pattern, html);

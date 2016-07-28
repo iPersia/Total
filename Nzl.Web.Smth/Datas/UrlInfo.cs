@@ -162,7 +162,7 @@
         /// 
         /// </summary>
         [Description("The page is not found!")]
-        NotFound=1,
+        NotFound,
 
         /// <summary>
         /// 

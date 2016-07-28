@@ -1,78 +1,65 @@
 ﻿namespace Nzl.Web.Smth.Controls
 {
     using System;
-    using System.ComponentModel;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Drawing;
-    using System.Text.RegularExpressions;
+    using System.Data;
+    using System.Linq;
+    using System.Text;
     using System.Windows.Forms;
-    using Nzl.Web.Util;
-    using Nzl.Web.Page;
-    using Nzl.Web.Smth.Datas;
-    using Nzl.Web.Smth.Controls;
-    using Nzl.Web.Smth.Utils;
 
     /// <summary>
-    /// Class.
+    /// 
     /// </summary>
-    public partial class MailBoxControl : BaseControl
+    public partial class MailBoxControl : UserControl
     {
-        #region Event
+        #region event
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnTopicCreateIDLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnMailLinkClick;
 
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnTopicLastIDLinkClicked;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnTopicLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnUserLinkClick;
         #endregion
 
-        #region Variable
+        #region variable
         /// <summary>
         /// 
         /// </summary>
-        private int _margin = 4;
+        private string _inboxUrl = "http://m.newsmth.net/mail/inbox";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private string _sentUrl = "http://m.newsmth.net/mail/outbox";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private string _trashUrl = "http://m.newsmth.net/mail/deleted";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Timer _timerLoadingTops = new Timer();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private int _sectionIndex = 1;
         #endregion
 
         #region Ctor.
         /// <summary>
-        /// Ctor.
+        /// 
         /// </summary>
         public MailBoxControl()
         {
             InitializeComponent();
-            this.panel.Size = new Size(this.Width - 10, MailControl.ControlHeight * 10 + 11);
-            this.Height = this.panel.Height + 6 + 60;
-        }
-
-        /// <summary>
-        /// Ctor.
-        /// </summary>
-        public MailBoxControl(string mailUrl)
-            : this()
-        {
-            this.SetBaseUrl(mailUrl);
-        }
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// 
-        /// </summary>
-        [Browsable(true)]
-        public string Url
-        {
-            set
-            {
-                this.SetBaseUrl(value);
-            }
         }
         #endregion
 
@@ -84,173 +71,84 @@
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            this.SetUrlInfo(false);
-            this.FetchPage();
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="wp"></param>
-        /// <returns></returns>
-        protected override IList<BaseItem> GetItems(WebPage wp)
-        {
-            IList<Mail> mails = MailFactory.CreateMails(wp);
-            IList<BaseItem> items = new List<BaseItem>();
-            foreach (Mail mail in mails)
+            ///Inbox
             {
-                items.Add(mail);
+                TabPage tp = new TabPage();
+                tp.Name = "tpInbox";
+                tp.Text = "Inbox";
+                XBoxControl xbc = new XBoxControl();
+                xbc.Url = this._inboxUrl;
+                xbc.SetParent(tp);
+                xbc.OnMailLinkClick += Xbc_OnMailLinkClick;
+                xbc.OnUserLinkClick += Xbc_OnUserLinkClick;
+                tp.Controls.Add(xbc);
+                this.tcMailBox.TabPages.Add(tp);
+                this.Size = new Size(xbc.Width + 8, xbc.Height + 26);
             }
 
-            return items;
+
+            this._timerLoadingTops.Interval = 8 * 1000;
+            this._timerLoadingTops.Tick += new EventHandler(_timerLoadingTops_Tick);
+            this._timerLoadingTops.Start();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="state"></param>
-        protected override void WorkCompleted(UrlInfo info)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void _timerLoadingTops_Tick(object sender, EventArgs e)
         {
-            base.WorkCompleted(info);
-            this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
-            this.lblPage2.Text = this.lblPage1.Text;
-            SetBtnEnabled(true);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ctl"></param>
-        /// <param name="oeFlag"></param>
-        protected override void SetControl(Control ctl, bool oeFlag)
-        {
-            base.SetControl(ctl, oeFlag);
-            Topic topic = ctl.Tag as Topic;
-            if (topic != null && topic.IsTop)
+            if (this._sectionIndex > 2)
             {
-                ctl.ForeColor = Color.Red;
+                this._timerLoadingTops.Stop();
+                return;
             }
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected override Panel GetContainer()
-        {
-            return this.panel;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        protected override Control CreateControl(BaseItem item)
-        {
-            return this.CreateThreadControl(item as Mail);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="thread"></param>
-        /// <returns></returns>
-        private MailControl CreateThreadControl(Mail mail)
-        {
-            MailControl tc = new MailControl(mail);
-            tc.Width = this.panel.Width - 4;
-            tc.BorderStyle = BorderStyle.FixedSingle;
-            tc.Left = 1;
-           return tc;
-        }
-        #endregion
-
-        #region event handler.
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnFirst_Click(object sender, EventArgs e)
-        {
-            this.SetUrlInfo(1, false);
-            this.FetchPage();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnPrev_Click(object sender, EventArgs e)
-        {
-            this.SetUrlInfo(false);
-            this.FetchPrevPage();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-            this.SetUrlInfo(false);
-            this.FetchNextPage();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnLast_Click(object sender, EventArgs e)
-        {
-            this.SetUrlInfo(false);
-            this.FetchLastPage();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnGo_Click(object sender, EventArgs e)
-        {
-            try
+            ///Outbox
+            if (this._sectionIndex == 1)
             {
-                Button btn = sender as Button;
-                int pageIndex = Int32.MaxValue;
-                if (btn.Name == "btnGo1")
-                {
-                    if (string.IsNullOrEmpty(this.txtGoTo1.Text) == false)
-                    {
-                        pageIndex = System.Convert.ToInt32(this.txtGoTo1.Text);
-                    }
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(this.txtGoTo2.Text) == false)
-                    {
-                        pageIndex = System.Convert.ToInt32(this.txtGoTo2.Text);
-                    }
-                }
-
-                this.SetUrlInfo(pageIndex, false);
-                this.SetBtnEnabled(!this.FetchPage());
-                this.txtGoTo1.Text = this.txtGoTo2.Text = "";
+                TabPage tp = new TabPage();
+                tp.Name = "tpOutbox";
+                tp.Text = "Outbox";
+                XBoxControl xbc = new XBoxControl();
+                xbc.Url = this._sentUrl;
+                xbc.SetParent(tp);
+                xbc.OnMailLinkClick += Xbc_OnMailLinkClick;
+                xbc.OnUserLinkClick += Xbc_OnUserLinkClick;
+                tp.Controls.Add(xbc);
+                this.tcMailBox.TabPages.Add(tp);
             }
-            catch (Exception exp)
-            {
-                if (Program.LoggerEnabled)
-                {
-                    Program.Logger.Error(exp.Message);
-                }
 
-#if (DEBUG)
-                CommonUtil.ShowMessage(typeof(TopicBrowserControl), exp.Message);
-#endif
+            ///Trash
+            if (this._sectionIndex == 2)
+            {
+                TabPage tp = new TabPage();
+                tp.Name = "tpTrash";
+                tp.Text = "Trash";
+                XBoxControl xbc = new XBoxControl();
+                xbc.Url = this._trashUrl;
+                xbc.SetParent(tp);
+                xbc.OnMailLinkClick += Xbc_OnMailLinkClick;
+                xbc.OnUserLinkClick += Xbc_OnUserLinkClick;
+                tp.Controls.Add(xbc);
+                this.tcMailBox.TabPages.Add(tp);
+            }
+
+            this._sectionIndex++;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Xbc_OnUserLinkClick(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnUserLinkClick != null)
+            {
+                this.OnUserLinkClick(sender, e);
             }
         }
 
@@ -259,38 +157,13 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnOpenInBrower_Click(object sender, EventArgs e)
+        private void Xbc_OnMailLinkClick(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            CommonUtil.OpenUrl(this.GetCurrentUrl());
-        }       
-        #endregion
-
-        #region Fetch page.
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="flag"></param>
-        private void SetBtnEnabled(bool flag)
-        {
-            this.Enabled = flag;
-
-            this.btnFirst1.Enabled = flag;
-            this.btnGo1.Enabled = flag;
-            this.btnLast1.Enabled = flag;
-            this.btnNext1.Enabled = flag;
-            this.btnPrev1.Enabled = flag;
-
-            this.btnFirst2.Enabled = flag;
-            this.btnGo2.Enabled = flag;
-            this.btnLast2.Enabled = flag;
-            this.btnNext2.Enabled = flag;
-            this.btnPrev2.Enabled = flag;
-
-            this.txtGoTo1.Enabled = flag;
-            this.txtGoTo2.Enabled = flag;
-
-            this.panel.Enabled = flag;
-        }        
+            if (this.OnMailLinkClick != null)
+            {
+                this.OnMailLinkClick(sender, e);
+            }
+        }
         #endregion
     }
 }

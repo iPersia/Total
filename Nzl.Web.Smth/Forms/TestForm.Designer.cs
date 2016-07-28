@@ -28,33 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tcMail = new System.Windows.Forms.TabControl();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestForm));
             this.SuspendLayout();
-            // 
-            // tcMail
-            // 
-            this.tcMail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tcMail.Location = new System.Drawing.Point(0, 0);
-            this.tcMail.Name = "tcMail";
-            this.tcMail.SelectedIndex = 0;
-            this.tcMail.Size = new System.Drawing.Size(797, 565);
-            this.tcMail.TabIndex = 0;
             // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(797, 565);
-            this.Controls.Add(this.tcMail);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.ClientSize = new System.Drawing.Size(634, 480);
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "TestForm";
-            this.Text = "TestForm";
+            this.Text = "Test";
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TabControl tcMail;
     }
 }

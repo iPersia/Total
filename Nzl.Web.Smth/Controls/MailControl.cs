@@ -17,7 +17,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnIDLinkClick;
+        public event LinkLabelLinkClickedEventHandler OnUserLinkClick;
 
         #region Properties
         /// <summary>
@@ -69,9 +69,9 @@
         /// <param name="e"></param>
         private void linklblAuthor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnIDLinkClick != null)
+            if (this.OnUserLinkClick != null)
             {
-                this.OnIDLinkClick(sender, e);
+                this.OnUserLinkClick(sender, e);
             }
         }
 

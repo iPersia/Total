@@ -36,15 +36,16 @@
             this.tbcTopic.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbcTopic.Location = new System.Drawing.Point(0, 0);
             this.tbcTopic.Name = "tbcTopic";
-            this.tbcTopic.Size = new System.Drawing.Size(634, 454);
+            this.tbcTopic.Size = new System.Drawing.Size(756, 569);
             this.tbcTopic.TabIndex = 0;
+            this.tbcTopic.TargetUserID = null;
             this.tbcTopic.TopicUrl = null;
             // 
             // TopicForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 454);
+            this.ClientSize = new System.Drawing.Size(756, 569);
             this.Controls.Add(this.tbcTopic);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
