@@ -181,6 +181,7 @@
         public TopicBrowserControl()
         {
             InitializeComponent();
+            this.Text = "Topic";
         }
                 
         /// <summary>

@@ -32,6 +32,7 @@
         {
             InitializeComponent();
             this.SetBaseUrl(@"http://m.newsmth.net/favor");
+            this.Text = "User favourite board";
         }
         #endregion
 

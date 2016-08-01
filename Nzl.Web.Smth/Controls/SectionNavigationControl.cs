@@ -55,6 +55,7 @@
         {
             InitializeComponent();
             this.linklblPrevious.LostFocus += LinklblPrevious_LostFocus;
+            this.Text = "Section navigation";
         }
 
         /// <summary>

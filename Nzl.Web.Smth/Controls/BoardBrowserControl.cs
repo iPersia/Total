@@ -155,7 +155,7 @@
         /// <returns></returns>
         protected override Control CreateControl(BaseItem item)
         {
-            return this.CreateThreadControl(item as Topic);
+            return this.CreateTopicControl(item as Topic);
         }
 
         /// <summary>
@@ -189,7 +189,7 @@
         /// </summary>
         /// <param name="thread"></param>
         /// <returns></returns>
-        private TopicControl CreateThreadControl(Topic topic)
+        private TopicControl CreateTopicControl(Topic topic)
         {
             TopicControl tc = new TopicControl(topic);
             tc.Width = this.panel.Width - 2;;

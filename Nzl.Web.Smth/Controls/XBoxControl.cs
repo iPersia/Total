@@ -52,7 +52,8 @@
         /// </summary>
         public XBoxControl()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            this.Text = "Mailbox";
         }
 
         /// <summary>

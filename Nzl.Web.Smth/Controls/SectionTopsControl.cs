@@ -46,6 +46,7 @@
             InitializeComponent();
             this.panelContainer.Size = new Size(this.Width - 10, TopControl.ControlHeight * 10 + 12);
             this.Height = this.panelContainer.Height + 11;
+            this.Text = "Section top topic";
         }
 
         /// <summary>

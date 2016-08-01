@@ -471,14 +471,17 @@
                         MatchCollection mc = CommonUtil.GetMatchCollection(replayPattern, text);
                         if (mc != null && mc.Count > 0)
                         {
-                            string from = mc[0].Groups[0].Value;
-                            int index = this.richtxtContent.Text.IndexOf(from);
-                            if (index >= 0)
+                            foreach (Match mt in mc)
                             {
-                                this.richtxtContent.Select(index, from.Length);
-                                this.richtxtContent.SelectionColor = Color.FromArgb(96,96,96);
-                                this.richtxtContent.SelectionFont = new Font(this.richtxtContent.Font.FontFamily, 9, FontStyle.Regular);
-                                this.richtxtContent.DeselectAll();
+                                string from = mt.Groups[0].Value;
+                                int index = this.richtxtContent.Text.IndexOf(from);
+                                if (index >= 0)
+                                {
+                                    this.richtxtContent.Select(index, from.Length);
+                                    this.richtxtContent.SelectionColor = Color.FromArgb(96, 96, 96);
+                                    this.richtxtContent.SelectionFont = new Font(this.richtxtContent.Font.FontFamily, 9, FontStyle.Regular);
+                                    this.richtxtContent.DeselectAll();
+                                }
                             }
                         }
                     }
