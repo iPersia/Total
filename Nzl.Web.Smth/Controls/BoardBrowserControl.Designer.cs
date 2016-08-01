@@ -30,6 +30,7 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.btnOpenInBrower = new System.Windows.Forms.Button();
             this.btnGo1 = new System.Windows.Forms.Button();
             this.txtGoTo1 = new System.Windows.Forms.TextBox();
@@ -49,7 +50,6 @@
             this.btnFirst2 = new System.Windows.Forms.Button();
             this.btnNext2 = new System.Windows.Forms.Button();
             this.btnPrev2 = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -101,6 +101,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(635, 25);
             this.panel1.TabIndex = 0;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnRefresh.Location = new System.Drawing.Point(273, 1);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(56, 23);
+            this.btnRefresh.TabIndex = 19;
+            this.btnRefresh.TabStop = false;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseCompatibleTextRendering = true;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnOpenInBrower
             // 
@@ -349,19 +362,6 @@
             this.btnPrev2.UseCompatibleTextRendering = true;
             this.btnPrev2.UseVisualStyleBackColor = true;
             this.btnPrev2.Click += new System.EventHandler(this.btnPrev_Click);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRefresh.Location = new System.Drawing.Point(273, 1);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(56, 23);
-            this.btnRefresh.TabIndex = 19;
-            this.btnRefresh.TabStop = false;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseCompatibleTextRendering = true;
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // BoardBrowserControl
             // 

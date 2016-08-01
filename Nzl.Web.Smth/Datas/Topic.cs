@@ -32,6 +32,7 @@
                 this.Title = topic.Title;
                 this.Uri = topic.Uri;
                 this.Board = topic.Board;
+                this.Mode = topic.Mode;
             }
         }
 
@@ -132,14 +133,23 @@
             get;
             set;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool IsTop
+        
+        public TopicMode Mode
         {
             get;
             set;
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum TopicMode
+    {
+        Normal,
+
+        Top,
+
+        Magic
     }
 }

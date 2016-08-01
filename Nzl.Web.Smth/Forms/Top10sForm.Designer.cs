@@ -50,8 +50,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Top10sForm";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.Text = "Top10sForm";
             this.ResumeLayout(false);
 

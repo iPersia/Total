@@ -31,7 +31,7 @@
         LoginForm()
         {
             InitializeComponent();
-            this.lcLog.LogCompleted += LcLog_LogCompleted;
+            this.lcLog.OnLogCompleted += LcLog_LogCompleted;
         }
 
         /// <summary>

@@ -142,6 +142,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Name = "NewMailForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "New Mail";
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();

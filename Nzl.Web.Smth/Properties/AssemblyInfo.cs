@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("NewSmth PC Client")]
+[assembly: AssemblyTitle("New.Smth.Client")]
 [assembly: AssemblyDescription("A newsmth.net forum client created by Nesus!")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Nesus Co., Ltd")]

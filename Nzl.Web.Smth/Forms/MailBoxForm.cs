@@ -22,12 +22,27 @@
         /// <summary>
         /// 
         /// </summary>
+        private Form _parentForm = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public MailBoxForm()
         {
             InitializeComponent();
 
-            this.mbcMailBox.OnMailLinkClick += MbcMailBox_OnMailLinkClick;
-            this.mbcMailBox.OnUserLinkClick += MbcMailBox_OnUserLinkClick;
+            this.mbcMailBox.OnMailLinkClicked += MbcMailBox_OnMailLinkClicked;
+            this.mbcMailBox.OnUserLinkClicked += MbcMailBox_OnUserLinkClicked;
+            this.mbcMailBox.OnNewMailClicked += MbcMailBox_OnNewMailClicked;            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="form"></param>
+        public void SetParent(Form parent)
+        {
+            this._parentForm = parent;
         }
 
         /// <summary>
@@ -35,7 +50,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MbcMailBox_OnUserLinkClick(object sender, LinkLabelLinkClickedEventArgs e)
+        private void MbcMailBox_OnUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -51,7 +66,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MbcMailBox_OnMailLinkClick(object sender, LinkLabelLinkClickedEventArgs e)
+        private void MbcMailBox_OnMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -62,6 +77,33 @@
                 {
                     e.Link.Tag = "Success";
                 }
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MbcMailBox_OnNewMailClicked(object sender, EventArgs e)
+        {
+            NewMailForm newMailForm = new NewMailForm();
+            newMailForm.StartPosition = FormStartPosition.CenterParent;
+            newMailForm.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MailBoxForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
+            if (this._parentForm != null)
+            {
+                this._parentForm.Focus();
             }
         }
     }

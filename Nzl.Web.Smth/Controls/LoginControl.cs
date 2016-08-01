@@ -23,7 +23,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public event EventHandler LogCompleted;
+        public event EventHandler OnLogCompleted;
 
         /// <summary>
         /// 
@@ -45,7 +45,8 @@
             this.txtPassword.Left = this.panelContainer.Width / 2 - this.txtPassword.Width / 2;
             this.ckbAutoLogon.Left = this.panelContainer.Width / 2 - this.ckbAutoLogon.Width / 2;
             this.btnLogon.Left = this.panelContainer.Width / 2 - this.btnLogon.Width / 2;
-            this.lblNote.Left = this.panelUp.Width / 2 - this.lblNote.Width / 2;
+            this.btnLogout.Left = this.panelUp.Width / 2 - this.btnLogout.Width / 2;
+            this.lblNote.Left = this.panelUp.Width / 2 - this.lblNote.Width / 2;            
 
             TextBoxUtil.SetWatermark(this.txtUserID, "Input username...");
             TextBoxUtil.SetWatermark(this.txtPassword, "Input password...");
@@ -187,9 +188,9 @@
 
             this.Enabled = true;
 
-            if (this.LogCompleted != null)
+            if (this.OnLogCompleted != null)
             {
-                this.LogCompleted(this, new EventArgs());
+                this.OnLogCompleted(this, new EventArgs());
             }
         }
         #endregion

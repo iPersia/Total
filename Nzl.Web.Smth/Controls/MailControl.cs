@@ -12,12 +12,12 @@
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnMailLinkClick;
+        public event LinkLabelLinkClickedEventHandler OnMailLinkClicked;
 
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnUserLinkClick;
+        public event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
 
         #region Properties
         /// <summary>
@@ -35,7 +35,7 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        public MailControl()
+        MailControl()
         {
             InitializeComponent();
             this.Height = MailControl.ControlHeight;
@@ -50,15 +50,23 @@
         public MailControl(Mail mail)
             : this()
         {
+            this.Tag = mail;
             this.lblIndex.Text = mail.Index.ToString("00");
             this.linklblTitle.Text = CommonUtil.ReplaceSpecialChars(mail.Title);
             this.linklblTitle.Links.Add(0, this.linklblTitle.Text.Length, mail.Url);
             this.linklblAuthor.Text = mail.Author;
             this.linklblAuthor.Links.Add(0, mail.Author.Length, mail.Author);
             this.lblDT.Text = mail.DateTime;
-            if (mail.IsNew)
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override System.Drawing.Color ForeColor
+        {
+            set
             {
-                this.linklblTitle.BackColor = System.Drawing.Color.Red;
+                this.linklblTitle.LinkColor = value;
             }
         }
 
@@ -69,9 +77,9 @@
         /// <param name="e"></param>
         private void linklblAuthor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnUserLinkClick != null)
+            if (this.OnUserLinkClicked != null)
             {
-                this.OnUserLinkClick(sender, e);
+                this.OnUserLinkClicked(sender, e);
             }
         }
 
@@ -82,9 +90,9 @@
         /// <param name="e"></param>
         private void linklblTitle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnMailLinkClick != null)
+            if (this.OnMailLinkClicked != null)
             {
-                this.OnMailLinkClick(sender, e);
+                this.OnMailLinkClicked(sender, e);
             }
         }
     }

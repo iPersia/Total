@@ -94,7 +94,11 @@
             IList<BaseItem> items = new List<BaseItem>();
             foreach (Topic topic in topics)
             {
-                items.Add(topic);
+                if (topic.Mode == TopicMode.Normal ||
+                    topic.Mode == TopicMode.Magic)
+                {
+                    items.Add(topic);
+                }
             }
 
             return items;
@@ -121,9 +125,17 @@
         {
             base.SetControl(ctl, oeFlag);
             Topic topic = ctl.Tag as Topic;
-            if (topic != null && topic.IsTop)
+            if (topic != null)
             {
-                ctl.ForeColor = Color.Red;
+                if (topic.Mode == TopicMode.Top)
+                {
+                    ctl.ForeColor = Color.Red;
+                }
+
+                if (topic.Mode == TopicMode.Magic)
+                {
+                    ctl.ForeColor = Color.FromArgb(255, 128, 128);
+                }
             }
         }
 
@@ -153,24 +165,22 @@
         protected override void SetCtlEnabled(bool flag)
         {
             base.SetCtlEnabled(flag);
-            this.Enabled = flag;
+            this.panel.Enabled = flag;
 
             this.btnFirst1.Enabled = flag;
             this.btnGo1.Enabled = flag;
             this.btnLast1.Enabled = flag;
             this.btnNext1.Enabled = flag;
             this.btnPrev1.Enabled = flag;
+            this.txtGoTo1.Enabled = flag;
 
             this.btnFirst2.Enabled = flag;
             this.btnGo2.Enabled = flag;
             this.btnLast2.Enabled = flag;
             this.btnNext2.Enabled = flag;
-            this.btnPrev2.Enabled = flag;
-
-            this.txtGoTo1.Enabled = flag;
+            this.btnPrev2.Enabled = flag;            
             this.txtGoTo2.Enabled = flag;
-
-            this.panel.Enabled = flag;
+            
             this.btnRefresh.Enabled = flag;
         }
 

@@ -452,7 +452,7 @@
                         e.Result = urlInfo;
                         DoWorkBase(e);
 
-                        MessageQueue.Enqueue(MessageFactory.CreateMessage(this.GetType().ToString(), "Get webpage '" + targetUrl + "' success!"));
+                        MessageQueue.Enqueue(MessageFactory.CreateMessage(this.Text == null ? this.GetType().ToString(): this.Text, "Get webpage '" + targetUrl + "' success!"));
                     }
 
                     e.Result = urlInfo;

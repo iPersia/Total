@@ -72,7 +72,7 @@
         {
             string pattern = @"(<li>|<li class=\Whla\W>)<div><a href=\W"
                            + @"(?'TopicUrl'/article/(?'Board'[\w, %2E, %5F]+)/(?'Index'\d+))\W(| "
-                           + @"(?'IsTop'class=\W\w+\W))>"
+                           + @"(class=\W(?'Mode'\w+)\W))>"
                            + @"(?'Title'[\w, \W]+)</a>\("
                            + @"(?'Replies'\d+)\)</div><div>"
                            + @"(?'CreateDateTime'[\d, \:, \-, \s]+)<a href=\W/user/query/\w+\.?\W>"
@@ -84,14 +84,27 @@
             content = content.Replace("&nbsp;", " ");
             topic.Uri = @"http://m.newsmth.net" + CommonUtil.GetMatch(pattern, content, "TopicUrl");
             topic.Board = CommonUtil.GetMatch(pattern, content, "Board");
-            topic.Index = CommonUtil.GetMatch(pattern, content, "Index");
-            topic.IsTop = !String.IsNullOrEmpty(CommonUtil.GetMatch(pattern, content, "IsTop"));
+            topic.Index = CommonUtil.GetMatch(pattern, content, "Index");            
             topic.Title = CommonUtil.GetMatch(pattern, content, "Title");
             topic.Replies = System.Convert.ToInt32(CommonUtil.GetMatch(pattern, content, "Replies"));
             topic.CreateDateTime = CommonUtil.GetMatch(pattern, content, "CreateDateTime");
             topic.CreateID = CommonUtil.GetMatch(pattern, content, "CreateID");
             topic.LastThreadDateTime = CommonUtil.GetMatch(pattern, content, "LastThreadDateTime");
             topic.LastThreadID = CommonUtil.GetMatch(pattern, content, "LastThreadID");
+            string mode = CommonUtil.GetMatch(pattern, content, "Mode");
+            if (mode == "top")
+            {
+                topic.Mode = TopicMode.Top;
+            }
+            else if (mode == "m")
+            {
+                topic.Mode = TopicMode.Magic;
+            }
+            else
+            {
+                topic.Mode = TopicMode.Normal;
+            }
+
             return topic;
         }
 

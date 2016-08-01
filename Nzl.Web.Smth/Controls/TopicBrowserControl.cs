@@ -309,14 +309,13 @@
             this.btnLast1.Enabled = flag;
             this.btnNext1.Enabled = flag;
             this.btnPrev1.Enabled = flag;
+            this.txtGoTo1.Enabled = flag;
 
             this.btnFirst2.Enabled = flag;
             this.btnGo2.Enabled = flag;
             this.btnLast2.Enabled = flag;
             this.btnNext2.Enabled = flag;
-            this.btnPrev2.Enabled = flag;
-
-            this.txtGoTo1.Enabled = flag;
+            this.btnPrev2.Enabled = flag;            
             this.txtGoTo2.Enabled = flag;
 
             this.btnSettings.Enabled = flag;

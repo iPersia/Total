@@ -21,12 +21,17 @@
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnMailLinkClick;
+        public event LinkLabelLinkClickedEventHandler OnMailLinkClicked;
 
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnUserLinkClick;
+        public event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler OnNewMailClicked;
         #endregion
 
         #region Variable
@@ -135,8 +140,8 @@
         protected override void SetControl(Control ctl, bool oeFlag)
         {
             base.SetControl(ctl, oeFlag);
-            Topic topic = ctl.Tag as Topic;
-            if (topic != null && topic.IsTop)
+            Mail mail = ctl.Tag as Mail;
+            if (mail != null && mail.IsNew)
             {
                 ctl.ForeColor = Color.Red;
             }
@@ -168,24 +173,22 @@
         protected override void SetCtlEnabled(bool flag)
         {
             base.SetCtlEnabled(flag);
-            this.Enabled = flag;
+            this.panel.Enabled = flag;
 
             this.btnFirst1.Enabled = flag;
             this.btnGo1.Enabled = flag;
             this.btnLast1.Enabled = flag;
             this.btnNext1.Enabled = flag;
             this.btnPrev1.Enabled = flag;
+            this.txtGoTo1.Enabled = flag;
 
             this.btnFirst2.Enabled = flag;
             this.btnGo2.Enabled = flag;
             this.btnLast2.Enabled = flag;
             this.btnNext2.Enabled = flag;
             this.btnPrev2.Enabled = flag;
-
-            this.txtGoTo1.Enabled = flag;
             this.txtGoTo2.Enabled = flag;
-
-            this.panel.Enabled = flag;
+                        
             this.btnRefresh.Enabled = flag;
         }
 
@@ -198,8 +201,8 @@
         {
             MailControl tc = new MailControl(mail);
             tc.Width = this.panel.Width - 4;
-            tc.OnMailLinkClick += Tc_OnMailLinkClick;
-            tc.OnUserLinkClick += Tc_OnUserLinkClick;
+            tc.OnMailLinkClicked += Tc_OnMailLinkClicked;
+            tc.OnUserLinkClicked += Tc_OnUserLinkClicked;
            return tc;
         }
 
@@ -208,11 +211,11 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tc_OnUserLinkClick(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Tc_OnUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnUserLinkClick != null)
+            if (this.OnUserLinkClicked != null)
             {
-                this.OnUserLinkClick(sender, e);
+                this.OnUserLinkClicked(sender, e);
             }
         }
 
@@ -221,15 +224,15 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tc_OnMailLinkClick(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Tc_OnMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnMailLinkClick != null)
+            if (this.OnMailLinkClicked != null)
             {
-                this.OnMailLinkClick(sender, e);
+                this.OnMailLinkClicked(sender, e);
                 if (e.Link.Tag != null && e.Link.Tag.ToString() == "Success")
                 {
                     e.Link.Tag = null;
-                    this.SetUrlInfo(true);
+                    this.SetUrlInfo(false);
                     this.FetchPage();
                 }
             }
@@ -343,11 +346,24 @@
         private void btnOpenInBrower_Click(object sender, EventArgs e)
         {
             CommonUtil.OpenUrl(this.GetCurrentUrl());
-        }       
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            if (this.OnNewMailClicked != null)
+            {
+                this.OnNewMailClicked(sender, e);
+            }
+        }
         #endregion
 
         #region privates.
-        
+
         #endregion
     }
 }

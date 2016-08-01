@@ -50,6 +50,7 @@
             this.btnFirst2 = new System.Windows.Forms.Button();
             this.btnNext2 = new System.Windows.Forms.Button();
             this.btnPrev2 = new System.Windows.Forms.Button();
+            this.btnNew = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -87,6 +88,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnNew);
             this.panel1.Controls.Add(this.btnRefresh);
             this.panel1.Controls.Add(this.btnOpenInBrower);
             this.panel1.Controls.Add(this.btnGo1);
@@ -105,7 +107,7 @@
             // btnRefresh
             // 
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRefresh.Location = new System.Drawing.Point(273, 1);
+            this.btnRefresh.Location = new System.Drawing.Point(463, 1);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(56, 23);
             this.btnRefresh.TabIndex = 19;
@@ -119,9 +121,9 @@
             // 
             this.btnOpenInBrower.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenInBrower.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnOpenInBrower.Location = new System.Drawing.Point(479, 1);
+            this.btnOpenInBrower.Location = new System.Drawing.Point(525, 1);
             this.btnOpenInBrower.Name = "btnOpenInBrower";
-            this.btnOpenInBrower.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenInBrower.Size = new System.Drawing.Size(32, 23);
             this.btnOpenInBrower.TabIndex = 16;
             this.btnOpenInBrower.TabStop = false;
             this.btnOpenInBrower.Text = "OiB";
@@ -363,6 +365,19 @@
             this.btnPrev2.UseVisualStyleBackColor = true;
             this.btnPrev2.Click += new System.EventHandler(this.btnPrev_Click);
             // 
+            // btnNew
+            // 
+            this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnNew.Location = new System.Drawing.Point(274, 1);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(56, 23);
+            this.btnNew.TabIndex = 20;
+            this.btnNew.TabStop = false;
+            this.btnNew.Text = "New";
+            this.btnNew.UseCompatibleTextRendering = true;
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
             // XBoxControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -411,5 +426,6 @@
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.Panel panelContainer;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnNew;
     }
 }

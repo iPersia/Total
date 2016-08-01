@@ -7,16 +7,18 @@
     /// 
     /// </summary>
     public class BaseForm : Form
-    {        
+    {
         /// <summary>
         /// 
         /// </summary>
         public BaseForm()
             : base()
         {
-            this.Deactivate += BaseForm_Deactivate;            
+            this.Deactivate += BaseForm_Deactivate;
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>

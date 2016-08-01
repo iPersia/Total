@@ -48,9 +48,11 @@
             this.ClientSize = new System.Drawing.Size(756, 569);
             this.Controls.Add(this.tbcTopic);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Name = "TopicForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "Topic";
             this.ResumeLayout(false);
 

@@ -67,14 +67,29 @@
                 TabbedBrowserForm.Instance.Clear();
                 TabbedBrowserForm.Instance.Dispose();
                 GC.Collect();
-                Top10sForm.Instance.Hide();
-                Top10sForm.Instance.Dispose();
-                GC.Collect();
+
                 LoginForm.Instance.Hide();
                 LoginForm.Instance.Dispose();
                 GC.Collect();
+
+                Top10sForm.Instance.Hide();
+                Top10sForm.Instance.Dispose();
+                GC.Collect();
+
+                BoardNavigatorForm.Instance.Hide();
+                BoardNavigatorForm.Instance.Dispose();
+                GC.Collect();
+
                 MessageCenterForm.Instance.Hide();
                 MessageCenterForm.Instance.Dispose();
+                GC.Collect();
+
+                MailBoxForm.Instance.Hide();
+                MailBoxForm.Instance.Dispose();
+                GC.Collect();
+
+                FavorForm.Instance.Hide();
+                FavorForm.Instance.Dispose();
                 GC.Collect();
             }
             catch

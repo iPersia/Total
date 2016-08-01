@@ -13,7 +13,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class Top10sForm : Form
+    public partial class Top10sForm : BaseForm
     {
         /// <summary>
         /// 
@@ -38,6 +38,31 @@
         Top10sForm()
         {
             InitializeComponent();
+            this.Activated += Top10sForm_Activated;
+            this.Deactivate += Top10sForm_Deactivate;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Active
+        {
+            get
+            {
+                return this._bActive;
+            }
+        }
+
+        private bool _bActive = false;
+
+        private void Top10sForm_Deactivate(object sender, EventArgs e)
+        {
+            this._bActive = false;
+        }
+
+        private void Top10sForm_Activated(object sender, EventArgs e)
+        {
+            this._bActive = true;
         }
 
         /// <summary>
@@ -47,7 +72,6 @@
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
-            this.Deactivate += new EventHandler(Top10sForm_Deactivate);
 
             Top10sBrowserControl tbc = new Top10sBrowserControl();
             tbc.Name = "tbcTop10s";
@@ -84,16 +108,6 @@
             {
                 this.OnTopLinkClicked(sender, e);
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Top10sForm_Deactivate(object sender, EventArgs e)
-        {
-            this.Hide();
         }
     }
 }

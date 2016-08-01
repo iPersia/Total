@@ -69,7 +69,7 @@
                 {
                     Message msg = new Message();
                     msg.DateTime = System.DateTime.Now;
-                    msg.Source = this.ToString();
+                    msg.Source = "Loading section information!";
                     msg.Detail = args.SectionUrl;
                     msg.Type = MessageType.Information;
                     MessageQueue.Enqueue(msg);

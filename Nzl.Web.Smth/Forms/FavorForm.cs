@@ -7,6 +7,13 @@
     /// </summary>
     public partial class FavorForm : BaseForm
     {
+        #region Singleton
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FavorForm Instance = new FavorForm();
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
@@ -15,7 +22,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public FavorForm()
+        FavorForm()
         {
             InitializeComponent();
             this.fcFavor.OnBoardLinkClicked += FcFavor_OnBoardLinkClicked;

@@ -37,6 +37,7 @@
             this.txtMsg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtMsg.Location = new System.Drawing.Point(0, 0);
             this.txtMsg.Name = "txtMsg";
+            this.txtMsg.ReadOnly = true;
             this.txtMsg.Size = new System.Drawing.Size(574, 215);
             this.txtMsg.TabIndex = 0;
             this.txtMsg.Text = "";
@@ -47,7 +48,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(574, 215);
             this.Controls.Add(this.txtMsg);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
             this.Name = "MessageCenterForm";
             this.Text = "Message Center";

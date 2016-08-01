@@ -18,12 +18,17 @@
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnMailLinkClick;
+        public event LinkLabelLinkClickedEventHandler OnMailLinkClicked;
 
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnUserLinkClick;
+        public event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler OnNewMailClicked;
         #endregion
 
         #region variable
@@ -80,8 +85,9 @@
                 XBoxControl xbc = new XBoxControl();
                 xbc.Url = this._inboxUrl;
                 xbc.SetParent(tp);
-                xbc.OnMailLinkClick += Xbc_OnMailLinkClick;
-                xbc.OnUserLinkClick += Xbc_OnUserLinkClick;
+                xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
+                xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
+                xbc.OnNewMailClicked += Xbc_OnNewMailClicked;
                 tp.Controls.Add(xbc);
                 this.tcMailBox.TabPages.Add(tp);
                 this.Size = new Size(xbc.Width + 8, xbc.Height + 26);
@@ -92,7 +98,7 @@
             this._timerLoadingTops.Tick += new EventHandler(_timerLoadingTops_Tick);
             this._timerLoadingTops.Start();
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -115,8 +121,9 @@
                 XBoxControl xbc = new XBoxControl();
                 xbc.Url = this._sentUrl;
                 xbc.SetParent(tp);
-                xbc.OnMailLinkClick += Xbc_OnMailLinkClick;
-                xbc.OnUserLinkClick += Xbc_OnUserLinkClick;
+                xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
+                xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
+                xbc.OnNewMailClicked += Xbc_OnNewMailClicked;
                 tp.Controls.Add(xbc);
                 this.tcMailBox.TabPages.Add(tp);
             }
@@ -130,8 +137,9 @@
                 XBoxControl xbc = new XBoxControl();
                 xbc.Url = this._trashUrl;
                 xbc.SetParent(tp);
-                xbc.OnMailLinkClick += Xbc_OnMailLinkClick;
-                xbc.OnUserLinkClick += Xbc_OnUserLinkClick;
+                xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
+                xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
+                xbc.OnNewMailClicked += Xbc_OnNewMailClicked;
                 tp.Controls.Add(xbc);
                 this.tcMailBox.TabPages.Add(tp);
             }
@@ -144,11 +152,11 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Xbc_OnUserLinkClick(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Xbc_OnUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnUserLinkClick != null)
+            if (this.OnUserLinkClicked != null)
             {
-                this.OnUserLinkClick(sender, e);
+                this.OnUserLinkClicked(sender, e);
             }
         }
 
@@ -157,11 +165,24 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Xbc_OnMailLinkClick(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Xbc_OnMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnMailLinkClick != null)
+            if (this.OnMailLinkClicked != null)
             {
-                this.OnMailLinkClick(sender, e);
+                this.OnMailLinkClicked(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Xbc_OnNewMailClicked(object sender, EventArgs e)
+        {
+            if (this.OnNewMailClicked != null)
+            {
+                this.OnNewMailClicked(sender, e);
             }
         }
         #endregion

@@ -68,7 +68,10 @@
             this.Controls.Add(this.panelContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MailBoxForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "MailBox";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MailBoxForm_FormClosing);
             this.panelContainer.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

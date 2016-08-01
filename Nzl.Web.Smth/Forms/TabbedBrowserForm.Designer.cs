@@ -37,7 +37,6 @@
             this.btnLoadTop = new System.Windows.Forms.Button();
             this.btnLogon = new System.Windows.Forms.Button();
             this.btnMail = new System.Windows.Forms.Button();
-            this.btnHome = new System.Windows.Forms.Button();
             this.btnFavor = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnBoardNavi = new System.Windows.Forms.Button();
@@ -90,7 +89,6 @@
             this.panel1.Controls.Add(this.btnLoadTop);
             this.panel1.Controls.Add(this.btnLogon);
             this.panel1.Controls.Add(this.btnMail);
-            this.panel1.Controls.Add(this.btnHome);
             this.panel1.Controls.Add(this.btnFavor);
             this.panel1.Controls.Add(this.btnClear);
             this.panel1.Controls.Add(this.btnBoardNavi);
@@ -153,17 +151,6 @@
             this.btnMail.Visible = false;
             this.btnMail.Click += new System.EventHandler(this.btnMail_Click);
             // 
-            // btnHome
-            // 
-            this.btnHome.Location = new System.Drawing.Point(621, 3);
-            this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(75, 23);
-            this.btnHome.TabIndex = 2;
-            this.btnHome.Text = "Home";
-            this.btnHome.UseVisualStyleBackColor = true;
-            this.btnHome.Visible = false;
-            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
-            // 
             // btnFavor
             // 
             this.btnFavor.Location = new System.Drawing.Point(540, 4);
@@ -178,7 +165,7 @@
             // btnClear
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.Location = new System.Drawing.Point(886, 3);
+            this.btnClear.Location = new System.Drawing.Point(966, 4);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 1;
@@ -199,12 +186,13 @@
             // btnExit
             // 
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.Location = new System.Drawing.Point(966, 3);
+            this.btnExit.Location = new System.Drawing.Point(886, 4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
             this.btnExit.TabIndex = 0;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Visible = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // panel2
@@ -247,7 +235,6 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnHome;
         private System.Windows.Forms.Button btnLoadTop;
         private System.Windows.Forms.Button btnMessge;
         private System.Windows.Forms.Button btnLogon;

@@ -72,7 +72,7 @@
             // linklblDelete
             // 
             this.linklblDelete.AutoSize = true;
-            this.linklblDelete.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblDelete.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblDelete.Location = new System.Drawing.Point(134, 42);
             this.linklblDelete.Name = "linklblDelete";
             this.linklblDelete.Size = new System.Drawing.Size(47, 12);
@@ -85,7 +85,7 @@
             // linklblTransfer
             // 
             this.linklblTransfer.AutoSize = true;
-            this.linklblTransfer.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblTransfer.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblTransfer.Location = new System.Drawing.Point(63, 42);
             this.linklblTransfer.Name = "linklblTransfer";
             this.linklblTransfer.Size = new System.Drawing.Size(61, 12);
@@ -98,7 +98,7 @@
             // linklblReply
             // 
             this.linklblReply.AutoSize = true;
-            this.linklblReply.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblReply.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblReply.Location = new System.Drawing.Point(13, 42);
             this.linklblReply.Name = "linklblReply";
             this.linklblReply.Size = new System.Drawing.Size(40, 12);
@@ -130,7 +130,7 @@
             // 
             this.linklblID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblID.AutoSize = true;
-            this.linklblID.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblID.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblID.Location = new System.Drawing.Point(350, 42);
             this.linklblID.Name = "linklblID";
             this.linklblID.Size = new System.Drawing.Size(89, 12);
@@ -147,6 +147,8 @@
             this.Controls.Add(this.panel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MailDetailForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "Mail Detail";
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();

@@ -124,6 +124,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NewThreadForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "New Thread";
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();

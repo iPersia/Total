@@ -7,6 +7,13 @@
     /// </summary>
     public partial class BoardNavigatorForm : BaseForm
     {
+        #region Singleton
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly BoardNavigatorForm Instance = new BoardNavigatorForm();
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
@@ -15,7 +22,7 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        public BoardNavigatorForm()
+        BoardNavigatorForm()
         {
             InitializeComponent();
             this.sncSection.OnBoardLinkClicked += SncSection_OnBoardLinkClicked;

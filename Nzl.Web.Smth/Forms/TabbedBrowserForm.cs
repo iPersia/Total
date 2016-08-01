@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
+    using System.Reflection;
     using Nzl.Hook;
     using Nzl.Web.Page;
     using Nzl.Web.Smth.Common;
@@ -49,6 +50,11 @@
         /// 
         /// </summary>
         private UserActivityHook _uahKey = new UserActivityHook(false, true);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private string _assemblyTitle = null;
         #endregion
 
         #region Ctor
@@ -63,6 +69,20 @@
             _uahKey.Start();
 
             //(new TestForm()).ShowDialog(this);
+
+            this.Activated += TabbedBrowserForm_Activated;
+            this.Deactivate += TabbedBrowserForm_Deactivate;
+        }
+
+        private bool _bActive = false;
+        private void TabbedBrowserForm_Deactivate(object sender, EventArgs e)
+        {
+            _bActive = false;
+        }
+
+        private void TabbedBrowserForm_Activated(object sender, EventArgs e)
+        {
+            _bActive = true;
         }
 
         /// <summary>
@@ -121,6 +141,8 @@
                 GC.Collect();
             }
             catch { };
+
+            this._uahKey.Stop();
         }
         #endregion
 
@@ -134,6 +156,9 @@
             base.OnLoad(e);
             Top10sForm.Instance.OnTopLinkClicked += Instance_OnTopLinkClicked;
             Top10sForm.Instance.OnTopBoardLinkClicked += Instance_OnTopBoardLinkClicked;
+            BoardNavigatorForm.Instance.OnBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
+            FavorForm.Instance.OnFavorBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
+            this._assemblyTitle = this.GetAssemblyTitle();
         }
         #endregion
 
@@ -461,17 +486,22 @@
         /// <param name="e"></param>
         protected void Global_KeyUp(object sender, KeyExEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Global_KeyUp - " + HookUtil.GetForegroundWindowThreadProcessName());
-            System.Diagnostics.Debug.WriteLine("Global_KeyUp - " +
-                                               "Control.ModifierKeys " + Control.ModifierKeys + "\t" +
-                                               "Modifiers " + e.Modifiers + "\t" +
-                                               "Alt " + e.Alt + "\t" +
-                                               "Control " + e.Control + "\t" +
-                                               "Shift " + e.Shift + "\t" +
-                                               e.KeyCode + "\t" + e.KeyValue + "\t" + e.KeyData);
-            if (HookUtil.GetForegroundWindowThreadProcessName() == "Nzl.Web.Smth")
+            string fwtpName = HookUtil.GetForegroundWindowThreadProcessName();
+            //System.Diagnostics.Debug.WriteLine("Global_KeyUp - " + fwtpName);
+            //System.Diagnostics.Debug.WriteLine("Global_KeyUp - " +
+            //                                   "Control.ModifierKeys " + Control.ModifierKeys + "\t" +
+            //                                   "Modifiers " + e.Modifiers + "\t" +
+            //                                   "Alt " + e.Alt + "\t" +
+            //                                   "Control " + e.Control + "\t" +
+            //                                   "Shift " + e.Shift + "\t" +
+            //                                   e.KeyCode + "\t" + e.KeyValue + "\t" + e.KeyData);
+
+            //System.Diagnostics.Debug.WriteLine("Global_KeyUp - this._assemblyTitle = " + this._assemblyTitle);
+            if (fwtpName == this._assemblyTitle)
             {
-                if ((e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey) && Control.ModifierKeys == Keys.Control)
+                if ((e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey) && 
+                     Control.ModifierKeys == Keys.Control 
+                     && (this._bActive || Top10sForm.Instance.Active))
                 {
                     ShowTop10s();
                 }
@@ -511,18 +541,7 @@
         /// <param name="e"></param>
         private void btnBoardNavi_Click(object sender, EventArgs e)
         {
-            BoardNavigatorForm form = this.GetRegisteredForm<BoardNavigatorForm>();
-            if (form != null)
-            {
-                form.OnBoardLinkLableClicked -= Form_OnBoardLinkLableClicked;
-                form.OnBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
-                form.StartPosition = FormStartPosition.Manual;
-                int centerX = this.Location.X + this.Size.Width / 2;
-                int centerY = this.Location.Y + this.Size.Height / 2;
-                form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
-                form.Show();
-                form.Focus();
-            }
+            ShowFormOnCenterParent(BoardNavigatorForm.Instance);
         }
 
         /// <summary>
@@ -532,18 +551,7 @@
         /// <param name="e"></param>
         private void btnFavor_Click(object sender, EventArgs e)
         {
-            FavorForm form = this.GetRegisteredForm<FavorForm>();
-            if (form != null)
-            {
-                form.OnFavorBoardLinkLableClicked -= Form_OnBoardLinkLableClicked;
-                form.OnFavorBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
-                form.StartPosition = FormStartPosition.Manual;
-                int centerX = this.Location.X + this.Size.Width / 2;
-                int centerY = this.Location.Y + this.Size.Height / 2;
-                form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
-                form.Show();
-                form.Focus();
-            }
+            ShowFormOnCenterParent(FavorForm.Instance);
         }
 
         /// <summary>
@@ -567,20 +575,7 @@
         /// <param name="e"></param>
         private void btnMail_Click(object sender, EventArgs e)
         {
-            ShowFormOnCenterParent(MailBoxForm.Instance);
-
-            //ShowFormOnCenterParent(this.GetRegisteredForm<MailBoxForm>());
-
-            //MailBoxForm form = this.GetRegisteredForm<MailBoxForm>();
-            //if (form != null)
-            //{
-            //    form.StartPosition = FormStartPosition.Manual;
-            //    int centerX = this.Location.X + this.Size.Width / 2;
-            //    int centerY = this.Location.Y + this.Size.Height / 2;
-            //    form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
-            //    form.Show();
-            //    form.Focus();
-            //}
+            ShowFormAsDialog(MailBoxForm.Instance);
         }
 
         /// <summary>
@@ -604,7 +599,6 @@
             if (linklbl != null)
             {
                 TabbedBrowserForm.Instance.AddTopic(e.Link.LinkData.ToString(), linklbl.Text);
-                //SmthForm.Browser.AddTopic(e.Link.LinkData.ToString(), linklbl.Text);
                 TabbedBrowserForm.Instance.Show();
             }
         }
@@ -796,6 +790,19 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="form"></param>
+        private void ShowFormAsDialog(Form form)
+        {
+            if (form != null && form.IsDisposed == false)
+            {
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog(this);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         private void ShowTop10s()
         {
             Form form = Top10sForm.Instance;
@@ -807,6 +814,24 @@
                 form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
                 form.Visible = !form.Visible;
             }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private string GetAssemblyTitle()
+        {
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+            if (attributes.Length > 0)
+            {
+                AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                if (titleAttribute.Title != "")
+                {
+                    return titleAttribute.Title;
+                }
+            }
+            return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
         }
         #endregion        
     }

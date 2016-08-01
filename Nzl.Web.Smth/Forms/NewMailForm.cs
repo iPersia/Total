@@ -113,6 +113,7 @@
                 
                 if (result.Contains("成功"))
                 {
+                    this.DialogResult = DialogResult.Yes;
                     this.Close();
                 }
 

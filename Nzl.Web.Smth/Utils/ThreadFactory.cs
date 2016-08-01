@@ -139,7 +139,7 @@
                                     IList<Image> imageList = new List<Image>();
                                     foreach (string imageUrl in imageUrlList)
                                     {
-                                        imageList.Add(GetImage(imageUrl));
+                                        imageList.Add(CommonUtil.GetWebImage(imageUrl));
                                     }
 
                                     thread.ImageList = imageList;
@@ -151,7 +151,7 @@
                                     IList<Image> iconList = new List<Image>();
                                     foreach (string iconUrl in iconUrlList)
                                     {
-                                        iconList.Add(GetImage(iconUrl));
+                                        iconList.Add(CommonUtil.GetWebImage(iconUrl));
                                     }
 
                                     thread.IconList = iconList;
@@ -229,7 +229,7 @@
                                     IList<Image> imageList = new List<Image>();
                                     foreach (string imageUrl in imageUrlList)
                                     {
-                                        imageList.Add(GetImage(imageUrl));
+                                        imageList.Add(CommonUtil.GetWebImage(imageUrl));
                                     }
 
                                     thread.ImageList = imageList;
@@ -241,7 +241,7 @@
                                     IList<Image> iconList = new List<Image>();
                                     foreach (string iconUrl in iconUrlList)
                                     {
-                                        iconList.Add(GetImage(iconUrl));
+                                        iconList.Add(CommonUtil.GetWebImage(iconUrl));
                                     }
 
                                     thread.IconList = iconList;
@@ -350,20 +350,6 @@
 
             return anchorList;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="imageUrl"></param>
-        /// <returns></returns>
-        private static Image GetImage(string imageUrl)
-        {
-            System.Net.WebClient wc = new System.Net.WebClient();
-            byte[] temp = wc.DownloadData(imageUrl);
-            System.IO.MemoryStream ms = new System.IO.MemoryStream(temp, 0, temp.Length);
-            return Image.FromStream(ms);
-        }
-
 
         /// <summary>
         /// 

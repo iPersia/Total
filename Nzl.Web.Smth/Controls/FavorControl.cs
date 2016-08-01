@@ -94,7 +94,17 @@
         /// <returns></returns>
         protected override IList<BaseItem> GetItems(WebPage wp)
         {
-            return SectionUtil.GetSectionsAndBoards(wp);
+            IList<BaseItem> list = SectionUtil.GetSectionsAndBoards(wp);
+            foreach(BaseItem bi in list)
+            {
+                Board board = bi as Board;
+                if (board != null)
+                {
+                    board.Name = board.Name.Replace("(" + board.Code + ")", "");
+                }
+            }
+
+            return list;
         }
 
         /// <summary>
