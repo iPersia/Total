@@ -64,6 +64,11 @@
         /// 
         /// </summary>
         public event LinkLabelLinkClickedEventHandler OnThreadDeleteLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkClickedEventHandler OnThreadContentLinkClicked;
         #endregion
 
         #region Variable
@@ -342,6 +347,7 @@
                 tc.OnReplyLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
                 tc.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
                 tc.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
+                tc.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
                 tc.OnTextBoxMouseWheel += new MouseEventHandler(TopicForm_MouseWheel);
                 return tc;
             }
@@ -765,6 +771,19 @@
                     this.SetUrlInfo(false);
                     this.FetchPage();
                 }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadControl_OnTextBoxLinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            if (this.OnThreadContentLinkClicked != null)
+            {
+                this.OnThreadContentLinkClicked(sender, e);
             }
         }
 

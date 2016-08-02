@@ -195,6 +195,7 @@
                 tbc.OnThreadTransferLinkClicked += TopicBrowserControl_OnThreadTransferLinkClicked;
                 tbc.OnThreadUserLinkClicked += TabbedBrowserForm_IDLinkClicked;
                 tbc.OnTopicReplyLinkClicked += TopicBrowserControl_OnTopicReplyLinkClicked;
+                tbc.OnThreadContentLinkClicked += TopicBrowserControl_OnThreadContentLinkClicked;
                 tbc.OnBoardLinkClicked += TopicBrowserControl_OnBoardLinkClicked;
 
                 TabPage tp = new TabPage();
@@ -205,6 +206,34 @@
                 tp.Controls.Add(tbc);
                 this.tcTopics.TabPages.Add(tp);
                 this.tcTopics.SelectedTab = tp;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TopicBrowserControl_OnThreadContentLinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            CommonUtil.OpenUrl(e.LinkText.Substring(e.LinkText.IndexOf("http:")));
+            int index = e.LinkText.LastIndexOf("http:");
+            if (index < 0)
+            {
+                index = e.LinkText.LastIndexOf("https:");
+            }
+
+            if (index > 0)
+            {
+                string url = e.LinkText.Substring(index);
+                if (url.Contains(@"att.newsmth.net"))
+                {
+                    (new WebBrowserForm(url)).Show();
+                }
+                else
+                {
+                    CommonUtil.OpenUrl(url);
+                }
             }
         }
 

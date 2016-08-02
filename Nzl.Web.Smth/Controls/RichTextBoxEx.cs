@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace Nzl.Web.Smth.Controls
 {
-    public class RichTextBoxEx : RichTextBox
+    public class RichTextBoxEx : ExRichTextBox
     {
         #region Interop-Defines
         [StructLayout(LayoutKind.Sequential)]

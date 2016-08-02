@@ -139,7 +139,9 @@
                                     IList<Image> imageList = new List<Image>();
                                     foreach (string imageUrl in imageUrlList)
                                     {
-                                        imageList.Add(CommonUtil.GetWebImage(imageUrl));
+                                        Image image = CommonUtil.GetWebImage(imageUrl);
+                                        image.Tag = imageUrl;
+                                        imageList.Add(image);                                        
                                     }
 
                                     thread.ImageList = imageList;
@@ -229,7 +231,9 @@
                                     IList<Image> imageList = new List<Image>();
                                     foreach (string imageUrl in imageUrlList)
                                     {
-                                        imageList.Add(CommonUtil.GetWebImage(imageUrl));
+                                        Image image = CommonUtil.GetWebImage(imageUrl);
+                                        image.Tag = imageUrl;
+                                        imageList.Add(image);
                                     }
 
                                     thread.ImageList = imageList;

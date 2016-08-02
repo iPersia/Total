@@ -53,9 +53,14 @@
         /// <summary>
         /// 
         /// </summary>
+        public event LinkClickedEventHandler OnTextBoxLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public event MouseEventHandler OnTextBoxMouseWheel;
         #endregion
-        
+
         #region Ctors.
         /// <summary>
         /// Ctor.
@@ -88,9 +93,9 @@
             this.richtxtContent.Width = this.panelLine.Width - 8;
             this.richtxtContent.WordWrap = true;
             this.richtxtContent.ScrollBars = RichTextBoxScrollBars.None;
-            
+
             ///Need to be optimized.
-            this.richtxtContent.ContentsResized += new ContentsResizedEventHandler(richtxtContent_ContentsResized); 
+            this.richtxtContent.ContentsResized += new ContentsResizedEventHandler(richtxtContent_ContentsResized);
         }
 
         /// <summary>
@@ -100,7 +105,7 @@
         /// <param name="e"></param>
         private void richtxtContent_ContentsResized(object sender, ContentsResizedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("richtxtContent_ContentsResized - " 
+            System.Diagnostics.Debug.WriteLine("richtxtContent_ContentsResized - "
                                               + "Url - " + (this.Tag as Thread).Url + "\t"
                                               + "Floor -" + (this.Tag as Thread).Floor + "\t"
                                               + "NewSize - " + e.NewRectangle.Size);
@@ -154,7 +159,7 @@
                 {
                     this.linklblQuryType.Text = "Spreads";
                 }
-                
+
                 this.linklblQuryType.Links.Add(0, this.linklblQuryType.Text.Length, thread.QueryUrl);
 
                 ///Reply link
@@ -201,9 +206,9 @@
                 this.Name = "tc" + thread.ID;
                 this.AddContent(thread);
                 this.Height = this.richtxtContent.Height + 48;
-                this.richtxtContent.ReadOnly = true;                
-                this.richtxtContent.ShortcutsEnabled = false;                
-            }            
+                this.richtxtContent.ReadOnly = true;
+                this.richtxtContent.ShortcutsEnabled = false;
+            }
         }
         #endregion
 
@@ -223,7 +228,7 @@
         /// 
         /// </summary>
         public override Color BackColor
-        {   
+        {
             set
             {
                 this.panel.BackColor = value;
@@ -371,14 +376,9 @@
         /// <param name="e"></param>
         private void richtxtContent_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            int index = e.LinkText.LastIndexOf("http:");
-            if (index <0)
+            if (this.OnTextBoxLinkClicked != null)
             {
-                index = e.LinkText.LastIndexOf("https:");
-            }
-            if (index > 0)
-            {
-                Nzl.Web.Util.CommonUtil.OpenUrl(e.LinkText.Substring(index));
+                this.OnTextBoxLinkClicked(sender, e);
             }
         }
 
@@ -421,8 +421,6 @@
             if (thread != null)
             {
                 string content = CommonUtil.ReplaceSpecialChars(thread.Content);
-                int imageAccumulateHeight = 0;
-                int iconAccumulateHeight = 0;
                 {
                     string tokenPattern = ThreadFactory.TokenPrefix + "(?'Type'[A-Z]+)" + ThreadFactory.TokenSuffix;
                     MatchCollection mtCollection = CommonUtil.GetMatchCollection(tokenPattern, thread.Content);
@@ -451,33 +449,35 @@
                             //Image
                             if (mt.Groups["Type"].Value.ToString() == ThreadFactory.ImageToken)
                             {
-                                Clipboard.SetDataObject(thread.ImageList[imageCounter]);
-                                this.richtxtContent.Paste(DataFormats.GetFormat(DataFormats.Bitmap));
-                                imageAccumulateHeight += thread.ImageList[imageCounter++].Height;
+                                string url = thread.ImageList[imageCounter].Tag.ToString();
+                                url = url.Replace("/middle", "/large");
+                                this.richtxtContent.InsertLink(ToRtfCode(thread.ImageList[imageCounter++]),
+                                                               url,
+                                                               this.richtxtContent.Text.Length);
+                                //this.richtxtContent.InsertImage(thread.ImageList[imageCounter++]);
+                                //Clipboard.SetDataObject(thread.ImageList[imageCounter]);
+                                //this.richtxtContent.Paste(DataFormats.GetFormat(DataFormats.Bitmap));
                             }
 
                             //Icon
                             if (mt.Groups["Type"].Value.ToString() == ThreadFactory.IconToken)
                             {
-                                Clipboard.SetDataObject(thread.IconList[iconCounter]);
-                                this.richtxtContent.Paste(DataFormats.GetFormat(DataFormats.Bitmap));
-                                iconAccumulateHeight += thread.IconList[iconCounter++].Height - this.richtxtContent.Font.Height;
+                                this.richtxtContent.InsertImage(thread.IconList[iconCounter++]);
+                                //Clipboard.SetDataObject(thread.IconList[iconCounter]);
+                                //this.richtxtContent.Paste(DataFormats.GetFormat(DataFormats.Bitmap));
                             }
 
                             //Anchor
                             if (mt.Groups["Type"].Value.ToString() == ThreadFactory.AnchorToken)
                             {
                                 this.richtxtContent.InsertLink(ToRtfCode(thread.AnchorList[anchorCounter].Text),
-                                                       thread.AnchorList[anchorCounter++].Url,
-                                                       this.richtxtContent.Text.Length);
-
-
-                                System.Diagnostics.Debug.WriteLine(ToRtfCode(thread.AnchorList[anchorCounter - 1].Text));
-
+                                                               thread.AnchorList[anchorCounter++].Url,
+                                                               this.richtxtContent.Text.Length);
+                                //System.Diagnostics.Debug.WriteLine(ToRtfCode(thread.AnchorList[anchorCounter - 1].Text));
                             }
                         }
                     }
-                                        
+
                     this.richtxtContent.AppendText(content);
 
                     ///Colored the replied thread content.
@@ -554,7 +554,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private RichTextBox _convertTxtBox = new RichTextBox();
+        private RichTextBoxEx _convertTxtBox = new RichTextBoxEx();
 
         /// <summary>
         /// 
@@ -565,6 +565,22 @@
         {
             this._convertTxtBox.Clear();
             this._convertTxtBox.AppendText(info);
+            string rtfValue = this._convertTxtBox.Rtf;
+
+            string startStr = @"\viewkind4\uc1\pard\lang2052";
+            rtfValue = rtfValue.Substring(rtfValue.IndexOf(startStr) + startStr.Length);
+            return rtfValue = rtfValue.Substring(0, rtfValue.LastIndexOf(@"\par"));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public string ToRtfCode(Image image)
+        {
+            this._convertTxtBox.Clear();
+            this._convertTxtBox.InsertImage(image);
             string rtfValue = this._convertTxtBox.Rtf;
 
             string startStr = @"\viewkind4\uc1\pard\lang2052";

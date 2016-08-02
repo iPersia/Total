@@ -53,6 +53,11 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SHDocVw, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>Dll\SHDocVw.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -75,12 +80,16 @@
     <Compile Include="Controls\BaseControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\ExRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\MailBoxControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\MailBoxControl.Designer.cs">
       <DependentUpon>MailBoxControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RichTextBoxPrintHelper.cs" />
     <Compile Include="Controls\XBoxControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -278,6 +287,12 @@
     <Compile Include="Forms\UserForm.Designer.cs">
       <DependentUpon>UserForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\WebBrowserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WebBrowserForm.Designer.cs">
+      <DependentUpon>WebBrowserForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IContainsThread.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -385,6 +400,9 @@
     <EmbeddedResource Include="Forms\UserForm.resx">
       <DependentUpon>UserForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WebBrowserForm.resx">
+      <DependentUpon>WebBrowserForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -441,6 +459,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dll\SHDocVw.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
