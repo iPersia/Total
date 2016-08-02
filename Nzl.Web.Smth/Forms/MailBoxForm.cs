@@ -10,7 +10,7 @@
     using System.Windows.Forms;
     using Controls;
 
-    public partial class MailBoxForm : Form
+    public partial class MailBoxForm : BaseForm
     {
         #region Singleton
         /// <summary>
@@ -87,9 +87,10 @@
         /// <param name="e"></param>
         private void MbcMailBox_OnNewMailClicked(object sender, EventArgs e)
         {
-            NewMailForm newMailForm = new NewMailForm();
-            newMailForm.StartPosition = FormStartPosition.CenterParent;
-            newMailForm.ShowDialog(this);
+            ShowFormOnCenterParent(new NewMailForm());
+            //NewMailForm newMailForm = new NewMailForm();
+            //newMailForm.StartPosition = FormStartPosition.CenterParent;
+            //newMailForm.ShowDialog(this);
         }
 
         /// <summary>
@@ -104,6 +105,23 @@
             if (this._parentForm != null)
             {
                 this._parentForm.Focus();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="form"></param>
+        private void ShowFormOnCenterParent(Form form)
+        {
+            if (form != null && form.IsDisposed == false)
+            {
+                form.StartPosition = FormStartPosition.Manual;
+                int centerX = this.Location.X + this.Size.Width / 2;
+                int centerY = this.Location.Y + this.Size.Height / 2;
+                form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
+                form.Show();
+                form.Focus();
             }
         }
     }

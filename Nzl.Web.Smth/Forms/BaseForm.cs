@@ -11,12 +11,25 @@
         /// <summary>
         /// 
         /// </summary>
+        private Form _prevForm = null;
+        /// <summary>
+        /// 
+        /// </summary>
         public BaseForm()
             : base()
         {
             this.Deactivate += BaseForm_Deactivate;
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
+            this.ShowInTaskbar = false; ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="form"></param>
+        protected void SetPrevForm(Form form)
+        {
+            this._prevForm = form;
         }
 
         /// <summary>
@@ -28,6 +41,11 @@
         {
             System.Diagnostics.Debug.WriteLine(this.ToString() + " - BaseForm_Deactivate");
             this.Hide();
+            if (this._prevForm != null)
+            {
+                this._prevForm.Show();
+                this._prevForm.Focus();
+            }
         }
     }
 }

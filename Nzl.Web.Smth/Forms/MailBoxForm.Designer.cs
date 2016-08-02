@@ -66,10 +66,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(643, 553);
             this.Controls.Add(this.panelContainer);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MailBoxForm";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.Text = "MailBox";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MailBoxForm_FormClosing);
             this.panelContainer.ResumeLayout(false);

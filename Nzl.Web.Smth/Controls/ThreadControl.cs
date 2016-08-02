@@ -84,10 +84,11 @@
             : this()
         {
             this.Width = width;
-            this.richtxtContent.Width = this.Width - 30;
+            this.panelLine.Width = this.Width - 20;
+            this.richtxtContent.Width = this.panelLine.Width - 8;
             this.richtxtContent.WordWrap = true;
             this.richtxtContent.ScrollBars = RichTextBoxScrollBars.None;
-
+            
             ///Need to be optimized.
             this.richtxtContent.ContentsResized += new ContentsResizedEventHandler(richtxtContent_ContentsResized); 
         }
@@ -123,7 +124,14 @@
 
                 ///Floor
                 this.lblFloor.Visible = true;
-                this.lblFloor.Text = thread.Floor;
+                if (thread.Floor == "楼主")
+                {
+                    this.lblFloor.Text = thread.Floor.PadLeft(4);
+                }
+                else
+                {
+                    this.lblFloor.Text = thread.Floor.PadLeft(5);
+                }
 
                 ///User
                 this.linklblID.Visible = true;
@@ -138,7 +146,15 @@
                 this.lblDateTime.Text = thread.DateTime;
 
                 ///Query type
-                this.linklblQuryType.Text = thread.QueryType;
+                if (thread.QueryType == "只看此ID")
+                {
+                    this.linklblQuryType.Text = "Related";
+                }
+                else
+                {
+                    this.linklblQuryType.Text = "Spreads";
+                }
+                
                 this.linklblQuryType.Links.Add(0, this.linklblQuryType.Text.Length, thread.QueryUrl);
 
                 ///Reply link
@@ -247,7 +263,7 @@
             if (this.OnUserLinkClicked != null)
             {
                 this.OnUserLinkClicked(sender, e);
-                e.Link.Visited = true;
+                ///e.Link.Visited = true;
             }
         }
 
@@ -261,7 +277,7 @@
             if (this.OnQueryTypeLinkClicked != null)
             {
                 this.OnQueryTypeLinkClicked(sender, e);
-                e.Link.Visited = true;
+                ///e.Link.Visited = true;
             }
         }
 
@@ -275,7 +291,7 @@
             if (this.OnReplyLinkClicked != null)
             {
                 this.OnReplyLinkClicked(sender, e);
-                e.Link.Visited = true;
+                ///e.Link.Visited = true;
             }
         }
 
@@ -289,7 +305,7 @@
             if (this.OnMailLinkClicked != null)
             {
                 this.OnMailLinkClicked(sender, e);
-                e.Link.Visited = true;
+                ///e.Link.Visited = true;
             }
         }
 
@@ -303,7 +319,7 @@
             if (this.OnTransferLinkClicked != null)
             {
                 this.OnTransferLinkClicked(sender, e);
-                e.Link.Visited = true;
+                ///e.Link.Visited = true;
             }
         }
 
@@ -317,7 +333,7 @@
             if (this.OnEditLinkClicked != null)
             {
                 this.OnEditLinkClicked(sender, e);
-                e.Link.Visited = true;
+                ///e.Link.Visited = true;
             }
         }
 
@@ -331,7 +347,7 @@
             if (this.OnDeleteLinkClicked != null)
             {
                 this.OnDeleteLinkClicked(sender, e);
-                e.Link.Visited = true;
+                ///e.Link.Visited = true;
             }
         }
 

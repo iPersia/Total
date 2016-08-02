@@ -187,15 +187,15 @@
                 tbc.Name = "tbc" + url;
                 tbc.TopicUrl = url;
                 tbc.Dock = DockStyle.Fill;
-                tbc.OnThreadDeleteLinkClicked += Tbc_OnThreadDeleteLinkClicked;
-                tbc.OnThreadEditLinkClicked += Tbc_OnThreadEditLinkClicked;
-                tbc.OnThreadMailLinkClicked += Tbc_OnThreadMailLinkClicked;
-                tbc.OnThreadQueryTypeLinkClicked += Tbc_OnThreadQueryTypeLinkClicked;
-                tbc.OnThreadReplyLinkClicked += Tbc_OnThreadReplyLinkClicked;
-                tbc.OnThreadTransferLinkClicked += Tbc_OnThreadTransferLinkClicked;
-                tbc.OnThreadUserLinkClicked += TBF_IDLinkClicked;
-                tbc.OnTopicReplyLinkClicked += Tbc_OnTopicReplyLinkClicked;
-                tbc.OnBoardLinkClicked += Tbc_OnBoardLinkClicked;
+                tbc.OnThreadDeleteLinkClicked += TopicBrowserControl_OnThreadDeleteLinkClicked;
+                tbc.OnThreadEditLinkClicked += TopicBrowserControl_OnThreadEditLinkClicked;
+                tbc.OnThreadMailLinkClicked += TopicBrowserControl_OnThreadMailLinkClicked;
+                tbc.OnThreadQueryTypeLinkClicked += TopicBrowserControl_OnThreadQueryTypeLinkClicked;
+                tbc.OnThreadReplyLinkClicked += TopicBrowserControl_OnThreadReplyLinkClicked;
+                tbc.OnThreadTransferLinkClicked += TopicBrowserControl_OnThreadTransferLinkClicked;
+                tbc.OnThreadUserLinkClicked += TabbedBrowserForm_IDLinkClicked;
+                tbc.OnTopicReplyLinkClicked += TopicBrowserControl_OnTopicReplyLinkClicked;
+                tbc.OnBoardLinkClicked += TopicBrowserControl_OnBoardLinkClicked;
 
                 TabPage tp = new TabPage();
                 tp.Name = key;
@@ -213,12 +213,13 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tbc_OnBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void TopicBrowserControl_OnBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
                 this.AddBoard(e.Link.LinkData.ToString(), linkLabel.Text);
+                e.Link.Visited = true;
             }
         }
 
@@ -227,13 +228,14 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tbc_OnTopicReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void TopicBrowserControl_OnTopicReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, e.Link.LinkData.ToString(), "Re: " + this.tcTopics.SelectedTab.ToolTipText);
             threadForm.StartPosition = FormStartPosition.CenterParent;
             if (DialogResult.OK == threadForm.ShowDialog(this))
             {
                 e.Link.Tag = "Success";
+                e.Link.Visited = true;
             }
         }
 
@@ -242,7 +244,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tbc_OnThreadTransferLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void TopicBrowserControl_OnThreadTransferLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ///throw new NotImplementedException();
         }
@@ -252,7 +254,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tbc_OnThreadReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void TopicBrowserControl_OnThreadReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -265,6 +267,7 @@
                     if (DialogResult.OK == newThreadForm.ShowDialog(this))
                     {
                         e.Link.Tag = "Success";
+                        e.Link.Visited = true;
                     }
                 }
             }
@@ -275,7 +278,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tbc_OnThreadQueryTypeLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void TopicBrowserControl_OnThreadQueryTypeLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -284,6 +287,7 @@
                 TopicForm topicForm = new TopicForm(Nzl.Web.Util.CommonUtil.GetUrlBase(e.Link.LinkData.ToString()), userID);
                 topicForm.StartPosition = FormStartPosition.CenterParent;
                 topicForm.ShowDialog(this);
+                e.Link.Visited = true;
             }
         }
 
@@ -292,7 +296,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tbc_OnThreadMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void TopicBrowserControl_OnThreadMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -303,6 +307,7 @@
                     NewMailForm newMailForm = new NewMailForm(thread.ID, "Re: " + this.tcTopics.SelectedTab.ToolTipText, SmthUtil.GetReplyContent(thread));
                     newMailForm.StartPosition = FormStartPosition.CenterParent;
                     newMailForm.ShowDialog(this);
+                    e.Link.Visited = true;
                 }
             }
         }
@@ -312,7 +317,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tbc_OnThreadEditLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void TopicBrowserControl_OnThreadEditLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -329,6 +334,7 @@
                     if (DialogResult.OK == newThreadForm.ShowDialog(this))
                     {
                         e.Link.Tag = "Success";
+                        e.Link.Visited = true;
                     }
                 }
             }
@@ -339,7 +345,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tbc_OnThreadDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void TopicBrowserControl_OnThreadDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -357,6 +363,7 @@
                         if (result != null && result.Contains("成功"))
                         {
                             e.Link.Tag = "Success";
+                            e.Link.Visited = true;
                         }
                     }
                 }
@@ -388,8 +395,8 @@
             {
                 BoardBrowserControl bbc = new BoardBrowserControl(url);
                 bbc.OnTopicLinkClicked += new LinkLabelLinkClickedEventHandler(BoardBrowserControl_OnTopicLinkClicked);
-                bbc.OnTopicCreateIDLinkClicked += new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
-                bbc.OnTopicLastIDLinkClicked += new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
+                bbc.OnTopicCreateIDLinkClicked += new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
+                bbc.OnTopicLastIDLinkClicked += new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
                 bbc.Dock = DockStyle.Fill;
 
                 TabPage tp = new TabPage();
@@ -413,6 +420,7 @@
             if (linkLabel != null)
             {
                 this.AddTopic(e.Link.LinkData.ToString(), linkLabel.Text);
+                e.Link.Visited = true;
             }
         }
         #endregion
@@ -476,6 +484,11 @@
                 tp.Dispose();
                 GC.Collect();
             }
+
+            if (this.tcTopics.TabPages.Count > 0)
+            {
+                this.tcTopics.SelectedIndex = this.tcTopics.TabPages.Count - 1;
+            }
         }
         #endregion
 
@@ -513,7 +526,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TBF_IDLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void TabbedBrowserForm_IDLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -521,6 +534,7 @@
                 UserForm userForm = new UserForm(e.Link.LinkData.ToString());
                 userForm.StartPosition = FormStartPosition.CenterScreen;
                 userForm.ShowDialog(this);
+                e.Link.Visited = true;
             }
         }
 
@@ -575,7 +589,7 @@
         /// <param name="e"></param>
         private void btnMail_Click(object sender, EventArgs e)
         {
-            ShowFormAsDialog(MailBoxForm.Instance);
+            ShowFormOnCenterParent(MailBoxForm.Instance);
         }
 
         /// <summary>
@@ -704,8 +718,8 @@
                         this.linklblUserID.Links.Clear();
                         this.linklblUserID.Links.Add(welcomeStr.Length, LogStatus.Instance.UserID.Length, LogStatus.Instance.UserID);
 
-                        this.linklblUserID.LinkClicked -= new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
-                        this.linklblUserID.LinkClicked += new LinkLabelLinkClickedEventHandler(TBF_IDLinkClicked);
+                        this.linklblUserID.LinkClicked -= new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
+                        this.linklblUserID.LinkClicked += new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
                         this.btnLogon.Text = "Log Out";
                     }
                     else

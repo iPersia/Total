@@ -82,7 +82,7 @@
             if (this.OnTopicLinkClicked != null)
             {
                 OnTopicLinkClicked(sender, e);
-                e.Link.Visited = true;
+                ///e.Link.Visited = true;
             }
         }
 
@@ -96,7 +96,7 @@
             if (this.OnCreateIDLinkClicked != null)
             {
                 OnCreateIDLinkClicked(sender, e);
-                e.Link.Visited = true;
+                ///e.Link.Visited = true;
             }
         }
 
@@ -110,7 +110,7 @@
             if (this.OnLastIDLinkClicked != null)
             {
                 OnLastIDLinkClicked(sender, e);
-                e.Link.Visited = true;
+                ///e.Link.Visited = true;
             }
         }
         #endregion

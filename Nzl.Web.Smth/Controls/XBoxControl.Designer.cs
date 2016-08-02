@@ -30,6 +30,7 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnNew = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnOpenInBrower = new System.Windows.Forms.Button();
             this.btnGo1 = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@
             this.btnFirst2 = new System.Windows.Forms.Button();
             this.btnNext2 = new System.Windows.Forms.Button();
             this.btnPrev2 = new System.Windows.Forms.Button();
-            this.btnNew = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -103,6 +103,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(635, 25);
             this.panel1.TabIndex = 0;
+            // 
+            // btnNew
+            // 
+            this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnNew.Location = new System.Drawing.Point(274, 1);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(56, 23);
+            this.btnNew.TabIndex = 20;
+            this.btnNew.TabStop = false;
+            this.btnNew.Text = "New";
+            this.btnNew.UseCompatibleTextRendering = true;
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnRefresh
             // 
@@ -364,19 +377,6 @@
             this.btnPrev2.UseCompatibleTextRendering = true;
             this.btnPrev2.UseVisualStyleBackColor = true;
             this.btnPrev2.Click += new System.EventHandler(this.btnPrev_Click);
-            // 
-            // btnNew
-            // 
-            this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnNew.Location = new System.Drawing.Point(274, 1);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(56, 23);
-            this.btnNew.TabIndex = 20;
-            this.btnNew.TabStop = false;
-            this.btnNew.Text = "New";
-            this.btnNew.UseCompatibleTextRendering = true;
-            this.btnNew.UseVisualStyleBackColor = true;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // XBoxControl
             // 

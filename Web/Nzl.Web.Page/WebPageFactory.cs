@@ -10,6 +10,22 @@
         /// <summary>
         /// 
         /// </summary>
+        private static decimal _networkFlow = 0;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static decimal NetworkFlow
+        {
+            get
+            {
+                return _networkFlow;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
         public static WebPage CreateWebPage(string url)
@@ -21,7 +37,13 @@
                     return null;
                 }
 
-                return new WebPage(url);
+                WebPage wp = new WebPage(url);
+                if (wp != null && wp.Html != null)
+                {
+                    _networkFlow += wp.Html.Length;
+                }
+
+                return wp;
             }
             catch
             {
@@ -43,7 +65,13 @@
                     return null;
                 }
 
-                return new WebPage(url, loginurl, post);
+                WebPage wp = new WebPage(url, loginurl, post);
+                if (wp != null && wp.Html != null)
+                {
+                    _networkFlow += wp.Html.Length;
+                }
+
+                return wp;
             }
             catch
             {
