@@ -9,7 +9,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class NewMailForm : Form
+    public partial class NewMailForm : BaseForm
     {
         /// <summary>
         /// 
@@ -22,6 +22,7 @@
         public NewMailForm()
         {
             InitializeComponent();
+            this.CanBeHidden = false;
         }
 
         /// <summary>
@@ -53,7 +54,7 @@
         {
             this.richtxtContent.Text = content;
         }
-
+        
         /// <summary>
         /// 
         /// </summary>

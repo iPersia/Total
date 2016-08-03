@@ -216,7 +216,6 @@
         /// <param name="e"></param>
         private void TopicBrowserControl_OnThreadContentLinkClicked(object sender, LinkClickedEventArgs e)
         {
-            CommonUtil.OpenUrl(e.LinkText.Substring(e.LinkText.IndexOf("http:")));
             int index = e.LinkText.LastIndexOf("http:");
             if (index < 0)
             {
@@ -561,7 +560,7 @@
             if (linkLabel != null)
             {
                 UserForm userForm = new UserForm(e.Link.LinkData.ToString());
-                userForm.StartPosition = FormStartPosition.CenterScreen;
+                userForm.StartPosition = FormStartPosition.CenterParent;
                 userForm.ShowDialog(this);
                 e.Link.Visited = true;
             }

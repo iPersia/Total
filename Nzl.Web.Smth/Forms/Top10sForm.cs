@@ -38,31 +38,6 @@
         Top10sForm()
         {
             InitializeComponent();
-            this.Activated += Top10sForm_Activated;
-            this.Deactivate += Top10sForm_Deactivate;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool Active
-        {
-            get
-            {
-                return this._bActive;
-            }
-        }
-
-        private bool _bActive = false;
-
-        private void Top10sForm_Deactivate(object sender, EventArgs e)
-        {
-            this._bActive = false;
-        }
-
-        private void Top10sForm_Activated(object sender, EventArgs e)
-        {
-            this._bActive = true;
         }
 
         /// <summary>

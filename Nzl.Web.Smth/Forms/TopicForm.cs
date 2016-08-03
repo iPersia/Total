@@ -14,7 +14,7 @@
     /// <summary>
     /// The topic form.
     /// </summary>
-    public partial class TopicForm : Form
+    public partial class TopicForm : BaseForm
     {
         #region Ctors.
         /// <summary>
@@ -23,6 +23,7 @@
         public TopicForm()
         {
             InitializeComponent();
+            this.CanBeHidden = false;
         }
 
         /// <summary>

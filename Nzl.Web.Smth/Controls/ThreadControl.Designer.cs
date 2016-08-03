@@ -42,12 +42,13 @@
             this.lblDateTime = new System.Windows.Forms.Label();
             this.richtxtContent = new Nzl.Web.Smth.Controls.RichTextBoxEx();
             this.panel.SuspendLayout();
+            this.panelLine.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblFloor
             // 
             this.lblFloor.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblFloor.Location = new System.Drawing.Point(9, 10);
+            this.lblFloor.Location = new System.Drawing.Point(2, 4);
             this.lblFloor.Name = "lblFloor";
             this.lblFloor.Size = new System.Drawing.Size(42, 12);
             this.lblFloor.TabIndex = 0;
@@ -58,7 +59,7 @@
             // linklblID
             // 
             this.linklblID.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblID.Location = new System.Drawing.Point(60, 10);
+            this.linklblID.Location = new System.Drawing.Point(53, 4);
             this.linklblID.Name = "linklblID";
             this.linklblID.Size = new System.Drawing.Size(77, 12);
             this.linklblID.TabIndex = 1;
@@ -74,17 +75,7 @@
             this.panel.BackColor = System.Drawing.SystemColors.Control;
             this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel.Controls.Add(this.panelLine);
-            this.panel.Controls.Add(this.linklblDelete);
-            this.panel.Controls.Add(this.linklblEdit);
-            this.panel.Controls.Add(this.linklblTransfer);
-            this.panel.Controls.Add(this.linklblMail);
-            this.panel.Controls.Add(this.linklblReply);
-            this.panel.Controls.Add(this.lblCopy);
-            this.panel.Controls.Add(this.linklblQuryType);
-            this.panel.Controls.Add(this.lblDateTime);
             this.panel.Controls.Add(this.richtxtContent);
-            this.panel.Controls.Add(this.lblFloor);
-            this.panel.Controls.Add(this.linklblID);
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Name = "panel";
@@ -93,10 +84,21 @@
             // 
             // panelLine
             // 
-            this.panelLine.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelLine.Location = new System.Drawing.Point(9, 28);
+            this.panelLine.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panelLine.Controls.Add(this.linklblEdit);
+            this.panelLine.Controls.Add(this.linklblDelete);
+            this.panelLine.Controls.Add(this.linklblID);
+            this.panelLine.Controls.Add(this.lblFloor);
+            this.panelLine.Controls.Add(this.linklblTransfer);
+            this.panelLine.Controls.Add(this.lblDateTime);
+            this.panelLine.Controls.Add(this.linklblMail);
+            this.panelLine.Controls.Add(this.linklblQuryType);
+            this.panelLine.Controls.Add(this.linklblReply);
+            this.panelLine.Controls.Add(this.lblCopy);
+            this.panelLine.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.panelLine.Location = new System.Drawing.Point(4, 7);
             this.panelLine.Name = "panelLine";
-            this.panelLine.Size = new System.Drawing.Size(580, 1);
+            this.panelLine.Size = new System.Drawing.Size(590, 20);
             this.panelLine.TabIndex = 11;
             // 
             // linklblDelete
@@ -104,7 +106,7 @@
             this.linklblDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblDelete.AutoSize = true;
             this.linklblDelete.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblDelete.Location = new System.Drawing.Point(325, 10);
+            this.linklblDelete.Location = new System.Drawing.Point(323, 4);
             this.linklblDelete.Name = "linklblDelete";
             this.linklblDelete.Size = new System.Drawing.Size(41, 12);
             this.linklblDelete.TabIndex = 10;
@@ -118,7 +120,7 @@
             this.linklblEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblEdit.AutoSize = true;
             this.linklblEdit.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblEdit.Location = new System.Drawing.Point(290, 10);
+            this.linklblEdit.Location = new System.Drawing.Point(288, 4);
             this.linklblEdit.Name = "linklblEdit";
             this.linklblEdit.Size = new System.Drawing.Size(29, 12);
             this.linklblEdit.TabIndex = 9;
@@ -132,7 +134,7 @@
             this.linklblTransfer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblTransfer.AutoSize = true;
             this.linklblTransfer.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblTransfer.Location = new System.Drawing.Point(448, 10);
+            this.linklblTransfer.Location = new System.Drawing.Point(446, 4);
             this.linklblTransfer.Name = "linklblTransfer";
             this.linklblTransfer.Size = new System.Drawing.Size(53, 12);
             this.linklblTransfer.TabIndex = 8;
@@ -146,7 +148,7 @@
             this.linklblMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblMail.AutoSize = true;
             this.linklblMail.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblMail.Location = new System.Drawing.Point(372, 10);
+            this.linklblMail.Location = new System.Drawing.Point(370, 4);
             this.linklblMail.Name = "linklblMail";
             this.linklblMail.Size = new System.Drawing.Size(29, 12);
             this.linklblMail.TabIndex = 7;
@@ -160,7 +162,7 @@
             this.linklblReply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblReply.AutoSize = true;
             this.linklblReply.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblReply.Location = new System.Drawing.Point(407, 10);
+            this.linklblReply.Location = new System.Drawing.Point(405, 4);
             this.linklblReply.Name = "linklblReply";
             this.linklblReply.Size = new System.Drawing.Size(35, 12);
             this.linklblReply.TabIndex = 6;
@@ -174,7 +176,7 @@
             this.lblCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCopy.AutoSize = true;
             this.lblCopy.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblCopy.Location = new System.Drawing.Point(560, 10);
+            this.lblCopy.Location = new System.Drawing.Point(558, 4);
             this.lblCopy.Name = "lblCopy";
             this.lblCopy.Size = new System.Drawing.Size(29, 12);
             this.lblCopy.TabIndex = 5;
@@ -188,7 +190,7 @@
             this.linklblQuryType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblQuryType.AutoSize = true;
             this.linklblQuryType.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblQuryType.Location = new System.Drawing.Point(507, 10);
+            this.linklblQuryType.Location = new System.Drawing.Point(505, 4);
             this.linklblQuryType.Name = "linklblQuryType";
             this.linklblQuryType.Size = new System.Drawing.Size(47, 12);
             this.linklblQuryType.TabIndex = 4;
@@ -199,7 +201,7 @@
             // 
             this.lblDateTime.AutoSize = true;
             this.lblDateTime.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblDateTime.Location = new System.Drawing.Point(145, 10);
+            this.lblDateTime.Location = new System.Drawing.Point(138, 4);
             this.lblDateTime.Name = "lblDateTime";
             this.lblDateTime.Size = new System.Drawing.Size(53, 12);
             this.lblDateTime.TabIndex = 3;
@@ -211,12 +213,14 @@
             // 
             this.richtxtContent.BackColor = System.Drawing.SystemColors.Control;
             this.richtxtContent.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richtxtContent.HiglightColor = Nzl.Web.Smth.Controls.RtfColor.White;
             this.richtxtContent.Location = new System.Drawing.Point(15, 37);
             this.richtxtContent.Name = "richtxtContent";
             this.richtxtContent.Size = new System.Drawing.Size(570, 37);
             this.richtxtContent.TabIndex = 2;
             this.richtxtContent.TabStop = false;
             this.richtxtContent.Text = "";
+            this.richtxtContent.TextColor = Nzl.Web.Smth.Controls.RtfColor.Black;
             this.richtxtContent.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richtxtContent_LinkClicked);
             this.richtxtContent.Enter += new System.EventHandler(this.richtxtContent_Enter);
             // 
@@ -228,7 +232,8 @@
             this.Name = "ThreadControl";
             this.Size = new System.Drawing.Size(600, 98);
             this.panel.ResumeLayout(false);
-            this.panel.PerformLayout();
+            this.panelLine.ResumeLayout(false);
+            this.panelLine.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

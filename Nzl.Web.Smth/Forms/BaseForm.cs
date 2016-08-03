@@ -8,10 +8,19 @@
     /// </summary>
     public class BaseForm : Form
     {
+        #region variable
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool _bActive = false;
+
         /// <summary>
         /// 
         /// </summary>
         private Form _prevForm = null;
+        #endregion
+
+        #region Ctor.
         /// <summary>
         /// 
         /// </summary>
@@ -19,9 +28,66 @@
             : base()
         {
             this.Deactivate += BaseForm_Deactivate;
+            this.Activated += BaseForm_Activated;
             this.ShowIcon = false;
-            this.ShowInTaskbar = false; ;
+            this.ShowInTaskbar = false;
+            this.CanBeHidden = true;
         }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Active
+        {
+            get
+            {
+                return this._bActive;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected bool CanBeHidden
+        {
+            get;
+            set;
+        }
+        #endregion
+
+        #region eventhandler
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BaseForm_Activated(object sender, EventArgs e)
+        {
+            this._bActive = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BaseForm_Deactivate(object sender, EventArgs e)
+        {
+            this._bActive = false;
+            if (this.CanBeHidden)
+            {
+                this.Hide();
+                if (this._prevForm != null)
+                {
+                    this._prevForm.Show();
+                    this._prevForm.Focus();
+                }
+            }            
+        }
+        #endregion
 
         /// <summary>
         /// 
@@ -32,20 +98,8 @@
             this._prevForm = form;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BaseForm_Deactivate(object sender, EventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine(this.ToString() + " - BaseForm_Deactivate");
-            this.Hide();
-            if (this._prevForm != null)
-            {
-                this._prevForm.Show();
-                this._prevForm.Focus();
-            }
-        }
+        #region virtual
+
+        #endregion
     }
 }

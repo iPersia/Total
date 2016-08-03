@@ -43,7 +43,7 @@
         public void SetParent(Form parent)
         {
             this._parentForm = parent;
-        }
+        }       
 
         /// <summary>
         /// 
@@ -57,7 +57,9 @@
             {
                 UserForm userForm = new UserForm(e.Link.LinkData.ToString());
                 userForm.StartPosition = FormStartPosition.CenterParent;
+                this.CanBeHidden = false;
                 userForm.ShowDialog(this);
+                this.CanBeHidden = true;
             }
         }
 
@@ -73,10 +75,13 @@
             {
                 MailDetailForm mailDetailForm = new MailDetailForm(e.Link.LinkData.ToString());
                 mailDetailForm.StartPosition = FormStartPosition.CenterParent;
+                this.CanBeHidden = false;
                 if (mailDetailForm.ShowDialog(this) == System.Windows.Forms.DialogResult.Yes)
                 {
                     e.Link.Tag = "Success";
                 }
+
+                this.CanBeHidden = true;
             }
         }
         

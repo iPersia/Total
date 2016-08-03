@@ -89,7 +89,7 @@
             : this()
         {
             this.Width = width;
-            this.panelLine.Width = this.Width - 20;
+            this.panelLine.Width = this.Width - 10;
             this.richtxtContent.Width = this.panelLine.Width - 8;
             this.richtxtContent.WordWrap = true;
             this.richtxtContent.ScrollBars = RichTextBoxScrollBars.None;
