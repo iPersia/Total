@@ -15,7 +15,12 @@
     /// Class.
     /// </summary>
     public partial class TestForm : Form
-    {        
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        private string _url = null;
+        
         #region Ctor
         /// <summary>
         /// Ctor.
@@ -23,8 +28,32 @@
         public TestForm()
         {
             InitializeComponent();
-            //this.panel.MouseWheel += new MouseEventHandler(panel_MouseWheel);
         }
-        #endregion       
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        public TestForm(string url)
+            : this()
+        {
+            this._url = url;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            MailDetailControl mdc = new MailDetailControl(this._url);
+            mdc.Left = 1;
+            mdc.Top = 1;
+            mdc.SetParentControl(this);
+            this.Size = new Size(mdc.Width + 2, mdc.Height + 2);
+            this.panelContainer.Controls.Add(mdc);
+        }        
+        #endregion
     }
 }

@@ -1,14 +1,7 @@
 ﻿namespace Nzl.Web.Smth.Forms
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
-    using System.Drawing;
-    using System.Linq;
-    using System.Text;
     using System.Windows.Forms;
-    using Controls;
 
     public partial class MailBoxForm : BaseForm
     {
@@ -30,10 +23,11 @@
         public MailBoxForm()
         {
             InitializeComponent();
-
             this.mbcMailBox.OnMailLinkClicked += MbcMailBox_OnMailLinkClicked;
             this.mbcMailBox.OnUserLinkClicked += MbcMailBox_OnUserLinkClicked;
-            this.mbcMailBox.OnNewMailClicked += MbcMailBox_OnNewMailClicked;            
+            this.mbcMailBox.OnNewMailClicked += MbcMailBox_OnNewMailClicked;
+
+            this.HideWhenDeactivate = false;     
         }
 
         /// <summary>
@@ -57,9 +51,7 @@
             {
                 UserForm userForm = new UserForm(e.Link.LinkData.ToString());
                 userForm.StartPosition = FormStartPosition.CenterParent;
-                this.CanBeHidden = false;
                 userForm.ShowDialog(this);
-                this.CanBeHidden = true;
             }
         }
 
@@ -75,13 +67,11 @@
             {
                 MailDetailForm mailDetailForm = new MailDetailForm(e.Link.LinkData.ToString());
                 mailDetailForm.StartPosition = FormStartPosition.CenterParent;
-                this.CanBeHidden = false;
+                this.HideWhenDeactivate = false;
                 if (mailDetailForm.ShowDialog(this) == System.Windows.Forms.DialogResult.Yes)
                 {
                     e.Link.Tag = "Success";
                 }
-
-                this.CanBeHidden = true;
             }
         }
         
@@ -92,10 +82,7 @@
         /// <param name="e"></param>
         private void MbcMailBox_OnNewMailClicked(object sender, EventArgs e)
         {
-            ShowFormOnCenterParent(new NewMailForm());
-            //NewMailForm newMailForm = new NewMailForm();
-            //newMailForm.StartPosition = FormStartPosition.CenterParent;
-            //newMailForm.ShowDialog(this);
+            ShowFormAsDialog(new NewMailForm());
         }
 
         /// <summary>
@@ -127,6 +114,19 @@
                 form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
                 form.Show();
                 form.Focus();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="form"></param>
+        private void ShowFormAsDialog(Form form)
+        {
+            if (form != null && form.IsDisposed == false)
+            {
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog(this);
             }
         }
     }

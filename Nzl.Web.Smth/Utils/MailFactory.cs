@@ -4,6 +4,8 @@
     using System.Text.RegularExpressions;
     using Datas;
     using Page;
+    using Util;
+
     /// <summary>
     /// 
     /// </summary>
@@ -19,6 +21,21 @@
             if (wp != null && wp.IsGood)
             {
                 return CreateMails(wp.Html);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        public static Mail CreateMailDetail(WebPage wp)
+        {
+            if (wp != null && wp.IsGood)
+            {
+                return CreateMailDetail(wp.Html);
             }
 
             return null;
@@ -44,12 +61,12 @@
                 IList<Mail> mailList = new List<Mail>();
                 foreach (Match mt in mtMailCollection)
                 {
-                    Mail mail = new Mail(System.Convert.ToInt32(mt.Groups["Index"].Value),
-                                         @"http://m.newsmth.net" + mt.Groups["MailUrl"].Value.ToString(),
-                                         mt.Groups["MailTitle"].Value.ToString(),
-                                         mt.Groups["Author"].Value.ToString(),
-                                         mt.Groups["DateTime"].Value.ToString());
-
+                    Mail mail = new Mail();
+                    mail.Index = System.Convert.ToInt32(mt.Groups["Index"].Value);
+                    mail.Url = Configurations.BaseUrl + mt.Groups["MailUrl"].Value.ToString();
+                    mail.Title = mt.Groups["MailTitle"].Value.ToString();
+                    mail.Author = mt.Groups["Author"].Value.ToString();
+                    mail.DateTime = mt.Groups["DateTime"].Value.ToString();
                     if (string.IsNullOrEmpty(mt.Groups["IsNew"].Value.ToString()) == false)
                     {
                         mail.IsNew = true;
@@ -62,6 +79,54 @@
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        private static Mail CreateMailDetail(string html)
+        {
+            Mail mail = new Mail();
+            string pattern = @"<li><div class=\Wnav hl\W><a href=\W/user/query/[a-zA-z][a-zA-Z0-9]{1,11}\W>"
+                           + @"(?'Author'[a-zA-z][a-zA-Z0-9]{1,11})</a>\|<a class=\Wplant\W>"
+                           + @"(?'DateTime'[\d, \-, \:]+)</a>\|<a href=\W"
+                           + @"(?'ReplyUrl'/mail/\w+/send/\d+)\W>回复</a>\|<a href=\W"
+                           + @"(?'TransferUrl'/mail/\w+/forward/\d+)\W>转寄</a>\|<a href=\W"
+                           + @"(?'DeleteUrl'/mail/\w+/delete/\d+)\W>删除</a>\|<a href=\W/mail/\w+\W>返回</a>";
+            mail.Title = CommonUtil.ReplaceSpecialChars(CommonUtil.GetMatch(@"<li class=\Wf\W>标题:(?'Title'.+)</li><li><div class=\Wnav hl\W>", html, "Title"));
+            MatchCollection mtColleton = CommonUtil.GetMatchCollection(pattern, html);
+            if (mtColleton != null && mtColleton.Count > 0)
+            {
+                mail.Author = mtColleton[0].Groups["Author"].Value.ToString();
+                if (mtColleton[0].Groups["ReplyUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["ReplyUrl"].Value) == false)
+                {
+                    mail.ReplyUrl = Configurations.BaseUrl + mtColleton[0].Groups["ReplyUrl"].Value.ToString();
+                }
+
+                if (mtColleton[0].Groups["DeleteUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["DeleteUrl"].Value) == false)
+                {
+                    mail.DeleteUrl = Configurations.BaseUrl + mtColleton[0].Groups["DeleteUrl"].Value.ToString();
+                }
+
+                if (mtColleton[0].Groups["TransferUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["TransferUrl"].Value) == false)
+                {
+                    mail.TransferUrl = Configurations.BaseUrl + mtColleton[0].Groups["TransferUrl"].Value.ToString();
+                }
+            }
+
+            pattern = @"<div class=\Wsp\W>(?'Content'[\w,\W]+)</div></li></ul>";
+            string content = CommonUtil.GetMatch(pattern, html, "Content");
+            content = content.Replace("<br />", "\n");
+            content = content.Replace("<br/>", "\n");
+            content = content.Replace("<br>", "\n");
+            content = content.Replace("<div class=\"sp\">", "");
+            content = content.Replace("&nbsp;", " ");
+            content = content.Replace("</div>", "");
+            content = CommonUtil.ReplaceSpecialChars(content);
+            mail.Content = content;
+            return mail;
         }
     }
 }

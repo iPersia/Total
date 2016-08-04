@@ -82,7 +82,7 @@
 
             Topic topic = new Topic();
             content = content.Replace("&nbsp;", " ");
-            topic.Uri = @"http://m.newsmth.net" + CommonUtil.GetMatch(pattern, content, "TopicUrl");
+            topic.Uri = Configurations.BaseUrl + CommonUtil.GetMatch(pattern, content, "TopicUrl");
             topic.Board = CommonUtil.GetMatch(pattern, content, "Board");
             topic.Index = CommonUtil.GetMatch(pattern, content, "Index");            
             topic.Title = CommonUtil.GetMatch(pattern, content, "Title");
@@ -123,7 +123,7 @@
                 {
                     Topic topic = new Topic();
                     topic.TopSeq = System.Convert.ToInt32(mt.Groups["TopSeq"].Value);
-                    topic.Uri = @"http://m.newsmth.net" + mt.Groups["Url"].ToString();
+                    topic.Uri = Configurations.BaseUrl + mt.Groups["Url"].ToString();
                     topic.Board = mt.Groups["Board"].ToString().Replace("%5F", "_").Replace("%2E", ".");
                     topic.Index = mt.Groups["Index"].ToString();
                     topic.Title = CommonUtil.ReplaceSpecialChars(mt.Groups["Title"].ToString());

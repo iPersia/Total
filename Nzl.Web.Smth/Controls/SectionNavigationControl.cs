@@ -248,7 +248,7 @@
                 this.linklblPrevious.Links.Clear();
                 if (string.IsNullOrEmpty(url) == false)
                 {
-                    this.linklblPrevious.Links.Add(0, this.linklblPrevious.Text.Length, @"http://m.newsmth.net" + url);
+                    this.linklblPrevious.Links.Add(0, this.linklblPrevious.Text.Length, Configurations.BaseUrl + url);
                 }
 
                 ///Section name.

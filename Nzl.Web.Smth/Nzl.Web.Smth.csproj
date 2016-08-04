@@ -89,6 +89,12 @@
     <Compile Include="Controls\MailBoxControl.Designer.cs">
       <DependentUpon>MailBoxControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MailDetailControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MailDetailControl.Designer.cs">
+      <DependentUpon>MailDetailControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RichTextBoxPrintHelper.cs" />
     <Compile Include="Controls\XBoxControl.cs">
       <SubType>UserControl</SubType>
@@ -179,6 +185,7 @@
     </Compile>
     <Compile Include="Datas\BaseItem.cs" />
     <Compile Include="Datas\Board.cs" />
+    <Compile Include="Datas\Configurations.cs" />
     <Compile Include="Datas\LogStatus.cs" />
     <Compile Include="Datas\Mail.cs" />
     <Compile Include="Datas\Message.cs" />
@@ -309,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\MailBoxControl.resx">
       <DependentUpon>MailBoxControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MailDetailControl.resx">
+      <DependentUpon>MailDetailControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\XBoxControl.resx">
       <DependentUpon>XBoxControl.cs</DependentUpon>

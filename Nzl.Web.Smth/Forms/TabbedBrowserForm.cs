@@ -617,7 +617,8 @@
         /// <param name="e"></param>
         private void btnMail_Click(object sender, EventArgs e)
         {
-            ShowFormOnCenterParent(MailBoxForm.Instance);
+            ShowFormOnCenterParent(new TestForm(@"http://m.newsmth.net/mail/inbox/269"));
+            //ShowFormAsDialog(MailBoxForm.Instance);
         }
 
         /// <summary>

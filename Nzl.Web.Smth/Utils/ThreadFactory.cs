@@ -387,29 +387,29 @@
                     thread.DateTime = mt.Groups["DateTime"].Value.ToString();
                     thread.Floor = mt.Groups["Floor"].Value.ToString();
                     thread.QueryType = mt.Groups["QueryType"].Value.ToString();
-                    thread.QueryUrl = @"http://m.newsmth.net" + mt.Groups["QueryUrl"].Value.ToString();
+                    thread.QueryUrl = Configurations.BaseUrl + mt.Groups["QueryUrl"].Value.ToString();
                     if (mt.Groups["ReplyUrl"].Value != null && mt.Groups["ReplyUrl"].Value != "")
                     {
-                        thread.ReplyUrl = @"http://m.newsmth.net" + mt.Groups["ReplyUrl"].Value.ToString();
+                        thread.ReplyUrl = Configurations.BaseUrl + mt.Groups["ReplyUrl"].Value.ToString();
                     }
 
                     if (mt.Groups["MailUrl"].Value != null && mt.Groups["MailUrl"].Value != "")
                     {
-                        thread.MailUrl = @"http://m.newsmth.net" + mt.Groups["MailUrl"].Value.ToString();
+                        thread.MailUrl = Configurations.BaseUrl + mt.Groups["MailUrl"].Value.ToString();
                     }
 
                     if (mt.Groups["TransferUrl"].Value != null && mt.Groups["TransferUrl"].Value != "")
                     {
-                        thread.TransferUrl = @"http://m.newsmth.net" + mt.Groups["TransferUrl"].Value.ToString();
+                        thread.TransferUrl = Configurations.BaseUrl + mt.Groups["TransferUrl"].Value.ToString();
                     }
                     if (mt.Groups["EditUrl"].Value != null && mt.Groups["EditUrl"].Value != "")
                     {
-                        thread.EditUrl = @"http://m.newsmth.net" + mt.Groups["EditUrl"].Value.ToString();
+                        thread.EditUrl = Configurations.BaseUrl + mt.Groups["EditUrl"].Value.ToString();
                     }
 
                     if (mt.Groups["DeleteUrl"].Value != null && mt.Groups["DeleteUrl"].Value != "")
                     {
-                        thread.DeleteUrl = @"http://m.newsmth.net" + mt.Groups["DeleteUrl"].Value.ToString();
+                        thread.DeleteUrl = Configurations.BaseUrl + mt.Groups["DeleteUrl"].Value.ToString();
                     }
 
                     threadList.Add(thread);

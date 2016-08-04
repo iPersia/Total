@@ -23,7 +23,7 @@
         public TopicForm()
         {
             InitializeComponent();
-            this.CanBeHidden = false;
+            this.HideWhenDeactivate = false;
         }
 
         /// <summary>

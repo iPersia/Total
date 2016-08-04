@@ -50,7 +50,6 @@
             this.MinimizeBox = false;
             this.Name = "LoginForm";
             this.Text = "Logon";
-            this.TopMost = true;
             this.ResumeLayout(false);
 
         }

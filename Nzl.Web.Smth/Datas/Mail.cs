@@ -18,41 +18,6 @@
         /// <summary>
         /// 
         /// </summary>
-        public Mail(int index, string url, string title, string author, string datetime)
-            : this()
-        {
-            this.IsNew = false;
-            this.Index = index;
-            this.Url = url;
-            this.Title = title;
-            this.Author = author;
-            this.DateTime = datetime;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Mail(int index, string url, string title, string author, string datetime, string content)
-            : this(index, url, title, author, datetime)
-        {
-            this.Content = content;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Mail(int index, string url, string title, string author, string datetime, string content, string replyUrl, string transferUrl, string deleteUrl)
-            : this(index, url, title, author, datetime)
-        {
-            this.Content = content;
-            this.ReplyUrl = replyUrl;
-            this.TransferUrl = transferUrl;
-            this.DeleteUrl = deleteUrl;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public bool IsNew
         {
             get;

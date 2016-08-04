@@ -112,6 +112,7 @@
             this.scContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.scContainer.IsSplitterFixed = true;
             this.scContainer.Location = new System.Drawing.Point(0, 0);
             this.scContainer.Name = "scContainer";
             this.scContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -127,6 +128,7 @@
             this.scContainer.SplitterDistance = 25;
             this.scContainer.SplitterWidth = 1;
             this.scContainer.TabIndex = 2;
+            this.scContainer.TabStop = false;
             // 
             // panelUp
             // 

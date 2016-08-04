@@ -31,7 +31,7 @@
             this.Activated += BaseForm_Activated;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.CanBeHidden = true;
+            this.HideWhenDeactivate = true;
         }
         #endregion
 
@@ -51,7 +51,7 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        protected bool CanBeHidden
+        protected bool HideWhenDeactivate
         {
             get;
             set;
@@ -77,7 +77,7 @@
         private void BaseForm_Deactivate(object sender, EventArgs e)
         {
             this._bActive = false;
-            if (this.CanBeHidden)
+            if (this.HideWhenDeactivate)
             {
                 this.Hide();
                 if (this._prevForm != null)

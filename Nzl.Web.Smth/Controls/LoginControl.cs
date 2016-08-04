@@ -65,7 +65,7 @@
             if (string.IsNullOrEmpty(this.txtUserID.Text) == false && string.IsNullOrEmpty(this.txtPassword.Text) == false)
             {
                 this.Enabled = false;
-                WebPage.RemoveCookie(@"http://m.newsmth.net");
+                WebPage.RemoveCookie(Configurations.BaseUrl);
                 LogIn(this.txtUserID.Text, this.txtPassword.Text);
             }
         }
@@ -78,7 +78,7 @@
         private void btnLogout_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
-            WebPage.RemoveCookie(@"http://m.newsmth.net");
+            WebPage.RemoveCookie(Configurations.BaseUrl);
             LogOut();
         }        
         #endregion
@@ -95,7 +95,7 @@
             this.bwFetchPage.DoWork += new System.ComponentModel.DoWorkEventHandler(bwFetchPage_LogInOut_DoWork);
             this.bwFetchPage.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bwFetchPage_LogInOut_RunWorkerCompleted);
             IList<string> paraList = new List<string>();
-            paraList.Add(@"http://m.newsmth.net");
+            paraList.Add(Configurations.BaseUrl);
             paraList.Add(@"http://m.newsmth.net/user/login");
             paraList.Add(@"id=" + userID + "&passwd=" + password + "&save=on");
             this.bwFetchPage.RunWorkerAsync(paraList);
@@ -175,7 +175,7 @@
             {
                 //Check login status.
                 WebPage wp = e.Result as WebPage;
-                if (wp.IsGood)
+                if (wp != null && wp.IsGood)
                 {
                     LogStatus.Instance.UpdateLoginStatus(wp);
                 }

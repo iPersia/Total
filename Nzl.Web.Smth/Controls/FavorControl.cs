@@ -8,6 +8,9 @@
     using Page;
     using Utils;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class FavorControl : BaseControl
     {
         #region event

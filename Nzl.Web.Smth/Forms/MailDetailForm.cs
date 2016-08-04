@@ -22,6 +22,7 @@
             this.linklblReply.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblReply_LinkClicked);
             this.linklblDelete.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblDelete_LinkClicked);
             this.linklblTransfer.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblTransfer_LinkClicked);
+            this.richtxtContent.ContentsResized += RichtxtContent_ContentsResized;
         }
 
         /// <summary>
@@ -54,19 +55,19 @@
                         if (mtColleton[0].Groups["ReplyUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["ReplyUrl"].Value) == false)
                         {
                             this.linklblReply.Visible = true;
-                            this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, @"http://m.newsmth.net" + mtColleton[0].Groups["ReplyUrl"].Value.ToString());
+                            this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, Configurations.BaseUrl + mtColleton[0].Groups["ReplyUrl"].Value.ToString());
                         }
 
                         if (mtColleton[0].Groups["DeleteUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["DeleteUrl"].Value) == false)
                         {
                             this.linklblDelete.Visible = true;
-                            this.linklblDelete.Links.Add(0, this.linklblDelete.Text.Length, @"http://m.newsmth.net" + mtColleton[0].Groups["DeleteUrl"].Value.ToString());
+                            this.linklblDelete.Links.Add(0, this.linklblDelete.Text.Length, Configurations.BaseUrl + mtColleton[0].Groups["DeleteUrl"].Value.ToString());
                         }
 
                         if (mtColleton[0].Groups["TransferUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["TransferUrl"].Value) == false)
                         {
                             this.linklblTransfer.Visible = true;
-                            this.linklblTransfer.Links.Add(0, this.linklblTransfer.Text.Length, @"http://m.newsmth.net" + mtColleton[0].Groups["TransferUrl"].Value.ToString());
+                            this.linklblTransfer.Links.Add(0, this.linklblTransfer.Text.Length, Configurations.BaseUrl + mtColleton[0].Groups["TransferUrl"].Value.ToString());
                         }
                     }
 
@@ -219,6 +220,21 @@
         /// <param name="e"></param>
         private void linklblTransfer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RichtxtContent_ContentsResized(object sender, ContentsResizedEventArgs e)
+        {
+            RichTextBox rtb = sender as RichTextBox;
+            if (rtb != null)
+            {
+                rtb.Size = e.NewRectangle.Size;
+                this.Size = new System.Drawing.Size(rtb.Size.Width + 40, rtb.Size.Height + 125);
+            }
         }
         #endregion
     }

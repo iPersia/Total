@@ -22,7 +22,7 @@
         public NewMailForm()
         {
             InitializeComponent();
-            this.CanBeHidden = false;
+            this.HideWhenDeactivate = false;
         }
 
         /// <summary>

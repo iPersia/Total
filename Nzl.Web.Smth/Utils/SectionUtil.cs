@@ -31,7 +31,7 @@
                     {
                         foreach (Match mt in mtCollection)
                         {
-                            string url = @"http://m.newsmth.net" + mt.Groups[2].Value.ToString();
+                            string url = Configurations.BaseUrl + mt.Groups[2].Value.ToString();
                             string title = mt.Groups[3].Value.ToString();
 
                             if (mt.Groups["BoardName"].Value != "")

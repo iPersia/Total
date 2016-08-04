@@ -822,7 +822,7 @@
             {
                 this._postUrl.Replace("%2E", ".");
                 this._postUrl.Replace("%5F", "_");
-                this._postUrl = @"http://m.newsmth.net" + this._postUrl;
+                this._postUrl = Configurations.BaseUrl + this._postUrl;
 
                 this.linklblReply.Visible = true;
                 this.linklblReply.Links.Clear();
