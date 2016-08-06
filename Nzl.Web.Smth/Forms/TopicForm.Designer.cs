@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tbcTopic = new Nzl.Web.Smth.Controls.TopicBrowserControl();
+            this.tbcTopic = new Nzl.Web.Smth.Containers.TopicBrowserControl();
             this.SuspendLayout();
             // 
             // tbcTopic
@@ -60,7 +60,7 @@
 
         #endregion
 
-        private Controls.TopicBrowserControl tbcTopic;
+        private Containers.TopicBrowserControl tbcTopic;
 
     }
 }

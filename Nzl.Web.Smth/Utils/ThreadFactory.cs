@@ -232,7 +232,7 @@
                                     foreach (string imageUrl in imageUrlList)
                                     {
                                         Image image = CommonUtil.GetWebImage(imageUrl);
-                                        image.Tag = imageUrl;
+                                        image.Tag = imageUrl.Replace("/middle","");
                                         imageList.Add(image);
                                     }
 

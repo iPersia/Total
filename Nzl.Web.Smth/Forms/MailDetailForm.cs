@@ -1,28 +1,33 @@
 ﻿namespace Nzl.Web.Smth.Forms
 {
     using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Drawing;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
-    using Nzl.Web.Util;    
+    using Nzl.Web.Util;
     using Nzl.Web.Page;
     using Nzl.Web.Smth.Datas;
-    
+    using Nzl.Web.Smth.Containers;
+
     /// <summary>
     /// Class.
     /// </summary>
     public partial class MailDetailForm : Form
     {
         /// <summary>
+        /// 
+        /// </summary>
+        private string _url = null;
+        
+        #region Ctor
+        /// <summary>
         /// Ctor.
         /// </summary>
         public MailDetailForm()
         {
             InitializeComponent();
-            this.linklblID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblID_LinkClicked);
-            this.linklblReply.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblReply_LinkClicked);
-            this.linklblDelete.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblDelete_LinkClicked);
-            this.linklblTransfer.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblTransfer_LinkClicked);
-            this.richtxtContent.ContentsResized += RichtxtContent_ContentsResized;
         }
 
         /// <summary>
@@ -32,78 +37,62 @@
         public MailDetailForm(string url)
             : this()
         {
-            if (string.IsNullOrEmpty(url) == false)
-            {
-                WebPage page = WebPageFactory.CreateWebPage(url);
-                if (page != null && page.IsGood)
-                {
-                    string pattern = @"<li><div class=\Wnav hl\W><a href=\W/user/query/[a-zA-z][a-zA-Z0-9]{1,11}\W>"
-                                   + @"(?'ID'[a-zA-z][a-zA-Z0-9]{1,11})</a>\|<a class=\Wplant\W>"
-                                   + @"(?'DateTime'[\d, \-, \:]+)</a>\|<a href=\W"
-                                   + @"(?'ReplyUrl'/mail/\w+/send/\d+)\W>回复</a>\|<a href=\W"
-                                   + @"(?'TransferUrl'/mail/\w+/forward/\d+)\W>转寄</a>\|<a href=\W"
-                                   + @"(?'DeleteUrl'/mail/\w+/delete/\d+)\W>删除</a>\|<a href=\W/mail/\w+\W>返回</a>";
-                    MatchCollection mtColleton = CommonUtil.GetMatchCollection(pattern, page.Html);
-                    if (mtColleton != null && mtColleton.Count > 0)
-                    {
-                        this.linklblID.Visible = true;
-                        this.linklblID.Text = mtColleton[0].Groups["ID"].Value.ToString();
-                        this.linklblID.Links.Add(0, this.linklblID.Text.Length, this.linklblID.Text);
-                        this.lblDateTime.Text = mtColleton[0].Groups["DateTime"].Value.ToString();
-                        this.lblTitle.Text = CommonUtil.ReplaceSpecialChars(CommonUtil.GetMatch(@"<li class=\Wf\W>标题:(?'Title'.+)</li><li><div class=\Wnav hl\W>", page.Html, "Title"));
-                        this.lblDateTime.Text = mtColleton[0].Groups["DateTime"].Value.ToString();
-                        if (mtColleton[0].Groups["ReplyUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["ReplyUrl"].Value) == false)
-                        {
-                            this.linklblReply.Visible = true;
-                            this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, Configurations.BaseUrl + mtColleton[0].Groups["ReplyUrl"].Value.ToString());
-                        }
+            this._url = url;
+        }
+        #endregion
 
-                        if (mtColleton[0].Groups["DeleteUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["DeleteUrl"].Value) == false)
-                        {
-                            this.linklblDelete.Visible = true;
-                            this.linklblDelete.Links.Add(0, this.linklblDelete.Text.Length, Configurations.BaseUrl + mtColleton[0].Groups["DeleteUrl"].Value.ToString());
-                        }
-
-                        if (mtColleton[0].Groups["TransferUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["TransferUrl"].Value) == false)
-                        {
-                            this.linklblTransfer.Visible = true;
-                            this.linklblTransfer.Links.Add(0, this.linklblTransfer.Text.Length, Configurations.BaseUrl + mtColleton[0].Groups["TransferUrl"].Value.ToString());
-                        }
-                    }
-
-                    pattern = @"<div class=\Wsp\W>(?'Content'[\w,\W]+)</div></li></ul>";
-                    string content = CommonUtil.GetMatch(pattern, page.Html, "Content");
-                    content = content.Replace("<br />", "\n");
-                    content = content.Replace("<br/>", "\n");
-                    content = content.Replace("<br>", "\n");
-                    content = content.Replace("<div class=\"sp\">", "");
-                    content = content.Replace("&nbsp;", " ");
-                    content = content.Replace("</div>", "");
-                    content = CommonUtil.ReplaceSpecialChars(content);
-                    this.richtxtContent.AppendText(content);
-                }
-            }
+        #region override
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            MailDetailContainerControl mdcc = new MailDetailContainerControl(this._url);
+            //mdcc.MailUrl = this._url;
+            mdcc.Left = 1;
+            mdcc.Top = 1;
+            mdcc.OnMailAuthorLinkClicked += Mdcc_OnMailAuthorLinkClicked;
+            mdcc.OnMailDeleteLinkClicked += Mdcc_OnMailDeleteLinkClicked;
+            mdcc.OnMailReplyLinkClicked += Mdcc_OnMailReplyLinkClicked;
+            mdcc.OnMailTransferLinkClicked += Mdcc_OnMailTransferLinkClicked;
+            mdcc.SetParentControl(this);
+            this.panelContainer.Controls.Add(mdcc);
+            //this.Size = new Size(mdcc.Width + this.Width - this.panelContainer.Width + 2, mdcc.Height + this.Height - this.panelContainer.Height + 2);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="mail"></param>
-        public MailDetailForm(Mail mail)
-            : this()
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Mdcc_OnMailTransferLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (mail != null)
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Mdcc_OnMailReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
             {
-                this.lblTitle.Text = mail.Title;
-                this.lblDateTime.Text = mail.DateTime;
-                this.linklblID.Text = mail.Author;
-                this.linklblID.Links.Add(0, mail.Author.Length, mail.Author);                
-                this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, mail.ReplyUrl);
-                this.linklblDelete.Links.Add(0, this.linklblDelete.Text.Length, mail.DeleteUrl);
-                this.linklblTransfer.Links.Add(0, this.linklblTransfer.Text.Length, mail.TransferUrl);
+                Mail mail = linkLabel.Tag as Mail;
+                string content = GetReplyContent(mail.Title, mail.Content);
+                NewMailForm newMailForm = new NewMailForm(mail.Author, mail.Title, content);
+                newMailForm.StartPosition = FormStartPosition.CenterParent;
+                if (newMailForm.ShowDialog(this) == DialogResult.Yes)
+                {
+                    e.Link.Visited = true;
+                }
             }
         }
 
+        #region private
         /// <summary>
         /// 
         /// </summary>
@@ -154,48 +143,14 @@
 
             return null;
         }
-
-        #region Event handler
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void linklblID_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                UserForm userForm = new UserForm(e.Link.LinkData.ToString());
-                userForm.StartPosition = FormStartPosition.CenterScreen;
-                userForm.ShowDialog(this);
-            }
-        }
-
+        #endregion
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void linklblReply_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                string content = GetReplyContent(this.linklblID.Text, this.richtxtContent.Text);
-                NewMailForm newMailForm = new NewMailForm(this.linklblID.Text, this.lblTitle.Text, content);
-                newMailForm.StartPosition = FormStartPosition.CenterParent;
-                newMailForm.ShowDialog(this);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void linklblDelete_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Mdcc_OnMailDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -218,22 +173,14 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void linklblTransfer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Mdcc_OnMailAuthorLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RichtxtContent_ContentsResized(object sender, ContentsResizedEventArgs e)
-        {
-            RichTextBox rtb = sender as RichTextBox;
-            if (rtb != null)
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
             {
-                rtb.Size = e.NewRectangle.Size;
-                this.Size = new System.Drawing.Size(rtb.Size.Width + 40, rtb.Size.Height + 125);
+                UserForm userForm = new UserForm(e.Link.LinkData.ToString());
+                userForm.StartPosition = FormStartPosition.CenterParent;
+                userForm.ShowDialog(this);
             }
         }
         #endregion

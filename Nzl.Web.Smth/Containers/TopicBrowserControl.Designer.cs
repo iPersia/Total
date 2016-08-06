@@ -1,4 +1,4 @@
-﻿namespace Nzl.Web.Smth.Controls
+﻿namespace Nzl.Web.Smth.Containers
 {
     partial class TopicBrowserControl
     {

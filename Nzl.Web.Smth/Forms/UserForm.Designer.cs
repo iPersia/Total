@@ -33,6 +33,7 @@
             this.btnSendMail = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtUser = new System.Windows.Forms.RichTextBox();
+            this.bgwFetchPage = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -123,5 +124,6 @@
         private System.Windows.Forms.RichTextBox txtUser;
         private System.Windows.Forms.Button btnSendMail;
         private System.Windows.Forms.Panel panel1;
+        private System.ComponentModel.BackgroundWorker bgwFetchPage;
     }
 }

@@ -1,9 +1,10 @@
-﻿namespace Nzl.Web.Smth.Controls
+﻿namespace Nzl.Web.Smth.Containers
 {
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
+    using Controls;
     using Datas;
     using Page;
     using Utils;

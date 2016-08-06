@@ -1,4 +1,4 @@
-﻿namespace Nzl.Web.Smth.Controls
+﻿namespace Nzl.Web.Smth.Containers
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +9,7 @@
     using Nzl.Web.Util;
     using Nzl.Web.Page;
     using Nzl.Web.Smth.Common;
+    using Controls;
     using Nzl.Web.Smth.Datas;
     using Nzl.Web.Smth.Forms;
     using Nzl.Web.Smth.Interfaces;

@@ -8,7 +8,7 @@
     using Nzl.Hook;
     using Nzl.Web.Page;
     using Nzl.Web.Smth.Common;
-    using Nzl.Web.Smth.Controls;
+    using Nzl.Web.Smth.Containers;
     using Nzl.Web.Smth.Datas;
     using Nzl.Web.Smth.Utils;
     using Nzl.Web.Util;
@@ -227,7 +227,7 @@
                 string url = e.LinkText.Substring(index);
                 if (url.Contains(@"att.newsmth.net"))
                 {
-                    (new WebBrowserForm(url)).Show();
+                    ShowFormOnCenterParent((new WebBrowserForm(url)));
                 }
                 else
                 {
@@ -505,9 +505,10 @@
         /// <param name="e"></param>
         private void tcTopics_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (this.tcTopics.SelectedIndex > -1)
+            int index = this.tcTopics.SelectedIndex;
+            if (index > -1)
             {
-                TabPage tp = this.tcTopics.TabPages[this.tcTopics.SelectedIndex];
+                TabPage tp = this.tcTopics.TabPages[index];
                 this.tcTopics.TabPages.Remove(tp);
                 tp.Dispose();
                 GC.Collect();
@@ -515,7 +516,7 @@
 
             if (this.tcTopics.TabPages.Count > 0)
             {
-                this.tcTopics.SelectedIndex = this.tcTopics.TabPages.Count - 1;
+                this.tcTopics.SelectedIndex = index >= this.tcTopics.TabPages.Count - 1 ? this.tcTopics.TabPages.Count - 1 : index;
             }
         }
         #endregion
@@ -617,8 +618,9 @@
         /// <param name="e"></param>
         private void btnMail_Click(object sender, EventArgs e)
         {
-            ShowFormOnCenterParent(new TestForm(@"http://m.newsmth.net/mail/inbox/269"));
-            //ShowFormAsDialog(MailBoxForm.Instance);
+            //ShowFormOnCenterParent(new MailDetailForm(@"http://m.newsmth.net/mail/inbox/276"));
+            //ShowFormOnCenterParent(new MailDetailForm(@"http://m.newsmth.net/mail/inbox/269"));
+            ShowFormAsDialog(MailBoxForm.Instance);
         }
 
         /// <summary>

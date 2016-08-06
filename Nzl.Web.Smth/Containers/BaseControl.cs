@@ -1,4 +1,4 @@
-﻿namespace Nzl.Web.Smth.Controls
+﻿namespace Nzl.Web.Smth.Containers
 {
     using System;
     using System.Collections.Generic;
@@ -537,7 +537,7 @@
         /// </summary>
         protected bool FetchPage(UrlInfo urlInfo)
         {
-            if (urlInfo.Index > 0 && urlInfo.Index <= urlInfo.Total)
+            if (urlInfo.Index > 0 && urlInfo.Index <= urlInfo.Total && string.IsNullOrEmpty(urlInfo.BaseUrl) == false)
             {
                 this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
                 this.bwFetchPage.DoWork += new System.ComponentModel.DoWorkEventHandler(bwFetchPage_DoWork);

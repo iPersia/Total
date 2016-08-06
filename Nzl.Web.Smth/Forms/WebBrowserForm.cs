@@ -1,7 +1,6 @@
 ﻿namespace Nzl.Web.Smth.Forms
 {
     using System;
-    using SHDocVw;
     using System.Windows.Forms;
 
     /// <summary>
@@ -66,18 +65,18 @@
             }
 
             ///Set window's width.
-            if (this.wbBrowser.Document.Images.Count > 0)
-            {
-                try
-                {
-                    int width = Convert.ToInt32(this.wbBrowser.Document.Images[0].GetAttribute("width"));
-                    if (width > 0)
-                    {
-                        this.Width = width + 40 + this.Width - this.wbBrowser.Width;
-                    }
-                }
-                catch { };
-            }            
+            ////if (this.wbBrowser.Document.Images.Count > 0)
+            ////{
+            ////    try
+            ////    {
+            ////        int width = Convert.ToInt32(this.wbBrowser.Document.Images[0].GetAttribute("width"));
+            ////        if (width > 0)
+            ////        {
+            ////            this.Width = width + 40 + this.Width - this.wbBrowser.Width;
+            ////        }
+            ////    }
+            ////    catch { };
+            ////}            
         }
 
         /// <summary>

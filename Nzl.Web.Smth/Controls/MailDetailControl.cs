@@ -15,101 +15,116 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class MailDetailControl : BaseControl
+    public partial class MailDetailControl : UserControl
     {
+        #region events.
         /// <summary>
         /// 
         /// </summary>
-        private Control _parentControl = null;
+        public event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnReplyLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnTransferLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnDeleteLinkClicked;
+        #endregion
+
+        #region Ctor.
         /// <summary>
         /// 
         /// </summary>
         public MailDetailControl()
         {
-            InitializeComponent();            
-            this.Text = "Mail Detail";           
+            InitializeComponent();
+            this.linklblID.LinkClicked += LinklblID_LinkClicked;
+            this.linklblReply.LinkClicked += LinklblReply_LinkClicked;
+            this.linklblDelete.LinkClicked += LinklblDelete_LinkClicked;
+            this.linklblTransfer.LinkClicked += LinklblTransfer_LinkClicked;
+            this.scContainer.Visible = false;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="url"></param>
-        public MailDetailControl(string url)
+        public MailDetailControl(Mail mail)
             : this()
         {
-            this.SetBaseUrl(url);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ctl"></param>
-        public void SetParentControl(Control ctl)
-        {
-            this._parentControl = ctl;
-        }
-
-        #region override
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            this.SetUrlInfo(false);
-            this.FetchPage();
-        }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="info"></param>
-        /// <returns></returns>
-        protected override string GetUrl(UrlInfo info)
-        {
-            return info.BaseUrl;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="wp"></param>
-        /// <returns></returns>
-        protected override IList<BaseItem> GetItems(WebPage wp)
-        {
-            IList<BaseItem> list = new List<BaseItem>();
-            list.Add(MailFactory.CreateMailDetail(wp));
-            return list;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="info"></param>
-        protected override void WorkCompleted(UrlInfo info)
-        {
-            if (info.Status == PageStatus.Normal)
+            if (mail != null)
             {
-                Mail mail = info.Result[0] as Mail;
-                if (mail != null)
-                {
-                    this.Visible = true;
+                this.scContainer.Visible = true;
+                this.lblTitle.Text = mail.Title;
+                this.linklblID.Text = mail.Author;
+                this.linklblDelete.Links.Add(0, this.linklblDelete.Text.Length, mail.DeleteUrl);
+                this.linklblID.Links.Add(0, this.linklblID.Text.Length, mail.Author);
+                this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, mail.ReplyUrl);
+                this.linklblReply.Tag = mail;
+                this.linklblTransfer.Links.Add(0, this.linklblTransfer.Text.Length, mail.TransferUrl);
+                this.richtxtContent.AppendText(mail.Content);
+            }
+        }
+        #endregion
 
-                    this.lblTitle.Text = mail.Title;
-                    this.linklblID.Text = mail.Author;
-                    this.linklblDelete.Links.Add(0, this.linklblDelete.Text.Length, mail.DeleteUrl);
-                    this.linklblID.Links.Add(0, this.linklblID.Text.Length, mail.Author);
-                    this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, mail.ReplyUrl);
-                    this.linklblTransfer.Links.Add(0, this.linklblTransfer.Text.Length, mail.TransferUrl);
-                    this.richtxtContent.AppendText(mail.Content);
+        #region eventhandler
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LinklblTransfer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnTransferLinkClicked != null)
+            {
+                this.OnTransferLinkClicked(sender, e);
+            }
+        }
 
-                    if (this._parentControl != null)
-                    {
-                        this._parentControl.Text = mail.Title;
-                    }
-                }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LinklblDelete_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnDeleteLinkClicked != null)
+            {
+                this.OnDeleteLinkClicked(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LinklblReply_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnReplyLinkClicked != null)
+            {
+                this.OnReplyLinkClicked(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LinklblID_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnUserLinkClicked != null)
+            {
+                this.OnUserLinkClicked(sender, e);
             }
         }
         #endregion

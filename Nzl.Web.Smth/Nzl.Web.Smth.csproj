@@ -53,11 +53,6 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SHDocVw, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>Dll\SHDocVw.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -77,17 +72,23 @@
     <Compile Include="Common\MessageForm.Designer.cs">
       <DependentUpon>MessageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\BaseControl.cs">
+    <Compile Include="Containers\BaseControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\ExRichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\MailBoxControl.cs">
+    <Compile Include="Containers\MailBoxControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\MailBoxControl.Designer.cs">
+    <Compile Include="Containers\MailBoxControl.Designer.cs">
       <DependentUpon>MailBoxControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Containers\MailDetailContainerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Containers\MailDetailContainerControl.Designer.cs">
+      <DependentUpon>MailDetailContainerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\MailDetailControl.cs">
       <SubType>UserControl</SubType>
@@ -96,16 +97,16 @@
       <DependentUpon>MailDetailControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\RichTextBoxPrintHelper.cs" />
-    <Compile Include="Controls\XBoxControl.cs">
+    <Compile Include="Containers\XBoxControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\XBoxControl.Designer.cs">
+    <Compile Include="Containers\XBoxControl.Designer.cs">
       <DependentUpon>XBoxControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\BoardBrowserControl.cs">
+    <Compile Include="Containers\BoardBrowserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\BoardBrowserControl.Designer.cs">
+    <Compile Include="Containers\BoardBrowserControl.Designer.cs">
       <DependentUpon>BoardBrowserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\BoardControl.cs">
@@ -114,10 +115,10 @@
     <Compile Include="Controls\BoardControl.Designer.cs">
       <DependentUpon>BoardControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\FavorControl.cs">
+    <Compile Include="Containers\FavorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\FavorControl.Designer.cs">
+    <Compile Include="Containers\FavorControl.Designer.cs">
       <DependentUpon>FavorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\LoginControl.cs">
@@ -141,16 +142,16 @@
     <Compile Include="Controls\RichTextBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SectionNavigationControl.cs">
+    <Compile Include="Containers\SectionNavigationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\SectionNavigationControl.Designer.cs">
+    <Compile Include="Containers\SectionNavigationControl.Designer.cs">
       <DependentUpon>SectionNavigationControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SectionTopsControl.cs">
+    <Compile Include="Containers\SectionTopsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\SectionTopsControl.Designer.cs">
+    <Compile Include="Containers\SectionTopsControl.Designer.cs">
       <DependentUpon>SectionTopsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ThreadControl.cs">
@@ -159,10 +160,10 @@
     <Compile Include="Controls\ThreadControl.Designer.cs">
       <DependentUpon>ThreadControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Top10sBrowserControl.cs">
+    <Compile Include="Containers\Top10sBrowserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\Top10sBrowserControl.Designer.cs">
+    <Compile Include="Containers\Top10sBrowserControl.Designer.cs">
       <DependentUpon>Top10sBrowserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\TopControl.cs">
@@ -171,10 +172,10 @@
     <Compile Include="Controls\TopControl.Designer.cs">
       <DependentUpon>TopControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TopicBrowserControl.cs">
+    <Compile Include="Containers\TopicBrowserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\TopicBrowserControl.Designer.cs">
+    <Compile Include="Containers\TopicBrowserControl.Designer.cs">
       <DependentUpon>TopicBrowserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\TopicControl.cs">
@@ -216,17 +217,17 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\TestForm.Designer.cs">
-      <DependentUpon>TestForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MailDetailForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MailDetailForm.Designer.cs">
       <DependentUpon>MailDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -314,22 +315,25 @@
     <EmbeddedResource Include="Common\MessageForm.resx">
       <DependentUpon>MessageForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\MailBoxControl.resx">
+    <EmbeddedResource Include="Containers\MailBoxControl.resx">
       <DependentUpon>MailBoxControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Containers\MailDetailContainerControl.resx">
+      <DependentUpon>MailDetailContainerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\MailDetailControl.resx">
       <DependentUpon>MailDetailControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\XBoxControl.resx">
+    <EmbeddedResource Include="Containers\XBoxControl.resx">
       <DependentUpon>XBoxControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\BoardBrowserControl.resx">
+    <EmbeddedResource Include="Containers\BoardBrowserControl.resx">
       <DependentUpon>BoardBrowserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\BoardControl.resx">
       <DependentUpon>BoardControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FavorControl.resx">
+    <EmbeddedResource Include="Containers\FavorControl.resx">
       <DependentUpon>FavorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\LoginControl.resx">
@@ -341,22 +345,22 @@
     <EmbeddedResource Include="Controls\MailControl.resx">
       <DependentUpon>MailControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SectionNavigationControl.resx">
+    <EmbeddedResource Include="Containers\SectionNavigationControl.resx">
       <DependentUpon>SectionNavigationControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SectionTopsControl.resx">
+    <EmbeddedResource Include="Containers\SectionTopsControl.resx">
       <DependentUpon>SectionTopsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ThreadControl.resx">
       <DependentUpon>ThreadControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Top10sBrowserControl.resx">
+    <EmbeddedResource Include="Containers\Top10sBrowserControl.resx">
       <DependentUpon>Top10sBrowserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TopControl.resx">
       <DependentUpon>TopControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TopicBrowserControl.resx">
+    <EmbeddedResource Include="Containers\TopicBrowserControl.resx">
       <DependentUpon>TopicBrowserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TopicControl.resx">
@@ -371,11 +375,11 @@
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TestForm.resx">
-      <DependentUpon>TestForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MailDetailForm.resx">
       <DependentUpon>MailDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -469,9 +473,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Dll\SHDocVw.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

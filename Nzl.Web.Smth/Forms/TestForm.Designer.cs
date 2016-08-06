@@ -28,31 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelContainer = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // panelContainer
-            // 
-            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContainer.Location = new System.Drawing.Point(0, 0);
-            this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(441, 416);
-            this.panelContainer.TabIndex = 0;
             // 
             // TestForm
             // 
-            this.ClientSize = new System.Drawing.Size(441, 416);
-            this.Controls.Add(this.panelContainer);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(467, 437);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "TestForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.Text = "Mail Detail";
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panelContainer;
     }
 }

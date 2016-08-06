@@ -89,8 +89,8 @@
         private static Mail CreateMailDetail(string html)
         {
             Mail mail = new Mail();
-            string pattern = @"<li><div class=\Wnav hl\W><a href=\W/user/query/[a-zA-z][a-zA-Z0-9]{1,11}\W>"
-                           + @"(?'Author'[a-zA-z][a-zA-Z0-9]{1,11})</a>\|<a class=\Wplant\W>"
+            string pattern = @"<li><div class=\Wnav hl\W><a href=\W/user/query/[a-zA-z][a-zA-Z0-9]{1,11}(\.)?\W>"
+                           + @"(?'Author'[a-zA-z][a-zA-Z0-9]{1,11})(\.)?</a>\|<a class=\Wplant\W>"
                            + @"(?'DateTime'[\d, \-, \:]+)</a>\|<a href=\W"
                            + @"(?'ReplyUrl'/mail/\w+/send/\d+)\W>回复</a>\|<a href=\W"
                            + @"(?'TransferUrl'/mail/\w+/forward/\d+)\W>转寄</a>\|<a href=\W"

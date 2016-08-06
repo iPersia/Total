@@ -30,7 +30,7 @@
         {
             this.panelContainer = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.mbcMailBox = new Nzl.Web.Smth.Controls.MailBoxControl();
+            this.mbcMailBox = new Nzl.Web.Smth.Containers.MailBoxControl();
             this.panelContainer.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -79,7 +79,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panelContainer;
-        private Controls.MailBoxControl mbcMailBox;
+        private Containers.MailBoxControl mbcMailBox;
         private System.Windows.Forms.Panel panel1;
     }
 }
