@@ -12,7 +12,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class FavorControl : BaseControl
+    public partial class FavorControl : BaseContainer
     {
         #region event
         /// <summary>

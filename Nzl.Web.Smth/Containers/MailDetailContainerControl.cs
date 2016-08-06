@@ -16,7 +16,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class MailDetailContainerControl : BaseControl
+    public partial class MailDetailContainerControl : BaseContainer
     {
         #region events.
         /// <summary>

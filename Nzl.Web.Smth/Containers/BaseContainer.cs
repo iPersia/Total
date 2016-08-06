@@ -23,7 +23,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class BaseControl : UserControl
+    public class BaseContainer : UserControl
     {
         #region variable
         /// <summary>
@@ -35,11 +35,6 @@
         /// 
         /// </summary>
         private System.ComponentModel.BackgroundWorker bwFetchPage;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private bool _isDoingWork = false;
 
         /// <summary>
         /// 
@@ -56,7 +51,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public BaseControl()
+        public BaseContainer()
             : base()
         {
 
@@ -247,7 +242,7 @@
             catch (Exception exp)
             {
 #if (DEBUG)
-                CommonUtil.ShowMessage(typeof(BaseControl), exp.Message);
+                CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
 #endif
             }
         }
@@ -453,6 +448,10 @@
                         DoWorkBase(e);
 
                         MessageQueue.Enqueue(MessageFactory.CreateMessage(this.Text == null ? this.GetType().ToString(): this.Text, "Getting '" + targetUrl + "' succeeded!"));
+                    }
+                    else
+                    {
+                        MessageQueue.Enqueue(MessageFactory.CreateMessage(this.Text == null ? this.GetType().ToString() : this.Text, Nzl.Util.MiscUtil.GetEnumDescription(urlInfo.Status) + " The page is '" + targetUrl + "'!" ));
                     }
 
                     e.Result = urlInfo;

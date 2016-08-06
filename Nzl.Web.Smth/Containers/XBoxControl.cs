@@ -15,7 +15,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class XBoxControl : BaseControl
+    public partial class XBoxControl : BaseContainer
     {
         #region Event
         /// <summary>

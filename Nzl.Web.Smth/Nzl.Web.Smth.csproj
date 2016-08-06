@@ -72,7 +72,7 @@
     <Compile Include="Common\MessageForm.Designer.cs">
       <DependentUpon>MessageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Containers\BaseControl.cs">
+    <Compile Include="Containers\BaseContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\ExRichTextBox.cs">
@@ -121,10 +121,10 @@
     <Compile Include="Containers\FavorControl.Designer.cs">
       <DependentUpon>FavorControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\LoginControl.cs">
+    <Compile Include="Containers\LoginControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\LoginControl.Designer.cs">
+    <Compile Include="Containers\LoginControl.Designer.cs">
       <DependentUpon>LoginControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SectionControl.cs">
@@ -336,7 +336,7 @@
     <EmbeddedResource Include="Containers\FavorControl.resx">
       <DependentUpon>FavorControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\LoginControl.resx">
+    <EmbeddedResource Include="Containers\LoginControl.resx">
       <DependentUpon>LoginControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SectionControl.resx">

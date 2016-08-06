@@ -18,7 +18,7 @@
     /// <summary>
     /// The topic form.
     /// </summary>
-    public partial class TopicBrowserControl : BaseControl, IContainsThread
+    public partial class TopicBrowserControl : BaseContainer, IContainsThread
     {
         #region events.
         /// <summary>

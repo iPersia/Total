@@ -15,7 +15,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class BoardBrowserControl : BaseControl
+    public partial class BoardBrowserControl : BaseContainer
     {
         #region Event
         /// <summary>

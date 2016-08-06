@@ -1,6 +1,7 @@
 ﻿namespace Nzl.Web.Smth.Forms
 {
     using System;
+    using System.Drawing;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
     using Nzl.Web.Util;
@@ -43,11 +44,7 @@
             base.OnShown(e);
             this.Text = "Query User - " + this._userID;
             LoadUserInfor();
-
-            {
-                int rowCount = txtUser.GetLineFromCharIndex(txtUser.SelectionStart) + 2;
-                this.Height = this.txtUser.Font.Height * rowCount + (this.Height - this.txtUser.Height);
-            }
+            this.txtUser.ContentsResized += TxtUser_ContentsResized;
         }
 
         /// <summary>
@@ -61,28 +58,79 @@
                 return;
             }
 
-            WebPage userInforPage = WebPageFactory.CreateWebPage("http://m.newsmth.net/user/query/" + this._userID);
-            if (userInforPage != null && userInforPage.IsGood)
-            {
-                string userInfor = CommonUtil.GetMatch(@"<li>[\w, \W]+</li>", userInforPage.Html);
-                if (string.IsNullOrEmpty(userInfor) == false)
-                {
-                    userInfor = userInfor.Replace(@"<li>", "\t");
-                    Regex objReg = new System.Text.RegularExpressions.Regex(@"[\n]", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-                    userInfor = objReg.Replace(userInfor, "");
-                    userInfor = userInfor.Replace(@"</li>", "\n\n");
-                    objReg = new System.Text.RegularExpressions.Regex("(<[^>]+?>)", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-                    userInfor = objReg.Replace(userInfor, "");
-                    userInfor = CommonUtil.ReplaceSpecialChars(userInfor);
-                    userInfor.TrimEnd('\n');
-                    this.txtUser.AppendText("\n");
-                    this.txtUser.AppendText(userInfor);
-                    this.txtUser.AppendText("\n");
-                    return;
-                }
-            }
+            this.bgwFetchPage.DoWork += BgwFetchPage_DoWork;
+            this.bgwFetchPage.RunWorkerCompleted += BgwFetchPage_RunWorkerCompleted;
+            this.bgwFetchPage.RunWorkerAsync(this._userID);            
+        }
 
-            this.txtUser.AppendText("\n\t没有查询到用户'" + this._userID + "'的信息！");
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BgwFetchPage_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                WebPage userInforPage = e.Result as WebPage;
+                if (userInforPage != null && userInforPage.IsGood)
+                {
+                    string userInfor = CommonUtil.GetMatch(@"<li>[\w, \W]+</li>", userInforPage.Html);
+                    if (string.IsNullOrEmpty(userInfor) == false)
+                    {
+                        userInfor = userInfor.Replace(@"<li>", "\t");
+                        Regex objReg = new System.Text.RegularExpressions.Regex(@"[\n]", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                        userInfor = objReg.Replace(userInfor, "");
+                        userInfor = userInfor.Replace(@"</li>", "\n\n");
+                        objReg = new System.Text.RegularExpressions.Regex("(<[^>]+?>)", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                        userInfor = objReg.Replace(userInfor, "");
+                        userInfor = CommonUtil.ReplaceSpecialChars(userInfor);
+                        userInfor.TrimEnd('\n');
+                        this.txtUser.AppendText("\n");
+                        this.txtUser.AppendText(userInfor);
+                        return;
+                    }
+                }
+
+                this.txtUser.AppendText("\n\t没有查询到用户'" + this._userID + "'的信息！");
+            }
+            catch
+            {
+                this.txtUser.AppendText("\n\t没有查询到用户'" + this._userID + "'的信息！");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BgwFetchPage_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            try
+            {
+                e.Result = WebPageFactory.CreateWebPage("http://m.newsmth.net/user/query/" + e.Argument.ToString());
+            }
+            catch
+            {
+                e.Result = null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtUser_ContentsResized(object sender, ContentsResizedEventArgs e)
+        {
+            RichTextBox rtb = sender as RichTextBox;
+            if (rtb != null)
+            {
+                Size newSize = e.NewRectangle.Size;
+                this.Size = new Size(newSize.Width + this.Size.Width - rtb.Width, newSize.Height + this.Size.Height - rtb.Height);
+                rtb.Size = e.NewRectangle.Size;                
+            }
         }
 
         /// <summary>

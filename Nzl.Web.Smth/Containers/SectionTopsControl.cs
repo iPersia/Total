@@ -16,7 +16,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class SectionTopsControl : BaseControl
+    public partial class SectionTopsControl : BaseContainer
     {
         /// <summary>
         /// 

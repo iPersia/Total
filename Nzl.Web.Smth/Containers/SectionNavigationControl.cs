@@ -18,7 +18,7 @@
     /// So when the linklabel lose focus, the SectionNavigationControl must
     /// be focused.
     /// </summary>
-    public partial class SectionNavigationControl : BaseControl
+    public partial class SectionNavigationControl : BaseContainer
     {
         #region event
         /// <summary>
