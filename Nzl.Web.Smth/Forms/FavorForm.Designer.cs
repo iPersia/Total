@@ -51,6 +51,7 @@
             this.MaximizeBox = false;
             this.Name = "FavorForm";
             this.Text = "Favor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FavorForm_FormClosing);
             this.ResumeLayout(false);
 
         }

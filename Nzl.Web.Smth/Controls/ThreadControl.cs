@@ -105,10 +105,12 @@
         /// <param name="e"></param>
         private void richtxtContent_ContentsResized(object sender, ContentsResizedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("richtxtContent_ContentsResized - "
-                                              + "Url - " + (this.Tag as Thread).Url + "\t"
-                                              + "Floor -" + (this.Tag as Thread).Floor + "\t"
-                                              + "NewSize - " + e.NewRectangle.Size);
+#if (DEBUG)
+            //System.Diagnostics.Debug.WriteLine("richtxtContent_ContentsResized - "
+            //                                  + "Url - " + (this.Tag as Thread).Url + "\t"
+            //                                  + "Floor -" + (this.Tag as Thread).Floor + "\t"
+            //                                  + "NewSize - " + e.NewRectangle.Size);
+#endif
             RichTextBox rtb = sender as RichTextBox;
             if (rtb != null)
             {
@@ -268,7 +270,6 @@
             if (this.OnUserLinkClicked != null)
             {
                 this.OnUserLinkClicked(sender, e);
-                ///e.Link.Visited = true;
             }
         }
 
@@ -282,7 +283,6 @@
             if (this.OnQueryTypeLinkClicked != null)
             {
                 this.OnQueryTypeLinkClicked(sender, e);
-                ///e.Link.Visited = true;
             }
         }
 
@@ -296,7 +296,6 @@
             if (this.OnReplyLinkClicked != null)
             {
                 this.OnReplyLinkClicked(sender, e);
-                ///e.Link.Visited = true;
             }
         }
 
@@ -310,7 +309,6 @@
             if (this.OnMailLinkClicked != null)
             {
                 this.OnMailLinkClicked(sender, e);
-                ///e.Link.Visited = true;
             }
         }
 
@@ -324,7 +322,6 @@
             if (this.OnTransferLinkClicked != null)
             {
                 this.OnTransferLinkClicked(sender, e);
-                ///e.Link.Visited = true;
             }
         }
 
@@ -338,7 +335,6 @@
             if (this.OnEditLinkClicked != null)
             {
                 this.OnEditLinkClicked(sender, e);
-                ///e.Link.Visited = true;
             }
         }
 
@@ -352,7 +348,6 @@
             if (this.OnDeleteLinkClicked != null)
             {
                 this.OnDeleteLinkClicked(sender, e);
-                ///e.Link.Visited = true;
             }
         }
 

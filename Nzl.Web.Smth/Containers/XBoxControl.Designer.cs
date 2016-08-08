@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.scContainer = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnNew = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -51,10 +51,10 @@
             this.btnFirst2 = new System.Windows.Forms.Button();
             this.btnNext2 = new System.Windows.Forms.Button();
             this.btnPrev2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scContainer)).BeginInit();
+            this.scContainer.Panel1.SuspendLayout();
+            this.scContainer.Panel2.SuspendLayout();
+            this.scContainer.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
@@ -64,27 +64,27 @@
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // splitContainer1
+            // scContainer
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.IsSplitterFixed = true;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.scContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.scContainer.IsSplitterFixed = true;
+            this.scContainer.Location = new System.Drawing.Point(0, 0);
+            this.scContainer.Name = "scContainer";
+            this.scContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer1.Panel1
+            // scContainer.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.panel1);
+            this.scContainer.Panel1.Controls.Add(this.panel1);
             // 
-            // splitContainer1.Panel2
+            // scContainer.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(635, 544);
-            this.splitContainer1.SplitterDistance = 25;
-            this.splitContainer1.SplitterWidth = 1;
-            this.splitContainer1.TabIndex = 3;
-            this.splitContainer1.TabStop = false;
+            this.scContainer.Panel2.Controls.Add(this.splitContainer2);
+            this.scContainer.Size = new System.Drawing.Size(635, 544);
+            this.scContainer.SplitterDistance = 25;
+            this.scContainer.SplitterWidth = 1;
+            this.scContainer.TabIndex = 3;
+            this.scContainer.TabStop = false;
             // 
             // panel1
             // 
@@ -382,13 +382,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.scContainer);
             this.Name = "XBoxControl";
             this.Size = new System.Drawing.Size(635, 544);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.scContainer.Panel1.ResumeLayout(false);
+            this.scContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scContainer)).EndInit();
+            this.scContainer.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
@@ -421,7 +421,7 @@
         private System.Windows.Forms.Button btnFirst1;
         private System.Windows.Forms.Button btnNext1;
         private System.Windows.Forms.Button btnPrev1;
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer scContainer;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.Panel panelContainer;

@@ -17,8 +17,13 @@
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnFavorBoardLinkLableClicked; 
-        
+        public event LinkLabelLinkClickedEventHandler OnFavorBoardLinkLableClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Form _parentForm = null;
+
         /// <summary>
         /// 
         /// </summary>
@@ -38,6 +43,21 @@
             if (this.OnFavorBoardLinkLableClicked != null)
             {
                 this.OnFavorBoardLinkLableClicked(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FavorForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
+            if (this._parentForm != null)
+            {
+                this._parentForm.Focus();
             }
         }
     }

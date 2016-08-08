@@ -39,19 +39,6 @@
             }
         }
 
-        ///// <summary>
-        ///// Ctor.
-        ///// </summary>
-        //public BoardControl(string url, string title)
-        //    : this()
-        //{
-        //    this.linklblBoard.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblBorS_LinkClicked);
-        //    this.linklblBoard.Text = title;
-        //    LinkLabel.Link link = new LinkLabel.Link(0, this.linklblBoard.Text.Length, url);
-        //    link.Tag = "Board";
-        //    this.linklblBoard.Links.Add(link);
-        //}
-
         /// <summary>
         /// 
         /// </summary>
@@ -62,7 +49,6 @@
             if (this.OnLinkClicked != null)
             {
                 OnLinkClicked(sender, e);
-                ///e.Link.Visited = true;
             }
         }
     }

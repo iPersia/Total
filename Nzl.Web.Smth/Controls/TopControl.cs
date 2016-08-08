@@ -80,7 +80,6 @@
             if (this.OnTopLinkClicked != null)
             {
                 this.OnTopLinkClicked(sender, e);
-                ///e.Link.Visited = true;
             }
         }
 
@@ -94,7 +93,6 @@
             if (this.OnTopBoardLinkClicked != null)
             {
                 this.OnTopBoardLinkClicked(sender, e);
-                ///e.Link.Visited = true;
             }
         }
         #endregion

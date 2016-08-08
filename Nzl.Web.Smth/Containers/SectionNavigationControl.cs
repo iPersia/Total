@@ -51,6 +51,7 @@
         public SectionNavigationControl()
         {
             InitializeComponent();
+            this.panel.MouseWheel += Panel_MouseWheel;
             this.linklblPrevious.LostFocus += LinklblPrevious_LostFocus;
             this.Text = "Section navigation";
         }
@@ -85,8 +86,7 @@
             this.SetBaseUrl(@"http://m.newsmth.net/section");
             this.SetUrlInfo(false);
             this.FetchPage();
-            this.linklblPrevious.LinkClicked += LinklblPrevious_LinkClicked;
-            this.panel.MouseWheel += Panel_MouseWheel;
+            this.linklblPrevious.LinkClicked += LinklblPrevious_LinkClicked;            
             this.btnRefresh.Left = this.panelUp.Width / 2 - this.btnRefresh.Width / 2;
         }
 

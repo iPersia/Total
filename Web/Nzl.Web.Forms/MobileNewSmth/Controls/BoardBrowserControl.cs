@@ -48,6 +48,7 @@
         public BoardBrowserControl()
         {
             InitializeComponent();
+            this.MouseWheel += new MouseEventHandler(BoardForm_MouseWheel);
             this.Height = System.Windows.Forms.SystemInformation.VirtualScreen.Height - 200;
             if (this.Height > 800)
             {
@@ -78,7 +79,6 @@
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            this.MouseWheel += new MouseEventHandler(BoardForm_MouseWheel);
             this.SetUrlInfo(false);
             this.FetchPage();
         }

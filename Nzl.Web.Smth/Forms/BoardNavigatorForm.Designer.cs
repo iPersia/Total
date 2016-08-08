@@ -51,6 +51,7 @@
             this.MaximizeBox = false;
             this.Name = "BoardNavigatorForm";
             this.Text = "Board Navigator";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BoardNavigatorForm_FormClosing);
             this.ResumeLayout(false);
 
         }

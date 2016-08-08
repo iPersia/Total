@@ -1,6 +1,7 @@
 ﻿namespace Nzl.Web.Smth.Containers
 {
     using System;
+    using System.Reflection;
     using System.ComponentModel;
     using System.Collections.Generic;
     using System.Drawing;
@@ -48,6 +49,7 @@
         public BoardBrowserControl()
         {
             InitializeComponent();
+            this.panel.MouseWheel += new MouseEventHandler(BoardBrowserControl_MouseWheel);
             this.Height = System.Windows.Forms.SystemInformation.VirtualScreen.Height - 200;
             if (this.Height > 800)
             {
@@ -77,8 +79,7 @@
         /// <param name="e"></param>
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);
-            this.MouseWheel += new MouseEventHandler(BoardForm_MouseWheel);
+            base.OnLoad(e);            
             this.SetUrlInfo(false);
             this.FetchPage();
         }
@@ -171,7 +172,7 @@
             this.btnGo1.Enabled = flag;
             this.btnLast1.Enabled = flag;
             this.btnNext1.Enabled = flag;
-            this.btnPrev1.Enabled = flag;
+            this.btnPrev1.Enabled = flag; 
             this.txtGoTo1.Enabled = flag;
 
             this.btnFirst2.Enabled = flag;
@@ -315,22 +316,23 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BoardForm_MouseWheel(object sender, MouseEventArgs e)
+        private void BoardBrowserControl_MouseWheel(object sender, MouseEventArgs e)
         {
             try
             {
-
                 int panelContainerHeight = this.splitContainer2.Panel1.Height; //panel容器高度
+
 #if (DEBUG)
-                System.Diagnostics.Debug.WriteLine("---------------------***TopicForm_MouseWheel***---------------------");
-                System.Diagnostics.Debug.WriteLine("Sender is:" + sender.GetType().ToString());
-                System.Diagnostics.Debug.WriteLine("panelContainerHeight:" + panelContainerHeight);
+                System.Diagnostics.Debug.WriteLine("********************---BoardBrowserControl_MouseWheel---********************");
+                //System.Diagnostics.Debug.WriteLine("Sender is:" + sender.GetType().ToString());
+                //System.Diagnostics.Debug.WriteLine("HashCode is:" + sender.GetHashCode());
+                //System.Diagnostics.Debug.WriteLine("panelContainerHeight:" + panelContainerHeight);
 #endif
                 if (this.panel.Height > panelContainerHeight)
                 {
 #if (DEBUG)
-                    System.Diagnostics.Debug.WriteLine("oldYPos:" + this.panel.Location.Y);
-                    System.Diagnostics.Debug.WriteLine("Delta  :" + e.Delta);
+                    //System.Diagnostics.Debug.WriteLine("oldYPos:" + this.panel.Location.Y);
+                    //System.Diagnostics.Debug.WriteLine("Delta  :" + e.Delta);
 #endif
                     int newYPos = this.panel.Location.Y + e.Delta;
                     newYPos = newYPos > this._margin ? this._margin : newYPos;
@@ -342,13 +344,16 @@
                     this.panel.Location = new Point(this.panel.Location.X, newYPos);
                     if (newYPos == panelContainerHeight - this.panel.Height - this._margin)
                     {
+#if (DEBUG)
+                        System.Diagnostics.Debug.WriteLine("Cause BaseContainer's FetchNextPage!");
+#endif
                         this.SetUrlInfo(true);
                         this.FetchNextPage();
-#if (DEBUG)
-                        System.Diagnostics.Debug.WriteLine("FetchNextPage: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + newYPos);
-#endif
                     }
                 }
+#if (DEBUG)
+                System.Diagnostics.Debug.WriteLine("--------------------***BoardBrowserControl_MouseWheel***--------------------");
+#endif
             }
             catch (Exception exp)
             {
@@ -374,6 +379,7 @@
                     this.OnTopicLinkClicked(sender, e);
                 }
             }
+
         }
 
         /// <summary>

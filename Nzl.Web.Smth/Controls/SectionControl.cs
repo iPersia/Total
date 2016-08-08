@@ -48,7 +48,6 @@
             if (this.OnLinkClicked != null)
             {
                 OnLinkClicked(sender, e);
-                ///e.Link.Visited = true;
             }
         }
     }

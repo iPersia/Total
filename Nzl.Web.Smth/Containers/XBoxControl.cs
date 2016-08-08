@@ -54,6 +54,8 @@
         {
             InitializeComponent();
             this.Text = "Mailbox";
+            this.panel.Size = new Size(this.Width - 10, MailControl.ControlHeight * 10 + 11);
+            this.Height = this.panel.Height + 7 + 60;
         }
 
         /// <summary>
@@ -97,10 +99,6 @@
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
-            this.panel.Size = new Size(this.Width - 10, MailControl.ControlHeight * 10 + 11);
-            this.Height = this.panel.Height + 7 + 60;
-
             this.SetUrlInfo(false);
             this.FetchPage();
         }
@@ -174,23 +172,26 @@
         protected override void SetCtlEnabled(bool flag)
         {
             base.SetCtlEnabled(flag);
-            this.panel.Enabled = flag;
+            this.scContainer.Enabled = flag;
+            this.btnRefresh.Enabled = true;
 
-            this.btnFirst1.Enabled = flag;
-            this.btnGo1.Enabled = flag;
-            this.btnLast1.Enabled = flag;
-            this.btnNext1.Enabled = flag;
-            this.btnPrev1.Enabled = flag;
-            this.txtGoTo1.Enabled = flag;
+            //this.panel.Enabled = flag;
 
-            this.btnFirst2.Enabled = flag;
-            this.btnGo2.Enabled = flag;
-            this.btnLast2.Enabled = flag;
-            this.btnNext2.Enabled = flag;
-            this.btnPrev2.Enabled = flag;
-            this.txtGoTo2.Enabled = flag;
-                        
-            this.btnRefresh.Enabled = flag;
+            //this.btnFirst1.Enabled = flag;
+            //this.btnGo1.Enabled = flag;
+            //this.btnLast1.Enabled = flag;
+            //this.btnNext1.Enabled = flag;
+            //this.btnPrev1.Enabled = flag;
+            //this.txtGoTo1.Enabled = flag;
+
+            //this.btnFirst2.Enabled = flag;
+            //this.btnGo2.Enabled = flag;
+            //this.btnLast2.Enabled = flag;
+            //this.btnNext2.Enabled = flag;
+            //this.btnPrev2.Enabled = flag;
+            //this.txtGoTo2.Enabled = flag;
+
+            //this.btnRefresh.Enabled = flag;
         }
 
         /// <summary>

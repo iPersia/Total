@@ -44,6 +44,9 @@
                 {
                     string html = page.Html;
                     IList<Topic> topicList = new List<Topic>();
+#if (DEBUG)
+                    int counter = 1;
+#endif
                     foreach (string target in targetList)
                     {
                         int startPos = html.IndexOf(target);
@@ -53,6 +56,9 @@
                         Topic topic = CreateTopic(content);
                         if (topic != null)
                         {
+#if (DEBUG)
+                            topic.Title = counter++.ToString().PadLeft(2) + " - " + topic.Title;
+#endif
                             topicList.Add(topic);
                         }
                     }

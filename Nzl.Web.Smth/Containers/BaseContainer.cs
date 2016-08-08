@@ -7,8 +7,10 @@
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
     using System.ComponentModel;
+    using Nzl.Dispatcher;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
+    using Common;
     using Nzl.Web.Smth.Utils;
     using Nzl.Web.Smth.Datas;
     using Nzl.Web.Smth.Forms;
@@ -88,32 +90,7 @@
         }
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="baseUrl"></param>
-        protected void SetBaseUrl(string baseUrl)
-        {
-            this._urlInfo.BaseUrl = baseUrl;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected void SetUrlInfo(int index, bool isAppend)
-        {
-            this._urlInfo.Index = index;
-            this._urlInfo.IsAppend = isAppend;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected void SetUrlInfo(bool isAppend)
-        {
-            this._urlInfo.IsAppend = isAppend;
-        }
-
+        #region virtual
         /// <summary>
         /// 
         /// </summary>
@@ -139,32 +116,6 @@
         protected virtual string GetUrl(UrlInfo info)
         {
             return info.BaseUrl + "?p=" + info.Index;
-        }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="state">State is DoWorkEventArgs!</param>
-        protected void DoWorkBase(object state)
-        {
-            DoWorkEventArgs e = state as DoWorkEventArgs;
-            try
-            {
-                UrlInfo urlInfo = e.Result as UrlInfo;
-                if (urlInfo != null)
-                {
-                    DoWork(urlInfo);
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
-            }
-            catch (Exception exp)
-            {
-                e.Cancel = true;
-                MessageQueue.Enqueue(MessageFactory.CreateMessage(exp));
-            }
         }
 
         /// <summary>
@@ -227,29 +178,6 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="state">State is RunWorkerCompletedEventArgs!</param>
-        protected void WorkCompletedBase(object state)
-        {
-            RunWorkerCompletedEventArgs e = state as RunWorkerCompletedEventArgs;
-            try
-            {
-                UrlInfo urlInfo = e.Result as UrlInfo;
-                if (urlInfo != null)
-                {
-                    WorkCompleted(urlInfo);
-                }
-            }
-            catch (Exception exp)
-            {
-#if (DEBUG)
-                CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
-#endif
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="info"></param>
         protected virtual void WorkCompleted(UrlInfo info)
         {
@@ -285,10 +213,138 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="info"></param>
+        protected virtual void WorkFailed(string msg)
+        {
+            Common.MessageForm msgForm = new Common.MessageForm("Geting page failed", msg);
+            msgForm.StartPosition = FormStartPosition.CenterParent;
+            msgForm.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        protected virtual void WorkCancelled(string msg)
+        {
+            Common.MessageForm msgForm = new Common.MessageForm("Geting page canceled", msg);
+            msgForm.StartPosition = FormStartPosition.CenterParent;
+            msgForm.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="flag"></param>
         protected virtual void SetCtlEnabled(bool flag)
         {
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="thread"></param>
+        /// <returns></returns>
+        protected virtual Control CreateControl(BaseItem item)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctl"></param>
+        protected virtual void SetControl(Control ctl, bool oeFlag)
+        {
+            if (oeFlag)
+            {
+                ctl.BackColor = Color.White;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctls"></param>
+        /// <param name="isAppend"></param>
+        protected virtual void UpdateView(IList<Control> ctls, bool isAppend)
+        {            
+            Panel container = GetContainer();
+            if (container != null)
+            {
+                lock (container)
+                {
+                    container.Visible = false;
+                    bool flag = false;
+                    int accumulateHeight = 0;
+                    if (isAppend == false)
+                    {
+                        //foreach (Control ctl in container.Controls)
+                        //{
+                        //    ctl.Dispose();
+                        //}
+
+                        container.Controls.Clear();
+                        //GC.Collect();
+                    }
+                    else
+                    {
+                        accumulateHeight = container.Height - 3;
+                    }
+
+                    foreach (Control tc in ctls)
+                    {
+                        tc.Top = accumulateHeight + 1;
+                        tc.Left = 1;
+                        this.SetControl(tc, flag);
+                        flag = !flag;
+                        container.Controls.Add(tc);
+                        accumulateHeight += tc.Height + 1;
+                    }
+
+#if (DEBUG)
+                    Nzl.Web.Util.CommonUtil.ShowMessage(this, "\tBaseContainer - UpdateView\n" +
+                                                              "\t\t" + _urlInfo.BaseUrl + " - accumulateHeight:" + accumulateHeight + "\n" +
+                                                              "\t\t" + _urlInfo.BaseUrl + " - ctl count:" + ctls.Count);
+#endif
+
+                    container.Height = accumulateHeight + 3;
+                    if (isAppend == false)
+                    {
+                        container.Location = new Point(container.Location.X, this._margin);
+                    }
+
+                    container.Visible = true;
+                }
+            }
+        }
+        #endregion
+
+        #region protected
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseUrl"></param>
+        protected void SetBaseUrl(string baseUrl)
+        {
+            this._urlInfo.BaseUrl = baseUrl;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected void SetUrlInfo(int index, bool isAppend)
+        {
+            this._urlInfo.Index = index;
+            this._urlInfo.IsAppend = isAppend;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected void SetUrlInfo(bool isAppend)
+        {
+            this._urlInfo.IsAppend = isAppend;
         }
 
         /// <summary>
@@ -299,7 +355,7 @@
         {
             return info.Result as IList<BaseItem>;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -348,82 +404,9 @@
         protected Control GetControl(BaseItem item)
         {
             object ctl = this.Invoke(new CreateControlCallback(CreateControl), new object[] { item });
-            return ctl==null ? null : ctl as Control;
+            return ctl == null ? null : ctl as Control;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="thread"></param>
-        /// <returns></returns>
-        protected virtual Control CreateControl(BaseItem item)
-        {            
-            return null;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ctl"></param>
-        protected virtual void SetControl(Control ctl, bool oeFlag)
-        {
-            if (oeFlag)
-            {
-                ctl.BackColor = Color.White;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ctls"></param>
-        /// <param name="isAppend"></param>
-        protected virtual void UpdateView(IList<Control> ctls, bool isAppend)
-        {
-            System.Diagnostics.Debug.WriteLine(this.ToString() + " - UpdateView");
-            Panel container = GetContainer();
-            if (container != null)
-            {
-                lock (container)
-                {
-                    bool flag = false;
-                    int accumulateHeight = 0;
-                    if (isAppend == false)
-                    {
-                        foreach (Control ctl in container.Controls)
-                        {
-                            ctl.Dispose();
-                        }
-
-                        container.Controls.Clear();
-                        GC.Collect();
-                    }
-                    else
-                    {
-                        accumulateHeight = container.Height - 3;
-                    }
-
-                    foreach (Control tc in ctls)
-                    {
-                        tc.Top = accumulateHeight + 1;
-                        tc.Left = 1;
-                        this.SetControl(tc, flag);
-                        flag = !flag;
-                        container.Controls.Add(tc);
-                        accumulateHeight += tc.Height + 1;
-                    }
-
-                    System.Diagnostics.Debug.WriteLine(this.GetType().ToString() +　" － " +　_urlInfo.BaseUrl + " - accumulateHeight:" + accumulateHeight);
-                    System.Diagnostics.Debug.WriteLine(this.GetType().ToString() + " － " + _urlInfo.BaseUrl + " - ctl count:" + ctls.Count);
-                    
-                    container.Height = accumulateHeight + 3;
-                    if (isAppend == false)
-                    {
-                        container.Location = new Point(container.Location.X, this._margin);
-                    }
-                }
-            }
-        }
+        #endregion
 
         #region FetchPage
         /// <summary>
@@ -437,23 +420,15 @@
             {
                 try
                 {
-                    BackgroundWorker bw = sender as BackgroundWorker;
                     UrlInfo urlInfo = e.Argument as UrlInfo;
-                    string targetUrl = this.GetUrl(urlInfo);
-                    WebPage wp = WebPageFactory.CreateWebPage(targetUrl);
-                    if (CheckPage(wp, urlInfo))
+                    if (CheckPage(urlInfo.WebPage, urlInfo))
                     {
-                        urlInfo.WebPage = wp;
                         e.Result = urlInfo;
                         DoWorkBase(e);
-
-                        MessageQueue.Enqueue(MessageFactory.CreateMessage(this.Text == null ? this.GetType().ToString(): this.Text, "Getting '" + targetUrl + "' succeeded!"));
-                    }
-                    else
-                    {
-                        MessageQueue.Enqueue(MessageFactory.CreateMessage(this.Text == null ? this.GetType().ToString() : this.Text, Nzl.Util.MiscUtil.GetEnumDescription(urlInfo.Status) + " The page is '" + targetUrl + "'!" ));
                     }
 
+                    MessageQueue.Enqueue(MessageFactory.CreateMessage(this.Text == null ? this.GetType().ToString() : this.Text, 
+                                                                      Nzl.Util.MiscUtil.GetEnumDescription(urlInfo.Status) + " The page is '" + this.GetUrl(urlInfo) + "'!"));
                     e.Result = urlInfo;
                 }
                 catch (Exception exp)
@@ -472,17 +447,43 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="state">State is DoWorkEventArgs!</param>
+        protected void DoWorkBase(object state)
+        {
+            DoWorkEventArgs e = state as DoWorkEventArgs;
+            try
+            {
+                UrlInfo urlInfo = e.Result as UrlInfo;
+                if (urlInfo != null)
+                {
+                    DoWork(urlInfo);
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+            catch (Exception exp)
+            {
+                e.Cancel = true;
+                MessageQueue.Enqueue(MessageFactory.CreateMessage(exp));
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void bwFetchPage_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
-                MessageBox.Show(e.Error.Message);
+                WorkFailedBase(e);
             }
             else if (e.Cancelled)
             {
-                MessageBox.Show("Canceled");
+                WorkCancelledBase(e);
             }
             else
             {
@@ -490,6 +491,68 @@
             }
 
             this.SetCtlEnabled(true);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="state">State is RunWorkerCompletedEventArgs!</param>
+        protected void WorkCompletedBase(RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                UrlInfo urlInfo = e.Result as UrlInfo;
+                if (urlInfo != null)
+                {
+                    WorkCompleted(urlInfo);
+                }
+            }
+            catch (Exception exp)
+            {
+#if (DEBUG)
+                CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
+#endif
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="state">State is RunWorkerCompletedEventArgs!</param>
+        protected void WorkCancelledBase(RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                this.WorkCancelled(e.Error.Message);
+            }
+            catch (Exception exp)
+            {
+#if (DEBUG)
+                CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
+#endif
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="state">State is RunWorkerCompletedEventArgs!</param>
+        protected void WorkFailedBase(RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                UrlInfo urlInfo = e.Result as UrlInfo;
+                if (urlInfo != null)
+                {
+                    WorkCompleted(urlInfo);
+                }
+            }
+            catch (Exception exp)
+            {
+#if (DEBUG)
+                CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
+#endif
+            }
         }
 
         /// <summary>
@@ -538,12 +601,12 @@
         {
             if (urlInfo.Index > 0 && urlInfo.Index <= urlInfo.Total && string.IsNullOrEmpty(urlInfo.BaseUrl) == false)
             {
-                this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
-                this.bwFetchPage.DoWork += new System.ComponentModel.DoWorkEventHandler(bwFetchPage_DoWork);
-                this.bwFetchPage.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(bwFetchPage_RunWorkerCompleted);
-                this.bwFetchPage.RunWorkerAsync(urlInfo);
+                PageLoader pl = new PageLoader(this.GetUrl(urlInfo));
+                pl.Tag = urlInfo;
+                pl.PageLoaded += new EventHandler(PageLoader_PageLoaded);
+                PageDispatcher.Instance.Add(pl);
 #if (DEBUG)
-                Nzl.Web.Util.CommonUtil.ShowMessage(System.DateTime.Now + "\t " + this.GetType().ToString() + "\n FetecPage's index is equal to " + urlInfo.Index);
+                Nzl.Web.Util.CommonUtil.ShowMessage(this, "BaseContainer - FetchPage(UrlInfo's index is equal to " + urlInfo.Index+")!");
 #endif
                 SetCtlEnabled(false);
                 return true;
@@ -551,6 +614,35 @@
 
             return false;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PageLoader_PageLoaded(object sender, EventArgs e)
+        {
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                WebPage wp = pl.GetPage();
+                UrlInfo info = pl.Tag as UrlInfo;
+                info.WebPage = wp;
+                this.Invoke(new PageLoadedCallback(PageLoaded), new object[] { info });
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        private void PageLoaded(UrlInfo info)
+        {
+            this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
+            this.bwFetchPage.DoWork += new System.ComponentModel.DoWorkEventHandler(bwFetchPage_DoWork);
+            this.bwFetchPage.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(bwFetchPage_RunWorkerCompleted);
+            this.bwFetchPage.RunWorkerAsync(info);
+        }       
         #endregion
     }
 }

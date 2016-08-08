@@ -35,6 +35,7 @@
         public FavorControl()
         {
             InitializeComponent();
+            this.panel.MouseWheel += Panel_MouseWheel;
             this.SetBaseUrl(@"http://m.newsmth.net/favor");
             this.Text = "User favourite board";
         }
@@ -45,8 +46,7 @@
         {
             base.OnLoad(e);
             this.SetUrlInfo(false);
-            this.FetchPage();
-            this.panel.MouseWheel += Panel_MouseWheel;
+            this.FetchPage();            
             this.btnRefresh.Left = this.panelUp.Width / 2 - this.btnRefresh.Width / 2;
         }
 

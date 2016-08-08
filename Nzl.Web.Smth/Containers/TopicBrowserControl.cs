@@ -187,6 +187,7 @@
         public TopicBrowserControl()
         {
             InitializeComponent();
+            this.panel.MouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
             this.Text = "Topic";
         }
                 
@@ -208,7 +209,6 @@
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            this.panel.MouseWheel += new MouseEventHandler(TopicForm_MouseWheel);
             this.SetUrlInfo(1, false);
             this.FetchPage();
         }
@@ -349,7 +349,7 @@
                 tc.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
                 tc.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
                 tc.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
-                tc.OnTextBoxMouseWheel += new MouseEventHandler(TopicForm_MouseWheel);
+                tc.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
                 return tc;
             }
             catch (Exception e)
@@ -386,7 +386,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopicForm_MouseWheel(object sender, MouseEventArgs e)
+        private void TopicBrowserControl_MouseWheel(object sender, MouseEventArgs e)
         {
             try
             {

@@ -65,17 +65,6 @@
         public MailBoxControl()
         {
             InitializeComponent();
-        }
-        #endregion
-
-        #region override
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
 
             ///Inbox
             {
@@ -93,10 +82,72 @@
                 this.Size = new Size(xbc.Width + 8, xbc.Height + 26);
             }
 
+            ///Outbox
+            {
+                TabPage tp = new TabPage();
+                tp.Name = "tpOutbox";
+                tp.Text = "Outbox";
+                XBoxControl xbc = new XBoxControl();
+                xbc.Url = this._sentUrl;
+                xbc.SetParent(tp);
+                xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
+                xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
+                xbc.OnNewMailClicked += Xbc_OnNewMailClicked;
+                tp.Controls.Add(xbc);
+                this.tcMailBox.TabPages.Add(tp);
+            }
 
-            this._timerLoadingTops.Interval = 8 * 1000;
-            this._timerLoadingTops.Tick += new EventHandler(_timerLoadingTops_Tick);
-            this._timerLoadingTops.Start();
+            ///Trash
+            {
+                TabPage tp = new TabPage();
+                tp.Name = "tpTrash";
+                tp.Text = "Trash";
+                XBoxControl xbc = new XBoxControl();
+                xbc.Url = this._trashUrl;
+                xbc.SetParent(tp);
+                xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
+                xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
+                xbc.OnNewMailClicked += Xbc_OnNewMailClicked;
+                tp.Controls.Add(xbc);
+                this.tcMailBox.TabPages.Add(tp);
+            }
+
+
+            //this._timerLoadingTops.Interval = 8 * 1000;
+            //this._timerLoadingTops.Tick += new EventHandler(_timerLoadingTops_Tick);
+            //this._timerLoadingTops.Start();
+        }
+        #endregion
+
+        #region override
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            /////Inbox
+            //{
+            //    TabPage tp = new TabPage();
+            //    tp.Name = "tpInbox";
+            //    tp.Text = "Inbox";
+            //    XBoxControl xbc = new XBoxControl();
+            //    xbc.Url = this._inboxUrl;
+            //    xbc.SetParent(tp);
+            //    xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
+            //    xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
+            //    xbc.OnNewMailClicked += Xbc_OnNewMailClicked;
+            //    tp.Controls.Add(xbc);
+            //    this.tcMailBox.TabPages.Add(tp);
+            //    this.Size = new Size(xbc.Width + 8, xbc.Height + 26);
+            //}
+
+
+            //this._timerLoadingTops.Interval = 8 * 1000;
+            //this._timerLoadingTops.Tick += new EventHandler(_timerLoadingTops_Tick);
+            //this._timerLoadingTops.Start();
         }
         
         /// <summary>

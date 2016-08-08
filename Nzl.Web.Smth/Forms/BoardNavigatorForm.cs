@@ -18,7 +18,12 @@
         /// 
         /// </summary>
         public event LinkLabelLinkClickedEventHandler OnBoardLinkLableClicked;
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Form _parentForm = null;
+
         /// <summary>
         /// Ctor.
         /// </summary>
@@ -39,6 +44,16 @@
             if (this.OnBoardLinkLableClicked != null)
             {
                 this.OnBoardLinkLableClicked(sender, e);
+            }
+        }
+
+        private void BoardNavigatorForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
+            if (this._parentForm != null)
+            {
+                this._parentForm.Focus();
             }
         }
     }
