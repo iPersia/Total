@@ -79,6 +79,17 @@
 
             System.Drawing.Font currentFont = this.richtxtContent.SelectionFont;
             this.richtxtContent.Font = new Font(currentFont.FontFamily, 11, FontStyle.Regular);
+            this.richtxtContent.GotFocus += RichtxtContent_GotFocus;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RichtxtContent_GotFocus(object sender, EventArgs e)
+        {
+            this.panel.Focus();
         }
 
         /// <summary>
@@ -384,7 +395,7 @@
         /// <param name="e"></param>
         private void richtxtContent_Enter(object sender, EventArgs e)
         {
-            this.Focus();
+            this.panel.Focus();
         }
 
         /// <summary>

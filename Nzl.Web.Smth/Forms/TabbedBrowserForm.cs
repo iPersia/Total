@@ -16,7 +16,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class TabbedBrowserForm : Form
+    public partial class TabbedBrowserForm : BaseForm
     {
         #region Singleton
         /// <summary>
@@ -67,24 +67,11 @@
             LogStatus.Instance.LoginStatusChanged += Instance_LoginStatusChanged;
             _uahKey.KeyUp += new EventHandler<KeyExEventArgs>(Global_KeyUp);
             _uahKey.Start();
+            this.HideWhenDeactivate = false;
 
             //(new TestForm()).ShowDialog(this);
-
-            this.Activated += TabbedBrowserForm_Activated;
-            this.Deactivate += TabbedBrowserForm_Deactivate;
         }
-
-        private bool _bActive = false;
-        private void TabbedBrowserForm_Deactivate(object sender, EventArgs e)
-        {
-            _bActive = false;
-        }
-
-        private void TabbedBrowserForm_Activated(object sender, EventArgs e)
-        {
-            _bActive = true;
-        }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -543,7 +530,7 @@
             {
                 if ((e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey) && 
                      Control.ModifierKeys == Keys.Control 
-                     && (this._bActive || Top10sForm.Instance.Active))
+                     && (this.Active || Top10sForm.Instance.Active))
                 {
                     ShowTop10s();
                 }
@@ -708,7 +695,6 @@
             if (linklbl != null)
             {
                 this.AddBoard(@"http://m.newsmth.net/board/" + e.Link.LinkData.ToString(), linklbl.Text);
-                this.Show();
             }
         }
 
@@ -723,7 +709,6 @@
             if (linklbl != null)
             {
                 this.AddTopic(e.Link.LinkData.ToString(), linklbl.Text);
-                this.Show();
             }
         }
         #endregion

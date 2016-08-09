@@ -169,9 +169,9 @@
         /// 
         /// </summary>
         /// <param name="flag"></param>
-        protected override void SetCtlEnabled(bool flag)
+        protected override void SetControlEnabled(bool flag)
         {
-            base.SetCtlEnabled(flag);
+            base.SetControlEnabled(flag);
             this.scContainer.Enabled = flag;
             this.btnRefresh.Enabled = true;
 

@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblReplies = new System.Windows.Forms.Label();
             this.linklblLastID = new System.Windows.Forms.LinkLabel();
             this.linklblCreateID = new System.Windows.Forms.LinkLabel();
             this.lblLastDT = new System.Windows.Forms.Label();
             this.lblCreateDT = new System.Windows.Forms.Label();
             this.linklblTopic = new System.Windows.Forms.LinkLabel();
-            this.lblReplies = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,66 +49,71 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(599, 43);
+            this.panel1.Size = new System.Drawing.Size(599, 32);
             this.panel1.TabIndex = 0;
+            // 
+            // lblReplies
+            // 
+            this.lblReplies.AutoSize = true;
+            this.lblReplies.Location = new System.Drawing.Point(58, 10);
+            this.lblReplies.Name = "lblReplies";
+            this.lblReplies.Size = new System.Drawing.Size(23, 12);
+            this.lblReplies.TabIndex = 5;
+            this.lblReplies.Text = "(0)";
             // 
             // linklblLastID
             // 
-            this.linklblLastID.AutoSize = true;
-            this.linklblLastID.Location = new System.Drawing.Point(300, 25);
+            this.linklblLastID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklblLastID.Location = new System.Drawing.Point(498, 10);
             this.linklblLastID.Name = "linklblLastID";
-            this.linklblLastID.Size = new System.Drawing.Size(41, 12);
+            this.linklblLastID.Size = new System.Drawing.Size(91, 12);
             this.linklblLastID.TabIndex = 4;
             this.linklblLastID.TabStop = true;
             this.linklblLastID.Text = "LastID";
+            this.linklblLastID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // linklblCreateID
             // 
-            this.linklblCreateID.AutoSize = true;
-            this.linklblCreateID.Location = new System.Drawing.Point(100, 25);
+            this.linklblCreateID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklblCreateID.Location = new System.Drawing.Point(333, 10);
             this.linklblCreateID.Name = "linklblCreateID";
-            this.linklblCreateID.Size = new System.Drawing.Size(53, 12);
+            this.linklblCreateID.Size = new System.Drawing.Size(90, 12);
             this.linklblCreateID.TabIndex = 3;
             this.linklblCreateID.TabStop = true;
             this.linklblCreateID.Text = "CreateID";
+            this.linklblCreateID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblLastDT
             // 
-            this.lblLastDT.AutoSize = true;
-            this.lblLastDT.Location = new System.Drawing.Point(200, 25);
+            this.lblLastDT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblLastDT.Location = new System.Drawing.Point(428, 10);
             this.lblLastDT.Name = "lblLastDT";
             this.lblLastDT.Size = new System.Drawing.Size(65, 12);
             this.lblLastDT.TabIndex = 2;
-            this.lblLastDT.Text = "2013-02-01";
+            this.lblLastDT.Text = "00:00:00";
+            this.lblLastDT.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblCreateDT
             // 
-            this.lblCreateDT.AutoSize = true;
-            this.lblCreateDT.Location = new System.Drawing.Point(19, 25);
+            this.lblCreateDT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCreateDT.Location = new System.Drawing.Point(263, 10);
             this.lblCreateDT.Name = "lblCreateDT";
             this.lblCreateDT.Size = new System.Drawing.Size(65, 12);
             this.lblCreateDT.TabIndex = 1;
             this.lblCreateDT.Text = "2013-01-01";
+            this.lblCreateDT.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // linklblTopic
             // 
             this.linklblTopic.AutoSize = true;
             this.linklblTopic.Font = new System.Drawing.Font("宋体", 9F);
-            this.linklblTopic.Location = new System.Drawing.Point(18, 6);
+            this.linklblTopic.Location = new System.Drawing.Point(14, 10);
             this.linklblTopic.Name = "linklblTopic";
             this.linklblTopic.Size = new System.Drawing.Size(35, 12);
             this.linklblTopic.TabIndex = 0;
             this.linklblTopic.TabStop = true;
             this.linklblTopic.Text = "Topic";
-            // 
-            // lblReplies
-            // 
-            this.lblReplies.AutoSize = true;
-            this.lblReplies.Location = new System.Drawing.Point(62, 6);
-            this.lblReplies.Name = "lblReplies";
-            this.lblReplies.Size = new System.Drawing.Size(23, 12);
-            this.lblReplies.TabIndex = 5;
-            this.lblReplies.Text = "(0)";
+            this.linklblTopic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TopicControl
             // 
@@ -116,7 +121,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Name = "TopicControl";
-            this.Size = new System.Drawing.Size(599, 43);
+            this.Size = new System.Drawing.Size(599, 32);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

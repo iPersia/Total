@@ -52,11 +52,12 @@
             // 
             // tcTopics
             // 
+            this.tcTopics.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tcTopics.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcTopics.Location = new System.Drawing.Point(0, 0);
             this.tcTopics.Name = "tcTopics";
             this.tcTopics.SelectedIndex = 0;
-            this.tcTopics.Size = new System.Drawing.Size(1047, 725);
+            this.tcTopics.Size = new System.Drawing.Size(1006, 696);
             this.tcTopics.TabIndex = 0;
             this.tcTopics.SelectedIndexChanged += new System.EventHandler(this.tcTopics_SelectedIndexChanged);
             this.tcTopics.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tcTopics_MouseDoubleClick);
@@ -77,7 +78,7 @@
             // scBrowser.Panel2
             // 
             this.scBrowser.Panel2.Controls.Add(this.panel2);
-            this.scBrowser.Size = new System.Drawing.Size(1049, 758);
+            this.scBrowser.Size = new System.Drawing.Size(1008, 729);
             this.scBrowser.SplitterDistance = 30;
             this.scBrowser.SplitterWidth = 1;
             this.scBrowser.TabIndex = 1;
@@ -96,7 +97,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1049, 30);
+            this.panel1.Size = new System.Drawing.Size(1008, 30);
             this.panel1.TabIndex = 0;
             // 
             // linklblUserID
@@ -165,7 +166,7 @@
             // btnClear
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.Location = new System.Drawing.Point(966, 4);
+            this.btnClear.Location = new System.Drawing.Point(925, 4);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 1;
@@ -186,7 +187,7 @@
             // btnExit
             // 
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.Location = new System.Drawing.Point(886, 4);
+            this.btnExit.Location = new System.Drawing.Point(845, 4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
             this.btnExit.TabIndex = 0;
@@ -202,14 +203,14 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1049, 727);
+            this.panel2.Size = new System.Drawing.Size(1008, 698);
             this.panel2.TabIndex = 1;
             // 
             // TabbedBrowserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1049, 758);
+            this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Controls.Add(this.scBrowser);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

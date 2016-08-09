@@ -173,7 +173,7 @@
         /// <summary>
         /// 
         /// </summary>
-        [Description("Gets the page succeedes!")]
+        [Description("Gets the page successfully!")]
         Normal,
 
         /// <summary>

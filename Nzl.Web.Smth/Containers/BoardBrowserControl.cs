@@ -163,26 +163,29 @@
         /// 
         /// </summary>
         /// <param name="flag"></param>
-        protected override void SetCtlEnabled(bool flag)
+        protected override void SetControlEnabled(bool flag)
         {
-            base.SetCtlEnabled(flag);
-            this.panel.Enabled = flag;
+            base.SetControlEnabled(flag);
+            this.scContainer.Enabled = flag;
+            this.btnRefresh.Enabled = true;
 
-            this.btnFirst1.Enabled = flag;
-            this.btnGo1.Enabled = flag;
-            this.btnLast1.Enabled = flag;
-            this.btnNext1.Enabled = flag;
-            this.btnPrev1.Enabled = flag; 
-            this.txtGoTo1.Enabled = flag;
+            //this.panel.Enabled = flag;
 
-            this.btnFirst2.Enabled = flag;
-            this.btnGo2.Enabled = flag;
-            this.btnLast2.Enabled = flag;
-            this.btnNext2.Enabled = flag;
-            this.btnPrev2.Enabled = flag;            
-            this.txtGoTo2.Enabled = flag;
-            
-            this.btnRefresh.Enabled = flag;
+            //this.btnFirst1.Enabled = flag;
+            //this.btnGo1.Enabled = flag;
+            //this.btnLast1.Enabled = flag;
+            //this.btnNext1.Enabled = flag;
+            //this.btnPrev1.Enabled = flag; 
+            //this.txtGoTo1.Enabled = flag;
+
+            //this.btnFirst2.Enabled = flag;
+            //this.btnGo2.Enabled = flag;
+            //this.btnLast2.Enabled = flag;
+            //this.btnNext2.Enabled = flag;
+            //this.btnPrev2.Enabled = flag;            
+            //this.txtGoTo2.Enabled = flag;
+
+            //this.btnRefresh.Enabled = flag;
         }
 
         /// <summary>

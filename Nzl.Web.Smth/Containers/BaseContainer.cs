@@ -3,11 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Text;
+    using System.Runtime.Remoting.Messaging;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
     using System.ComponentModel;
-    using Nzl.Dispatcher;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
     using Common;
@@ -21,6 +20,13 @@
     /// <param name="item"></param>
     /// <returns></returns>
     public delegate Control CreateControlCallback(BaseItem item);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="items"></param>
+    /// <returns></returns>
+    public delegate IList<Control> CreateControlsCallback(IList<BaseItem> items);
 
     /// <summary>
     /// 
@@ -236,7 +242,7 @@
         /// 
         /// </summary>
         /// <param name="flag"></param>
-        protected virtual void SetCtlEnabled(bool flag)
+        protected virtual void SetControlEnabled(bool flag)
         {
         }
 
@@ -403,8 +409,30 @@
         /// <returns></returns>
         protected Control GetControl(BaseItem item)
         {
+            //CreateControlCallback caller = new CreateControlCallback(CreateControl);
+            //caller.BeginInvoke(item, new AsyncCallback(CreateControlCallback), caller);
+
+            //return null;
+            //object ctl = this.BeginInvoke(new CreateControlCallback(CreateControl), new object[] { item });
             object ctl = this.Invoke(new CreateControlCallback(CreateControl), new object[] { item });
             return ctl == null ? null : ctl as Control;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ar"></param>
+        private void CreateControlCallback(IAsyncResult ar)
+        {
+            if (ar == null)
+            {
+                return;
+            }
+
+            AsyncResult result = (AsyncResult)ar;
+            CreateControlCallback caller = (CreateControlCallback)result.AsyncDelegate;
+            Control ctl = result.AsyncState as  Control;
+            caller.EndInvoke(ar);
         }
         #endregion
 
@@ -490,7 +518,7 @@
                 WorkCompletedBase(e);
             }
 
-            this.SetCtlEnabled(true);
+            this.SetControlEnabled(true);
         }
 
         /// <summary>
@@ -608,7 +636,7 @@
 #if (DEBUG)
                 Nzl.Web.Util.CommonUtil.ShowMessage(this, "BaseContainer - FetchPage(UrlInfo's index is equal to " + urlInfo.Index+")!");
 #endif
-                SetCtlEnabled(false);
+                SetControlEnabled(false);
                 return true;
             }
 

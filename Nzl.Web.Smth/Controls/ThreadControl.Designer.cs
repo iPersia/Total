@@ -32,14 +32,14 @@
             this.linklblID = new System.Windows.Forms.LinkLabel();
             this.panel = new System.Windows.Forms.Panel();
             this.panelLine = new System.Windows.Forms.Panel();
-            this.linklblDelete = new System.Windows.Forms.LinkLabel();
             this.linklblEdit = new System.Windows.Forms.LinkLabel();
+            this.linklblDelete = new System.Windows.Forms.LinkLabel();
             this.linklblTransfer = new System.Windows.Forms.LinkLabel();
+            this.lblDateTime = new System.Windows.Forms.Label();
             this.linklblMail = new System.Windows.Forms.LinkLabel();
+            this.linklblQuryType = new System.Windows.Forms.LinkLabel();
             this.linklblReply = new System.Windows.Forms.LinkLabel();
             this.lblCopy = new System.Windows.Forms.LinkLabel();
-            this.linklblQuryType = new System.Windows.Forms.LinkLabel();
-            this.lblDateTime = new System.Windows.Forms.Label();
             this.richtxtContent = new Nzl.Web.Smth.Controls.RichTextBoxEx();
             this.panel.SuspendLayout();
             this.panelLine.SuspendLayout();
@@ -101,20 +101,6 @@
             this.panelLine.Size = new System.Drawing.Size(590, 20);
             this.panelLine.TabIndex = 11;
             // 
-            // linklblDelete
-            // 
-            this.linklblDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linklblDelete.AutoSize = true;
-            this.linklblDelete.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblDelete.Location = new System.Drawing.Point(323, 4);
-            this.linklblDelete.Name = "linklblDelete";
-            this.linklblDelete.Size = new System.Drawing.Size(41, 12);
-            this.linklblDelete.TabIndex = 10;
-            this.linklblDelete.TabStop = true;
-            this.linklblDelete.Text = "Delete";
-            this.linklblDelete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.linklblDelete.Visible = false;
-            // 
             // linklblEdit
             // 
             this.linklblEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -128,6 +114,20 @@
             this.linklblEdit.Text = "Edit";
             this.linklblEdit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.linklblEdit.Visible = false;
+            // 
+            // linklblDelete
+            // 
+            this.linklblDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklblDelete.AutoSize = true;
+            this.linklblDelete.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblDelete.Location = new System.Drawing.Point(323, 4);
+            this.linklblDelete.Name = "linklblDelete";
+            this.linklblDelete.Size = new System.Drawing.Size(41, 12);
+            this.linklblDelete.TabIndex = 10;
+            this.linklblDelete.TabStop = true;
+            this.linklblDelete.Text = "Delete";
+            this.linklblDelete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.linklblDelete.Visible = false;
             // 
             // linklblTransfer
             // 
@@ -143,6 +143,18 @@
             this.linklblTransfer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.linklblTransfer.Visible = false;
             // 
+            // lblDateTime
+            // 
+            this.lblDateTime.AutoSize = true;
+            this.lblDateTime.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblDateTime.Location = new System.Drawing.Point(138, 4);
+            this.lblDateTime.Name = "lblDateTime";
+            this.lblDateTime.Size = new System.Drawing.Size(53, 12);
+            this.lblDateTime.TabIndex = 3;
+            this.lblDateTime.Text = "DateTime";
+            this.lblDateTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDateTime.Visible = false;
+            // 
             // linklblMail
             // 
             this.linklblMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -156,6 +168,18 @@
             this.linklblMail.Text = "Mail";
             this.linklblMail.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.linklblMail.Visible = false;
+            // 
+            // linklblQuryType
+            // 
+            this.linklblQuryType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklblQuryType.AutoSize = true;
+            this.linklblQuryType.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblQuryType.Location = new System.Drawing.Point(505, 4);
+            this.linklblQuryType.Name = "linklblQuryType";
+            this.linklblQuryType.Size = new System.Drawing.Size(47, 12);
+            this.linklblQuryType.TabIndex = 4;
+            this.linklblQuryType.TabStop = true;
+            this.linklblQuryType.Text = "Related";
             // 
             // linklblReply
             // 
@@ -185,34 +209,11 @@
             this.lblCopy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCopy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCopy_LinkClicked);
             // 
-            // linklblQuryType
-            // 
-            this.linklblQuryType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linklblQuryType.AutoSize = true;
-            this.linklblQuryType.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblQuryType.Location = new System.Drawing.Point(505, 4);
-            this.linklblQuryType.Name = "linklblQuryType";
-            this.linklblQuryType.Size = new System.Drawing.Size(47, 12);
-            this.linklblQuryType.TabIndex = 4;
-            this.linklblQuryType.TabStop = true;
-            this.linklblQuryType.Text = "Related";
-            // 
-            // lblDateTime
-            // 
-            this.lblDateTime.AutoSize = true;
-            this.lblDateTime.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblDateTime.Location = new System.Drawing.Point(138, 4);
-            this.lblDateTime.Name = "lblDateTime";
-            this.lblDateTime.Size = new System.Drawing.Size(53, 12);
-            this.lblDateTime.TabIndex = 3;
-            this.lblDateTime.Text = "DateTime";
-            this.lblDateTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblDateTime.Visible = false;
-            // 
             // richtxtContent
             // 
             this.richtxtContent.BackColor = System.Drawing.SystemColors.Control;
             this.richtxtContent.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richtxtContent.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.richtxtContent.HiglightColor = Nzl.Web.Smth.Controls.RtfColor.White;
             this.richtxtContent.Location = new System.Drawing.Point(15, 37);
             this.richtxtContent.Name = "richtxtContent";

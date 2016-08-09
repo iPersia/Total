@@ -214,8 +214,11 @@
         private void LinklblPrevious_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.SetUrlInfo(false);
-            this.SetBaseUrl(e.Link.LinkData.ToString());
-            this.FetchPage();
+            if (e.Link != null && e.Link.LinkData != null)
+            {
+                this.SetBaseUrl(e.Link.LinkData.ToString());
+                this.FetchPage();
+            }
         }
 
         /// <summary>
