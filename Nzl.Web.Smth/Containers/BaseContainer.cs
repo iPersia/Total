@@ -24,13 +24,6 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="items"></param>
-    /// <returns></returns>
-    public delegate IList<Control> CreateControlsCallback(IList<BaseItem> items);
-
-    /// <summary>
-    /// 
-    /// </summary>
     public class BaseContainer : UserControl
     {
         #region variable
@@ -280,18 +273,17 @@
             {
                 lock (container)
                 {
-                    container.Visible = false;
                     bool flag = false;
                     int accumulateHeight = 0;
                     if (isAppend == false)
                     {
-                        //foreach (Control ctl in container.Controls)
-                        //{
-                        //    ctl.Dispose();
-                        //}
+                        foreach (Control ctl in container.Controls)
+                        {
+                            ctl.Dispose();
+                        }
 
                         container.Controls.Clear();
-                        //GC.Collect();
+                        GC.Collect();
                     }
                     else
                     {
@@ -319,8 +311,6 @@
                     {
                         container.Location = new Point(container.Location.X, this._margin);
                     }
-
-                    container.Visible = true;
                 }
             }
         }
@@ -396,6 +386,9 @@
                 if (ctl != null)
                 {
                     listThreacControl.Add(ctl);
+
+                    ///Avoid the UI interface frozed.
+                    System.Threading.Thread.Sleep(1000 / list.Count);
                 }
             }
 
@@ -409,30 +402,8 @@
         /// <returns></returns>
         protected Control GetControl(BaseItem item)
         {
-            //CreateControlCallback caller = new CreateControlCallback(CreateControl);
-            //caller.BeginInvoke(item, new AsyncCallback(CreateControlCallback), caller);
-
-            //return null;
-            //object ctl = this.BeginInvoke(new CreateControlCallback(CreateControl), new object[] { item });
             object ctl = this.Invoke(new CreateControlCallback(CreateControl), new object[] { item });
             return ctl == null ? null : ctl as Control;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ar"></param>
-        private void CreateControlCallback(IAsyncResult ar)
-        {
-            if (ar == null)
-            {
-                return;
-            }
-
-            AsyncResult result = (AsyncResult)ar;
-            CreateControlCallback caller = (CreateControlCallback)result.AsyncDelegate;
-            Control ctl = result.AsyncState as  Control;
-            caller.EndInvoke(ar);
         }
         #endregion
 
@@ -444,6 +415,7 @@
         /// <param name="e"></param>
         private void bwFetchPage_DoWork(object sender, DoWorkEventArgs e)
         {
+            BackgroundWorker bw = sender as BackgroundWorker;
             lock (this._isDoingWorkLocker)
             {
                 try
@@ -668,9 +640,30 @@
         {
             this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
             this.bwFetchPage.DoWork += new System.ComponentModel.DoWorkEventHandler(bwFetchPage_DoWork);
+            this.bwFetchPage.ProgressChanged += BwFetchPage_ProgressChanged;
             this.bwFetchPage.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(bwFetchPage_RunWorkerCompleted);
+            this.bwFetchPage.WorkerReportsProgress = true;
             this.bwFetchPage.RunWorkerAsync(info);
-        }       
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BwFetchPage_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            UpdateProgress(e.ProgressPercentage);
+            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="proc"></param>
+        protected virtual void UpdateProgress(int proc)
+        {
+        }
         #endregion
     }
 }

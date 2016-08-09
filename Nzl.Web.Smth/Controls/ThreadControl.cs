@@ -124,7 +124,7 @@
 #endif
             RichTextBox rtb = sender as RichTextBox;
             if (rtb != null)
-            {
+            {                
                 rtb.Size = e.NewRectangle.Size;
             }
         }

@@ -68,8 +68,6 @@
             _uahKey.KeyUp += new EventHandler<KeyExEventArgs>(Global_KeyUp);
             _uahKey.Start();
             this.HideWhenDeactivate = false;
-
-            //(new TestForm()).ShowDialog(this);
         }
         
         /// <summary>

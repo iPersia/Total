@@ -309,26 +309,25 @@
         protected override void SetControlEnabled(bool flag)
         {
             base.SetControlEnabled(flag);
-            this.scContainer.Enabled = flag;
+            //this.scContainer.Enabled = flag;
             this.btnRefresh.Enabled = true;
 
-            //this.panel.Enabled = flag;
+            this.panel.Enabled = flag;
 
-            //this.btnFirst1.Enabled = flag;
-            //this.btnGo1.Enabled = flag;
-            //this.btnLast1.Enabled = flag;
-            //this.btnNext1.Enabled = flag;
-            //this.btnPrev1.Enabled = flag;
-            //this.txtGoTo1.Enabled = flag;
+            this.btnFirst1.Enabled = flag;
+            this.btnGo1.Enabled = flag;
+            this.btnLast1.Enabled = flag;
+            this.btnNext1.Enabled = flag;
+            this.btnPrev1.Enabled = flag;
+            this.txtGoTo1.Enabled = flag;
 
-            //this.btnFirst2.Enabled = flag;
-            //this.btnGo2.Enabled = flag;
-            //this.btnLast2.Enabled = flag;
-            //this.btnNext2.Enabled = flag;
-            //this.btnPrev2.Enabled = flag;            
-            //this.txtGoTo2.Enabled = flag;
+            this.btnFirst2.Enabled = flag;
+            this.btnGo2.Enabled = flag;
+            this.btnLast2.Enabled = flag;
+            this.btnNext2.Enabled = flag;
+            this.btnPrev2.Enabled = flag;
+            this.txtGoTo2.Enabled = flag;
 
-            //this.btnSettings.Enabled = flag;
             //this.btnRefresh.Enabled = flag;
         }
 
@@ -353,6 +352,8 @@
                 tc.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
                 tc.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
                 tc.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
+                //System.Diagnostics.Debug.WriteLine("System.Threading.Thread.Sleep(5000);");
+                //System.Threading.Thread.Sleep(5000);
                 return tc;
             }
             catch (Exception e)
@@ -360,6 +361,11 @@
                 MessageQueue.Enqueue(MessageFactory.CreateMessage(e));
                 return null;
             }
+        }
+
+        protected override void UpdateProgress(int proc)
+        {
+            this.btnFirst1.Text = (proc*11111).ToString();
         }
         #endregion
 

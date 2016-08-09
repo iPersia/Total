@@ -126,6 +126,7 @@
             TabbedBrowserForm.Instance.Visible = !TabbedBrowserForm.Instance.Visible;
             if (TabbedBrowserForm.Instance.Visible)
             {
+                TabbedBrowserForm.Instance.Show();
                 TabbedBrowserForm.Instance.Focus();
             }            
         }

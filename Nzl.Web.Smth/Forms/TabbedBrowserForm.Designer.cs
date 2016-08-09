@@ -52,7 +52,6 @@
             // 
             // tcTopics
             // 
-            this.tcTopics.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tcTopics.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcTopics.Location = new System.Drawing.Point(0, 0);
             this.tcTopics.Name = "tcTopics";
@@ -215,6 +214,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TabbedBrowserForm";
+            this.ShowIcon = true;
+            this.ShowInTaskbar = true;
             this.Text = "Browser";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TabbedTopicBrowserForm_FormClosing);
             this.scBrowser.Panel1.ResumeLayout(false);
