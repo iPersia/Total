@@ -51,10 +51,11 @@
             // linklblBoard
             // 
             this.linklblBoard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linklblBoard.Location = new System.Drawing.Point(230, 14);
+            this.linklblBoard.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblBoard.Location = new System.Drawing.Point(229, 14);
             this.linklblBoard.Name = "linklblBoard";
             this.linklblBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.linklblBoard.Size = new System.Drawing.Size(200, 12);
+            this.linklblBoard.Size = new System.Drawing.Size(200, 15);
             this.linklblBoard.TabIndex = 7;
             this.linklblBoard.TabStop = true;
             this.linklblBoard.Text = "Board";
@@ -62,9 +63,10 @@
             // lblReplies
             // 
             this.lblReplies.AutoSize = true;
-            this.lblReplies.Location = new System.Drawing.Point(73, 14);
+            this.lblReplies.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblReplies.Location = new System.Drawing.Point(79, 14);
             this.lblReplies.Name = "lblReplies";
-            this.lblReplies.Size = new System.Drawing.Size(23, 12);
+            this.lblReplies.Size = new System.Drawing.Size(28, 14);
             this.lblReplies.TabIndex = 6;
             this.lblReplies.Text = "(0)";
             this.lblReplies.Visible = false;
@@ -72,9 +74,10 @@
             // linklblTop
             // 
             this.linklblTop.AutoSize = true;
+            this.linklblTop.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblTop.Location = new System.Drawing.Point(45, 14);
             this.linklblTop.Name = "linklblTop";
-            this.linklblTop.Size = new System.Drawing.Size(23, 12);
+            this.linklblTop.Size = new System.Drawing.Size(28, 14);
             this.linklblTop.TabIndex = 1;
             this.linklblTop.TabStop = true;
             this.linklblTop.Text = "Top";
@@ -82,9 +85,10 @@
             // lblIndex
             // 
             this.lblIndex.AutoSize = true;
-            this.lblIndex.Location = new System.Drawing.Point(17, 15);
+            this.lblIndex.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblIndex.Location = new System.Drawing.Point(17, 14);
             this.lblIndex.Name = "lblIndex";
-            this.lblIndex.Size = new System.Drawing.Size(17, 12);
+            this.lblIndex.Size = new System.Drawing.Size(21, 14);
             this.lblIndex.TabIndex = 0;
             this.lblIndex.Text = "10";
             // 
