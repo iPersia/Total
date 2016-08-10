@@ -57,20 +57,6 @@
         }
 
         /// <summary>
-        /// When clear the linklabel's links, the linklabel will lose focus.
-        /// This causes the SectionNavigationControl lost focus, and the 
-        /// SectionNavigationControl's contaier will deactive.
-        /// So when the linklabel lose focus, the SectionNavigationControl must
-        /// be focused.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LinklblPrevious_LostFocus(object sender, EventArgs e)
-        {
-            this.Focus();
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="ctl"></param>
@@ -80,38 +66,21 @@
         }
         #endregion
 
+
+
+        #region override
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             this.SetBaseUrl(@"http://m.newsmth.net/section");
             this.SetUrlInfo(false);
             this.FetchPage();
-            this.linklblPrevious.LinkClicked += LinklblPrevious_LinkClicked;            
+            this.linklblPrevious.LinkClicked += LinklblPrevious_LinkClicked;
             this.btnRefresh.Left = this.panelUp.Width / 2 - this.btnRefresh.Width / 2;
-        }
-
-        #region override
-        private void Panel_MouseWheel(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                int panelContainerHeight = this.panelContainer.Height; //panel容器高度
-                if (this.panel.Height > panelContainerHeight)
-                {
-                    int newYPos = this.panel.Location.Y + e.Delta;
-                    newYPos = newYPos > this._margin ? this._margin : newYPos;
-                    newYPos = newYPos < panelContainerHeight - this.panel.Height - this._margin
-                         ? panelContainerHeight - this.panel.Height - this._margin : newYPos;
-                    this.panel.Location = new Point(this.panel.Location.X, newYPos);
-                }
-            }
-            catch (Exception exp)
-            {
-                if (Program.LoggerEnabled)
-                {
-                    Program.Logger.Error(exp.Message);
-                }
-            }
         }
 
         /// <summary>
@@ -178,9 +147,61 @@
             base.WorkCompleted(info);
             this.GetInfors(info.WebPage);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="flag"></param>
+        protected override void SetControlEnabled(bool flag)
+        {
+            base.SetControlEnabled(flag);
+            this.panel.Enabled = flag;
+        }
         #endregion
 
         #region eventhandler
+        /// <summary>
+        /// When clear the linklabel's links, the linklabel will lose focus.
+        /// This causes the SectionNavigationControl lost focus, and the 
+        /// SectionNavigationControl's contaier will deactive.
+        /// So when the linklabel lose focus, the SectionNavigationControl must
+        /// be focused.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LinklblPrevious_LostFocus(object sender, EventArgs e)
+        {
+            this.Focus();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Panel_MouseWheel(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                int panelContainerHeight = this.panelContainer.Height; //panel容器高度
+                if (this.panel.Height > panelContainerHeight)
+                {
+                    int newYPos = this.panel.Location.Y + e.Delta;
+                    newYPos = newYPos > this._margin ? this._margin : newYPos;
+                    newYPos = newYPos < panelContainerHeight - this.panel.Height - this._margin
+                         ? panelContainerHeight - this.panel.Height - this._margin : newYPos;
+                    this.panel.Location = new Point(this.panel.Location.X, newYPos);
+                }
+            }
+            catch (Exception exp)
+            {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message);
+                }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
