@@ -388,7 +388,7 @@
                     listThreacControl.Add(ctl);
 
                     ///Avoid the UI interface frozed.
-                    System.Threading.Thread.Sleep(1000 / list.Count);
+                    System.Threading.Thread.Sleep(0);
                 }
             }
 
