@@ -287,6 +287,21 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="ctl"></param>
+        /// <param name="item"></param>
+        protected override void InitializeControl(Control ctl, BaseItem item)
+        {
+            ThreadControl tc = ctl as ThreadControl;
+            Thread thread = item as Thread;
+            if (tc !=null && thread != null)
+            {
+                tc.Thread = thread;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         protected override string GetCurrentUrl()
         {
@@ -342,7 +357,7 @@
             {
                 int width = this.panel.Width - 4;
                 ThreadControl tc = new ThreadControl(width);
-                tc.Thread = thread;
+                //tc.Thread = thread;
                 tc.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
                 tc.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
                 tc.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
@@ -352,8 +367,6 @@
                 tc.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
                 tc.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
                 tc.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
-                //System.Diagnostics.Debug.WriteLine("System.Threading.Thread.Sleep(5000);");
-                //System.Threading.Thread.Sleep(5000);
                 return tc;
             }
             catch (Exception e)

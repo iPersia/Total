@@ -24,6 +24,13 @@
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="ctl"></param>
+    /// <param name="item"></param>
+    public delegate void InitializeControlCallback(Control ctl, BaseItem item);
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class BaseContainer : UserControl
     {
         #region variable
@@ -253,6 +260,15 @@
         /// 
         /// </summary>
         /// <param name="ctl"></param>
+        /// <param name="item"></param>
+        protected virtual void InitializeControl(Control ctl, BaseItem item)
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctl"></param>
         protected virtual void SetControl(Control ctl, bool oeFlag)
         {
             if (oeFlag)
@@ -386,9 +402,6 @@
                 if (ctl != null)
                 {
                     listThreacControl.Add(ctl);
-
-                    ///Avoid the UI interface frozed.
-                    System.Threading.Thread.Sleep(0);
                 }
             }
 
@@ -402,8 +415,19 @@
         /// <returns></returns>
         protected Control GetControl(BaseItem item)
         {
-            object ctl = this.Invoke(new CreateControlCallback(CreateControl), new object[] { item });
-            return ctl == null ? null : ctl as Control;
+            object obj = this.Invoke(new CreateControlCallback(CreateControl), new object[] { item });
+            ///Avoid the UI interface frozed.
+            System.Threading.Thread.Sleep(0);
+            Control ctl = obj as Control;
+            if (ctl != null)
+            {
+                this.Invoke(new InitializeControlCallback(InitializeControl), new object[] { ctl, item });
+                ///Avoid the UI interface frozed.
+                System.Threading.Thread.Sleep(0);
+                return ctl;
+            }
+
+            return null;
         }
         #endregion
 
