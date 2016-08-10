@@ -185,7 +185,7 @@
 
                 TabPage tp = new TabPage();
                 tp.Name = key;
-                tp.Text = subject == null ? "Unknown" : subject.Length > 8 ? subject.Substring(0, 8) + ".." : "" + subject;
+                tp.Text = subject == null ? "Unknown" : subject.Length > 10 ? subject.Substring(0, 10) + ".." : "" + subject;
                 //tp.Text = subject;
                 tp.ToolTipText = subject;
                 tp.Controls.Add(tbc);
