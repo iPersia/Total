@@ -302,7 +302,6 @@
             this.linklblBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.linklblBoard.Size = new System.Drawing.Size(100, 12);
             this.linklblBoard.TabIndex = 17;
-            this.linklblBoard.TabStop = true;
             this.linklblBoard.Text = "Board";
             this.linklblBoard.Visible = false;
             this.linklblBoard.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblBoard_LinkClicked);
@@ -314,7 +313,6 @@
             this.linklblReply.Name = "linklblReply";
             this.linklblReply.Size = new System.Drawing.Size(35, 12);
             this.linklblReply.TabIndex = 16;
-            this.linklblReply.TabStop = true;
             this.linklblReply.Text = "Reply";
             this.linklblReply.Visible = false;
             this.linklblReply.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblReply_LinkClicked);
@@ -327,6 +325,7 @@
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(75, 23);
             this.btnSettings.TabIndex = 11;
+            this.btnSettings.TabStop = false;
             this.btnSettings.Text = "Settings";
             this.btnSettings.UseCompatibleTextRendering = true;
             this.btnSettings.UseVisualStyleBackColor = true;
