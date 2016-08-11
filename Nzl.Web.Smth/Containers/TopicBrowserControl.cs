@@ -159,6 +159,14 @@
             set
             {
                 this._topicUrl = value;
+                try
+                {
+                    string tail = CommonUtil.GetMatch(@"/\d+", this._topicUrl);
+                    this._postUrl = this._topicUrl.Replace(tail, "/post" + tail);
+                    this.linklblReply.Links.Clear();
+                    this.linklblReply.Links.Add(0, 5, this._postUrl);
+                }
+                catch { };
                 this.SetBaseUrl(this._topicUrl);
             }
         }
@@ -188,8 +196,6 @@
         {
             InitializeComponent();
             this.panel.MouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
-            this.linklblReply.LostFocus += LinkLabel_LostFocus;
-            this.linklblBoard.LostFocus += LinkLabel_LostFocus;
             LogStatus.Instance.LoginStatusChanged += Instance_LoginStatusChanged;
             this.Text = "Topic";
         }
@@ -202,16 +208,6 @@
         private void Instance_LoginStatusChanged(object sender, LogStatusEventArgs e)
         {
             this.linklblReply.Visible = e.IsLogin;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LinkLabel_LostFocus(object sender, EventArgs e)
-        {
-            this.Focus();
         }
 
         /// <summary>
