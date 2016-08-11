@@ -66,6 +66,9 @@
         /// <param name="e"></param>
         private void BaseForm_Activated(object sender, EventArgs e)
         {
+#if (DEBUG)
+            Nzl.Web.Util.CommonUtil.ShowMessage(this, "\tBaseForm - BaseForm_Activated");
+#endif
             this._bActive = true;
         }
 
@@ -76,6 +79,9 @@
         /// <param name="e"></param>
         private void BaseForm_Deactivate(object sender, EventArgs e)
         {
+#if (DEBUG)
+            Nzl.Web.Util.CommonUtil.ShowMessage(this, "\tBaseForm - BaseForm_Deactivate");
+#endif
             this._bActive = false;
             if (this.HideWhenDeactivate)
             {
