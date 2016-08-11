@@ -189,7 +189,7 @@
                         GC.Collect();
 
                         container.Location = new Point(container.Location.X, this._margin);
-                        container.Height = this._margin;
+                        container.Height = 3;
                     }                    
                 }
             }
