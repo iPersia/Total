@@ -38,7 +38,7 @@
             if (obj != null)
             {
                 string name = obj.GetType().ToString();
-                System.Diagnostics.Debug.WriteLine("DateTime: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                System.Diagnostics.Debug.WriteLine("DateTime: " + DateTime.Now.TimeOfDay.ToString());
                 System.Diagnostics.Debug.WriteLine("Class: " + name.Substring(name.LastIndexOf(".") + 1));
                 System.Diagnostics.Debug.WriteLine("\tFull name:" + name + "\n\t\tHashCode:" + obj.GetHashCode().ToString());
             }
