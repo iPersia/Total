@@ -491,18 +491,19 @@
         private void tcTopics_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int index = this.tcTopics.SelectedIndex;
-            if (index > -1)
+            TabPage tp = this.tcTopics.TabPages[index];
+            if (index == this.tcTopics.TabCount - 1 )
             {
-                TabPage tp = this.tcTopics.TabPages[index];
-                this.tcTopics.TabPages.Remove(tp);
-                tp.Dispose();
-                GC.Collect();
+                index--;
+            }
+            else
+            {
+                index++;
             }
 
-            if (this.tcTopics.TabPages.Count > 0)
-            {
-                this.tcTopics.SelectedIndex = index >= this.tcTopics.TabPages.Count - 1 ? this.tcTopics.TabPages.Count - 1 : index;
-            }
+            this.tcTopics.SelectedIndex = index;
+            this.tcTopics.TabPages.Remove(tp);
+            tp.Dispose();
         }
         #endregion
 
