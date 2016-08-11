@@ -243,12 +243,16 @@
         /// <param name="e"></param>
         private void TopicBrowserControl_OnTopicReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, e.Link.LinkData.ToString(), "Re: " + this.tcTopics.SelectedTab.ToolTipText);
-            threadForm.StartPosition = FormStartPosition.CenterParent;
-            if (DialogResult.OK == threadForm.ShowDialog(this))
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
             {
-                e.Link.Tag = "Success";
-                e.Link.Visited = true;
+                NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, e.Link.LinkData.ToString(), "Re: " + this.tcTopics.SelectedTab.ToolTipText);
+                threadForm.StartPosition = FormStartPosition.CenterParent;
+                if (DialogResult.OK == threadForm.ShowDialog(this))
+                {
+                    e.Link.Tag = "Success";
+                    e.Link.Visited = true;
+                }
             }
         }
 
