@@ -155,7 +155,7 @@
         /// </summary>
         /// <param name="ctls"></param>
         protected void InvokeUpdateView(IList<Control> ctls)
-        {                        
+        {
             foreach (Control ctl in ctls)
             {
                 System.Threading.Thread.Sleep(0);
@@ -167,30 +167,20 @@
         /// <summary>
         /// 
         /// </summary>
-        private void InitializeView(bool isAppend)
+        protected virtual void InitializeView(bool isAppend)
         {
             Panel container = GetContainer();
             if (container != null)
             {
                 lock (container)
                 {
-                    if (isAppend)
+                    if (isAppend == false)
                     {
-
-                    }
-                    else
-                    {
-                        foreach (Control ctl in container.Controls)
-                        {
-                            ctl.Dispose();
-                        }
-
-                        container.Controls.Clear();
-                        GC.Collect();
-
                         container.Location = new Point(container.Location.X, this._margin);
                         container.Height = 3;
-                    }                    
+                        container.Controls.Clear();
+                        GC.Collect();
+                    }
                 }
             }
         }
@@ -199,30 +189,25 @@
         /// 
         /// </summary>
         /// <param name="ctl"></param>
-        private void AddControl(Control ctl)
+        protected virtual void AddControl(Control ctl)
         {
             Panel container = GetContainer();
             if (container != null)
             {
                 lock (container)
                 {
-
                     int accumulateHeight = container.Height - 3;
-
                     ctl.Top = accumulateHeight + 1;
                     ctl.Left = 1;
-                    this.SetControl(ctl, container.Controls.Count%2 == 0);
-                    //flag = !flag;
+                    this.SetControl(ctl, container.Controls.Count % 2 == 0);
                     container.Controls.Add(ctl);
                     accumulateHeight += ctl.Height + 1;
-
+                    container.Height = accumulateHeight + 3;
 #if (DEBUG)
                     Nzl.Web.Util.CommonUtil.ShowMessage(this, "\tBaseContainer - AddControl\n" +
                                                               "\t\t" + _urlInfo.BaseUrl + " - accumulateHeight:" + accumulateHeight + "\n" +
                                                               "\t\t" + _urlInfo.BaseUrl + " - ctl name:" + ctl.Name);
-#endif
-
-                    container.Height = accumulateHeight + 3;                    
+#endif                    
                 }
             }
         }
@@ -285,10 +270,6 @@
                 if (info.Status == PageStatus.Normal)
                 {
                     LogStatus.Instance.UpdateLoginStatus(info.WebPage);
-                    //if (info.Controls != null)
-                    //{
-                    //    this.UpdateView(info.Controls, info.IsAppend);
-                    //}
                 }
                 else
                 {
@@ -376,7 +357,7 @@
         /// <param name="ctls"></param>
         /// <param name="isAppend"></param>
         protected virtual void UpdateView(IList<Control> ctls, bool isAppend)
-        {            
+        {
             Panel container = GetContainer();
             if (container != null)
             {
@@ -544,7 +525,7 @@
                         DoWorkBase(e);
                     }
 
-                    MessageQueue.Enqueue(MessageFactory.CreateMessage(this.Text == null ? this.GetType().ToString() : this.Text, 
+                    MessageQueue.Enqueue(MessageFactory.CreateMessage(this.Text == null ? this.GetType().ToString() : this.Text,
                                                                       Nzl.Util.MiscUtil.GetEnumDescription(urlInfo.Status) + " The page is '" + this.GetUrl(urlInfo) + "'!"));
                     e.Result = urlInfo;
                 }
@@ -723,7 +704,7 @@
                 pl.PageLoaded += new EventHandler(PageLoader_PageLoaded);
                 PageDispatcher.Instance.Add(pl);
 #if (DEBUG)
-                Nzl.Web.Util.CommonUtil.ShowMessage(this, "BaseContainer - FetchPage(UrlInfo's index is equal to " + urlInfo.Index+")!");
+                Nzl.Web.Util.CommonUtil.ShowMessage(this, "BaseContainer - FetchPage(UrlInfo's index is equal to " + urlInfo.Index + ")!");
 #endif
                 SetControlEnabled(false);
                 return true;
@@ -771,7 +752,6 @@
         private void BwFetchPage_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             UpdateProgress(e.ProgressPercentage);
-            
         }
 
         /// <summary>
@@ -780,6 +760,7 @@
         /// <param name="proc"></param>
         protected virtual void UpdateProgress(int proc)
         {
+            ///Noting to do.
         }
         #endregion
     }

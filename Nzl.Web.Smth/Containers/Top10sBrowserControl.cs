@@ -8,7 +8,7 @@
     using System.Linq;
     using System.Text;
     using System.Windows.Forms;
-    using Nzl.Web.Smth.Controls;
+    using Nzl.Web.Smth.Datas;
 
     /// <summary>
     /// 
@@ -65,7 +65,7 @@
                 this.Size = new Size(tbc.Width + 8, tbc.Height + 26);
             }
 
-            this._timerLoadingTops.Interval = 30 * 1000;
+            this._timerLoadingTops.Interval = Configurations.Top10sLoadingInterval;
             this._timerLoadingTops.Tick += new EventHandler(_timerLoadingTops_Tick);
             this._timerLoadingTops.Start();
         }

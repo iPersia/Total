@@ -18,6 +18,7 @@
     /// </summary>
     public partial class SectionTopsControl : BaseContainer
     {
+        #region event
         /// <summary>
         /// 
         /// </summary>
@@ -27,7 +28,9 @@
         /// 
         /// </summary>
         public event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
+        #endregion
 
+        #region variable
         /// <summary>
         /// 
         /// </summary>
@@ -38,6 +41,13 @@
         /// </summary>
         private Timer _updatingTimer = new Timer();
 
+        /// <summary>
+        /// The key is the url.
+        /// </summary>
+        private Dictionary<string, TopControl> _topControls = new Dictionary<string, TopControl>();
+        #endregion
+
+        #region Ctor.
         /// <summary>
         /// 
         /// </summary>
@@ -56,7 +66,7 @@
             : this()
         {
             this.SetBaseUrl(url);
-            this._updatingTimer.Interval = 5 * 60 * 1000;//5 minutes.
+            this._updatingTimer.Interval = Configurations.SectionTopsUpdatingInterval;
             this._updatingTimer.Tick += new EventHandler(_updatingTimer_Tick);
             this._updatingTimer.Start();
 
@@ -65,6 +75,17 @@
             this.FetchPage();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctl"></param>
+        public void SetParent(Control ctl)
+        {
+            this._parentControl = ctl;
+        }
+        #endregion
+
+        #region override
         /// <summary>
         /// 
         /// </summary>
@@ -113,11 +134,27 @@
         /// <returns></returns>
         protected override Control CreateControl(BaseItem item)
         {
-            TopControl tc = new TopControl(item as Topic);
-            tc.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(TopControl_OnTopLinkClicked);
-            tc.OnTopBoardLinkClicked += TopControl_OnTopBoardLinkClicked; ;
-            tc.Width = this.panelContainer.Width - 4;
-            return tc;
+            Topic topic = item as Topic;
+            if (topic != null)
+            {
+                if (this._topControls.ContainsKey(topic.Uri))
+                {
+                    TopControl topControl = this._topControls[topic.Uri];
+                    topControl.Update(topic);
+                    return topControl;
+                }
+
+                TopControl tc = new TopControl();
+                tc.Name = "tcTop" + topic.TopSeq.ToString("00");
+                tc.Initialize(topic);
+                tc.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(TopControl_OnTopLinkClicked);
+                tc.OnTopBoardLinkClicked += TopControl_OnTopBoardLinkClicked;
+                tc.Width = this.panelContainer.Width - 4;
+                this._topControls.Add(topic.Uri, tc);
+                return tc;
+            }
+
+            return base.CreateControl(item);
         }
         
         /// <summary>
@@ -133,15 +170,33 @@
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ctl"></param>
-        public void SetParent(Control ctl)
-        {
-            this._parentControl = ctl;
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="isAppend"></param>
+        //protected override void InitializeView(bool isAppend)
+        //{
+        //    ///Noting to do.
+        //}
 
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="ctl"></param>
+        //protected override void AddControl(Control ctl)
+        //{
+        //    TopControl tc = ctl as TopControl;
+        //    if (tc != null)
+        //    {
+        //        if (this.GetContainer().Controls.Contains(tc) == false)
+        //        {
+
+        //        }
+        //    }
+        //}
+        #endregion        
+
+        #region eventhandler
         /// <summary>
         /// 
         /// </summary>
@@ -182,5 +237,6 @@
                 e.Link.Visited = true;
             }
         }
+        #endregion
     }
 }

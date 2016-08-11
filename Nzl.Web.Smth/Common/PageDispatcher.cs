@@ -35,8 +35,12 @@
             if (item != null)
             {
                 AsyncExecuteItem caller = new AsyncExecuteItem(ExecuteItem);
+                //caller.Invoke(item);
                 caller.BeginInvoke(item, new AsyncCallback(ExecuteItemCallBack), caller);
                 System.Threading.Thread.Sleep(0);
+#if (DEBUG)
+                Utils.MessageQueue.Enqueue(Utils.MessageFactory.CreateMessage("Page dispatcher", "the queue size is " + this.mQueues.Count + "!"));
+#endif
                 return;
             }
 

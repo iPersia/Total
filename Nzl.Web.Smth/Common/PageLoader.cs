@@ -15,7 +15,7 @@
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    public delegate void PageLoadedCallback(UrlInfo info);
+    delegate void PageLoadedCallback(UrlInfo info);
 
     /// <summary>
     /// 

@@ -25,19 +25,19 @@
         /// <summary>
         /// 
         /// </summary>
-        TopControl()
+        public TopControl()
         {
             InitializeComponent();
             this.Height = ControlHeight;
             this.linklblTop.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblTop_LinkClicked);
             this.linklblBoard.LinkClicked += LinklblBoard_LinkClicked;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
-        public TopControl(Topic topic)
-            : this()
+        /// <param name="topic"></param>
+        public void Initialize(Topic topic)
         {
             this.Tag = topic;
             this.lblIndex.Text = topic.TopSeq.ToString("00");
@@ -53,6 +53,28 @@
             string boardName = SmthBoards.Instance.GetBoardName(topic.Board);
             this.linklblBoard.Text = string.IsNullOrEmpty(boardName) ? topic.Board : boardName;
             this.linklblBoard.Links.Add(0, this.linklblBoard.Text.Length, topic.Board);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="topic"></param>
+        public void Update(Topic topic)
+        {
+            this.Tag = topic;
+            this.lblIndex.Text = topic.TopSeq.ToString("00");
+            if (this.linklblTop.Text != topic.Title)
+            {
+                this.linklblTop.Text = topic.Title;
+                this.linklblTop.Links.Add(0, this.linklblTop.Text.Length, topic.Uri);
+            }
+
+            if (topic.Replies > 0)
+            {
+                this.lblReplies.Visible = true;
+                this.lblReplies.Text = "(" + topic.Replies + ")";
+                this.lblReplies.Left = this.linklblTop.Left + this.linklblTop.Width + 1;
+            }
         }
         #endregion
 
