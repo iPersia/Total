@@ -106,7 +106,7 @@
             Datas.Message msg = e.UserState as Datas.Message;
             if (msg != null)
             {
-                this.txtMsg.AppendText(msg.DateTime + "\t\t" + msg.Source + "\n");
+                this.txtMsg.AppendText(msg.DateTime.TimeOfDay.ToString() + "\t\t" + msg.Source + "\n");
                 this.txtMsg.AppendText(msg.Detail + "\n");
             }
         }
