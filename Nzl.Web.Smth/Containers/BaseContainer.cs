@@ -19,14 +19,26 @@
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    public delegate Control CreateControlCallback(BaseItem item);
+    delegate Control CreateControlCallback(BaseItem item);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="ctl"></param>
     /// <param name="item"></param>
-    public delegate void InitializeControlCallback(Control ctl, BaseItem item);
+    delegate void InitializeControlCallback(Control ctl, BaseItem item);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="ctl"></param>
+    delegate void UpdateViewCallback(Control ctl);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="ctl"></param>
+    delegate void InitializeUpdateViewCallback(bool isAppend);
 
     /// <summary>
     /// 
@@ -133,7 +145,88 @@
             this.UpdatePageInfo(info.WebPage, info);
             info.Result = this.GetItems(info.WebPage);
             info.Controls = this.PrepareControls(info.Result);
+            this.Invoke(new InitializeUpdateViewCallback(InitializeView), new object[] { info.IsAppend });
+            System.Threading.Thread.Sleep(0);
+            this.InvokeUpdateView(info.Controls);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctls"></param>
+        protected void InvokeUpdateView(IList<Control> ctls)
+        {                        
+            foreach (Control ctl in ctls)
+            {
+                System.Threading.Thread.Sleep(0);
+                this.Invoke(new UpdateViewCallback(AddControl), new object[] { ctl });
+                System.Threading.Thread.Sleep(0);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void InitializeView(bool isAppend)
+        {
+            Panel container = GetContainer();
+            if (container != null)
+            {
+                lock (container)
+                {
+                    if (isAppend)
+                    {
+
+                    }
+                    else
+                    {
+                        foreach (Control ctl in container.Controls)
+                        {
+                            ctl.Dispose();
+                        }
+
+                        container.Controls.Clear();
+                        GC.Collect();
+
+                        container.Location = new Point(container.Location.X, this._margin);
+                        container.Height = this._margin;
+                    }                    
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctl"></param>
+        private void AddControl(Control ctl)
+        {
+            Panel container = GetContainer();
+            if (container != null)
+            {
+                lock (container)
+                {
+
+                    int accumulateHeight = container.Height - 3;
+
+                    ctl.Top = accumulateHeight + 1;
+                    ctl.Left = 1;
+                    this.SetControl(ctl, container.Controls.Count%2 == 0);
+                    //flag = !flag;
+                    container.Controls.Add(ctl);
+                    accumulateHeight += ctl.Height + 1;
+
+#if (DEBUG)
+                    Nzl.Web.Util.CommonUtil.ShowMessage(this, "\tBaseContainer - AddControl\n" +
+                                                              "\t\t" + _urlInfo.BaseUrl + " - accumulateHeight:" + accumulateHeight + "\n" +
+                                                              "\t\t" + _urlInfo.BaseUrl + " - ctl name:" + ctl.Name);
+#endif
+
+                    container.Height = accumulateHeight + 3;                    
+                }
+            }
+        }
+
 
         /// <summary>
         /// 
@@ -192,10 +285,10 @@
                 if (info.Status == PageStatus.Normal)
                 {
                     LogStatus.Instance.UpdateLoginStatus(info.WebPage);
-                    if (info.Controls != null)
-                    {
-                        this.UpdateView(info.Controls, info.IsAppend);
-                    }
+                    //if (info.Controls != null)
+                    //{
+                    //    this.UpdateView(info.Controls, info.IsAppend);
+                    //}
                 }
                 else
                 {
