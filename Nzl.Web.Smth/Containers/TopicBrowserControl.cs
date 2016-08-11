@@ -188,9 +188,32 @@
         {
             InitializeComponent();
             this.panel.MouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
+            this.linklblReply.LostFocus += LinkLabel_LostFocus;
+            this.linklblBoard.LostFocus += LinkLabel_LostFocus;
+            LogStatus.Instance.LoginStatusChanged += Instance_LoginStatusChanged;
             this.Text = "Topic";
         }
-                
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Instance_LoginStatusChanged(object sender, LogStatusEventArgs e)
+        {
+            this.linklblReply.Visible = e.IsLogin;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LinkLabel_LostFocus(object sender, EventArgs e)
+        {
+            this.Focus();
+        }
+
         /// <summary>
         /// 
         /// </summary>
