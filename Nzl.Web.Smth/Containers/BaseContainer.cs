@@ -38,7 +38,7 @@
     /// 
     /// </summary>
     /// <param name="ctl"></param>
-    delegate void InitializeUpdateViewCallback(bool isAppend);
+    delegate void InitializeContainerCallback(bool isAppend);
 
     /// <summary>
     /// 
@@ -145,9 +145,13 @@
             this.UpdatePageInfo(info.WebPage, info);
             info.Result = this.GetItems(info.WebPage);
             info.Controls = this.PrepareControls(info.Result);
-            this.Invoke(new InitializeUpdateViewCallback(InitializeView), new object[] { info.IsAppend });
-            System.Threading.Thread.Sleep(0);
-            this.InvokeUpdateView(info.Controls);
+            if (info.Controls != null && info.Controls.Count > 0)
+            {
+                System.Threading.Thread.Sleep(0);
+                this.Invoke(new InitializeContainerCallback(InitializeContainer), new object[] { info.IsAppend });
+                System.Threading.Thread.Sleep(0);
+                this.InvokeUpdateView(info.Controls);
+            }
         }
 
         /// <summary>
@@ -167,7 +171,7 @@
         /// <summary>
         /// 
         /// </summary>
-        protected virtual void InitializeView(bool isAppend)
+        protected virtual void InitializeContainer(bool isAppend)
         {
             Panel container = GetContainer();
             if (container != null)
@@ -489,14 +493,14 @@
         /// <returns></returns>
         protected Control GetControl(BaseItem item)
         {
-            object obj = this.Invoke(new CreateControlCallback(CreateControl), new object[] { item });
-            ///Avoid the UI interface frozed.
+            System.Threading.Thread.Sleep(0);
+            object obj = this.Invoke(new CreateControlCallback(CreateControl), new object[] { item });            
             System.Threading.Thread.Sleep(0);
             Control ctl = obj as Control;
             if (ctl != null)
             {
+                System.Threading.Thread.Sleep(0);
                 this.Invoke(new InitializeControlCallback(InitializeControl), new object[] { ctl, item });
-                ///Avoid the UI interface frozed.
                 System.Threading.Thread.Sleep(0);
                 return ctl;
             }
@@ -533,7 +537,7 @@
                 {
                     if (Program.LoggerEnabled)
                     {
-                        Program.Logger.Error(exp.Message);
+                        Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
                     }
 
                     (e.Argument as UrlInfo).Status = PageStatus.UnKnown;
@@ -564,7 +568,11 @@
             catch (Exception exp)
             {
                 e.Cancel = true;
-                MessageQueue.Enqueue(MessageFactory.CreateMessage(exp));
+
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
             }
         }
 
@@ -607,6 +615,10 @@
             }
             catch (Exception exp)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
 #if (DEBUG)
                 CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
 #endif
@@ -625,6 +637,10 @@
             }
             catch (Exception exp)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
 #if (DEBUG)
                 CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
 #endif
@@ -647,6 +663,10 @@
             }
             catch (Exception exp)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
 #if (DEBUG)
                 CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
 #endif
