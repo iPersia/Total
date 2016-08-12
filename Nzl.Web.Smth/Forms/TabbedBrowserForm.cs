@@ -113,7 +113,13 @@
                 this.tcTopics.TabPages.Clear();
                 GC.Collect();
             }
-            catch { };
+            catch (Exception exp)
+            {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
+            };
 
             try
             {
@@ -125,7 +131,13 @@
                 this._dicWindows.Clear();
                 GC.Collect();
             }
-            catch { };
+            catch (Exception exp)
+            {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
+            };
 
             this._uahKey.Stop();
         }

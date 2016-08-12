@@ -94,8 +94,13 @@
 
                 this.txtUser.AppendText("\n\t没有查询到用户'" + this._userID + "'的信息！");
             }
-            catch
+            catch (Exception exp)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
+
                 this.txtUser.AppendText("\n\t没有查询到用户'" + this._userID + "'的信息！");
             }
         }
@@ -111,8 +116,13 @@
             {
                 e.Result = WebPageFactory.CreateWebPage("http://m.newsmth.net/user/query/" + e.Argument.ToString());
             }
-            catch
+            catch (Exception exp)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
+
                 e.Result = null;
             }
         }

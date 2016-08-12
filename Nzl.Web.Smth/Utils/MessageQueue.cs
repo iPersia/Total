@@ -55,8 +55,13 @@
                     return null;
                 }
             }
-            catch
+            catch (Exception exp)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
+
                 return null;
             }
         }

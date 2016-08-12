@@ -51,7 +51,10 @@ namespace Nzl.Web.Smth.Controls
             }
             catch (Exception ex)
             {
-                Trace.WriteLine(ex.Message);
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(ex.Message + "\n" + ex.StackTrace);
+                }
             }
         }
 
@@ -84,7 +87,10 @@ namespace Nzl.Web.Smth.Controls
             }
             catch (Exception ex)
             {
-                Trace.WriteLine(ex.Message);
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(ex.Message + "\n" + ex.StackTrace);
+                }
             }
         }
 

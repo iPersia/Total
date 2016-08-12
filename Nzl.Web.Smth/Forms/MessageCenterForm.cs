@@ -89,7 +89,7 @@
             {
                 if (Program.LoggerEnabled)
                 {
-                    Program.Logger.Error(exp.Message);
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
                 e.Cancel = true;

@@ -71,7 +71,7 @@ namespace Nzl.Web.Smth
             {
                 if (Program.LoggerEnabled)
                 {
-                    Program.Logger.Error(exp.Message);
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
                 MessageBox.Show(GetExceptionMsg(exp, exp.ToString()), "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

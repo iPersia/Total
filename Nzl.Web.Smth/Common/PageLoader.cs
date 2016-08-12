@@ -78,11 +78,17 @@
 #endif
                 return true;
             }
-            catch
+            catch (Exception e)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(e.Message + "\n" + e.StackTrace);
+                }
+
 #if (DEBUG)
                 MessageQueue.Enqueue(MessageFactory.CreateMessage("Page loader", "Getting '" + this._url + "' failed!"));
 #endif
+
                 return false;
             }
         }

@@ -18,11 +18,11 @@
         /// <summary>
         /// The interval to update the section tops in SectionTopControl.
         /// </summary>
-        public readonly static int SectionTopsUpdatingInterval = 10 * 1000;//3 * 60 * 1000;
+        public readonly static int SectionTopsUpdatingInterval = 180 * 1000;//3 * 60 * 1000;
         
         /// <summary>
         /// The interval to load the SectionTopControls.
         /// </summary>
-        public readonly static int Top10sLoadingInterval = 10 * 1000;
+        public readonly static int Top10sLoadingInterval = 30 * 1000;
     }
 }

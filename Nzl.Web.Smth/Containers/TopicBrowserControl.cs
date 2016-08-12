@@ -158,7 +158,8 @@
 
             set
             {
-                this._topicUrl = value;
+                this._topicUrl = value;                
+                this.SetBaseUrl(this._topicUrl);
                 try
                 {
                     string tail = CommonUtil.GetMatch(@"/\d+", this._topicUrl);
@@ -166,8 +167,13 @@
                     this.linklblReply.Links.Clear();
                     this.linklblReply.Links.Add(0, 5, this._postUrl);
                 }
-                catch { };
-                this.SetBaseUrl(this._topicUrl);
+                catch (Exception exp)
+                {
+                    if (Program.LoggerEnabled)
+                    {
+                        Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    }
+                };
             }
         }
 
@@ -247,7 +253,7 @@
         /// <param name="state"></param>
         protected override void DoWork(UrlInfo info)
         {
-            base.DoWork(info);            
+            base.DoWork(info);
         }
 
         /// <summary>
@@ -262,7 +268,7 @@
                 this.SaveThreads(info.Result as IList<BaseItem>);
                 this.UpdateInfor(info.WebPage);
                 this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
-                this.lblPage2.Text = this.lblPage1.Text;                
+                this.lblPage2.Text = this.lblPage1.Text;
                 this._resultUrlInfo = info;
             }
         }
@@ -275,7 +281,7 @@
         {
             return this.panel;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -312,7 +318,7 @@
         {
             ThreadControl tc = ctl as ThreadControl;
             Thread thread = item as Thread;
-            if (tc !=null && thread != null)
+            if (tc != null && thread != null)
             {
                 tc.Thread = thread;
             }
@@ -390,14 +396,20 @@
             }
             catch (Exception e)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(e.Message + "\n" + e.StackTrace);
+                }
+#if (DEBUG)
                 MessageQueue.Enqueue(MessageFactory.CreateMessage(e));
+#endif
                 return null;
             }
         }
 
         protected override void UpdateProgress(int proc)
         {
-            this.btnFirst1.Text = (proc*11111).ToString();
+            this.btnFirst1.Text = (proc * 11111).ToString();
         }
         #endregion
 
@@ -472,7 +484,7 @@
             {
                 if (Program.LoggerEnabled)
                 {
-                    Program.Logger.Error(exp.Message);
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
                 }
             }
         }
@@ -483,7 +495,7 @@
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnFirst_Click(object sender, EventArgs e)
-        {            
+        {
             this.SetUrlInfo(false);
             if (this._browserType == BrowserType.FirstReply)
             {
@@ -493,7 +505,7 @@
             else
             {
                 this.FetchLastPage();
-            }   
+            }
         }
 
         /// <summary>
@@ -548,7 +560,7 @@
             else
             {
                 this.FetchLastPage();
-            }            
+            }
         }
 
         /// <summary>
@@ -640,7 +652,7 @@
             {
                 if (Program.LoggerEnabled)
                 {
-                    Program.Logger.Error(exp.Message);
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
 #if (DEBUG)
@@ -656,11 +668,11 @@
         /// <param name="e"></param>
         private void btnReply_Click(object sender, EventArgs e)
         {
-            if (this.OnTopicReplyLinkClicked!=null)
+            if (this.OnTopicReplyLinkClicked != null)
             {
                 LinkLabel.Link link = new LinkLabel.Link();
                 link.Description = this._postUrl;
-                LinkLabelLinkClickedEventArgs exe = new LinkLabelLinkClickedEventArgs(link);                
+                LinkLabelLinkClickedEventArgs exe = new LinkLabelLinkClickedEventArgs(link);
                 this.OnTopicReplyLinkClicked(sender, exe);
                 if (exe.Link.Tag != null && exe.Link.Tag.ToString() == "Success")
                 {
@@ -669,7 +681,7 @@
                 }
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -906,8 +918,8 @@
                     }
                 }
             }
-        }              
-        
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -919,7 +931,7 @@
                 /////Show the loading form.
                 //this._loadingForm.StartPosition = FormStartPosition.CenterParent;                
                 //this._loadingForm.Show(this);
-         
+
                 if (this._browserType == BrowserType.FirstReply)
                 {
                     bool flag = false;
@@ -990,7 +1002,7 @@
 
                     bool flag = false;
                     int accumulateHeight = 0;
-                    this.panel.Controls.Clear();                    
+                    this.panel.Controls.Clear();
                     for (int i = listThreadControl.Count - 1; i >= 0; i--)
                     {
                         ThreadControl tc = listThreadControl[i];
@@ -1009,7 +1021,7 @@
                     System.Diagnostics.Debug.WriteLine("accumulateHeight:" + accumulateHeight);
                     this.panel.Height = accumulateHeight + 3;
                 }
-                
+
                 if (isAppend == false)
                 {
                     this.panel.Location = new Point(this.panel.Location.X, this._margin);

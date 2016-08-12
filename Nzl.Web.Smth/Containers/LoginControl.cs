@@ -149,7 +149,7 @@
             {
                 if (Program.LoggerEnabled)
                 {
-                    Program.Logger.Error(exp.Message);
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
                 e.Cancel = true;
@@ -214,6 +214,10 @@
             }
             catch (Exception exp)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
 #if (DEBUG)
                 Nzl.Web.Util.CommonUtil.ShowMessage(exp.Message);
 #endif
@@ -245,6 +249,10 @@
             }
             catch (Exception exp)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
 #if (DEBUG)
                 Nzl.Web.Util.CommonUtil.ShowMessage(exp.Message);
 #endif

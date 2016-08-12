@@ -92,8 +92,13 @@
                 FavorForm.Instance.Dispose();
                 GC.Collect();
             }
-            catch
-            { }
+            catch (Exception exp)
+            {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
+            };
         }
 
         /// <summary>

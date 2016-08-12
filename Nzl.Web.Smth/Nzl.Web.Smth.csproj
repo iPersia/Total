@@ -309,6 +309,7 @@
     <Compile Include="Utils\MailFactory.cs" />
     <Compile Include="Utils\MessageFactory.cs" />
     <Compile Include="Utils\MessageQueue.cs" />
+    <Compile Include="Utils\RtfUtil.cs" />
     <Compile Include="Utils\SectionUtil.cs" />
     <Compile Include="Utils\SmthUtil.cs" />
     <Compile Include="Utils\TextBoxUtil.cs" />

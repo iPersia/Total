@@ -54,7 +54,13 @@
             {
                 this._dicChilds.Add(key, node);
             }
-            catch{ };
+            catch (Exception exp)
+            {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
+            };
         }
     }
 }

@@ -60,8 +60,13 @@
             {
                 return item.Execute();
             }
-            catch
+            catch (Exception e)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(e.Message + "\n" + e.StackTrace);
+                }
+
                 return false;
             }
         }

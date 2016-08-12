@@ -133,7 +133,13 @@
             }
             catch (Exception exp)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
+#if (DEBUG)
                 MessageQueue.Enqueue(MessageFactory.CreateMessage(exp));
+#endif
             }
         }
 
@@ -188,7 +194,13 @@
                 {
                     this._dicBoards.Add(engName, chnName);
                 }
-                catch { };
+                catch (Exception exp)
+                {
+                    if (Program.LoggerEnabled)
+                    {
+                        Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    }
+                };
             }
         }
 
