@@ -90,20 +90,8 @@
             if (container != null)
             {
                 container.Width = this.Width - 10;
-                if (container.Controls.Count > 0)
-                {
-                    IList<Control> ctls = new List<Control>();
-                    foreach (Control ctl in container.Controls)
-                    {
-                        BaseItem thread = ctl.Tag as BaseItem;
-                        if (thread != null)
-                        {
-                            ctls.Add(CreateControl(thread));
-                        }
-                    }
-
-                    UpdateView(ctls, false);
-                }
+                this.SetUrlInfo(false);
+                this.FetchPage();
             }
         }
         #endregion
