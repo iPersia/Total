@@ -140,8 +140,15 @@
                                     foreach (string imageUrl in imageUrlList)
                                     {
                                         Image image = CommonUtil.GetWebImage(imageUrl);
-                                        image.Tag = imageUrl;
-                                        imageList.Add(image);                                        
+                                        if (image != null)
+                                        {
+                                            image.Tag = imageUrl.Replace("/middle", "")
+                                                      + ThreadFactory.TokenPrefix
+                                                      + ThreadFactory.ImageToken
+                                                      + ThreadFactory.TokenSuffix
+                                                      + RtfUtil.GetRtfCode(image);
+                                            imageList.Add(image);
+                                        }
                                     }
 
                                     thread.ImageList = imageList;
@@ -168,8 +175,13 @@
 
                 return threadList;
             }
-            catch
+            catch (Exception exp)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                }
+
                 return null;
             }
         }
@@ -219,7 +231,7 @@
                                     savedThread.EditUrl = thread.EditUrl;
                                     savedThread.MailUrl = thread.MailUrl;
                                     savedThread.ReplyUrl = thread.ReplyUrl;
-                                    savedThread.TransferUrl = thread.TransferUrl;                                    
+                                    savedThread.TransferUrl = thread.TransferUrl;
                                     threadList[i] = savedThread;
                                     continue;
                                 }
@@ -232,8 +244,15 @@
                                     foreach (string imageUrl in imageUrlList)
                                     {
                                         Image image = CommonUtil.GetWebImage(imageUrl);
-                                        image.Tag = imageUrl.Replace("/middle","");
-                                        imageList.Add(image);
+                                        if (image != null)
+                                        {
+                                            image.Tag = imageUrl.Replace("/middle", "")
+                                                      + ThreadFactory.TokenPrefix
+                                                      + ThreadFactory.ImageToken
+                                                      + ThreadFactory.TokenSuffix
+                                                      + RtfUtil.GetRtfCode(image);
+                                            imageList.Add(image);
+                                        }
                                     }
 
                                     thread.ImageList = imageList;
@@ -260,8 +279,13 @@
 
                 return threadList;
             }
-            catch
+            catch (Exception e)
             {
+                if (Program.LoggerEnabled)
+                {
+                    Program.Logger.Error(e.Message + "\n" + e.StackTrace);
+                }
+
                 return null;
             }
         }
@@ -419,7 +443,7 @@
             }
 
             return null;
-        }
+        }        
         #endregion
     }
 }
