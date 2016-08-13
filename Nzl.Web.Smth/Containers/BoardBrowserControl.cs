@@ -72,8 +72,6 @@
             base.OnLoad(e);            
             this.SetUrlInfo(false);
             this.FetchPage();
-
-            System.Diagnostics.Debug.WriteLine("BoardBrowserControl - OnLoad!");
         }
 
         /// <summary>

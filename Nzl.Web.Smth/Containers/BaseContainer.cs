@@ -351,59 +351,59 @@
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ctls"></param>
-        /// <param name="isAppend"></param>
-        protected virtual void UpdateView(IList<Control> ctls, bool isAppend)
-        {
-            Panel container = GetContainer();
-            if (container != null)
-            {
-                lock (container)
-                {
-                    bool flag = false;
-                    int accumulateHeight = 0;
-                    if (isAppend == false)
-                    {
-                        foreach (Control ctl in container.Controls)
-                        {
-                            ctl.Dispose();
-                        }
+//        /// <summary>
+//        /// 
+//        /// </summary>
+//        /// <param name="ctls"></param>
+//        /// <param name="isAppend"></param>
+//        protected virtual void UpdateView(IList<Control> ctls, bool isAppend)
+//        {
+//            Panel container = GetContainer();
+//            if (container != null)
+//            {
+//                lock (container)
+//                {
+//                    bool flag = false;
+//                    int accumulateHeight = 0;
+//                    if (isAppend == false)
+//                    {
+//                        foreach (Control ctl in container.Controls)
+//                        {
+//                            ctl.Dispose();
+//                        }
 
-                        container.Controls.Clear();
-                        GC.Collect();
-                    }
-                    else
-                    {
-                        accumulateHeight = container.Height - 3;
-                    }
+//                        container.Controls.Clear();
+//                        GC.Collect();
+//                    }
+//                    else
+//                    {
+//                        accumulateHeight = container.Height - 3;
+//                    }
 
-                    foreach (Control tc in ctls)
-                    {
-                        tc.Top = accumulateHeight + 1;
-                        tc.Left = 1;
-                        this.SetControl(tc, flag);
-                        flag = !flag;
-                        container.Controls.Add(tc);
-                        accumulateHeight += tc.Height + 1;
-                    }
+//                    foreach (Control tc in ctls)
+//                    {
+//                        tc.Top = accumulateHeight + 1;
+//                        tc.Left = 1;
+//                        this.SetControl(tc, flag);
+//                        flag = !flag;
+//                        container.Controls.Add(tc);
+//                        accumulateHeight += tc.Height + 1;
+//                    }
 
-#if (DEBUG)
-                    Nzl.Web.Util.CommonUtil.ShowMessage(this, "\tBaseContainer - UpdateView\n" +
-                                                              "\t\t" + _urlInfo.BaseUrl + " - accumulateHeight:" + accumulateHeight + "\n" +
-                                                              "\t\t" + _urlInfo.BaseUrl + " - ctl count:" + ctls.Count);
-#endif
+//#if (DEBUG)
+//                    Nzl.Web.Util.CommonUtil.ShowMessage(this, "\tBaseContainer - UpdateView\n" +
+//                                                              "\t\t" + _urlInfo.BaseUrl + " - accumulateHeight:" + accumulateHeight + "\n" +
+//                                                              "\t\t" + _urlInfo.BaseUrl + " - ctl count:" + ctls.Count);
+//#endif
 
-                    container.Height = accumulateHeight + 3;
-                    if (isAppend == false)
-                    {
-                        container.Location = new Point(container.Location.X, this._margin);
-                    }
-                }
-            }
-        }
+//                    container.Height = accumulateHeight + 3;
+//                    if (isAppend == false)
+//                    {
+//                        container.Location = new Point(container.Location.X, this._margin);
+//                    }
+//                }
+//            }
+//        }
         #endregion
 
         #region protected
