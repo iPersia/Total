@@ -1,7 +1,9 @@
 ﻿namespace Nzl.Web.Smth.Forms
 {
     using System;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
+    using Nzl.Hook;
     using Datas;
 
     public partial class MainForm : Form
@@ -19,7 +21,7 @@
         /// </summary>
         public MainForm()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
         #endregion
 
@@ -59,6 +61,18 @@
                 this.ShowInTaskbar = false;
                 this.Hide();
                 this.nfiMain.Visible = true;
+                return;
+            }
+
+            e.Cancel = MessageBox.Show(this,
+                                      "There exists some window active, do you want close the form?",
+                                      "Warning",
+                                      MessageBoxButtons.YesNo,
+                                      MessageBoxIcon.Warning) != System.Windows.Forms.DialogResult.Yes;
+
+            if (e.Cancel == true)
+            {
+                return;
             }
 
             try
@@ -106,18 +120,13 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cmsMain_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void nfiMain_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            switch (e.ClickedItem.Name.Substring(4))
+            TabbedBrowserForm.Instance.Visible = !TabbedBrowserForm.Instance.Visible;
+            if (TabbedBrowserForm.Instance.Visible)
             {
-                case "Exit":
-                    {
-                        this._closeFlag = "NotifyIcon";
-                        this.Close();
-                    }
-                    break;
-                default:
-                    break;
+                TabbedBrowserForm.Instance.Show();
+                TabbedBrowserForm.Instance.Focus();
             }
         }
 
@@ -126,15 +135,11 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void nfiMain_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void tsmiExit_Click(object sender, EventArgs e)
         {
-            TabbedBrowserForm.Instance.Visible = !TabbedBrowserForm.Instance.Visible;
-            if (TabbedBrowserForm.Instance.Visible)
-            {
-                TabbedBrowserForm.Instance.Show();
-                TabbedBrowserForm.Instance.Focus();
-            }            
+            this._closeFlag = "NotifyIcon";
+            this.Close();
         }
-        #endregion
+        #endregion        
     }
 }
