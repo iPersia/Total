@@ -106,6 +106,12 @@
             this.UpdateBoardTitle(info.WebPage);
             this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
             this.lblPage2.Text = this.lblPage1.Text;
+
+            if (this.GetContainer().Height < this.panelContainer.Height)
+            {
+                this.SetUrlInfo(true);
+                this.FetchNextPage();
+            }
         }
 
         /// <summary>
