@@ -89,7 +89,11 @@
             System.Windows.Forms.WebBrowser wb = sender as System.Windows.Forms.WebBrowser;
             if (wb != null)
             {
-                wb.Document.GetElementById("wraper").InnerHtml = "";
+                HtmlElement he = wb.Document.GetElementById("wraper");
+                if (he != null)
+                {
+                    he.InnerHtml = "";
+                }
             }
         }
     }

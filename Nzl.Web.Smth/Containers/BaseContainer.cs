@@ -12,7 +12,6 @@
     using Common;
     using Nzl.Web.Smth.Utils;
     using Nzl.Web.Smth.Datas;
-    using Nzl.Web.Smth.Forms;
 
     /// <summary>
     /// 
@@ -65,6 +64,11 @@
         /// 
         /// </summary>
         private int _margin = 4;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool _isWorkCompleted = false;
         #endregion
 
         #region Ctor
@@ -90,8 +94,12 @@
             if (container != null)
             {
                 container.Width = this.Width - 10;
-                this.SetUrlInfo(false);
-                this.FetchPage();
+                ///Prevent the three time loading of the FetchPage function.
+                if (this._isWorkCompleted)
+                {
+                    this.SetUrlInfo(false);
+                    this.FetchPage();
+                }
             }
         }
         #endregion
@@ -584,6 +592,7 @@
                 WorkCompletedBase(e);
             }
 
+            this._isWorkCompleted = true;
             this.SetControlEnabled(true);
         }
 

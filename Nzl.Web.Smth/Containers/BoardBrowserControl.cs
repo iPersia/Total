@@ -50,16 +50,6 @@
         {
             InitializeComponent();
             this.panel.MouseWheel += new MouseEventHandler(BoardBrowserControl_MouseWheel);
-            this.Height = System.Windows.Forms.SystemInformation.VirtualScreen.Height - 200;
-            if (this.Height > 800)
-            {
-                this.Height = 800;
-            }
-
-            if (this.Height < 480)
-            {
-                this.Height = 480;
-            }
         }
 
         /// <summary>
@@ -82,6 +72,8 @@
             base.OnLoad(e);            
             this.SetUrlInfo(false);
             this.FetchPage();
+
+            System.Diagnostics.Debug.WriteLine("BoardBrowserControl - OnLoad!");
         }
 
         /// <summary>
@@ -112,7 +104,7 @@
         protected override void WorkCompleted(UrlInfo info)
         {
             base.WorkCompleted(info);
-            UpdateBoardTitle(info.WebPage);
+            this.UpdateBoardTitle(info.WebPage);
             this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
             this.lblPage2.Text = this.lblPage1.Text;
         }
@@ -429,7 +421,7 @@
         {
             if (wp != null && wp.IsGood)
             {
-                this.Text = CommonUtil.GetMatch("<div class=\"menu sp\"><a href=\"/\" accesskey=\"0\">首页</a>\\|版面-(?'Region'.+)</div><div id=\"m_main\">", wp.Html, 1);
+                this.Text = SmthUtil.GetBoard(wp);
             }
         }        
         #endregion
