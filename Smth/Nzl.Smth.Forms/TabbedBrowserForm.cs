@@ -10,7 +10,7 @@
     using Nzl.Smth.Common;
     using Nzl.Smth.Containers;
     using Nzl.Smth.Datas;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
     using Nzl.Smth.Utils;
     using Nzl.Web.Util;
 
@@ -116,9 +116,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
             };
 
@@ -134,9 +134,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
             };
 

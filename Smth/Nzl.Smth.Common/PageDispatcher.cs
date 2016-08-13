@@ -3,7 +3,7 @@
     using System;
     using System.Runtime.Remoting.Messaging;
     using Nzl.Dispatcher;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
 
     delegate bool AsyncExecuteItem(IExecute item);
 
@@ -63,9 +63,9 @@
             }
             catch (Exception e)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(e.Message + "\n" + e.StackTrace);
+                    Logger.Instance.Error(e.Message + "\n" + e.StackTrace);
                 }
 
                 return false;

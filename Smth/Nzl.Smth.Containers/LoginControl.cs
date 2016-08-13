@@ -14,7 +14,7 @@
     using Nzl.Web.Util;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Utils;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
 
     /// <summary>
     /// 
@@ -148,9 +148,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
                 e.Cancel = true;
@@ -215,9 +215,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 #if (DEBUG)
                 Nzl.Web.Util.CommonUtil.ShowMessage(exp.Message);
@@ -250,9 +250,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 #if (DEBUG)
                 Nzl.Web.Util.CommonUtil.ShowMessage(exp.Message);

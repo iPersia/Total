@@ -150,6 +150,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controls", "Controls", "{7C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Controls", "Controls\Nzl.Controls\Nzl.Controls.csproj", "{ADF447E1-D907-4237-AF2A-225E7588E1A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Logger", "Smth\Nzl.Smth.Logger\Nzl.Smth.Logger.csproj", "{55E4F995-1273-44E1-AEA1-52FED6442660}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -693,6 +695,18 @@ Global
 		{ADF447E1-D907-4237-AF2A-225E7588E1A1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{ADF447E1-D907-4237-AF2A-225E7588E1A1}.Release|x86.ActiveCfg = Release|Any CPU
 		{ADF447E1-D907-4237-AF2A-225E7588E1A1}.Release|x86.Build.0 = Release|Any CPU
+		{55E4F995-1273-44E1-AEA1-52FED6442660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E4F995-1273-44E1-AEA1-52FED6442660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E4F995-1273-44E1-AEA1-52FED6442660}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{55E4F995-1273-44E1-AEA1-52FED6442660}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{55E4F995-1273-44E1-AEA1-52FED6442660}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{55E4F995-1273-44E1-AEA1-52FED6442660}.Debug|x86.Build.0 = Debug|Any CPU
+		{55E4F995-1273-44E1-AEA1-52FED6442660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E4F995-1273-44E1-AEA1-52FED6442660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55E4F995-1273-44E1-AEA1-52FED6442660}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{55E4F995-1273-44E1-AEA1-52FED6442660}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{55E4F995-1273-44E1-AEA1-52FED6442660}.Release|x86.ActiveCfg = Release|Any CPU
+		{55E4F995-1273-44E1-AEA1-52FED6442660}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -749,5 +763,6 @@ Global
 		{E081906C-FD02-428E-AF2B-DD73E1C44467} = {21988C76-462B-47A7-80C6-4FFCA16BEA0E}
 		{ED81BEF2-92F1-474D-80E9-635644D7D0A3} = {21988C76-462B-47A7-80C6-4FFCA16BEA0E}
 		{ADF447E1-D907-4237-AF2A-225E7588E1A1} = {7C502E65-93EB-4785-B9E2-2137E9B0BB26}
+		{55E4F995-1273-44E1-AEA1-52FED6442660} = {21988C76-462B-47A7-80C6-4FFCA16BEA0E}
 	EndGlobalSection
 EndGlobal

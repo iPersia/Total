@@ -11,7 +11,7 @@
     using Nzl.Smth.Common;
     using Nzl.Smth.Utils;
     using Nzl.Smth.Datas;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
     using Nzl.Util;
 
     /// <summary>
@@ -532,9 +532,9 @@
                 }
                 catch (Exception exp)
                 {
-                    if (TheLogger.LoggerEnabled)
+                    if (Logger.Enabled)
                     {
-                        TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                        Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                     }
 
                     (e.Argument as UrlInfo).Status = PageStatus.UnKnown;
@@ -566,9 +566,9 @@
             {
                 e.Cancel = true;
 
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
             }
         }
@@ -613,9 +613,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 #if (DEBUG)
                 CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
@@ -635,9 +635,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 #if (DEBUG)
                 CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
@@ -661,9 +661,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 #if (DEBUG)
                 CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);

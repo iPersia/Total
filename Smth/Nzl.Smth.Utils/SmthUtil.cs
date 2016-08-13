@@ -6,7 +6,7 @@
     using Nzl.Web.Page;
     using Nzl.Web.Util;
     using Nzl.Smth.Datas;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
 
     /// <summary>
     /// 
@@ -169,9 +169,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
                 return null;

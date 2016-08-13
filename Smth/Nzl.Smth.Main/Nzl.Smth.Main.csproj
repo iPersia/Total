@@ -87,6 +87,10 @@
       <Project>{25147225-1aef-41db-b5f3-a3ef07b7a862}</Project>
       <Name>Nzl.Smth.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Logger\Nzl.Smth.Logger.csproj">
+      <Project>{55e4f995-1273-44e1-aea1-52fed6442660}</Project>
+      <Name>Nzl.Smth.Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nzl.Smth.Utils\Nzl.Smth.Utils.csproj">
       <Project>{ed81bef2-92f1-474d-80e9-635644d7d0a3}</Project>
       <Name>Nzl.Smth.Utils</Name>

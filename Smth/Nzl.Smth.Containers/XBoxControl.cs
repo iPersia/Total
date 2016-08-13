@@ -11,7 +11,7 @@
     using Nzl.Smth.Datas;
     using Nzl.Smth.Controls;
     using Nzl.Smth.Utils;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
 
     /// <summary>
     /// Class.
@@ -330,9 +330,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
 #if (DEBUG)

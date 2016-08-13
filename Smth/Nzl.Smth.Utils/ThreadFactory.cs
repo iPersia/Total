@@ -7,7 +7,7 @@
     using System.Text.RegularExpressions;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Interfaces;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
 
@@ -178,9 +178,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
                 return null;
@@ -282,9 +282,9 @@
             }
             catch (Exception e)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(e.Message + "\n" + e.StackTrace);
+                    Logger.Instance.Error(e.Message + "\n" + e.StackTrace);
                 }
 
                 return null;

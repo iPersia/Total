@@ -7,7 +7,7 @@
     using System.Text;
     using Nzl.Dispatcher;
     using Nzl.Smth.Datas;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
     using Nzl.Web.Page;
     using Nzl.Smth.Utils;
 
@@ -81,9 +81,9 @@
             }
             catch (Exception e)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(e.Message + "\n" + e.StackTrace);
+                    Logger.Instance.Error(e.Message + "\n" + e.StackTrace);
                 }
 
 #if (DEBUG)

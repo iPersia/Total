@@ -4,7 +4,7 @@
     using System.Drawing;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
     using Nzl.Web.Util;
     using Nzl.Web.Page;
 
@@ -97,9 +97,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
                 this.txtUser.AppendText("\n\t没有查询到用户'" + this._userID + "'的信息！");
@@ -119,9 +119,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
                 e.Result = null;

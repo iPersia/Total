@@ -5,7 +5,7 @@
     using System.Windows.Forms;
     using Nzl.Hook;
     using Nzl.Smth.Common;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
 
     public partial class MainForm : Form
     {
@@ -109,9 +109,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
             };
         }

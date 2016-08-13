@@ -5,7 +5,7 @@
     using System.ComponentModel;
     using Nzl.Smth.Datas;
     using Nzl.Web.Page;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
     using Nzl.Smth.Utils;
 
     /// <summary>
@@ -134,9 +134,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 #if (DEBUG)
                 MessageQueue.Enqueue(MessageFactory.CreateMessage(exp));
@@ -197,9 +197,9 @@
                 }
                 catch (Exception exp)
                 {
-                    if (TheLogger.LoggerEnabled)
+                    if (Logger.Enabled)
                     {
-                        TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                        Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                     }
                 };
             }

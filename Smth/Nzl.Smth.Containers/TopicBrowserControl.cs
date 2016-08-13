@@ -10,7 +10,7 @@
     using Nzl.Smth.Controls;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Interfaces;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
     using Nzl.Smth.Utils;
 
     /// <summary>
@@ -167,9 +167,9 @@
                 }
                 catch (Exception exp)
                 {
-                    if (TheLogger.LoggerEnabled)
+                    if (Logger.Enabled)
                     {
-                        TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                        Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                     }
                 };
             }
@@ -394,9 +394,9 @@
             }
             catch (Exception e)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(e.Message + "\n" + e.StackTrace);
+                    Logger.Instance.Error(e.Message + "\n" + e.StackTrace);
                 }
 #if (DEBUG)
                 MessageQueue.Enqueue(MessageFactory.CreateMessage(e));
@@ -480,9 +480,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
             }
         }
@@ -648,9 +648,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
 #if (DEBUG)

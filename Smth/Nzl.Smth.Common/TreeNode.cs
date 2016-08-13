@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Nzl.Smth.Datas;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
 
     /// <summary>
     /// 
@@ -56,9 +56,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
             };
         }

@@ -7,7 +7,7 @@
     using System.Runtime.CompilerServices;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Forms;
-    using Nzl.Smth.Log;
+    using Nzl.Smth.Logger;
     using Nzl.Smth.Utils;
 
     /// <summary>
@@ -40,9 +40,9 @@
             }
             catch (Exception exp)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
                 MessageBox.Show(GetExceptionMsg(exp, exp.ToString()), "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -56,9 +56,9 @@
         /// <param name="e"></param>
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            if (TheLogger.LoggerEnabled)
+            if (Logger.Enabled)
             {
-                TheLogger.Logger.Error(e.Exception.Message + "\n" + e.Exception.StackTrace);
+                Logger.Instance.Error(e.Exception.Message + "\n" + e.Exception.StackTrace);
             }
 
             MessageBox.Show(GetExceptionMsg(e.Exception, e.ToString()),
@@ -77,9 +77,9 @@
             Exception exp = e.ExceptionObject as Exception;
             if (exp != null)
             {
-                if (TheLogger.LoggerEnabled)
+                if (Logger.Enabled)
                 {
-                    TheLogger.Logger.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
 
                 MessageBox.Show(GetExceptionMsg(exp, e.ToString()),
@@ -92,9 +92,9 @@
                 RuntimeWrappedException rwe = e.ExceptionObject as RuntimeWrappedException;
                 if (rwe != null)
                 {
-                    if (TheLogger.LoggerEnabled)
+                    if (Logger.Enabled)
                     {
-                        TheLogger.Logger.Error(rwe.InnerException.Message + "\n" + rwe.InnerException.StackTrace);
+                        Logger.Instance.Error(rwe.InnerException.Message + "\n" + rwe.InnerException.StackTrace);
                     }
 
                     MessageBox.Show(GetExceptionMsg(rwe.InnerException, e.ToString()),
@@ -104,9 +104,9 @@
                 }
                 else
                 {
-                    if (TheLogger.LoggerEnabled)
+                    if (Logger.Enabled)
                     {
-                        TheLogger.Logger.Error(e.ToString());
+                        Logger.Instance.Error(e.ToString());
                     }
 
                     MessageBox.Show(GetExceptionMsg(null, e.ToString()),
