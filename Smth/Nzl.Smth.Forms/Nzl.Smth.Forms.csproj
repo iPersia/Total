@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{25147225-1AEF-41DB-B5F3-A3EF07B7A862}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nzl.Smth.Forms</RootNamespace>
+    <AssemblyName>Nzl.Smth.Forms</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BoardNavigatorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BoardNavigatorForm.Designer.cs">
+      <DependentUpon>BoardNavigatorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FavorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FavorForm.Designer.cs">
+      <DependentUpon>FavorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MailBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MailBoxForm.Designer.cs">
+      <DependentUpon>MailBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MailDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MailDetailForm.Designer.cs">
+      <DependentUpon>MailDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MessageCenterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MessageCenterForm.Designer.cs">
+      <DependentUpon>MessageCenterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewMailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewMailForm.Designer.cs">
+      <DependentUpon>NewMailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewThreadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewThreadForm.Designer.cs">
+      <DependentUpon>NewThreadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TabbedBrowserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabbedBrowserForm.Designer.cs">
+      <DependentUpon>TabbedBrowserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThreadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThreadForm.Designer.cs">
+      <DependentUpon>ThreadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Top10sForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Top10sForm.Designer.cs">
+      <DependentUpon>Top10sForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TopicBrowserSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TopicBrowserSettingsForm.Designer.cs">
+      <DependentUpon>TopicBrowserSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TopicForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TopicForm.Designer.cs">
+      <DependentUpon>TopicForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserForm.Designer.cs">
+      <DependentUpon>UserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebBrowserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebBrowserForm.Designer.cs">
+      <DependentUpon>WebBrowserForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BoardNavigatorForm.resx">
+      <DependentUpon>BoardNavigatorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FavorForm.resx">
+      <DependentUpon>FavorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MailBoxForm.resx">
+      <DependentUpon>MailBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MailDetailForm.resx">
+      <DependentUpon>MailDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageCenterForm.resx">
+      <DependentUpon>MessageCenterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewMailForm.resx">
+      <DependentUpon>NewMailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewThreadForm.resx">
+      <DependentUpon>NewThreadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabbedBrowserForm.resx">
+      <DependentUpon>TabbedBrowserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThreadForm.resx">
+      <DependentUpon>ThreadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Top10sForm.resx">
+      <DependentUpon>Top10sForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TopicBrowserSettingsForm.resx">
+      <DependentUpon>TopicBrowserSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TopicForm.resx">
+      <DependentUpon>TopicForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserForm.resx">
+      <DependentUpon>UserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebBrowserForm.resx">
+      <DependentUpon>WebBrowserForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Components\Nzl.Hook\Nzl.Hook.csproj">
+      <Project>{6eca3d2e-3f31-4eb2-ab38-cd4e1d4abee9}</Project>
+      <Name>Nzl.Hook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Components\Nzl.Log4Net\Nzl.Log4Net.csproj">
+      <Project>{181fe707-e161-4722-9f38-6aaab6faa106}</Project>
+      <Name>Nzl.Log4Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Controls\Nzl.Controls\Nzl.Controls.csproj">
+      <Project>{adf447e1-d907-4237-af2a-225e7588e1a1}</Project>
+      <Name>Nzl.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Util\Nzl.Util\Nzl.Util.csproj">
+      <Project>{b9de9cff-d84e-4bf9-a615-cf7f4519f139}</Project>
+      <Name>Nzl.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Web\Nzl.Web.Page\Nzl.Web.Page.csproj">
+      <Project>{58bc70f0-3ff6-4095-87ac-08a4b7c00f58}</Project>
+      <Name>Nzl.Web.Page</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Web\Nzl.Web.Util\Nzl.Web.Util.csproj">
+      <Project>{6cba8f35-e6f4-4a6d-876f-38ea9de4649a}</Project>
+      <Name>Nzl.Web.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Common\Nzl.Smth.Common.csproj">
+      <Project>{e22371cb-bcae-41e5-82b3-2b696c7e05d1}</Project>
+      <Name>Nzl.Smth.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Containers\Nzl.Smth.Containers.csproj">
+      <Project>{3466c961-acdb-4f03-bb1d-10fad9fb88f1}</Project>
+      <Name>Nzl.Smth.Containers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Controls\Nzl.Smth.Controls.csproj">
+      <Project>{3d39e4a3-0ed7-4175-a2ba-68a00919a998}</Project>
+      <Name>Nzl.Smth.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Datas\Nzl.Smth.Datas.csproj">
+      <Project>{bbc9010b-cb89-4f7e-b418-5b653e5eb005}</Project>
+      <Name>Nzl.Smth.Datas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Interfaces\Nzl.Smth.Interfaces.csproj">
+      <Project>{e081906c-fd02-428e-af2b-dd73e1c44467}</Project>
+      <Name>Nzl.Smth.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Log\Nzl.Smth.Log.csproj">
+      <Project>{54f0efb5-ed55-46a8-9a27-f6fda8fa4458}</Project>
+      <Name>Nzl.Smth.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Utils\Nzl.Smth.Utils.csproj">
+      <Project>{ed81bef2-92f1-474d-80e9-635644d7d0a3}</Project>
+      <Name>Nzl.Smth.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
