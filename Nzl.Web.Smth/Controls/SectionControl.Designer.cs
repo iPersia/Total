@@ -48,11 +48,12 @@ namespace Nzl.Web.Smth.Controls
             // 
             this.lblType.AutoSize = true;
             this.lblType.Font = new System.Drawing.Font("宋体", 9F);
+            this.lblType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.lblType.Location = new System.Drawing.Point(12, 6);
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(29, 12);
             this.lblType.TabIndex = 1;
-            this.lblType.Text = "版面";
+            this.lblType.Text = "目录";
             // 
             // linklblSection
             // 
