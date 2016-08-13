@@ -77,10 +77,6 @@
       <Project>{e081906c-fd02-428e-af2b-dd73e1c44467}</Project>
       <Name>Nzl.Smth.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nzl.Smth.Log\Nzl.Smth.Log.csproj">
-      <Project>{54f0efb5-ed55-46a8-9a27-f6fda8fa4458}</Project>
-      <Name>Nzl.Smth.Log</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
