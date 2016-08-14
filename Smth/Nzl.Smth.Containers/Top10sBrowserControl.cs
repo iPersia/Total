@@ -56,12 +56,16 @@
             base.OnLoad(e);
             {
                 TabPage tp = new TabPage();
-                SectionTopsControl tbc = new SectionTopsControl("http://m.newsmth.net/hot");                
+                tp.Name = "tpHot";
+                SectionTopsControl tbc = new SectionTopsControl("http://m.newsmth.net/hot");
+                tbc.Name = "tbcHot";
                 tbc.SetParent(tp);
                 tbc.OnTopLinkClicked += Tbc_OnTopLinkClicked;
                 tbc.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
                 tp.Controls.Add(tbc);
                 this.tcTop10s.TabPages.Add(tp);
+                this.tcTop10s.SelectedTab = tp;
+                this.tcTop10s.Focus();
                 this.Size = new Size(tbc.Width + 8, tbc.Height + 26);
             }
 
@@ -83,13 +87,17 @@
                 return;
             }
 
-            SectionTopsControl tbc = new SectionTopsControl("http://m.newsmth.net/hot/" + this._sectionIndex++);
             TabPage tp = new TabPage();
+            tp.Name = "tbcHot" + this._sectionIndex;
+            SectionTopsControl tbc = new SectionTopsControl("http://m.newsmth.net/hot/" + this._sectionIndex);
+            tbc.Name = "tbcHot" + this._sectionIndex++;
             tbc.SetParent(tp);
             tbc.OnTopLinkClicked += Tbc_OnTopLinkClicked;
             tbc.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
             tp.Controls.Add(tbc);
             this.tcTop10s.TabPages.Add(tp);
+            this.tcTop10s.SelectedTab = tp;
+            this.tcTop10s.Focus();
         }
 
         /// <summary>

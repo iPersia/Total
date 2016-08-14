@@ -68,10 +68,6 @@
             this._updatingTimer.Interval = Configurations.SectionTopsUpdatingInterval;
             this._updatingTimer.Tick += new EventHandler(_updatingTimer_Tick);
             this._updatingTimer.Start();
-
-            ///Fetch page.
-            this.SetUrlInfo(false);
-            this.FetchPage();
         }
 
         /// <summary>
@@ -85,6 +81,19 @@
         #endregion
 
         #region override
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+#if (DEBUG)
+            System.Diagnostics.Debug.WriteLine("SectionTopsControl - " + this.Name);
+#endif
+            this.SetUrlInfo(false);
+            this.FetchPage();
+        }
         /// <summary>
         /// 
         /// </summary>
