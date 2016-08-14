@@ -114,9 +114,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Web.Pub", "Web\Nzl.Web.
 		{B9DE9CFF-D84E-4BF9-A615-CF7F4519F139} = {B9DE9CFF-D84E-4BF9-A615-CF7F4519F139}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Test.CommunicationClient", "Nzl.Test.CommunicationClient\Nzl.Test.CommunicationClient.csproj", "{54370DC7-8F9C-465A-B1D5-5E6ACC01BBC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Test.CommunicationClient", "Test\Nzl.Test.CommunicationClient\Nzl.Test.CommunicationClient.csproj", "{54370DC7-8F9C-465A-B1D5-5E6ACC01BBC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Test.CommunicationServer", "Nzl.Test.CommunicationServer\Nzl.Test.CommunicationServer.csproj", "{B723D70B-0229-47B5-9291-DDF30206803C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Test.CommunicationServer", "Test\Nzl.Test.CommunicationServer\Nzl.Test.CommunicationServer.csproj", "{B723D70B-0229-47B5-9291-DDF30206803C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Dispatcher", "Components\Nzl.Dispatcher\Nzl.Dispatcher.csproj", "{665400E9-DC26-40F4-BD09-0E7151C3CA18}"
 EndProject
