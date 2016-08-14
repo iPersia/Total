@@ -55,7 +55,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private string _assemblyTitle = null;
+        private string _entryAssemblyTitle = null;
         #endregion
 
         #region Ctor
@@ -156,7 +156,7 @@
             Top10sForm.Instance.OnTopBoardLinkClicked += Instance_OnTopBoardLinkClicked;
             BoardNavigatorForm.Instance.OnBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
             FavorForm.Instance.OnFavorBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
-            this._assemblyTitle = this.GetAssemblyTitle();
+            this._entryAssemblyTitle = this.GetEntryAssemblyTitle();
         }
         #endregion
 
@@ -560,17 +560,18 @@
         protected void Global_KeyUp(object sender, KeyExEventArgs e)
         {
             string fwtpName = HookUtil.GetForegroundWindowThreadProcessName();
-            //System.Diagnostics.Debug.WriteLine("Global_KeyUp - " + fwtpName);
-            //System.Diagnostics.Debug.WriteLine("Global_KeyUp - " +
-            //                                   "Control.ModifierKeys " + Control.ModifierKeys + "\t" +
-            //                                   "Modifiers " + e.Modifiers + "\t" +
-            //                                   "Alt " + e.Alt + "\t" +
-            //                                   "Control " + e.Control + "\t" +
-            //                                   "Shift " + e.Shift + "\t" +
-            //                                   e.KeyCode + "\t" + e.KeyValue + "\t" + e.KeyData);
-
-            //System.Diagnostics.Debug.WriteLine("Global_KeyUp - this._assemblyTitle = " + this._assemblyTitle);
-            if (fwtpName == this._assemblyTitle)
+#if (DEBUG)
+            System.Diagnostics.Debug.WriteLine("Global_KeyUp - " + fwtpName);
+            System.Diagnostics.Debug.WriteLine("Global_KeyUp - " +
+                                               "Control.ModifierKeys " + Control.ModifierKeys + "\t" +
+                                               "Modifiers " + e.Modifiers + "\t" +
+                                               "Alt " + e.Alt + "\t" +
+                                               "Control " + e.Control + "\t" +
+                                               "Shift " + e.Shift + "\t" +
+                                               e.KeyCode + "\t" + e.KeyValue + "\t" + e.KeyData);
+            System.Diagnostics.Debug.WriteLine("Global_KeyUp - this._entryAssemblyTitle = " + this._entryAssemblyTitle);
+#endif
+            if (fwtpName == this._entryAssemblyTitle)
             {
                 if ((e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey) && 
                      Control.ModifierKeys == Keys.Control 
@@ -649,8 +650,6 @@
         /// <param name="e"></param>
         private void btnMail_Click(object sender, EventArgs e)
         {
-            //ShowFormOnCenterParent(new MailDetailForm(@"http://m.newsmth.net/mail/inbox/276"));
-            //ShowFormOnCenterParent(new MailDetailForm(@"http://m.newsmth.net/mail/inbox/269"));
             ShowFormAsDialog(MailBoxForm.Instance);
         }
 
@@ -894,9 +893,9 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        private string GetAssemblyTitle()
+        private string GetEntryAssemblyTitle()
         {
-            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+            object[] attributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
             if (attributes.Length > 0)
             {
                 AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
