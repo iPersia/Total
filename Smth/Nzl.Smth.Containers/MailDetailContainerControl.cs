@@ -139,6 +139,23 @@
             return base.CreateControl(item);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctl"></param>
+        protected override void AddControl(Control ctl)
+        {
+            Panel container = GetContainer();
+            if (container != null)
+            {
+                lock (container)
+                {
+                    ctl.Top = 1;
+                    ctl.Left = 1;
+                    container.Controls.Add(ctl);
+                }
+            }
+        }
         #region eventhandler
         /// <summary>
         /// 
