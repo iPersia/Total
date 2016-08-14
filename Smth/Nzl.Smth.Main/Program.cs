@@ -36,6 +36,7 @@
                 ////处理非UI线程异常 
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
+                ////应用程序的主入口点
                 Application.Run(new MainForm());
             }
             catch (Exception exp)
