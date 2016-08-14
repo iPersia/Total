@@ -168,31 +168,6 @@
                 this._parentControl.Text = info.Subject;
             }
         }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="isAppend"></param>
-        //protected override void InitializeView(bool isAppend)
-        //{
-        //    ///Noting to do.
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="ctl"></param>
-        //protected override void AddControl(Control ctl)
-        //{
-        //    TopControl tc = ctl as TopControl;
-        //    if (tc != null)
-        //    {
-        //        if (this.GetContainer().Controls.Contains(tc) == false)
-        //        {
-
-        //        }
-        //    }
-        //}
         #endregion        
 
         #region eventhandler
