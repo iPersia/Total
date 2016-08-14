@@ -146,7 +146,7 @@
       <Project>{181fe707-e161-4722-9f38-6aaab6faa106}</Project>
       <Name>Nzl.Log4Net</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Nzl.Dispatcher\Nzl.Dispatcher.csproj">
+    <ProjectReference Include="..\..\Components\Nzl.Dispatcher\Nzl.Dispatcher.csproj">
       <Project>{665400e9-dc26-40f4-bd09-0e7151c3ca18}</Project>
       <Name>Nzl.Dispatcher</Name>
     </ProjectReference>
