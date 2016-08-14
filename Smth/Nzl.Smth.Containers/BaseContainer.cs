@@ -157,7 +157,10 @@
             if (info.Controls != null && info.Controls.Count > 0)
             {
                 System.Threading.Thread.Sleep(0);
-                this.Invoke(new InitializeContainerCallback(InitializeContainer), new object[] { info.IsAppend });
+                if (this.IsHandleCreated)
+                {
+                    this.Invoke(new InitializeContainerCallback(InitializeContainer), new object[] { info.IsAppend });
+                }
                 System.Threading.Thread.Sleep(0);
                 this.InvokeUpdateView(info.Controls);
             }
@@ -172,7 +175,10 @@
             foreach (Control ctl in ctls)
             {
                 System.Threading.Thread.Sleep(0);
-                this.Invoke(new UpdateViewCallback(AddControl), new object[] { ctl });
+                if (this.IsHandleCreated)
+                {
+                    this.Invoke(new UpdateViewCallback(AddControl), new object[] { ctl });
+                }
                 System.Threading.Thread.Sleep(0);
             }
         }
@@ -436,15 +442,21 @@
         protected Control GetControl(BaseItem item)
         {
             System.Threading.Thread.Sleep(0);
-            object obj = this.Invoke(new CreateControlCallback(CreateControl), new object[] { item });            
-            System.Threading.Thread.Sleep(0);
-            Control ctl = obj as Control;
-            if (ctl != null)
+            if (this.IsHandleCreated)
             {
+                object obj = this.Invoke(new CreateControlCallback(CreateControl), new object[] { item });
                 System.Threading.Thread.Sleep(0);
-                this.Invoke(new InitializeControlCallback(InitializeControl), new object[] { ctl, item });
-                System.Threading.Thread.Sleep(0);
-                return ctl;
+                Control ctl = obj as Control;
+                if (ctl != null)
+                {
+                    System.Threading.Thread.Sleep(0);
+                    if (this.IsHandleCreated)
+                    {
+                        this.Invoke(new InitializeControlCallback(InitializeControl), new object[] { ctl, item });
+                    }
+                    System.Threading.Thread.Sleep(0);
+                    return ctl;
+                }
             }
 
             return null;
@@ -655,7 +667,11 @@
                 WebPage wp = pl.GetPage();
                 UrlInfo info = pl.Tag as UrlInfo;
                 info.WebPage = wp;
-                this.Invoke(new PageLoadedCallback(PageLoaded), new object[] { info });
+                System.Threading.Thread.Sleep(0);
+                if (this.IsHandleCreated)
+                {
+                    this.Invoke(new PageLoadedCallback(PageLoaded), new object[] { info });
+                }
             }
         }
 
@@ -707,5 +723,16 @@
             }
         }
         #endregion
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // BaseContainer
+            // 
+            this.Name = "BaseContainer";
+            this.ResumeLayout(false);
+
+        }
     }
 }

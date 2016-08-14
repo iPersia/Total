@@ -107,6 +107,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BaseContainer.resx">
+      <DependentUpon>BaseContainer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BoardBrowserControl.resx">
       <DependentUpon>BoardBrowserControl.cs</DependentUpon>
     </EmbeddedResource>
