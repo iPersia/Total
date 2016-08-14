@@ -154,6 +154,10 @@
             this.UpdatePageInfo(info.WebPage, info);
             info.Result = this.GetItems(info.WebPage);
             info.Controls = this.PrepareControls(info.Result);
+#if (DEBUG)
+            System.Diagnostics.Debug.WriteLine("BaseContainer - DoWork - " + info.BaseUrl);
+            System.Diagnostics.Debug.WriteLine("BaseContainer - DoWork - this.IsHandleCreated - " + this.IsHandleCreated);
+#endif
             if (info.Controls != null && info.Controls.Count > 0)
             {
                 System.Threading.Thread.Sleep(0);
