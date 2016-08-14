@@ -45,6 +45,18 @@
     /// </summary>
     public class BaseContainer : UserControl
     {
+        #region event
+        /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler<MessageEventArgs> OnWorkerFailed;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler<MessageEventArgs> OnWorkerCancelled;
+        #endregion
+
         #region variable
         /// <summary>
         /// 
@@ -294,28 +306,6 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="info"></param>
-        protected virtual void WorkFailed(string msg)
-        {
-            Common.MessageForm msgForm = new Common.MessageForm("Geting page failed", msg);
-            msgForm.StartPosition = FormStartPosition.CenterParent;
-            msgForm.ShowDialog(this);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="info"></param>
-        protected virtual void WorkCancelled(string msg)
-        {
-            Common.MessageForm msgForm = new Common.MessageForm("Geting page canceled", msg);
-            msgForm.StartPosition = FormStartPosition.CenterParent;
-            msgForm.ShowDialog(this);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="flag"></param>
         protected virtual void SetControlEnabled(bool flag)
         {
@@ -351,60 +341,15 @@
                 ctl.BackColor = Color.White;
             }
         }
-
-//        /// <summary>
-//        /// 
-//        /// </summary>
-//        /// <param name="ctls"></param>
-//        /// <param name="isAppend"></param>
-//        protected virtual void UpdateView(IList<Control> ctls, bool isAppend)
-//        {
-//            Panel container = GetContainer();
-//            if (container != null)
-//            {
-//                lock (container)
-//                {
-//                    bool flag = false;
-//                    int accumulateHeight = 0;
-//                    if (isAppend == false)
-//                    {
-//                        foreach (Control ctl in container.Controls)
-//                        {
-//                            ctl.Dispose();
-//                        }
-
-//                        container.Controls.Clear();
-//                        GC.Collect();
-//                    }
-//                    else
-//                    {
-//                        accumulateHeight = container.Height - 3;
-//                    }
-
-//                    foreach (Control tc in ctls)
-//                    {
-//                        tc.Top = accumulateHeight + 1;
-//                        tc.Left = 1;
-//                        this.SetControl(tc, flag);
-//                        flag = !flag;
-//                        container.Controls.Add(tc);
-//                        accumulateHeight += tc.Height + 1;
-//                    }
-
-//#if (DEBUG)
-//                    Nzl.Web.Util.CommonUtil.ShowMessage(this, "\tBaseContainer - UpdateView\n" +
-//                                                              "\t\t" + _urlInfo.BaseUrl + " - accumulateHeight:" + accumulateHeight + "\n" +
-//                                                              "\t\t" + _urlInfo.BaseUrl + " - ctl count:" + ctls.Count);
-//#endif
-
-//                    container.Height = accumulateHeight + 3;
-//                    if (isAppend == false)
-//                    {
-//                        container.Location = new Point(container.Location.X, this._margin);
-//                    }
-//                }
-//            }
-//        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="proc"></param>
+        protected virtual void UpdateProgress(int proc)
+        {
+            ///Noting to do.
+        }
         #endregion
 
         #region protected
@@ -580,21 +525,31 @@
         /// <param name="e"></param>
         private void bwFetchPage_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Error != null)
+            try
             {
-                WorkFailedBase(e);
-            }
-            else if (e.Cancelled)
-            {
-                WorkCancelledBase(e);
-            }
-            else
-            {
-                WorkCompletedBase(e);
-            }
+                if (e.Error != null)
+                {
+                    WorkFailedBase(e);
+                }
+                else if (e.Cancelled)
+                {
+                    WorkCancelledBase(e);
+                }
+                else
+                {
+                    WorkCompletedBase(e);
+                }
 
-            this._isWorkCompleted = true;
-            this.SetControlEnabled(true);
+                this._isWorkCompleted = true;
+                this.SetControlEnabled(true);
+            }
+            catch (Exception exp)
+            {
+                if (Logger.Enabled)
+                {
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
+                }
+            }
         }
 
         /// <summary>
@@ -603,23 +558,10 @@
         /// <param name="state">State is RunWorkerCompletedEventArgs!</param>
         protected void WorkCompletedBase(RunWorkerCompletedEventArgs e)
         {
-            try
+            UrlInfo urlInfo = e.Result as UrlInfo;
+            if (urlInfo != null)
             {
-                UrlInfo urlInfo = e.Result as UrlInfo;
-                if (urlInfo != null)
-                {
-                    WorkCompleted(urlInfo);
-                }
-            }
-            catch (Exception exp)
-            {
-                if (Logger.Enabled)
-                {
-                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
-                }
-#if (DEBUG)
-                CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
-#endif
+                WorkCompleted(urlInfo);
             }
         }
 
@@ -629,20 +571,7 @@
         /// <param name="state">State is RunWorkerCompletedEventArgs!</param>
         protected void WorkCancelledBase(RunWorkerCompletedEventArgs e)
         {
-            try
-            {
-                this.WorkCancelled(e.Error.Message);
-            }
-            catch (Exception exp)
-            {
-                if (Logger.Enabled)
-                {
-                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
-                }
-#if (DEBUG)
-                CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
-#endif
-            }
+            this.WorkCancelled(e.Error.Message);  
         }
 
         /// <summary>
@@ -651,26 +580,8 @@
         /// <param name="state">State is RunWorkerCompletedEventArgs!</param>
         protected void WorkFailedBase(RunWorkerCompletedEventArgs e)
         {
-            try
-            {
-                UrlInfo urlInfo = e.Result as UrlInfo;
-                if (urlInfo != null)
-                {
-                    WorkCompleted(urlInfo);
-                }
-            }
-            catch (Exception exp)
-            {
-                if (Logger.Enabled)
-                {
-                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
-                }
-#if (DEBUG)
-                CommonUtil.ShowMessage(typeof(BaseContainer), exp.Message);
-#endif
-            }
+            this.WorkFailed(e.Error.Message);
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -775,10 +686,25 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="proc"></param>
-        protected virtual void UpdateProgress(int proc)
+        /// <param name="info"></param>
+        private void WorkFailed(string msg)
         {
-            ///Noting to do.
+            if (this.OnWorkerFailed != null)
+            {
+                this.OnWorkerFailed(this, new MessageEventArgs(msg));
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        private void WorkCancelled(string msg)
+        {
+            if (this.OnWorkerCancelled != null)
+            {
+                this.OnWorkerCancelled(this, new MessageEventArgs(msg));
+            }
         }
         #endregion
     }

@@ -136,11 +136,21 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void tsmiAbout_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmiExit_Click(object sender, EventArgs e)
         {
             this._closeFlag = "NotifyIcon";
             this.Close();
         }
-        #endregion        
+        #endregion
     }
 }

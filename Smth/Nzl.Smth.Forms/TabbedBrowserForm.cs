@@ -195,6 +195,8 @@
                 tbc.OnTopicReplyLinkClicked += TopicBrowserControl_OnTopicReplyLinkClicked;
                 tbc.OnThreadContentLinkClicked += TopicBrowserControl_OnThreadContentLinkClicked;
                 tbc.OnBoardLinkClicked += TopicBrowserControl_OnBoardLinkClicked;
+                tbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
+                tbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
 
                 TabPage tp = new TabPage();
                 tp.Name = key;
@@ -427,6 +429,8 @@
                 bbc.OnTopicLinkClicked += new LinkLabelLinkClickedEventHandler(BoardBrowserControl_OnTopicLinkClicked);
                 bbc.OnTopicCreateIDLinkClicked += new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
                 bbc.OnTopicLastIDLinkClicked += new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
+                bbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
+                bbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
                 bbc.Dock = DockStyle.Fill;
 
                 TabPage tp = new TabPage();
@@ -437,6 +441,30 @@
                 this.tcTopics.TabPages.Add(tp);
                 this.tcTopics.SelectedTab = tp;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TabbedBrowserFrom_OnWorkerCancelled(object sender, MessageEventArgs e)
+        {
+            Common.MessageForm msgForm = new Common.MessageForm("Geting page Cancelled", e.Message);
+            msgForm.StartPosition = FormStartPosition.CenterParent;
+            msgForm.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TabbedBrowserForm_OnWorkerFailed(object sender, MessageEventArgs e)
+        {
+            Common.MessageForm msgForm = new Common.MessageForm("Geting page failed", e.Message);
+            msgForm.StartPosition = FormStartPosition.CenterParent;
+            msgForm.ShowDialog(this);
         }
 
         /// <summary>
