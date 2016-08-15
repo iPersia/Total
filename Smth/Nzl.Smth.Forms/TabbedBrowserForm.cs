@@ -17,6 +17,11 @@
     /// <summary>
     /// 
     /// </summary>
+    delegate void SetLogStatusCallBack(bool flag);
+
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class TabbedBrowserForm : BaseForm
     {
         #region Singleton
@@ -78,7 +83,7 @@
         /// <param name="e"></param>
         private void Instance_LoginStatusChanged(object sender, LogStatusEventArgs e)
         {
-            SetButtonVisibleByLogInStatus(e.IsLogin);
+            SetLogStatus(e.IsLogin);
         }
 
         /// <summary>
@@ -152,10 +157,12 @@
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            Top10sForm.Instance.OnTopLinkClicked += Instance_OnTopLinkClicked;
-            Top10sForm.Instance.OnTopBoardLinkClicked += Instance_OnTopBoardLinkClicked;
+            Top10sForm.Instance.OnTopLinkClicked += Top10sForm_OnTopLinkClicked;
+            Top10sForm.Instance.OnTopBoardLinkClicked += Top10sForm_OnTopBoardLinkClicked;
             BoardNavigatorForm.Instance.OnBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
             FavorForm.Instance.OnFavorBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
+            LoginForm.Instance.OnLoginFailed += LoginForm_OnLoginFailed;
+            LoginForm.Instance.OnLogoutFailed += LoginForm_OnLogoutFailed;
             this._entryAssemblyTitle = this.GetEntryAssemblyTitle();
         }
         #endregion
@@ -732,7 +739,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Instance_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Top10sForm_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
             if (linklbl != null)
@@ -746,12 +753,44 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Instance_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Top10sForm_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
             if (linklbl != null)
             {
                 this.AddTopic(e.Link.LinkData.ToString(), linklbl.Text);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoginForm_OnLogoutFailed(object sender, MessageEventArgs e)
+        {
+            LoginControl lc = sender as LoginControl;
+            if (lc != null && this.Active)
+            {
+                MessageForm form = new MessageForm("Login Failed", e.Message);
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog(this);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoginForm_OnLoginFailed(object sender, MessageEventArgs e)
+        {
+            LoginControl lc = sender as LoginControl;
+            if (lc != null && this.Active)
+            {
+                MessageForm form = new MessageForm("Logout Failed", e.Message);
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog(this);
             }
         }
         #endregion
@@ -760,37 +799,44 @@
         /// <summary>
         /// 
         /// </summary>
-        private void SetButtonVisibleByLogInStatus(bool flag)
+        private void SetLogStatus(bool flag)
         {
-            if (this.IsDisposed == false)
+            if (this.IsHandleCreated)
             {
-                lock (this.linklblUserID)
+                if (this.InvokeRequired)
                 {
-                    if (flag)
-                    {
-#if (DEBUG)
-                        Nzl.Web.Util.CommonUtil.ShowMessage("this.linklblUserID.Links count:" + this.linklblUserID.Links.Count);
-#endif
-
-                        string welcomeStr = "Welcome ";
-                        this.linklblUserID.Text = welcomeStr + LogStatus.Instance.UserID + "!";
-                        this.linklblUserID.Links.Clear();
-                        this.linklblUserID.Links.Add(welcomeStr.Length, LogStatus.Instance.UserID.Length, LogStatus.Instance.UserID);
-
-                        this.linklblUserID.LinkClicked -= new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
-                        this.linklblUserID.LinkClicked += new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
-                        this.btnLogon.Text = "Log Out";
-                    }
-                    else
-                    {
-                        this.linklblUserID.Text = "Welcome!";
-                        this.linklblUserID.Links.Clear();
-                        this.btnLogon.Text = "Log In";
-                    }
+                    System.Threading.Thread.Sleep(0);
+                    this.Invoke(new SetLogStatusCallBack(SetLogStatus), new object[] { flag });
+                    System.Threading.Thread.Sleep(0);
                 }
+                else
+                {
+                    lock (this.linklblUserID)
+                    {
+                        if (flag)
+                        {
+#if (DEBUG)
+                            Nzl.Web.Util.CommonUtil.ShowMessage("this.linklblUserID.Links count:" + this.linklblUserID.Links.Count);
+#endif
+                            string welcomeStr = "Welcome ";
+                            this.linklblUserID.Text = welcomeStr + LogStatus.Instance.UserID + "!";
+                            this.linklblUserID.Links.Clear();
+                            this.linklblUserID.Links.Add(welcomeStr.Length, LogStatus.Instance.UserID.Length, LogStatus.Instance.UserID);
+                            this.linklblUserID.LinkClicked -= new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
+                            this.linklblUserID.LinkClicked += new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
+                            this.btnLogon.Text = "Log Out";
+                        }
+                        else
+                        {
+                            this.linklblUserID.Text = "Welcome!";
+                            this.linklblUserID.Links.Clear();
+                            this.btnLogon.Text = "Log In";
+                        }
+                    }
 
-                this.btnFavor.Visible = flag;
-                this.btnMail.Visible = flag;
+                    this.btnFavor.Visible = flag;
+                    this.btnMail.Visible = flag;
+                }
             }
         }
 
