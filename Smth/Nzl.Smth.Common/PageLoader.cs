@@ -23,21 +23,33 @@
     /// </summary>
     public class PageLoader : IExecute
     {
+        #region event
         /// <summary>
         /// 
         /// </summary>
         public EventHandler PageLoaded;
+        #endregion
 
+        #region variable
         /// <summary>
         /// 
         /// </summary>
         private string _url;
 
+        private string _loginUrl;
+
+        private string _postUrl;
+
         /// <summary>
         /// 
         /// </summary>
         private WebPage _webPage = null;
+        #endregion
 
+        #region Ctor.
+        /// <summary>
+        /// 
+        /// </summary>
         PageLoader()
         {
 
@@ -55,12 +67,26 @@
         /// <summary>
         /// 
         /// </summary>
+        public PageLoader(string url, string loginUrl, string postUrl)
+            : this(url)
+        {
+            this._loginUrl = loginUrl;
+            this._postUrl = postUrl;
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// 
+        /// </summary>
         public object Tag
         {
             get;
             set;
         }
-        
+        #endregion
+
+        #region Implements interfaces.
         /// <summary>
         /// 
         /// </summary>
@@ -68,14 +94,22 @@
         {
             try
             {
-                this._webPage = WebPageFactory.CreateWebPage(this._url);
+                if (this._loginUrl != null && this._postUrl != null)
+                {
+                    this._webPage = WebPageFactory.CreateWebPage(this._url, this._loginUrl, this._postUrl);
+                }
+                else
+                {
+                    this._webPage = WebPageFactory.CreateWebPage(this._url);
+                }
+
                 if (this.PageLoaded != null)
                 {
                     this.PageLoaded(this, new EventArgs());
                 }
 
 #if (DEBUG)
-                MessageQueue.Enqueue(MessageFactory.CreateMessage("Page loader", "Getting '" + this._url + "' completed!"));
+                MessageQueue.Enqueue(MessageFactory.CreateMessage("Page loader", "Executing PageLoader.Excute('" + this._url + "') completed!"));
 #endif
                 return true;
             }
@@ -87,13 +121,15 @@
                 }
 
 #if (DEBUG)
-                MessageQueue.Enqueue(MessageFactory.CreateMessage("Page loader", "Getting '" + this._url + "' failed!"));
+                MessageQueue.Enqueue(MessageFactory.CreateMessage("Page loader", "Executing PageLoader.Excute('" + this._url + "') failed!"));
 #endif
 
                 return false;
             }
         }
+        #endregion
 
+        #region public
         /// <summary>
         /// 
         /// </summary>
@@ -102,5 +138,6 @@
         {
             return this._webPage;
         }
+        #endregion
     }
 }
