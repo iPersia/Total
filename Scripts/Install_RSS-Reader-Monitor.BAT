@@ -15,7 +15,7 @@ xcopy /r /y ..\Web\Nzl.Web.Forms\bin\Release\Nzl.Web.WebPage.dll %rssmonpath%\"
 xcopy /r /y ..\Web\Nzl.Web.Forms\bin\Release\Nzl.Web.Interface.dll %rssmonpath%\"
 xcopy /r /y ..\Web\Nzl.Web.Forms\bin\Release\Nzl.Web.Util.dll %rssmonpath%\"
 xcopy /r /y ..\Web\Nzl.Web.Forms\bin\Release\Nzl.Web.Core.dll %rssmonpath%\"
-xcopy /r /y ..\Web\Nzl.Web.Forms\bin\Release\Nzl.Util.dll %rssmonpath%\"
+xcopy /r /y ..\Web\Nzl.Web.Forms\bin\Release\Nzl.Utils.dll %rssmonpath%\"
 
 rd /S /Q %rssmonpath%\RssReaders
 

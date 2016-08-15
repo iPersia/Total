@@ -67,7 +67,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Core", "Core\Nzl.Core\N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Core.Interface", "Core\Nzl.Core.Interface\Nzl.Core.Interface.csproj", "{20D023A0-3B04-4331-9865-C162CD3EE61E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Util", "Components\Nzl.Util\Nzl.Util.csproj", "{B9DE9CFF-D84E-4BF9-A615-CF7F4519F139}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Utils", "Components\Nzl.Util\Nzl.Utils.csproj", "{B9DE9CFF-D84E-4BF9-A615-CF7F4519F139}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Hook", "Components\Nzl.Hook\Nzl.Hook.csproj", "{6ECA3D2E-3F31-4EB2-AB38-CD4E1D4ABEE9}"
 EndProject

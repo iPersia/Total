@@ -12,7 +12,7 @@ using System.Threading;
 using System.Windows.Forms;
 
 using Nzl.Hook;
-using Nzl.Util;
+using Nzl.Utils;
 
 namespace Nzl.Test.HookServer
 {
@@ -259,27 +259,27 @@ namespace Nzl.Test.HookServer
                 ////Start on system start up config.
                 if (this._checkStartOnSystemStartup)
                 {
-                    bool startUpFlag = Nzl.Util.MiscUtil.CheckExistRegisterApp(Application.ProductName);
+                    bool startUpFlag = Nzl.Utils.MiscUtil.CheckExistRegisterApp(Application.ProductName);
                     if (this._startOnSystemStartup)
                     {
                         if (startUpFlag == false)
                         {
-                            Nzl.Util.MiscUtil.SetRegistryApp(Application.ProductName, Application.ExecutablePath);
+                            Nzl.Utils.MiscUtil.SetRegistryApp(Application.ProductName, Application.ExecutablePath);
                         }
                     }
                     else
                     {
                         if (startUpFlag)
                         {
-                            Nzl.Util.MiscUtil.DeleteRegisterApp(Application.ProductName);
+                            Nzl.Utils.MiscUtil.DeleteRegisterApp(Application.ProductName);
                         }
                     }
 
-                    Nzl.Util.FileUtil.WriteText("infor.log",
+                    Nzl.Utils.FileUtil.WriteText("infor.log",
                                                 DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                                                 + "\n\tCheck start on system startup is ON"
                                                 + "\n\tStart on system startup is "
-                                                + (Nzl.Util.MiscUtil.CheckExistRegisterApp(Application.ProductName) ? "ON" : "OFF")
+                                                + (Nzl.Utils.MiscUtil.CheckExistRegisterApp(Application.ProductName) ? "ON" : "OFF")
                                                 + "\n");
                 }
 

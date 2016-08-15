@@ -319,7 +319,7 @@
                         container.Controls.Clear();
                         Label lbl = new Label();
                         lbl.AutoSize = true;
-                        lbl.Text = Nzl.Util.MiscUtil.GetEnumDescription(info.Status);
+                        lbl.Text = Nzl.Utils.MiscUtil.GetEnumDescription(info.Status);
                         container.Controls.Add(lbl);
                         lbl.Top = 30;
                         lbl.Left = (container.Width - lbl.Width) / 2;

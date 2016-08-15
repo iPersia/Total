@@ -141,7 +141,7 @@ namespace Nzl.Test.Hook
 
             if (e.Cancel == false)
             {
-                Nzl.Util.FileUtil.WriteText(this._uaLogger.LogFileName, "User activity logger exit for the reason " + e.CloseReason.ToString() + "!\n");
+                Nzl.Utils.FileUtil.WriteText(this._uaLogger.LogFileName, "User activity logger exit for the reason " + e.CloseReason.ToString() + "!\n");
                 this._uaLogger.Log();
             }
         }

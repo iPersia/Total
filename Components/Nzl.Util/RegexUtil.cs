@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Nzl.Util
+namespace Nzl.Utils
 {
     /// <summary>
     /// Util for regular expression.

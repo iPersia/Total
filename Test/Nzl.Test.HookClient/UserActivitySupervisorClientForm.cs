@@ -10,7 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using Nzl.Hook;
-using Nzl.Util;
+using Nzl.Utils;
 
 namespace Nzl.Test.Hook
 {
@@ -1239,7 +1239,7 @@ namespace Nzl.Test.Hook
         /// </summary>
         private void Log()
         {
-            Nzl.Util.FileUtil.WriteText(this._logFileName, this.txtBox.Text.TrimEnd('\n') + "\n");
+            Nzl.Utils.FileUtil.WriteText(this._logFileName, this.txtBox.Text.TrimEnd('\n') + "\n");
         }
 
         /// <summary>

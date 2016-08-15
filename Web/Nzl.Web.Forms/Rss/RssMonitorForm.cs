@@ -7,7 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Nzl.Util;
+using Nzl.Utils;
 using Nzl.Web.Core;
 using Nzl.Web.Core.EventArgs;
 using Nzl.Web.Interface;

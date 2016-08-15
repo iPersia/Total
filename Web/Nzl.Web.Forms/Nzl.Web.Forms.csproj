@@ -502,9 +502,9 @@
       <Project>{181FE707-E161-4722-9F38-6AAAB6FAA106}</Project>
       <Name>Nzl.Log4Net</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Components\Nzl.Util\Nzl.Util.csproj">
+    <ProjectReference Include="..\..\Components\Nzl.Util\Nzl.Utils.csproj">
       <Project>{B9DE9CFF-D84E-4BF9-A615-CF7F4519F139}</Project>
-      <Name>Nzl.Util</Name>
+      <Name>Nzl.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nzl.Web.Core\Nzl.Web.Core.csproj">
       <Project>{87C3C98E-3F1A-4BAF-968B-53F5AF6231AE}</Project>

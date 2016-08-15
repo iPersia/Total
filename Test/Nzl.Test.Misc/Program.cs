@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using Nzl.Test.MiscLib;
-using Nzl.Util;
+using Nzl.Utils;
 
 namespace Nzl.Test.Misc
 {
@@ -62,7 +62,7 @@ namespace Nzl.Test.Misc
         {
             System.Threading.Thread.Sleep((int)state);
             string hashCode = SingletonByStaticCtor.Instance.GetHashCode().ToString();
-            Nzl.Util.QueryPerformance qpf = new Util.QueryPerformance();
+            Nzl.Utils.QueryPerformance qpf = new Util.QueryPerformance();
             qpf.Start();
             System.Console.WriteLine(qpf.BeginTime + "\t" + hashCode);
             qpf.Stop();

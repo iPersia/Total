@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Nzl.Util;
+using Nzl.Utils;
 
 namespace Nzl.Web.Forms.Tools
 {

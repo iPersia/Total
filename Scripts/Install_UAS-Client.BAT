@@ -12,4 +12,4 @@ echo Install Client
 xcopy /r /y ..\Test\Nzl.Test.HookClient\bin\Release\UASClient.exe %ualpropath%\Client\"
 xcopy /r /y ..\Test\Nzl.Test.HookClient\bin\Release\UASClient.exe.config %ualpropath%\Client\"
 xcopy /r /y ..\Test\Nzl.Test.HookClient\bin\Release\Nzl.Hook.dll %ualpropath%\Client\"
-xcopy /r /y ..\Test\Nzl.Test.HookClient\bin\Release\Nzl.Util.dll %ualpropath%\Client\"
+xcopy /r /y ..\Test\Nzl.Test.HookClient\bin\Release\Nzl.Utils.dll %ualpropath%\Client\"
