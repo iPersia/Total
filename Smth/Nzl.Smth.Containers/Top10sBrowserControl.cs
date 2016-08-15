@@ -62,10 +62,9 @@
                 tbc.SetParent(tp);
                 tbc.OnTopLinkClicked += Tbc_OnTopLinkClicked;
                 tbc.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
+                tbc.CreateControl();
                 tp.Controls.Add(tbc);
                 this.tcTop10s.TabPages.Add(tp);
-                this.tcTop10s.SelectedTab = tp;
-                this.tcTop10s.Focus();
                 this.Size = new Size(tbc.Width + 8, tbc.Height + 26);
             }
 
@@ -94,10 +93,9 @@
             tbc.SetParent(tp);
             tbc.OnTopLinkClicked += Tbc_OnTopLinkClicked;
             tbc.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
+            tbc.CreateControl();
             tp.Controls.Add(tbc);
             this.tcTop10s.TabPages.Add(tp);
-            this.tcTop10s.SelectedTab = tp;
-            this.tcTop10s.Focus();
         }
 
         /// <summary>
