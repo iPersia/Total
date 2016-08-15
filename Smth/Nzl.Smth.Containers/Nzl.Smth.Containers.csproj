@@ -150,7 +150,7 @@
       <Project>{665400e9-dc26-40f4-bd09-0e7151c3ca18}</Project>
       <Name>Nzl.Dispatcher</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Util\Nzl.Util\Nzl.Util.csproj">
+    <ProjectReference Include="..\..\Components\Nzl.Util\Nzl.Util.csproj">
       <Project>{b9de9cff-d84e-4bf9-a615-cf7f4519f139}</Project>
       <Name>Nzl.Util</Name>
     </ProjectReference>

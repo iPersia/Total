@@ -51,7 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Util\Nzl.Util\Nzl.Util.csproj">
+    <ProjectReference Include="..\..\Components\Nzl.Util\Nzl.Util.csproj">
       <Project>{B9DE9CFF-D84E-4BF9-A615-CF7F4519F139}</Project>
       <Name>Nzl.Util</Name>
     </ProjectReference>
