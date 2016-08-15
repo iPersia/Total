@@ -160,13 +160,17 @@
 #endif
             if (info.Controls != null && info.Controls.Count > 0)
             {
-                System.Threading.Thread.Sleep(0);
                 if (this.IsHandleCreated)
                 {
-                    this.Invoke(new InitializeContainerCallback(InitializeContainer), new object[] { info.IsAppend });
+                    if (this.InvokeRequired)
+                    {
+                        System.Threading.Thread.Sleep(0);
+                        this.Invoke(new InitializeContainerCallback(InitializeContainer), new object[] { info.IsAppend });
+                        System.Threading.Thread.Sleep(0);
+                    }
                 }
-                System.Threading.Thread.Sleep(0);
-                this.InvokeUpdateView(info.Controls);
+                
+                this.UpdateView(info.Controls);
             }
         }
 
@@ -174,16 +178,19 @@
         /// 
         /// </summary>
         /// <param name="ctls"></param>
-        protected void InvokeUpdateView(IList<Control> ctls)
+        protected void UpdateView(IList<Control> ctls)
         {
             foreach (Control ctl in ctls)
             {
-                System.Threading.Thread.Sleep(0);
                 if (this.IsHandleCreated)
                 {
-                    this.Invoke(new UpdateViewCallback(AddControl), new object[] { ctl });
+                    if (this.InvokeRequired)
+                    {
+                        System.Threading.Thread.Sleep(0);
+                        this.Invoke(new UpdateViewCallback(AddControl), new object[] { ctl });
+                        System.Threading.Thread.Sleep(0);
+                    }
                 }
-                System.Threading.Thread.Sleep(0);
             }
         }
 
@@ -351,7 +358,7 @@
                 ctl.BackColor = Color.White;
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -445,21 +452,28 @@
         /// <returns></returns>
         protected Control GetControl(BaseItem item)
         {
-            System.Threading.Thread.Sleep(0);
             if (this.IsHandleCreated)
             {
-                object obj = this.Invoke(new CreateControlCallback(CreateControl), new object[] { item });
-                System.Threading.Thread.Sleep(0);
-                Control ctl = obj as Control;
-                if (ctl != null)
+                if (this.InvokeRequired)
                 {
                     System.Threading.Thread.Sleep(0);
-                    if (this.IsHandleCreated)
-                    {
-                        this.Invoke(new InitializeControlCallback(InitializeControl), new object[] { ctl, item });
-                    }
+                    object obj = this.Invoke(new CreateControlCallback(CreateControl), new object[] { item });
                     System.Threading.Thread.Sleep(0);
-                    return ctl;
+                    Control ctl = obj as Control;
+                    if (ctl != null)
+                    {
+                        if (this.IsHandleCreated)
+                        {
+                            if (this.InvokeRequired)
+                            {
+                                System.Threading.Thread.Sleep(0);
+                                this.Invoke(new InitializeControlCallback(InitializeControl), new object[] { ctl, item });
+                                System.Threading.Thread.Sleep(0);
+                            }
+                        }
+
+                        return ctl;
+                    }
                 }
             }
 
@@ -587,7 +601,7 @@
         /// <param name="state">State is RunWorkerCompletedEventArgs!</param>
         protected void WorkCancelledBase(RunWorkerCompletedEventArgs e)
         {
-            this.WorkCancelled(e.Error.Message);  
+            this.WorkCancelled(e.Error.Message);
         }
 
         /// <summary>
@@ -669,12 +683,19 @@
             if (pl != null)
             {
                 WebPage wp = pl.GetPage();
-                UrlInfo info = pl.Tag as UrlInfo;
-                info.WebPage = wp;
-                System.Threading.Thread.Sleep(0);
-                if (this.IsHandleCreated)
+                if (wp != null && wp.IsGood)
                 {
-                    this.Invoke(new PageLoadedCallback(PageLoaded), new object[] { info });
+                    UrlInfo info = pl.Tag as UrlInfo;
+                    info.WebPage = wp;
+                    if (this.IsHandleCreated)
+                    {
+                        if (this.InvokeRequired)
+                        {
+                            System.Threading.Thread.Sleep(0);
+                            this.Invoke(new PageLoadedCallback(PageLoaded), new object[] { info });
+                            System.Threading.Thread.Sleep(0);
+                        }
+                    }
                 }
             }
         }
