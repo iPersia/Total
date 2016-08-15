@@ -53,9 +53,22 @@
         SectionTopsControl()
         {
             InitializeComponent();
+            Configurations.OnSectionTopsUpdatingIntervalChanged += Configuration_OnSectionTopsUpdatingIntervalChanged;
             this.panelContainer.Size = new Size(this.Width - 10, TopControl.ControlHeight * 10 + 12);
             this.Height = this.panelContainer.Height + 11;
-            this.Text = "Section top topic";
+            this.Text = "Section top topic";            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Configuration_OnSectionTopsUpdatingIntervalChanged(object sender, EventArgs e)
+        {
+            this._updatingTimer.Stop();
+            this._updatingTimer.Interval = Configurations.SectionTopsUpdatingInterval;
+            this._updatingTimer.Start();
         }
 
         /// <summary>
