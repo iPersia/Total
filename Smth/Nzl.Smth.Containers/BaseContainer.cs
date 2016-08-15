@@ -540,10 +540,9 @@
             catch (Exception exp)
             {
                 e.Cancel = true;
-
                 if (Logger.Enabled)
                 {
-                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
+                    Logger.Instance.Error(this.ToString() + "\t" + exp.Message + "\n" + exp.StackTrace);
                 }
             }
         }
@@ -601,7 +600,7 @@
         /// <param name="state">State is RunWorkerCompletedEventArgs!</param>
         protected void WorkCancelledBase(RunWorkerCompletedEventArgs e)
         {
-            this.WorkCancelled(e.Error.Message);
+            this.WorkCancelled(e.Error != null ? e.Error.Message : "Work is cancelled!");
         }
 
         /// <summary>
@@ -610,8 +609,9 @@
         /// <param name="state">State is RunWorkerCompletedEventArgs!</param>
         protected void WorkFailedBase(RunWorkerCompletedEventArgs e)
         {
-            this.WorkFailed(e.Error.Message);
+            this.WorkCancelled(e.Error != null ? e.Error.Message : "Work is failed!");
         }
+
         /// <summary>
         /// 
         /// </summary>

@@ -1,6 +1,7 @@
 ﻿namespace Nzl.Smth.Containers
 {
     using System;
+    using System.ComponentModel;
     using System.IO;
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Windows.Forms;
@@ -117,10 +118,12 @@
             this.Enabled = false;
             WebPage.RemoveCookie(Configurations.BaseUrl);
             LogOut();
-        }        
+        }
         #endregion
 
         #region Login & LogOut
+
+        #region Login
         /// <summary>
         /// 
         /// </summary>
@@ -128,72 +131,183 @@
         /// <param name="password"></param>
         private void LogIn(string userID, string password)
         {
-            PageLoader pl = new PageLoader(Configurations.BaseUrl, Configurations.LoginUrl, @"id=" + userID + "&passwd=" + password + "&save=on");
-            pl.PageLoaded += new EventHandler(Login_PageLoaded);
+            PageLoader pl = new PageLoader(Configurations.BaseUrl + "/?m=0108", Configurations.LoginUrl, @"id=" + userID + "&passwd=" + password + "&save=on");
+            //PageLoader pl = new PageLoader(Configurations.LoginUrl + "/" + @"id=" + userID + "&passwd=" + password + "&save=on");
+            pl.PageLoaded += new EventHandler(LoginPageLoader_PageLoaded);
             PageDispatcher.Instance.Add(pl);
             this.SetControlEnabled(false);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoginPageLoader_PageLoaded(object sender, EventArgs e)
+        {
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                WebPage wp = pl.GetPage();
+                if (wp != null && wp.IsGood)
+                {
+                    UrlInfo info = new UrlInfo();
+                    info.WebPage = wp;
+                    if (this.IsHandleCreated)
+                    {
+                        if (this.InvokeRequired)
+                        {
+                            System.Threading.Thread.Sleep(0);
+                            this.Invoke(new PageLoadedCallback(LoginPageLoaded), new object[] { info });
+                            System.Threading.Thread.Sleep(0);
+                        }
+                    }
+                }
+            }            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="urlInfo"></param>
+        private void LoginPageLoaded(UrlInfo urlInfo)
+        {
+            BackgroundWorker bwLogin = new BackgroundWorker();
+            bwLogin.DoWork += Login_DoWork;
+            bwLogin.RunWorkerCompleted += Login_RunWorkerCompleted;
+            bwLogin.RunWorkerAsync(urlInfo.WebPage);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Login_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                WebPage wp = e.Argument as WebPage;
+                LogStatus.Instance.UpdateLoginStatus(wp);
+                if (LogStatus.Instance.IsLogin)
+                {
+                    if (this.ckbAutoLogon.Checked)
+                    {
+                        SerializeUserInfor();
+                    }
+
+                    e.Result = "Success";
+                }
+                else
+                {
+                    e.Result = CommonUtil.GetMatch(@"<div class=\Wsp hl f\W>(?'Information'[^<]+)</div>", wp.Html, "Information");
+                }
+            }
+            catch (Exception exp)
+            {
+                e.Cancel = true;
+                e.Result = exp;
+                if (Logger.Enabled)
+                {
+                    Logger.Instance.Error(exp.Message + "\t" + exp.StackTrace);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Login_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                if (this.OnLoginFailed != null)
+                {
+                    this.OnLoginFailed(this, new MessageEventArgs("Exception accurs: " + (e.Error != null ? e.Error.Message : "unknown") + "!"));
+                }
+            }
+            else if (e.Cancelled)
+            {
+                if (this.OnLoginFailed != null)
+                {
+                    this.OnLoginFailed(this, new MessageEventArgs("Login is cancelled"));
+                }
+            }
+            else
+            {
+                if (e.Result.ToString() == "Success")
+                {
+                    if (this.OnLoginCompleted != null)
+                    {
+                        this.OnLoginCompleted(this, new EventArgs());
+                    }
+                }
+                else
+                {
+                    if (this.OnLoginFailed != null)
+                    {
+                        this.OnLoginFailed(this, new MessageEventArgs(e.Result.ToString()));
+                    }
+                }
+            }
+
+            this.SetControlEnabled(true);
+        }
+        #endregion
+
+        #region Logout
         /// <summary>
         /// 
         /// </summary>
         private void LogOut()
         {
             PageLoader pl = new PageLoader(Configurations.LogoutUrl);
-            pl.PageLoaded += new EventHandler(Logout_PageLoaded);
+            pl.PageLoaded += new EventHandler(LogoutPageLoader_PageLoaded);
             PageDispatcher.Instance.Add(pl);
             this.SetControlEnabled(false);
         }
 
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Login_PageLoaded(object sender, EventArgs e)
+        private void LogoutPageLoader_PageLoaded(object sender, EventArgs e)
         {
-            if (this.IsHandleCreated)
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
             {
-                if (this.InvokeRequired)
+                WebPage wp = pl.GetPage();
+                if (wp != null && wp.IsGood)
                 {
-                    System.Threading.Thread.Sleep(0);
-                    this.Invoke(new LogPageLoadedCallback(Login_PageLoaded), new object[] { sender, e });
-                    System.Threading.Thread.Sleep(0);
-                }
-                else
-                {
-                    PageLoader pl = sender as PageLoader;
-                    if (pl != null)
+                    UrlInfo info = new UrlInfo();
+                    info.WebPage = wp;
+                    if (this.IsHandleCreated)
                     {
-                        WebPage wp = pl.GetPage();
-                        if (wp != null && wp.IsGood)
+                        if (this.InvokeRequired)
                         {
-                            LogStatus.Instance.UpdateLoginStatus(wp);
-                            if (LogStatus.Instance.IsLogin)
-                            {
-                                if (this.ckbAutoLogon.Checked)
-                                {
-                                    SerializeUserInfor();
-                                }
-
-                                if (this.OnLoginCompleted != null)
-                                {
-                                    this.OnLoginCompleted(this, new EventArgs());
-                                }
-                            }
-                            else
-                            {
-                                if (this.OnLoginFailed != null)
-                                {
-                                    this.OnLoginFailed(this, new MessageEventArgs(CommonUtil.GetMatch(@"<div class=\Wsp hl f\W>(?'Information'[^<]+)</div>", wp.Html, "Information")));
-                                }
-                            }
+                            System.Threading.Thread.Sleep(0);
+                            this.Invoke(new PageLoadedCallback(LogoutPageLoaded), new object[] { info });
+                            System.Threading.Thread.Sleep(0);
                         }
                     }
                 }
             }
+        }
 
-            this.SetControlEnabled(true);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="urlInfo"></param>
+        private void LogoutPageLoaded(UrlInfo urlInfo)
+        {
+            BackgroundWorker bwLogout = new BackgroundWorker();
+            bwLogout.DoWork += Logout_DoWork;
+            bwLogout.RunWorkerCompleted += Logout_RunWorkerCompleted;
+            bwLogout.RunWorkerAsync(urlInfo.WebPage);
         }
 
         /// <summary>
@@ -201,47 +315,75 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Logout_PageLoaded(object sender, EventArgs e)
+        private void Logout_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (this.IsHandleCreated)
+            try
             {
-                if (this.InvokeRequired)
+                WebPage wp = e.Argument as WebPage;
+                LogStatus.Instance.UpdateLoginStatus(wp);
+                if (LogStatus.Instance.IsLogin == false)
                 {
-                    System.Threading.Thread.Sleep(0);
-                    this.Invoke(new LogPageLoadedCallback(Logout_PageLoaded), new object[] { sender, e });
-                    System.Threading.Thread.Sleep(0);
+                    e.Result = "Success";
                 }
                 else
                 {
-                    PageLoader pl = sender as PageLoader;
-                    if (pl != null)
+                    e.Result = CommonUtil.GetMatch(@"<div class=\Wsp hl f\W>(?'Information'[^<]+)</div>", wp.Html, "Information");
+                }
+            }
+            catch (Exception exp)
+            {
+                e.Cancel = true;
+                e.Result = exp;
+                if (Logger.Enabled)
+                {
+                    Logger.Instance.Error(exp.Message + "\t" + exp.StackTrace);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Logout_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                if (this.OnLogoutFailed != null)
+                {
+                    this.OnLogoutFailed(this, new MessageEventArgs("Exception accurs: " + (e.Error != null ? e.Error.Message : "unknown") + "!"));
+                }
+            }
+            else if (e.Cancelled)
+            {
+                if (this.OnLogoutFailed != null)
+                {
+                    this.OnLogoutFailed(this, new MessageEventArgs("Login is cancelled"));
+                }
+            }
+            else
+            {
+                if (e.Result.ToString() == "Success")
+                {
+                    if (this.OnLogoutCompleted != null)
                     {
-                        WebPage wp = pl.GetPage();
-                        if (wp != null && wp.IsGood)
-                        {
-                            LogStatus.Instance.UpdateLoginStatus(wp);
-                            if (LogStatus.Instance.IsLogin == false)
-                            {
-                                if (this.OnLogoutCompleted != null)
-                                {
-                                    this.OnLogoutCompleted(this, new EventArgs());
-                                }
-                            }
-                            else
-                            {
-                                if (this.OnLogoutFailed != null)
-                                {
-                                    this.OnLogoutFailed(this, new MessageEventArgs(CommonUtil.GetMatch(@"<div class=\Wsp hl f\W>(?'Information'[^<]+)</div>", wp.Html, "Information")));
-                                }
-                            }
-                        }
+                        this.OnLogoutCompleted(this, new EventArgs());
+                    }
+                }
+                else
+                {
+                    if (this.OnLogoutFailed != null)
+                    {
+                        this.OnLogoutFailed(this, new MessageEventArgs(e.Result.ToString()));
                     }
                 }
             }
 
             this.SetControlEnabled(true);
-        }   
-         
+        }
+        #endregion        
+
         /// <summary>
         /// 
         /// </summary>

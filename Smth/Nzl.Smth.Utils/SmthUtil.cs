@@ -165,7 +165,13 @@
         {
             try
             {
-                return CommonUtil.GetMatch("<li class=\"f\">(?'Title'\\w+)</li>", wp.Html, 1).Replace("热门话题", "");
+                string name = CommonUtil.GetMatch("<li class=\"f\">(?'Title'\\w+)</li>", wp.Html, "Title");
+                if (name != null)
+                {
+                    name = name.Replace("热门话题", "");
+                }
+
+                return name;
             }
             catch (Exception exp)
             {
