@@ -93,7 +93,11 @@
             {
                 bool srcLogStatus = this._isLogin;
                 this._isLogin = SmthUtil.GetLogInStatus(page);
-                this._userID = SmthUtil.GetLogInUserID(page);
+                if (this._isLogin)
+                {
+                    this._userID = SmthUtil.GetLogInUserID(page);
+                }
+
                 if (srcLogStatus != this._isLogin)
                 {
                     this.OnLoginStatusChanged(_isLogin);
