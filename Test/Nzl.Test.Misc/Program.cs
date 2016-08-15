@@ -62,7 +62,7 @@ namespace Nzl.Test.Misc
         {
             System.Threading.Thread.Sleep((int)state);
             string hashCode = SingletonByStaticCtor.Instance.GetHashCode().ToString();
-            Nzl.Utils.QueryPerformance qpf = new Util.QueryPerformance();
+            QueryPerformance qpf = new QueryPerformance();
             qpf.Start();
             System.Console.WriteLine(qpf.BeginTime + "\t" + hashCode);
             qpf.Stop();
