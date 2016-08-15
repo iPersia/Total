@@ -37,7 +37,6 @@
             this.scContainer = new System.Windows.Forms.SplitContainer();
             this.panelUp = new System.Windows.Forms.Panel();
             this.lblNote = new System.Windows.Forms.Label();
-            this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
             this.panelContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).BeginInit();
             this.scContainer.Panel1.SuspendLayout();
@@ -178,6 +177,5 @@
         private System.Windows.Forms.CheckBox ckbAutoLogon;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label lblNote;
-        private System.ComponentModel.BackgroundWorker bwFetchPage;
     }
 }

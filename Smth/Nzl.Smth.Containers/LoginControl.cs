@@ -1,36 +1,65 @@
 ﻿namespace Nzl.Smth.Containers
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
-    using System.Drawing;
     using System.IO;
-    using System.Linq;
     using System.Runtime.Serialization.Formatters.Binary;
-    using System.Text;
     using System.Windows.Forms;
-    using Nzl.Web.Page;
-    using Nzl.Web.Util;
+    using Nzl.Smth.Common;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Utils;
     using Nzl.Smth.Logger;
+    using Nzl.Web.Page;
+    using Nzl.Web.Util;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="flag"></param>
+    /// <returns></returns>
+    delegate void SetControlEnabledCallback(bool flag);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    delegate void LogPageLoadedCallback(object sender, EventArgs e);
 
     /// <summary>
     /// 
     /// </summary>
     public partial class LoginControl : UserControl
     {
+        #region event
         /// <summary>
         /// 
         /// </summary>
-        public event EventHandler OnLogCompleted;
+        public event EventHandler OnLoginCompleted;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler OnLogoutCompleted;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler<MessageEventArgs> OnLoginFailed;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler<MessageEventArgs> OnLogoutFailed;
+        #endregion
+
+        #region variable
         /// <summary>
         /// 
         /// </summary>
         private string _filename = "userinfor.dat";
+        #endregion
 
+        #region Ctor.
         /// <summary>
         /// 
         /// </summary>
@@ -38,7 +67,13 @@
         {
             InitializeComponent();
         }
+        #endregion
 
+        #region override
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);            
@@ -54,6 +89,7 @@
 
             DeserializeUserInfor();
         }
+        #endregion
 
         #region event handler
         /// <summary>
@@ -92,15 +128,10 @@
         /// <param name="password"></param>
         private void LogIn(string userID, string password)
         {
-            this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
-            this.bwFetchPage.DoWork += new System.ComponentModel.DoWorkEventHandler(bwFetchPage_LogInOut_DoWork);
-            this.bwFetchPage.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bwFetchPage_LogInOut_RunWorkerCompleted);
-            IList<string> paraList = new List<string>();
-            paraList.Add(Configurations.BaseUrl);
-            paraList.Add(@"http://m.newsmth.net/user/login");
-            paraList.Add(@"id=" + userID + "&passwd=" + password + "&save=on");
-            this.bwFetchPage.RunWorkerAsync(paraList);
-            this.Enabled = false;
+            PageLoader pl = new PageLoader(Configurations.BaseUrl, Configurations.LoginUrl, @"id=" + userID + "&passwd=" + password + "&save=on");
+            pl.PageLoaded += new EventHandler(Login_PageLoaded);
+            PageDispatcher.Instance.Add(pl);
+            this.SetControlEnabled(false);
         }
 
         /// <summary>
@@ -108,13 +139,10 @@
         /// </summary>
         private void LogOut()
         {
-            this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
-            this.bwFetchPage.DoWork += new System.ComponentModel.DoWorkEventHandler(bwFetchPage_LogInOut_DoWork);
-            this.bwFetchPage.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bwFetchPage_LogInOut_RunWorkerCompleted);
-            IList<string> paraList = new List<string>();
-            paraList.Add(@"http://m.newsmth.net/user/logout");
-            this.bwFetchPage.RunWorkerAsync(paraList);
-            this.Enabled = false;
+            PageLoader pl = new PageLoader(Configurations.LogoutUrl);
+            pl.PageLoaded += new EventHandler(Logout_PageLoaded);
+            PageDispatcher.Instance.Add(pl);
+            this.SetControlEnabled(false);
         }
 
         /// <summary>
@@ -122,39 +150,50 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bwFetchPage_LogInOut_DoWork(object sender, DoWorkEventArgs e)
+        private void Login_PageLoaded(object sender, EventArgs e)
         {
-            try
+            if (this.IsHandleCreated)
             {
-                IList<string> paraList = e.Argument as IList<string>;
-                if (paraList != null)
+                if (this.InvokeRequired)
                 {
-                    WebPage wp = null;
-                    //Log In.
-                    if (paraList.Count == 3)
+                    System.Threading.Thread.Sleep(0);
+                    this.Invoke(new LogPageLoadedCallback(Login_PageLoaded), new object[] { sender, e });
+                    System.Threading.Thread.Sleep(0);
+                }
+                else
+                {
+                    PageLoader pl = sender as PageLoader;
+                    if (pl != null)
                     {
-                        wp = WebPageFactory.CreateWebPage(paraList[0], paraList[1], paraList[2]);
-                    }
+                        WebPage wp = pl.GetPage();
+                        if (wp != null && wp.IsGood)
+                        {
+                            LogStatus.Instance.UpdateLoginStatus(wp);
+                            if (LogStatus.Instance.IsLogin)
+                            {
+                                if (this.ckbAutoLogon.Checked)
+                                {
+                                    SerializeUserInfor();
+                                }
 
-                    //Log Out.
-                    if (paraList.Count == 1)
-                    {
-                        wp = WebPageFactory.CreateWebPage(paraList[0]);
+                                if (this.OnLoginCompleted != null)
+                                {
+                                    this.OnLoginCompleted(this, new EventArgs());
+                                }
+                            }
+                            else
+                            {
+                                if (this.OnLoginFailed != null)
+                                {
+                                    this.OnLoginFailed(this, new MessageEventArgs(CommonUtil.GetMatch(@"<div class=\Wsp hl f\W>(?'Information'[^<]+)</div>", wp.Html, "Information")));
+                                }
+                            }
+                        }
                     }
-
-                    e.Result = wp;
-                    System.Threading.Thread.Sleep(1000);
                 }
             }
-            catch (Exception exp)
-            {
-                if (Logger.Enabled)
-                {
-                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
-                }
 
-                e.Cancel = true;
-            }
+            this.SetControlEnabled(true);
         }
 
         /// <summary>
@@ -162,36 +201,60 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bwFetchPage_LogInOut_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void Logout_PageLoaded(object sender, EventArgs e)
         {
-            if (e.Error != null)
+            if (this.IsHandleCreated)
             {
-                MessageBox.Show(e.Error.Message);
+                if (this.InvokeRequired)
+                {
+                    System.Threading.Thread.Sleep(0);
+                    this.Invoke(new LogPageLoadedCallback(Logout_PageLoaded), new object[] { sender, e });
+                    System.Threading.Thread.Sleep(0);
+                }
+                else
+                {
+                    PageLoader pl = sender as PageLoader;
+                    if (pl != null)
+                    {
+                        WebPage wp = pl.GetPage();
+                        if (wp != null && wp.IsGood)
+                        {
+                            LogStatus.Instance.UpdateLoginStatus(wp);
+                            if (LogStatus.Instance.IsLogin == false)
+                            {
+                                if (this.OnLogoutCompleted != null)
+                                {
+                                    this.OnLogoutCompleted(this, new EventArgs());
+                                }
+                            }
+                            else
+                            {
+                                if (this.OnLogoutFailed != null)
+                                {
+                                    this.OnLogoutFailed(this, new MessageEventArgs(CommonUtil.GetMatch(@"<div class=\Wsp hl f\W>(?'Information'[^<]+)</div>", wp.Html, "Information")));
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            else if (e.Cancelled)
+
+            this.SetControlEnabled(true);
+        }   
+         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="flag"></param>
+        private void SetControlEnabled(bool flag)
+        {
+            if (this.InvokeRequired)
             {
-                MessageBox.Show("Log In or Out is Canceled");
+                this.Invoke(new SetControlEnabledCallback(SetControlEnabled), new object[] { flag });
             }
             else
             {
-                //Check login status.
-                WebPage wp = e.Result as WebPage;
-                if (wp != null && wp.IsGood)
-                {
-                    LogStatus.Instance.UpdateLoginStatus(wp);
-                }
-
-                if (LogStatus.Instance.IsLogin && this.ckbAutoLogon.Checked)
-                {
-                    SerializeUserInfor();
-                }
-            }
-
-            this.Enabled = true;
-
-            if (this.OnLogCompleted != null)
-            {
-                this.OnLogCompleted(this, new EventArgs());
+                this.Enabled = flag;
             }
         }
         #endregion
@@ -232,21 +295,24 @@
         {
             try
             {
-                Stream fStream = new FileStream(this._filename, FileMode.Open, FileAccess.ReadWrite);
-                if (fStream != null && fStream.Length > 0)
+                if (File.Exists(this._filename))
                 {
-                    byte[] edatas = new byte[fStream.Length];
-                    fStream.Read(edatas, 0, (int)fStream.Length);
-                    byte[] datas = Nzl.Util.EncryptUtil.Decrypt(edatas, System.Text.Encoding.Default.GetBytes(this._filename));
-                    UserInformation ui = (UserInformation)BufferHelper.Deserialize(datas, 0);
-                    if (ui != null)
+                    Stream fStream = new FileStream(this._filename, FileMode.Open, FileAccess.ReadWrite);
+                    if (fStream != null && fStream.Length > 0)
                     {
-                        this.txtUserID.Text = Nzl.Util.EncryptUtil.Decrypt(ui.UserName, this._filename);
-                        this.txtPassword.Text = Nzl.Util.EncryptUtil.Decrypt(ui.Password, this._filename);
+                        byte[] edatas = new byte[fStream.Length];
+                        fStream.Read(edatas, 0, (int)fStream.Length);
+                        byte[] datas = Nzl.Util.EncryptUtil.Decrypt(edatas, System.Text.Encoding.Default.GetBytes(this._filename));
+                        UserInformation ui = (UserInformation)BufferHelper.Deserialize(datas, 0);
+                        if (ui != null)
+                        {
+                            this.txtUserID.Text = Nzl.Util.EncryptUtil.Decrypt(ui.UserName, this._filename);
+                            this.txtPassword.Text = Nzl.Util.EncryptUtil.Decrypt(ui.Password, this._filename);
+                        }
                     }
-                }
 
-                fStream.Close();
+                    fStream.Close();
+                }
             }
             catch (Exception exp)
             {
@@ -261,6 +327,7 @@
         }
         #endregion
 
+        #region Serialize helper.
         /// <summary>
         /// 
         /// </summary>
@@ -333,5 +400,6 @@
                 }
             }
         }
+        #endregion
     }
 }
