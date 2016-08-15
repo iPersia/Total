@@ -16,9 +16,19 @@
         public readonly static string BaseUrl = @"http://m.newsmth.net";
 
         /// <summary>
+        /// The base url of smth.
+        /// </summary>
+        public readonly static string LoginUrl = @"http://m.newsmth.net/user/login";
+
+        /// <summary>
+        /// The base url of smth.
+        /// </summary>
+        public readonly static string LogoutUrl = @"http://m.newsmth.net/user/logout";
+
+        /// <summary>
         /// The interval to update the section tops in SectionTopControl.
         /// </summary>
-        public readonly static int SectionTopsUpdatingInterval = 180 * 1000;//3 * 60 * 1000;
+        public readonly static int SectionTopsUpdatingInterval = 5 * 60 * 1000;
         
         /// <summary>
         /// The interval to load the SectionTopControls.
