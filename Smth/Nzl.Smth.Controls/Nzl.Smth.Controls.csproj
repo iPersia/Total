@@ -109,7 +109,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Controls\Nzl.Controls\Nzl.Controls.csproj">
+    <ProjectReference Include="..\..\Components\Nzl.Controls\Nzl.Controls.csproj">
       <Project>{adf447e1-d907-4237-af2a-225e7588e1a1}</Project>
       <Name>Nzl.Controls</Name>
     </ProjectReference>
