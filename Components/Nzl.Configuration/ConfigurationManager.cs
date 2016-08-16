@@ -20,9 +20,9 @@
         {
             s_mainDict = new Dictionary<string, Dictionary<string, object>>();
 
-            /// For class: Nzl.Util.EncryptUtil
+            /// For class: Nzl.Utils.EncryptUtil
             {
-                string key = "Nzl.Util.EncryptUtil";
+                string key = "Nzl.Utils.EncryptUtil";
                 s_mainDict.Add(key, new Dictionary<string, object>());
                 s_mainDict[key].Add("Key", "_CAS_DEV_GROUP_");
             }

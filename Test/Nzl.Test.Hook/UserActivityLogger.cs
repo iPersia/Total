@@ -274,7 +274,7 @@
         /// </summary>
         public void Log()
         {
-            if (Nzl.Util.FileUtil.WriteText(this._logFileName, this.ToString() + "\n").Substring(0, 1) == "S")
+            if (Nzl.Utils.FileUtil.WriteText(this._logFileName, this.ToString() + "\n").Substring(0, 1) == "S")
             {
                 this._lastWriteLogTime = DateTime.Now;
             }

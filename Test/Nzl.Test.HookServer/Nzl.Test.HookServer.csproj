@@ -116,9 +116,9 @@
       <Project>{6ECA3D2E-3F31-4EB2-AB38-CD4E1D4ABEE9}</Project>
       <Name>Nzl.Hook</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Util\Nzl.Util\Nzl.Util.csproj">
+    <ProjectReference Include="..\..\Components\Nzl.Util\Nzl.Utils.csproj">
       <Project>{B9DE9CFF-D84E-4BF9-A615-CF7F4519F139}</Project>
-      <Name>Nzl.Util</Name>
+      <Name>Nzl.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

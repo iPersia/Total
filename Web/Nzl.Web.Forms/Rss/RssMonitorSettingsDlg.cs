@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Nzl.Web.Core;
 using Nzl.Web.Interface;
-using Nzl.Util;
+using Nzl.Utils;
 
 namespace Nzl.Web.Forms.Rss
 {

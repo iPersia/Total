@@ -12,7 +12,7 @@
     using Nzl.Smth.Utils;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Logger;
-    using Nzl.Util;
+    using Nzl.Utils;
 
     /// <summary>
     /// 
@@ -502,7 +502,7 @@
                     }
 
                     MessageQueue.Enqueue(MessageFactory.CreateMessage(this.Text == null ? this.GetType().ToString() : this.Text,
-                                                                      Nzl.Util.MiscUtil.GetEnumDescription(urlInfo.Status) + " The page is '" + this.GetUrl(urlInfo) + "'!"));
+                                                                      Nzl.Utils.MiscUtil.GetEnumDescription(urlInfo.Status) + " The page is '" + this.GetUrl(urlInfo) + "'!"));
                     e.Result = urlInfo;
                 }
                 catch (Exception exp)

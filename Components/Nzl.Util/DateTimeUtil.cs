@@ -1,4 +1,4 @@
-﻿namespace Nzl.Util
+﻿namespace Nzl.Utils
 {
     using System;
     using System.Runtime.InteropServices;
