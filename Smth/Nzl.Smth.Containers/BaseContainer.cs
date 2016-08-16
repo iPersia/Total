@@ -82,6 +82,11 @@
         /// 
         /// </summary>
         private bool _isWorkCompleted = false;
+
+        /// <summary>
+        /// Recycled the unused controls.
+        /// </summary>
+        private Queue<Control> _recycledControls = new Queue<Control>();
         #endregion
 
         #region Ctor
