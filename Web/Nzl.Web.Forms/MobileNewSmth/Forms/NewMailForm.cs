@@ -96,7 +96,7 @@
                     postData += "&backup=on";
                 }
 
-                string result = WebPage.Post(this._postUrl, postData);
+                string result = WebPageFactory.Post(this._postUrl, postData);
                 if (result != null)
                 {
                     result = CommonUtil.GetMatch(@"<div class=\Wsp hl f\W>(?'Result'\w+)</div>", result, "Result");

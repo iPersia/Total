@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="BaseItem.cs" />
     <Compile Include="Board.cs" />
-    <Compile Include="BrowserType.cs" />
     <Compile Include="Configurations.cs" />
     <Compile Include="Mail.cs" />
     <Compile Include="Message.cs" />

@@ -129,6 +129,7 @@
             if (mail != null)
             {
                 MailDetailControl mdc = new MailDetailControl(mail);
+                mdc.Name = "mdc" + mail.Url;
                 mdc.OnDeleteLinkClicked += Mdc_OnDeleteLinkClicked;
                 mdc.OnReplyLinkClicked += Mdc_OnReplyLinkClicked;
                 mdc.OnTransferLinkClicked += Mdc_OnTransferLinkClicked;

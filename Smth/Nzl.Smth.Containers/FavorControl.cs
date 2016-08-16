@@ -115,6 +115,7 @@
             if (board != null)
             {
                 BoardControl bc = new BoardControl(board);
+                bc.Name = "bc" + board.Code;
                 bc.OnLinkClicked += Bc_OnLinkClicked;
                 return bc;
             }

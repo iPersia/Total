@@ -40,7 +40,7 @@
             this.btnFavor = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnBoardNavi = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.scBrowser)).BeginInit();
             this.scBrowser.Panel1.SuspendLayout();
@@ -92,7 +92,7 @@
             this.panel1.Controls.Add(this.btnFavor);
             this.panel1.Controls.Add(this.btnClear);
             this.panel1.Controls.Add(this.btnBoardNavi);
-            this.panel1.Controls.Add(this.btnExit);
+            this.panel1.Controls.Add(this.btnSettings);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -183,17 +183,17 @@
             this.btnBoardNavi.UseVisualStyleBackColor = true;
             this.btnBoardNavi.Click += new System.EventHandler(this.btnBoardNavi_Click);
             // 
-            // btnExit
+            // btnSettings
             // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.Location = new System.Drawing.Point(845, 4);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(75, 23);
-            this.btnExit.TabIndex = 0;
-            this.btnExit.Text = "Exit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Visible = false;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSettings.Location = new System.Drawing.Point(845, 4);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(75, 23);
+            this.btnSettings.TabIndex = 0;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Visible = false;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // panel2
             // 
@@ -234,7 +234,7 @@
         private System.Windows.Forms.TabControl tcTopics;
         private System.Windows.Forms.SplitContainer scBrowser;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnLoadTop;

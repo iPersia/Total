@@ -202,11 +202,12 @@
         /// <returns></returns>
         private MailControl CreateMailControl(Mail mail)
         {
-            MailControl tc = new MailControl(mail);
-            tc.Width = this.panel.Width - 4;
-            tc.OnMailLinkClicked += Tc_OnMailLinkClicked;
-            tc.OnUserLinkClicked += Tc_OnUserLinkClicked;
-           return tc;
+            MailControl mc = new MailControl(mail);
+            mc.Name = "mc" + mail.Url;
+            mc.Width = this.panel.Width - 4;
+            mc.OnMailLinkClicked += Tc_OnMailLinkClicked;
+            mc.OnUserLinkClicked += Tc_OnUserLinkClicked;
+           return mc;
         }
 
         /// <summary>

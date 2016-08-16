@@ -193,6 +193,7 @@
         private TopicControl CreateTopicControl(Topic topic)
         {
             TopicControl tc = new TopicControl(topic);
+            tc.Name = "tc" + topic.ID;
             tc.Width = this.panel.Width - 2;;
             tc.Left = 1;
             tc.OnTopicLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnTopicLinkClicked);

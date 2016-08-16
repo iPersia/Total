@@ -321,13 +321,13 @@
                 }
                 else
                 {
-                    WebPage.RemoveCookie(@"http://m.newsmth.net");
+                    WebPageFactory.RemoveCookie(@"http://m.newsmth.net");
                     LogIn(userName, password);
                 }
             }
             else
             {
-                WebPage.RemoveCookie(@"http://m.newsmth.net");
+                WebPageFactory.RemoveCookie(@"http://m.newsmth.net");
                 LogOut();
             }
         }

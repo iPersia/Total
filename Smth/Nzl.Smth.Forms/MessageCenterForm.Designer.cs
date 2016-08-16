@@ -39,7 +39,6 @@
             this.txtMsg.HiglightColor = Nzl.Controls.RtfColor.White;
             this.txtMsg.Location = new System.Drawing.Point(0, 0);
             this.txtMsg.Name = "txtMsg";
-            this.txtMsg.ReadOnly = true;
             this.txtMsg.Size = new System.Drawing.Size(624, 281);
             this.txtMsg.TabIndex = 0;
             this.txtMsg.Text = "";

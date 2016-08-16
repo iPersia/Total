@@ -66,7 +66,7 @@
             PageLoader pl = sender as PageLoader;
             if (pl != null)
             {
-                WebPage wp = pl.GetPage();
+                WebPage wp = pl.GetResult() as WebPage;
                 WorkerArgs workArgs = pl.Tag as WorkerArgs;
 
                 BackgroundWorker bw = new BackgroundWorker();
@@ -89,7 +89,7 @@
                 WorkerArgs args = pl.Tag as WorkerArgs;
                 if (args != null)
                 {
-                    WebPage wp = pl.GetPage();
+                    WebPage wp = pl.GetResult() as WebPage;
                     IList<BaseItem> bsList = SectionUtil.GetSectionsAndBoards(wp);
                     foreach (BaseItem bi in bsList)
                     {

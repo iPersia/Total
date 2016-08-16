@@ -2,6 +2,7 @@
 {
     using System;
     using System.Windows.Forms;
+    using Nzl.Web.Page;
     using Nzl.Web.Util;
 
     /// <summary>
@@ -92,7 +93,7 @@
 
                 this.txtContent.ReadOnly = true;
                 this.btnSubmit.Enabled = true;
-                string html = Nzl.Web.Page.WebPage.Post(this._postUrl, postStr);
+                string html = WebPageFactory.Post(this._postUrl, postStr);
                 string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
                 if (result != null && result.Contains("成功"))
                 {

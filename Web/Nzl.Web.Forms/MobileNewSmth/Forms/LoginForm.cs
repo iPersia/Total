@@ -91,7 +91,7 @@
             if (string.IsNullOrEmpty(this.txtUserID.Text) == false && string.IsNullOrEmpty(this.txtPassword.Text) == false)
             {
                 this.Enabled = false;
-                WebPage.RemoveCookie(@"http://m.newsmth.net");
+                WebPageFactory.RemoveCookie(@"http://m.newsmth.net");
                 LogIn(this.txtUserID.Text, this.txtPassword.Text);
                 if (this.ckbAutoLogon.Enabled)
                 {
@@ -109,7 +109,7 @@
         private void btnLogout_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
-            WebPage.RemoveCookie(@"http://m.newsmth.net");
+            WebPageFactory.RemoveCookie(@"http://m.newsmth.net");
             LogOut();
         }
 

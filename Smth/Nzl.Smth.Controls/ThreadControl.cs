@@ -118,10 +118,10 @@
         private void richtxtContent_ContentsResized(object sender, ContentsResizedEventArgs e)
         {
 #if (DEBUG)
-            //System.Diagnostics.Debug.WriteLine("richtxtContent_ContentsResized - "
-            //                                  + "Url - " + (this.Tag as Thread).Url + "\t"
-            //                                  + "Floor -" + (this.Tag as Thread).Floor + "\t"
-            //                                  + "NewSize - " + e.NewRectangle.Size);
+            System.Diagnostics.Debug.WriteLine("richtxtContent_ContentsResized - "
+                                              + "Url - " + (this.Tag as Thread).Url + "\t"
+                                              + "Floor -" + (this.Tag as Thread).Floor + "\t"
+                                              + "NewSize - " + e.NewRectangle.Size);
 #endif
             RichTextBox rtb = sender as RichTextBox;
             if (rtb != null)
@@ -461,7 +461,7 @@
                                 string url = data.Substring(0, indexOfUrl);
                                 System.Diagnostics.Debug.WriteLine(url);
                                 string rtfCode = data.Substring(indexOfUrl + token.Length);
-                                this.richtxtContent.InsertLink(rtfCode, url, this.richtxtContent.Text.Length);
+                                this.richtxtContent.InsertLink(rtfCode, url, this.richtxtContent.Text.Length);                                
                             }
 
                             //Icon

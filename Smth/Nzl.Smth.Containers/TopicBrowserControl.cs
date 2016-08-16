@@ -7,11 +7,18 @@
     using System.Windows.Forms;
     using Nzl.Web.Util;
     using Nzl.Web.Page;
+    using Nzl.Smth.Common;
     using Nzl.Smth.Controls;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Interfaces;
     using Nzl.Smth.Logger;
     using Nzl.Smth.Utils;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="flag"></param>
+    delegate void SetReplyVisibleCallback(bool flag);
 
     /// <summary>
     /// The topic form.
@@ -38,6 +45,11 @@
         /// 
         /// </summary>
         public event LinkLabelLinkClickedEventHandler OnTopicReplyLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler<TopicSettingEventArgs> OnTopicSettingsClicked;
 
         /// <summary>
         /// 
@@ -70,7 +82,7 @@
         public event LinkClickedEventHandler OnThreadContentLinkClicked;
         #endregion
 
-        #region Variable
+        #region variable
         /// <summary>
         /// 
         /// </summary>
@@ -104,17 +116,17 @@
         /// <summary>
         /// 
         /// </summary>
-        private BrowserType _browserType = BrowserType.FirstReply;
+        private BrowserType _settingBrowserType = BrowserType.FirstReply;
 
         /// <summary>
         /// 
         /// </summary>
-        private bool _autoUpdating = false;
+        private bool _settingAutoUpdating = false;
 
         /// <summary>
         /// 
         /// </summary>
-        private int _updatingInterval = 60;
+        private int _settingUpdatingInterval = 60;
 
         /// <summary>
         /// 
@@ -169,7 +181,7 @@
                 {
                     if (Logger.Enabled)
                     {
-                        Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
+                        Logger.Instance.Error(exp.Message + "\t" + value + "\n" + exp.StackTrace);
                     }
                 };
             }
@@ -200,18 +212,9 @@
         {
             InitializeComponent();
             this.panel.MouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
+            this._updatingTimer.Tick += _updatingTimer_Tick;
             LogStatus.Instance.LoginStatusChanged += Instance_LoginStatusChanged;
             this.Text = "Topic";
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Instance_LoginStatusChanged(object sender, LogStatusEventArgs e)
-        {
-            this.linklblReply.Visible = e.IsLogin;
         }
 
         /// <summary>
@@ -269,10 +272,27 @@
                 this.lblPage2.Text = this.lblPage1.Text;
                 this._resultUrlInfo = info;
 
+
+                ///Save the host thread.
+                IList<BaseItem> list = info.Result as IList<BaseItem>;
+                if (info.Index == 1 && list.Count > 0)
+                {
+                    this._hostThread = list[0] as Thread;
+                }
+                
+                ///Fetch next page when the container is not full.
                 if (this.GetContainer().Height < this.panelContainer.Height)
                 {
-                    this.SetUrlInfo(true);
-                    this.FetchNextPage();
+                    if (this._settingBrowserType == BrowserType.FirstReply)
+                    {
+                        this.SetUrlInfo(true);
+                        this.FetchNextPage();
+                    }
+                    else
+                    {
+                        this.SetUrlInfo(true);
+                        this.FetchPrevPage();
+                    }
                 }
             }
         }
@@ -295,9 +315,27 @@
         {
             IList<Thread> threads = ThreadFactory.CreateThreads(wp, this);
             IList<BaseItem> list = new List<BaseItem>();
-            foreach (Thread thread in threads)
+            if (this._settingBrowserType == BrowserType.LastReply)
             {
-                list.Add(thread);
+                if (threads != null)
+                {
+                    if (this._hostThread != null)
+                    {
+                        list.Add(this._hostThread);
+                    }
+
+                    for (int i=threads.Count-1; i>=0; i--)
+                    {
+                        list.Add(threads[i]);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Thread thread in threads)
+                {
+                    list.Add(thread);
+                }
             }
 
             return list;
@@ -386,6 +424,7 @@
             {
                 int width = this.panel.Width - 4;
                 ThreadControl tc = new ThreadControl(width);
+                tc.Name = "tc" + thread.ID;
                 //tc.Thread = thread;
                 tc.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
                 tc.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
@@ -443,6 +482,34 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void Instance_LoginStatusChanged(object sender, LogStatusEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(delegate () { this.linklblReply.Visible = e.IsLogin; }));
+            }
+            else
+            {
+                this.linklblReply.Visible = e.IsLogin;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void _updatingTimer_Tick(object sender, EventArgs e)
+        {
+            this.SetUrlInfo(false);
+            this.FetchLastPage();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TopicBrowserControl_MouseWheel(object sender, MouseEventArgs e)
         {
             try
@@ -470,14 +537,14 @@
                     if (newYPos == panelContainerHeight - this.panel.Height - this._margin)
                     {
                         this.SetUrlInfo(true);
-                        if (this._browserType == BrowserType.FirstReply)
+                        if (this._settingBrowserType == BrowserType.FirstReply)
                         {
                             this.FetchNextPage();
                         }
-                        //else
-                        //{
-                        //    this.SetBtnEnabled(!this.FetchPrevPage());
-                        //}
+                        else if (this._settingAutoUpdating == false)
+                        {
+                            this.FetchPrevPage();
+                        }
 #if (DEBUG)
                         System.Diagnostics.Debug.WriteLine("FetchNextPage - newYPos is " + newYPos);
 #endif
@@ -501,7 +568,7 @@
         private void btnFirst_Click(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            if (this._browserType == BrowserType.FirstReply)
+            if (this._settingBrowserType == BrowserType.FirstReply)
             {
                 this.SetUrlInfo(1, false);
                 this.FetchPage();
@@ -520,7 +587,7 @@
         private void btnPrev_Click(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            if (this._browserType == BrowserType.LastReply)
+            if (this._settingBrowserType == BrowserType.LastReply)
             {
                 this.FetchNextPage();
             }
@@ -538,7 +605,7 @@
         private void btnNext_Click(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            if (this._browserType == BrowserType.FirstReply)
+            if (this._settingBrowserType == BrowserType.FirstReply)
             {
                 this.FetchNextPage();
             }
@@ -556,7 +623,7 @@
         private void btnLast_Click(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            if (this._browserType == BrowserType.LastReply)
+            if (this._settingBrowserType == BrowserType.LastReply)
             {
                 this.SetUrlInfo(1, false);
                 this.FetchPage();
@@ -574,45 +641,46 @@
         /// <param name="e"></param>
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            //BrowserType srcBrowseType = this._browserType;
-            //TopicBrowserSettingsForm form = new TopicBrowserSettingsForm();
-            //form.AutoUpdating = this._autoUpdating;
-            //form.BrowserType = this._browserType;
-            //form.UpdatingInterval = this._updatingInterval;
-            //form.StartPosition = FormStartPosition.CenterParent;
-            //if (form.ShowDialog(this) == DialogResult.OK)
-            //{
-            //    this._autoUpdating = form.AutoUpdating;
-            //    this._browserType = form.BrowserType;
-            //    this._updatingInterval = form.UpdatingInterval;
-            //}
-
-            //this._updatingTimer.Stop();
-            //if (this._browserType == BrowserType.LastReply && this._autoUpdating)
-            //{
-            //    this._updatingTimer.Interval = this._updatingInterval * 1000;
-            //    this._updatingTimer.Tick -= new EventHandler(_updatingTimer_Tick);
-            //    this._updatingTimer.Tick += new EventHandler(_updatingTimer_Tick);
-            //    this._updatingTimer.Start();
-            //}
-            //else
-            //{
-            //    this._updatingTimer.Stop();
-            //    this.FetchPage();
-            //}
+            if (this.OnTopicSettingsClicked != null)
+            {
+                TopicSettingEventArgs tsEventArgs = new TopicSettingEventArgs();
+                tsEventArgs.AutoUpdating = this._settingAutoUpdating;
+                tsEventArgs.BrowserType = this._settingBrowserType;
+                tsEventArgs.UpdatingInterval = this._settingUpdatingInterval;
+                this.OnTopicSettingsClicked(sender, tsEventArgs);
+                if (tsEventArgs.Tag != null && tsEventArgs.Tag.ToString() == "Updated")
+                {
+                    this._settingAutoUpdating = tsEventArgs.AutoUpdating;
+                    this._settingBrowserType = tsEventArgs.BrowserType;
+                    this._settingUpdatingInterval = tsEventArgs.UpdatingInterval;
+                    ApplyTopicSetting();
+                }
+            }            
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void _updatingTimer_Tick(object sender, EventArgs e)
+        private void ApplyTopicSetting()
         {
-            this.SetUrlInfo(false);
-            this.FetchLastPage();
-        }
+            if (this._settingBrowserType == BrowserType.FirstReply)
+            {
+                this._updatingTimer.Stop();
+                this.SetUrlInfo(1, false);
+                this.FetchPage();
+            }
 
+            if (this._settingBrowserType == BrowserType.LastReply)
+            {
+                this._updatingTimer.Stop();
+                if (this._settingAutoUpdating)
+                {
+                    this._updatingTimer.Interval = this._settingUpdatingInterval * 1000;
+                    this._updatingTimer.Start();
+                }
+
+                this.SetUrlInfo(false);
+                this.FetchLastPage();
+            }
+        }
+        
         /// <summary>
         /// 
         /// </summary>
@@ -640,7 +708,7 @@
                 }
 
 
-                if (this._browserType == BrowserType.FirstReply)
+                if (this._settingBrowserType == BrowserType.FirstReply)
                 {
                     this.SetUrlInfo(pageIndex, false);
                 }
@@ -936,7 +1004,7 @@
                 //this._loadingForm.StartPosition = FormStartPosition.CenterParent;                
                 //this._loadingForm.Show(this);
 
-                if (this._browserType == BrowserType.FirstReply)
+                if (this._settingBrowserType == BrowserType.FirstReply)
                 {
                     bool flag = false;
                     int accumulateHeight = 0;
@@ -967,7 +1035,7 @@
                     this.panel.Height = accumulateHeight + 3;
                 }
 
-                if (this._browserType == BrowserType.LastReply)
+                if (this._settingBrowserType == BrowserType.LastReply)
                 {
                     //Add the host thread.
                     //listThreadControl.Add(this.GetSavedControl(this._hostThread) as ThreadControl);

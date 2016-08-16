@@ -58,19 +58,7 @@
             this.Height = this.panelContainer.Height + 11;
             this.Text = "Section top topic";            
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Configuration_OnSectionTopsUpdatingIntervalChanged(object sender, EventArgs e)
-        {
-            this._updatingTimer.Stop();
-            this._updatingTimer.Interval = Configurations.SectionTopsUpdatingInterval;
-            this._updatingTimer.Start();
-        }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -166,7 +154,7 @@
                 }
 
                 TopControl tc = new TopControl();
-                tc.Name = "tcTop" + topic.TopSeq.ToString("00");
+                tc.Name = "tcTop" + topic.ID;
                 tc.Initialize(topic);
                 tc.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(TopControl_OnTopLinkClicked);
                 tc.OnTopBoardLinkClicked += TopControl_OnTopBoardLinkClicked;
@@ -190,9 +178,23 @@
                 this._parentControl.Text = info.Subject;
             }
         }
-        #endregion        
+        #endregion
 
         #region eventhandler
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Configuration_OnSectionTopsUpdatingIntervalChanged(object sender, EventArgs e)
+        {
+            this._updatingTimer.Stop();
+            this._updatingTimer.Interval = Configurations.SectionTopsUpdatingInterval;
+            this._updatingTimer.Tick -= new EventHandler(_updatingTimer_Tick);
+            this._updatingTimer.Tick += new EventHandler(_updatingTimer_Tick);
+            this._updatingTimer.Start();
+        }
+
         /// <summary>
         /// 
         /// </summary>

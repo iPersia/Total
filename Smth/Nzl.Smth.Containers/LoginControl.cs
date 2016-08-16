@@ -24,7 +24,7 @@
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    delegate void LogPageLoadedCallback(object sender, EventArgs e);
+    delegate void LogPageLoadedCallback(string html);
 
     /// <summary>
     /// 
@@ -103,7 +103,7 @@
             if (string.IsNullOrEmpty(this.txtUserID.Text) == false && string.IsNullOrEmpty(this.txtPassword.Text) == false)
             {
                 this.Enabled = false;
-                WebPage.RemoveCookie(Configurations.BaseUrl);
+                WebPageFactory.RemoveCookie(Configurations.BaseUrl);
                 LogIn(this.txtUserID.Text, this.txtPassword.Text);
             }
         }
@@ -116,7 +116,7 @@
         private void btnLogout_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
-            WebPage.RemoveCookie(Configurations.BaseUrl);
+            WebPageFactory.RemoveCookie(Configurations.BaseUrl);
             LogOut();
         }
         #endregion
@@ -131,7 +131,7 @@
         /// <param name="password"></param>
         private void LogIn(string userID, string password)
         {
-            PageLoader pl = new PageLoader(Configurations.BaseUrl, Configurations.LoginUrl, @"id=" + userID + "&passwd=" + password + "&save=on");
+            PageLoader pl = new PageLoader(Configurations.LoginUrl, @"id=" + userID + "&passwd=" + password + "&save=on");
             pl.PageLoaded += new EventHandler(LoginPageLoader_PageLoaded);
             PageDispatcher.Instance.Add(pl);
             this.SetControlEnabled(false);
@@ -147,17 +147,15 @@
             PageLoader pl = sender as PageLoader;
             if (pl != null)
             {
-                WebPage wp = pl.GetPage();
-                if (wp != null && wp.IsGood)
+                string html = pl.GetResult() as string;
+                if (html != null)
                 {
-                    UrlInfo info = new UrlInfo();
-                    info.WebPage = wp;
                     if (this.IsHandleCreated)
                     {
                         if (this.InvokeRequired)
                         {
                             System.Threading.Thread.Sleep(0);
-                            this.Invoke(new PageLoadedCallback(LoginPageLoaded), new object[] { info });
+                            this.Invoke(new LogPageLoadedCallback(LoginPageLoaded), new object[] { html });
                             System.Threading.Thread.Sleep(0);
                         }
                     }
@@ -169,12 +167,12 @@
         /// 
         /// </summary>
         /// <param name="urlInfo"></param>
-        private void LoginPageLoaded(UrlInfo urlInfo)
+        private void LoginPageLoaded(string html)
         {
             BackgroundWorker bwLogin = new BackgroundWorker();
             bwLogin.DoWork += Login_DoWork;
             bwLogin.RunWorkerCompleted += Login_RunWorkerCompleted;
-            bwLogin.RunWorkerAsync(urlInfo.WebPage);
+            bwLogin.RunWorkerAsync(html);
         }
 
         /// <summary>
@@ -186,8 +184,8 @@
         {
             try
             {
-                WebPage wp = e.Argument as WebPage;
-                LogStatus.Instance.UpdateLoginStatus(wp);
+                string html = e.Argument as string;
+                LogStatus.Instance.UpdateLoginStatus(html);
                 if (LogStatus.Instance.IsLogin)
                 {
                     if (this.ckbAutoLogon.Checked)
@@ -199,7 +197,7 @@
                 }
                 else
                 {
-                    e.Result = CommonUtil.GetMatch(@"<div class=\Wsp hl f\W>(?'Information'[^<]+)</div>", wp.Html, "Information");
+                    e.Result = CommonUtil.GetMatch(@"<div class=\Wsp hl f\W>(?'Information'[^<]+)</div>", html, "Information");
                 }
             }
             catch (Exception exp)
@@ -262,7 +260,7 @@
         /// </summary>
         private void LogOut()
         {
-            PageLoader pl = new PageLoader(Configurations.LogoutUrl);
+            PageLoader pl = new PageLoader(Configurations.LogoutUrl, "");
             pl.PageLoaded += new EventHandler(LogoutPageLoader_PageLoaded);
             PageDispatcher.Instance.Add(pl);
             this.SetControlEnabled(false);
@@ -279,17 +277,15 @@
             PageLoader pl = sender as PageLoader;
             if (pl != null)
             {
-                WebPage wp = pl.GetPage();
-                if (wp != null && wp.IsGood)
+                string html = pl.GetResult() as string;
+                if (html != null)
                 {
-                    UrlInfo info = new UrlInfo();
-                    info.WebPage = wp;
                     if (this.IsHandleCreated)
                     {
                         if (this.InvokeRequired)
                         {
                             System.Threading.Thread.Sleep(0);
-                            this.Invoke(new PageLoadedCallback(LogoutPageLoaded), new object[] { info });
+                            this.Invoke(new LogPageLoadedCallback(LogoutPageLoaded), new object[] { html });
                             System.Threading.Thread.Sleep(0);
                         }
                     }
@@ -301,12 +297,12 @@
         /// 
         /// </summary>
         /// <param name="urlInfo"></param>
-        private void LogoutPageLoaded(UrlInfo urlInfo)
+        private void LogoutPageLoaded(string html)
         {
             BackgroundWorker bwLogout = new BackgroundWorker();
             bwLogout.DoWork += Logout_DoWork;
             bwLogout.RunWorkerCompleted += Logout_RunWorkerCompleted;
-            bwLogout.RunWorkerAsync(urlInfo.WebPage);
+            bwLogout.RunWorkerAsync(html);
         }
 
         /// <summary>
@@ -318,15 +314,15 @@
         {
             try
             {
-                WebPage wp = e.Argument as WebPage;
-                LogStatus.Instance.UpdateLoginStatus(wp);
+                string html = e.Argument as string;
+                LogStatus.Instance.UpdateLoginStatus(html);
                 if (LogStatus.Instance.IsLogin == false)
                 {
                     e.Result = "Success";
                 }
                 else
                 {
-                    e.Result = CommonUtil.GetMatch(@"<div class=\Wsp hl f\W>(?'Information'[^<]+)</div>", wp.Html, "Information");
+                    e.Result = CommonUtil.GetMatch(@"<div class=\Wsp hl f\W>(?'Information'[^<]+)</div>", html, "Information");
                 }
             }
             catch (Exception exp)

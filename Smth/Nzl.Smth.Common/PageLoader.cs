@@ -36,14 +36,20 @@
         /// </summary>
         private string _url;
 
-        private string _loginUrl;
-
+        /// <summary>
+        /// 
+        /// </summary>
         private string _postUrl;
 
         /// <summary>
         /// 
         /// </summary>
-        private WebPage _webPage = null;
+        private string _postStr;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private object _result;
         #endregion
 
         #region Ctor.
@@ -56,7 +62,7 @@
         }
 
         /// <summary>
-        /// 
+        /// For getting WebPage.
         /// </summary>
         public PageLoader(string url)
             : this()
@@ -65,13 +71,12 @@
         }
 
         /// <summary>
-        /// 
+        /// For posting data.
         /// </summary>
-        public PageLoader(string url, string loginUrl, string postUrl)
-            : this(url)
+        public PageLoader(string postUrl, string postStr)
         {
-            this._loginUrl = loginUrl;
             this._postUrl = postUrl;
+            this._postStr = postStr;
         }
         #endregion
 
@@ -94,13 +99,14 @@
         {
             try
             {
-                if (this._loginUrl != null && this._postUrl != null)
+                ///Get page by post.
+                if (this._postUrl != null)
                 {
-                    this._webPage = WebPageFactory.CreateWebPage(this._url, this._loginUrl, this._postUrl);
+                    this._result = WebPageFactory.Post(this._postUrl, this._postStr);
                 }
                 else
                 {
-                    this._webPage = WebPageFactory.CreateWebPage(this._url);
+                    this._result = WebPageFactory.CreateWebPage(this._url);
                 }
 
                 if (this.PageLoaded != null)
@@ -134,9 +140,9 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        public WebPage GetPage()
+        public object GetResult()
         {
-            return this._webPage;
+            return this._result;
         }
         #endregion
     }

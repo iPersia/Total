@@ -1,13 +1,8 @@
 ﻿namespace Nzl.Smth.Forms
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
-    using System.Drawing;
-    using System.Linq;
-    using System.Text;
     using System.Windows.Forms;
+    using Nzl.Smth.Common;
 
     /// <summary>
     /// 
@@ -22,7 +17,7 @@
         {
             get
             {
-                return this.rbLatestReply.Checked ? Forms.BrowserType.LastReply : Forms.BrowserType.FirstReply;
+                return this.rbLatestReply.Checked ? BrowserType.LastReply : BrowserType.FirstReply;
             }
 
             set
@@ -94,21 +89,5 @@
         {
             this.gpAutoUpdating.Enabled = this.rbLatestReply.Checked;
         }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum BrowserType
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        LastReply=0,
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        FirstReply=1
     }
 }

@@ -62,6 +62,7 @@
         {
             if (this.OnLogoutFailed!= null)
             {
+                this.Hide();
                 this.OnLogoutFailed(sender, e);
             }
         }
@@ -85,6 +86,7 @@
         {
             if (this.OnLoginFailed != null)
             {
+                this.Hide();
                 this.OnLoginFailed(sender, e);
             }
         }

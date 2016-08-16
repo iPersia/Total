@@ -204,6 +204,7 @@
                 tbc.OnBoardLinkClicked += TopicBrowserControl_OnBoardLinkClicked;
                 tbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
                 tbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
+                tbc.OnTopicSettingsClicked += TopicBrowserControl_OnTopicSettingsClicked;
 
                 TabPage tp = new TabPage();
                 tp.Name = key;
@@ -213,6 +214,32 @@
                 tp.Controls.Add(tbc);
                 this.tcTopics.TabPages.Add(tp);
                 this.tcTopics.SelectedTab = tp;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TopicBrowserControl_OnTopicSettingsClicked(object sender, TopicSettingEventArgs e)
+        {
+            TopicBrowserSettingsForm form = new TopicBrowserSettingsForm();
+            form.AutoUpdating = e.AutoUpdating;
+            form.BrowserType = e.BrowserType;
+            form.UpdatingInterval = e.UpdatingInterval;
+            form.StartPosition = FormStartPosition.CenterParent;
+            if (form.ShowDialog(this) == DialogResult.OK)
+            {
+                if (e.AutoUpdating != form.AutoUpdating ||
+                    e.BrowserType != form.BrowserType ||
+                    e.UpdatingInterval != form.UpdatingInterval)
+                {
+                    e.AutoUpdating = form.AutoUpdating;
+                    e.BrowserType = form.BrowserType;
+                    e.UpdatingInterval = form.UpdatingInterval;
+                    e.Tag = "Updated";
+                }
             }
         }
 
@@ -706,9 +733,9 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnExit_Click(object sender, EventArgs e)
+        private void btnSettings_Click(object sender, EventArgs e)
         {
-            this.Close();
+
         }
 
         /// <summary>
@@ -770,9 +797,9 @@
         private void LoginForm_OnLogoutFailed(object sender, MessageEventArgs e)
         {
             LoginControl lc = sender as LoginControl;
-            if (lc != null && this.Active)
+            if (lc != null)
             {
-                MessageForm form = new MessageForm("Login Failed", e.Message);
+                MessageForm form = new MessageForm("Logout Failed", e.Message);
                 form.StartPosition = FormStartPosition.CenterParent;
                 form.ShowDialog(this);
             }
@@ -786,9 +813,9 @@
         private void LoginForm_OnLoginFailed(object sender, MessageEventArgs e)
         {
             LoginControl lc = sender as LoginControl;
-            if (lc != null && this.Active)
+            if (lc != null)
             {
-                MessageForm form = new MessageForm("Logout Failed", e.Message);
+                MessageForm form = new MessageForm("Login Failed", e.Message);
                 form.StartPosition = FormStartPosition.CenterParent;
                 form.ShowDialog(this);
             }

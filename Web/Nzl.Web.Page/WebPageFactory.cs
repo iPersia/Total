@@ -78,5 +78,41 @@
                 return null;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="postUrl"></param>
+        /// <param name="postStr"></param>
+        /// <returns></returns>
+        public static string Post(string postUrl, string postStr)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(postUrl))
+                {
+                    return null;
+                }
+
+                return WebPage.Post(postUrl, postStr);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        public static void RemoveCookie(string url)
+        {
+            try
+            {
+                WebPage.RemoveCookie(url);
+            }
+            catch { };
+        }
     }
 }

@@ -39,7 +39,7 @@
         /// <returns></returns>
         public static bool GetLogInStatus(WebPage wp)
         {
-            return !string.IsNullOrEmpty(CommonUtil.GetMatch(@"<a href=\W/user/logout\W accesskey=\W9\W>注销\([a-zA-z][a-zA-Z0-9]{1,11}\)</a>", wp.Html));
+            return GetLogInStatus(wp != null ? wp.Html : "");
         }
 
         /// <summary>
@@ -48,7 +48,25 @@
         /// <returns></returns>
         public static string GetLogInUserID(WebPage wp)
         {
-            return CommonUtil.GetMatch(@"<a href=\W/user/logout\W accesskey=\W9\W>注销\((?'UserID'[a-zA-z][a-zA-Z0-9]{1,11})\)</a>", wp.Html, "UserID");
+            return GetLogInUserID(wp != null ? wp.Html : "");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static bool GetLogInStatus(string html)
+        {
+            return !string.IsNullOrEmpty(CommonUtil.GetMatch(@"<a href=\W/user/logout\W accesskey=\W9\W>注销\([a-zA-z][a-zA-Z0-9]{1,11}\)</a>", html));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string GetLogInUserID(string html)
+        {
+            return CommonUtil.GetMatch(@"<a href=\W/user/logout\W accesskey=\W9\W>注销\((?'UserID'[a-zA-z][a-zA-Z0-9]{1,11})\)</a>", html, "UserID");
         }
 
         /// <summary>

@@ -124,6 +124,7 @@
             if (board != null)
             {
                 BoardControl bc = new BoardControl(board);
+                bc.Name = "bc" + board.Code;
                 bc.OnLinkClicked += Bc_OnLinkClicked;
                 return bc;
             }
@@ -132,6 +133,7 @@
             if (section != null)
             {
                 SectionControl sc = new SectionControl(section);
+                sc.Name = "sc" + section.Code;
                 sc.OnLinkClicked += Sc_OnLinkClicked;
                 return sc;
             }

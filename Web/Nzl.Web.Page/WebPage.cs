@@ -333,7 +333,7 @@
         /// <summary>
         /// Check cookie.
         /// </summary>
-        public static bool CheckCookieExists(string url)
+        internal static bool CheckCookieExists(string url)
         {
             try
             {
@@ -380,7 +380,7 @@
         /// <summary>
         /// Check cookie.
         /// </summary>
-        public static void RemoveCookie(string url)
+        internal static void RemoveCookie(string url)
         {
             try
             {
@@ -402,7 +402,7 @@
         /// </summary>
         /// <param name="postUrl"></param>
         /// <param name="postStr"></param>
-        public static string Post(string postUrl, string postStr)
+        internal static string Post(string postUrl, string postStr)
         {            
             Uri uri = new Uri(postUrl);
             CookieContainer cookieContainer = new CookieContainer();
@@ -447,6 +447,16 @@
             myRequestStream.Close();
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            foreach (Cookie ck in response.Cookies)
+            {
+                cookie.Add(ck);
+            }
+
+            lock (WebPage.webcookies)
+            {
+                WebPage.webcookies[new Uri(Url).Host] = cookie;
+            }
+
             Stream myResponseStream = response.GetResponseStream();
             StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
             string retString = myStreamReader.ReadToEnd();
@@ -508,6 +518,7 @@
             return Encoding.UTF8.GetString(responseData);
         }
         #endregion
+
         #endregion
 
         #region 构造函数
@@ -615,7 +626,7 @@
         /// 构造函数
         /// </summary>
         /// <param name="_url"></param>
-        public WebPage(string _url)
+        internal WebPage(string _url)
         {
             string uurl = "";
             try
@@ -641,7 +652,7 @@
         /// <param name="_url"></param>
         /// <param name="_loginurl"></param>
         /// <param name="_post"></param>
-        public WebPage(string _url, string _loginurl, string _post)
+        internal WebPage(string _url, string _loginurl, string _post)
         {
             string uurl = "";
             try

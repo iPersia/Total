@@ -89,13 +89,22 @@
         /// <param name="page"></param>
         public void UpdateLoginStatus(WebPage page)
         {
+            this.UpdateLoginStatus(page != null ? page.Html : "");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        public void UpdateLoginStatus(string html)
+        {
             lock (_isLoginLocker)
             {
                 bool srcLogStatus = this._isLogin;
-                this._isLogin = SmthUtil.GetLogInStatus(page);
+                this._isLogin = SmthUtil.GetLogInStatus(html);
                 if (this._isLogin)
                 {
-                    this._userID = SmthUtil.GetLogInUserID(page);
+                    this._userID = SmthUtil.GetLogInUserID(html);
                 }
 
                 if (srcLogStatus != this._isLogin)

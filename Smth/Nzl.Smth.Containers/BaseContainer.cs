@@ -191,7 +191,7 @@
                         System.Threading.Thread.Sleep(0);
                     }
                 }
-            }
+            }            
         }
 
         /// <summary>
@@ -226,18 +226,21 @@
             {
                 lock (container)
                 {
-                    int accumulateHeight = container.Height - 3;
-                    ctl.Top = accumulateHeight + 1;
-                    ctl.Left = 1;
-                    this.SetControl(ctl, container.Controls.Count % 2 == 0);
-                    container.Controls.Add(ctl);
-                    accumulateHeight += ctl.Height + 1;
-                    container.Height = accumulateHeight + 3;
+                    if (ctl.Name != null && container.Controls.ContainsKey(ctl.Name) == false)
+                    {
+                        int accumulateHeight = container.Height - 3;
+                        ctl.Top = accumulateHeight + 1;
+                        ctl.Left = 1;
+                        this.SetControl(ctl, container.Controls.Count % 2 == 0);
+                        container.Controls.Add(ctl);
+                        accumulateHeight += ctl.Height + 1;
+                        container.Height = accumulateHeight + 3;
 #if (DEBUG)
-                    Nzl.Web.Util.CommonUtil.ShowMessage(this, "\tBaseContainer - AddControl\n" +
-                                                              "\t\t" + _urlInfo.BaseUrl + " - accumulateHeight:" + accumulateHeight + "\n" +
-                                                              "\t\t" + _urlInfo.BaseUrl + " - ctl name:" + ctl.Name);
-#endif                    
+                        Nzl.Web.Util.CommonUtil.ShowMessage(this, "\tBaseContainer - AddControl\n" +
+                                                                  "\t\t" + _urlInfo.BaseUrl + " - accumulateHeight:" + accumulateHeight + "\n" +
+                                                                  "\t\t" + _urlInfo.BaseUrl + " - ctl name:" + ctl.Name);
+#endif
+                    }
                 }
             }
         }
@@ -410,11 +413,11 @@
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        private void UpdatePageInfo(WebPage page, UrlInfo info)
+        private void UpdatePageInfo(WebPage wp, UrlInfo info)
         {
-            if (page != null)
+            if (wp != null)
             {
-                MatchCollection mtCollection = CommonUtil.GetMatchCollection(@"<a class=\Wplant\W>(?'Current'\d+)/(?'Total'\d+)</a>", page.Html);
+                MatchCollection mtCollection = CommonUtil.GetMatchCollection(@"<a class=\Wplant\W>(?'Current'\d+)/(?'Total'\d+)</a>", wp.Html);
                 if (mtCollection.Count == 2)
                 {
                     this._urlInfo.Index = System.Convert.ToInt32(mtCollection[0].Groups[1].Value);
@@ -682,7 +685,7 @@
             PageLoader pl = sender as PageLoader;
             if (pl != null)
             {
-                WebPage wp = pl.GetPage();
+                WebPage wp = pl.GetResult() as WebPage;
                 if (wp != null && wp.IsGood)
                 {
                     UrlInfo info = pl.Tag as UrlInfo;
