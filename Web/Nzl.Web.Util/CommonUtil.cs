@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
-    using System.Reflection;
+    using System.Net;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters;
     using System.Runtime.Serialization.Formatters.Binary;
@@ -442,9 +442,9 @@
         {
             try
             {
-                using (System.Net.WebClient wc = new System.Net.WebClient())
+                using (WebDownload wd = new WebDownload())
                 {
-                    byte[] bytes = wc.DownloadData(url);
+                    byte[] bytes = wd.DownloadData(url);
                     if (bytes != null)
                     {
                         System.IO.MemoryStream ms = new System.IO.MemoryStream(bytes, 0, bytes.Length);
@@ -458,6 +458,45 @@
             {
                 return null;
             }
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    internal class WebDownload : WebClient
+    {
+        private int _timeout;
+        /// <summary>
+        /// 超时时间(毫秒)
+        /// </summary>
+        public int Timeout
+        {
+            get
+            {
+                return _timeout;
+            }
+            set
+            {
+                _timeout = value;
+            }
+        }
+
+        public WebDownload()
+        {
+            this._timeout = 60000;
+        }
+
+        public WebDownload(int timeout)
+        {
+            this._timeout = timeout;
+        }
+
+        protected override WebRequest GetWebRequest(Uri address)
+        {
+            var result = base.GetWebRequest(address);
+            result.Timeout = this._timeout;
+            return result;
         }
     }
 }
