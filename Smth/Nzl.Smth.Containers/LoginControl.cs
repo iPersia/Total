@@ -131,7 +131,7 @@
         /// <param name="password"></param>
         private void LogIn(string userID, string password)
         {
-            PageLoader pl = new PageLoader(Configurations.BaseUrl + "/?m=0108", Configurations.LoginUrl, @"id=" + userID + "&passwd=" + password + "&save=on");
+            PageLoader pl = new PageLoader(Configurations.BaseUrl, Configurations.LoginUrl, @"id=" + userID + "&passwd=" + password + "&save=on");
             pl.PageLoaded += new EventHandler(LoginPageLoader_PageLoaded);
             PageDispatcher.Instance.Add(pl);
             this.SetControlEnabled(false);
@@ -247,7 +247,7 @@
                 {
                     if (this.OnLoginFailed != null)
                     {
-                        this.OnLoginFailed(this, new MessageEventArgs(e.Result.ToString()));
+                        this.OnLoginFailed(this, new MessageEventArgs(e.Result == null ? "Login failed!" : e.Result.ToString()));
                     }
                 }
             }
@@ -374,7 +374,7 @@
                 {
                     if (this.OnLogoutFailed != null)
                     {
-                        this.OnLogoutFailed(this, new MessageEventArgs(e.Result.ToString()));
+                        this.OnLogoutFailed(this, new MessageEventArgs(e.Result == null ? "Logout failed!" : e.Result.ToString()));
                     }
                 }
             }
