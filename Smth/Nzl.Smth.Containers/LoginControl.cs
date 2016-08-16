@@ -132,7 +132,6 @@
         private void LogIn(string userID, string password)
         {
             PageLoader pl = new PageLoader(Configurations.BaseUrl + "/?m=0108", Configurations.LoginUrl, @"id=" + userID + "&passwd=" + password + "&save=on");
-            //PageLoader pl = new PageLoader(Configurations.LoginUrl + "/" + @"id=" + userID + "&passwd=" + password + "&save=on");
             pl.PageLoaded += new EventHandler(LoginPageLoader_PageLoaded);
             PageDispatcher.Instance.Add(pl);
             this.SetControlEnabled(false);
