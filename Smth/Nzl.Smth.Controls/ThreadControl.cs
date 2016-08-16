@@ -13,13 +13,13 @@
     /// <summary>
     /// Thread control.
     /// </summary>
-    public partial class ThreadControl : UserControl
+    public partial class ThreadControl : BaseControl
     {
         #region events.
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
+        public static event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
 
         /// <summary>
         /// 
@@ -81,6 +81,11 @@
             System.Drawing.Font currentFont = this.richtxtContent.SelectionFont;
             this.richtxtContent.Font = new Font(currentFont.FontFamily, 11, FontStyle.Regular);
             this.richtxtContent.GotFocus += RichtxtContent_GotFocus;
+
+            ///Need to be optimized.
+            this.richtxtContent.WordWrap = true;
+            this.richtxtContent.ScrollBars = RichTextBoxScrollBars.None;
+            this.richtxtContent.ContentsResized += new ContentsResizedEventHandler(richtxtContent_ContentsResized);
         }
 
         /// <summary>
@@ -102,12 +107,7 @@
         {
             this.Width = width;
             this.panelLine.Width = this.Width - 10;
-            this.richtxtContent.Width = this.panelLine.Width - 8;
-            this.richtxtContent.WordWrap = true;
-            this.richtxtContent.ScrollBars = RichTextBoxScrollBars.None;
-
-            ///Need to be optimized.
-            this.richtxtContent.ContentsResized += new ContentsResizedEventHandler(richtxtContent_ContentsResized);
+            this.richtxtContent.Width = this.panelLine.Width - 8;         
         }
 
         /// <summary>
@@ -134,8 +134,9 @@
         /// 
         /// </summary>
         /// <param name="thread"></param>
-        public void Initialize(Thread thread)
+        public override void Initialize(BaseItem item)
         {
+            Thread thread = item as Thread;
             if (thread != null)
             {
                 ///Tag
@@ -157,6 +158,7 @@
                 this.linklblID.Text = thread.User;
                 if (thread.User != null)
                 {
+                    this.linklblID.Links.Clear();
                     this.linklblID.Links.Add(0, this.linklblID.Text.Length, thread.User);
                 }
 
@@ -174,7 +176,12 @@
                     this.linklblQuryType.Text = "Spreads";
                 }
 
-                this.linklblQuryType.Links.Add(0, this.linklblQuryType.Text.Length, thread.QueryUrl);
+                ///Query url
+                if (thread.QueryUrl != null)
+                {
+                    this.linklblQuryType.Links.Clear();
+                    this.linklblQuryType.Links.Add(0, this.linklblQuryType.Text.Length, thread.QueryUrl);
+                }
 
                 ///Reply link
                 if (string.IsNullOrEmpty(thread.ReplyUrl) == false)
@@ -188,6 +195,7 @@
                 if (string.IsNullOrEmpty(thread.MailUrl) == false)
                 {
                     this.linklblMail.Visible = true;
+                    this.linklblMail.Links.Clear();
                     this.linklblMail.Links.Add(0, this.linklblMail.Text.Length, thread.MailUrl);
                     this.linklblMail.Tag = thread;
                 }
@@ -196,6 +204,7 @@
                 if (string.IsNullOrEmpty(thread.TransferUrl) == false)
                 {
                     this.linklblTransfer.Visible = true;
+                    this.linklblTransfer.Links.Clear();
                     this.linklblTransfer.Links.Add(0, this.linklblTransfer.Text.Length, thread.TransferUrl);
                     this.linklblTransfer.Tag = thread;
                 }
@@ -204,6 +213,7 @@
                 if (string.IsNullOrEmpty(thread.EditUrl) == false)
                 {
                     this.linklblEdit.Visible = true;
+                    this.linklblEdit.Links.Clear();
                     this.linklblEdit.Links.Add(0, this.linklblEdit.Text.Length, thread.EditUrl);
                     this.linklblEdit.Tag = thread;
                 }
@@ -212,17 +222,31 @@
                 if (string.IsNullOrEmpty(thread.DeleteUrl) == false)
                 {
                     this.linklblDelete.Visible = true;
+                    this.linklblDelete.Links.Clear();
                     this.linklblDelete.Links.Add(0, this.linklblDelete.Text.Length, thread.DeleteUrl);
                     this.linklblDelete.Tag = thread;
                 }
 
                 ///Add content.
                 this.Name = "tc" + thread.ID;
+                this.richtxtContent.Clear();
                 this.AddContent(thread);
                 this.Height = this.richtxtContent.Height + 48;
                 this.richtxtContent.ReadOnly = true;
                 this.richtxtContent.ShortcutsEnabled = false;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="width"></param>
+        public override void SetWidth(int width)
+        {
+            base.SetWidth(width);
+            this.Width = width;
+            this.panelLine.Width = this.Width - 10;
+            this.richtxtContent.Width = this.panelLine.Width - 8;
         }
         #endregion
 
@@ -279,9 +303,9 @@
         /// <param name="e"></param>
         private void linklblID_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnUserLinkClicked != null)
+            if (ThreadControl.OnUserLinkClicked != null)
             {
-                this.OnUserLinkClicked(sender, e);
+                ThreadControl.OnUserLinkClicked(sender, e);
             }
         }
 

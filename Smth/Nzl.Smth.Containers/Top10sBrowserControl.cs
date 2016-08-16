@@ -19,12 +19,12 @@
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
+        public static event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
 
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
+        public static event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
         #endregion
 
         #region Variable
@@ -60,8 +60,6 @@
                 SectionTopsControl tbc = new SectionTopsControl("http://m.newsmth.net/hot");
                 tbc.Name = "tbcHot";
                 tbc.SetParent(tp);
-                tbc.OnTopLinkClicked += Tbc_OnTopLinkClicked;
-                tbc.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
                 tbc.CreateControl();
                 tp.Controls.Add(tbc);
                 this.tcTop10s.TabPages.Add(tp);
@@ -91,8 +89,6 @@
             SectionTopsControl tbc = new SectionTopsControl("http://m.newsmth.net/hot/" + this._sectionIndex);
             tbc.Name = "tbcHot" + this._sectionIndex++;
             tbc.SetParent(tp);
-            tbc.OnTopLinkClicked += Tbc_OnTopLinkClicked;
-            tbc.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
             tbc.CreateControl();
             tp.Controls.Add(tbc);
             this.tcTop10s.TabPages.Add(tp);
@@ -106,9 +102,9 @@
         private void Tbc_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
-            if (linklbl != null && this.OnTopLinkClicked != null)
+            if (linklbl != null && OnTopLinkClicked != null)
             {
-                this.OnTopLinkClicked(sender, e);
+                OnTopLinkClicked(sender, e);
             }
         }
 
@@ -120,9 +116,9 @@
         private void Tbc_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
-            if (linklbl != null && this.OnTopBoardLinkClicked != null)
+            if (linklbl != null && OnTopBoardLinkClicked != null)
             {
-                this.OnTopBoardLinkClicked(sender, e);
+                OnTopBoardLinkClicked(sender, e);
             }
         }        
     }

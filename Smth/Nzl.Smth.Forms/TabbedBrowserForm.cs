@@ -163,7 +163,27 @@
             FavorForm.Instance.OnFavorBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
             LoginForm.Instance.OnLoginFailed += LoginForm_OnLoginFailed;
             LoginForm.Instance.OnLogoutFailed += LoginForm_OnLogoutFailed;
+
+            TopicBrowserControl.OnThreadUserLinkClicked += TopicBrowserControl_OnThreadUserLinkClicked;
+
             this._entryAssemblyTitle = this.GetEntryAssemblyTitle();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TopicBrowserControl_OnThreadUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                UserForm userForm = new UserForm(e.Link.LinkData.ToString());
+                userForm.StartPosition = FormStartPosition.CenterParent;
+                userForm.ShowDialog(this);
+                e.Link.Visited = true;
+            }
         }
         #endregion
 
@@ -198,7 +218,7 @@
                 tbc.OnThreadQueryTypeLinkClicked += TopicBrowserControl_OnThreadQueryTypeLinkClicked;
                 tbc.OnThreadReplyLinkClicked += TopicBrowserControl_OnThreadReplyLinkClicked;
                 tbc.OnThreadTransferLinkClicked += TopicBrowserControl_OnThreadTransferLinkClicked;
-                tbc.OnThreadUserLinkClicked += TabbedBrowserForm_IDLinkClicked;
+                ///tbc.OnThreadUserLinkClicked += TabbedBrowserForm_IDLinkClicked;
                 tbc.OnTopicReplyLinkClicked += TopicBrowserControl_OnTopicReplyLinkClicked;
                 tbc.OnThreadContentLinkClicked += TopicBrowserControl_OnThreadContentLinkClicked;
                 tbc.OnBoardLinkClicked += TopicBrowserControl_OnBoardLinkClicked;

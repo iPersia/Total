@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.panel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtGoTo2 = new System.Windows.Forms.TextBox();
             this.btnGo2 = new System.Windows.Forms.Button();
@@ -54,6 +53,7 @@
             this.btnFirst1 = new System.Windows.Forms.Button();
             this.btnNext1 = new System.Windows.Forms.Button();
             this.btnPrev1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelContainer.SuspendLayout();
@@ -77,18 +77,6 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(841, 351);
             this.panel.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(276, 181);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Loading...";
             // 
             // panel2
             // 
@@ -302,6 +290,7 @@
             this.linklblBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.linklblBoard.Size = new System.Drawing.Size(100, 12);
             this.linklblBoard.TabIndex = 17;
+            this.linklblBoard.TabStop = true;
             this.linklblBoard.Text = "Board";
             this.linklblBoard.Visible = false;
             this.linklblBoard.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblBoard_LinkClicked);
@@ -313,6 +302,7 @@
             this.linklblReply.Name = "linklblReply";
             this.linklblReply.Size = new System.Drawing.Size(35, 12);
             this.linklblReply.TabIndex = 16;
+            this.linklblReply.TabStop = true;
             this.linklblReply.Text = "Reply";
             this.linklblReply.Visible = false;
             this.linklblReply.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblReply_LinkClicked);
@@ -420,6 +410,18 @@
             this.btnPrev1.UseVisualStyleBackColor = true;
             this.btnPrev1.Click += new System.EventHandler(this.btnPrev_Click);
             // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(330, 171);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Loading...";
+            // 
             // TopicBrowserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -450,7 +452,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtGoTo2;
         private System.Windows.Forms.Button btnGo2;
@@ -475,5 +476,6 @@
         private System.Windows.Forms.LinkLabel linklblReply;
         private System.Windows.Forms.LinkLabel linklblBoard;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Label label1;
     }
 }

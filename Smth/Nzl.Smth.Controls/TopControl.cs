@@ -8,18 +8,18 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class TopControl : UserControl
+    public partial class TopControl : BaseControl
     {
         #region Event
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
+        public static event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
 
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
+        public static event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
         #endregion
 
         #region Ctor.
@@ -38,43 +38,27 @@
         /// 
         /// </summary>
         /// <param name="topic"></param>
-        public void Initialize(Topic topic)
+        public override void Initialize(BaseItem item)
         {
-            this.Tag = topic;
-            this.lblIndex.Text = topic.TopSeq.ToString("00");
-            this.linklblTop.Text = topic.Title;
-            this.linklblTop.Links.Add(0, this.linklblTop.Text.Length, topic.Uri);
-            if (topic.Replies > 0)
+            Topic topic = item as Topic;
+            if (topic != null)
             {
-                this.lblReplies.Visible = true;
-                this.lblReplies.Text = "(" + topic.Replies + ")";
-                this.lblReplies.Left = this.linklblTop.Left + this.linklblTop.Width + 1;
-            }
-
-            string boardName = SmthBoards.Instance.GetBoardName(topic.Board);
-            this.linklblBoard.Text = string.IsNullOrEmpty(boardName) ? topic.Board : boardName;
-            this.linklblBoard.Links.Add(0, this.linklblBoard.Text.Length, topic.Board);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="topic"></param>
-        public void Update(Topic topic)
-        {
-            this.Tag = topic;
-            this.lblIndex.Text = topic.TopSeq.ToString("00");
-            if (this.linklblTop.Text != topic.Title)
-            {
+                this.Tag = topic;
+                this.lblIndex.Text = topic.TopSeq.ToString("00");
                 this.linklblTop.Text = topic.Title;
+                this.linklblTop.Links.Clear();
                 this.linklblTop.Links.Add(0, this.linklblTop.Text.Length, topic.Uri);
-            }
+                if (topic.Replies > 0)
+                {
+                    this.lblReplies.Visible = true;
+                    this.lblReplies.Text = "(" + topic.Replies + ")";
+                    this.lblReplies.Left = this.linklblTop.Left + this.linklblTop.Width + 1;
+                }
 
-            if (topic.Replies > 0)
-            {
-                this.lblReplies.Visible = true;
-                this.lblReplies.Text = "(" + topic.Replies + ")";
-                this.lblReplies.Left = this.linklblTop.Left + this.linklblTop.Width + 1;
+                string boardName = SmthBoards.Instance.GetBoardName(topic.Board);
+                this.linklblBoard.Text = string.IsNullOrEmpty(boardName) ? topic.Board : boardName;
+                this.linklblBoard.Links.Clear();
+                this.linklblBoard.Links.Add(0, this.linklblBoard.Text.Length, topic.Board);
             }
         }
         #endregion
@@ -100,9 +84,9 @@
         /// <param name="e"></param>
         private void linklblTop_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnTopLinkClicked != null)
+            if (OnTopLinkClicked != null)
             {
-                this.OnTopLinkClicked(sender, e);
+                OnTopLinkClicked(sender, e);
             }
         }
 
@@ -113,9 +97,9 @@
         /// <param name="e"></param>
         private void LinklblBoard_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnTopBoardLinkClicked != null)
+            if (OnTopBoardLinkClicked != null)
             {
-                this.OnTopBoardLinkClicked(sender, e);
+                OnTopBoardLinkClicked(sender, e);
             }
         }
         #endregion

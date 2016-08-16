@@ -21,12 +21,12 @@
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
+        public static event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
 
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
+        public static event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
         #endregion
 
         #region variable
@@ -39,11 +39,6 @@
         /// 
         /// </summary>
         private Timer _updatingTimer = new Timer();
-
-        /// <summary>
-        /// The key is the url.
-        /// </summary>
-        private Dictionary<string, TopControl> _topControls = new Dictionary<string, TopControl>();
         #endregion
 
         #region Ctor.
@@ -78,6 +73,77 @@
         public void SetParent(Control ctl)
         {
             this._parentControl = ctl;
+        }
+        #endregion
+
+        #region Recyled controls.
+        /// <summary>
+        /// Recycled the unused controls.
+        /// </summary>
+        private static Queue<BaseControl> RecycledControls = new Queue<BaseControl>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override Queue<BaseControl> GetRecycledControls()
+        {
+            return RecycledControls;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private static BaseControl GetRecycledControl()
+        {
+            lock (RecycledControls)
+            {
+                try
+                {
+                    if (RecycledControls.Count > 0)
+                    {
+                        return RecycledControls.Dequeue();
+                    }
+
+                    return null;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected override Control CreateControl(BaseItem item)
+        {
+            Topic topic = item as Topic;
+            if (topic != null)
+            {
+                BaseControl bc = GetRecycledControl();
+                if (bc != null)
+                {
+                    TopControl recycledopControl = bc as TopControl;
+                    if (recycledopControl != null)
+                    {
+                        recycledopControl.Initialize(topic);
+                        return recycledopControl;
+                    }
+                }
+
+                TopControl tc = new TopControl();
+                tc.Name = "tcTop" + topic.ID;
+                tc.Initialize(topic);
+                tc.Width = this.panelContainer.Width - 4;
+                return tc;
+            }
+
+            return base.CreateControl(item);
         }
         #endregion
 
@@ -124,6 +190,11 @@
             info.Subject = SmthUtil.GetSectionName(info.WebPage);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="wp"></param>
+        /// <returns></returns>
         protected override IList<BaseItem> GetItems(WebPage wp)
         {
             IList<Topic> topics = TopicFactory.CreateTop10Topics(wp);
@@ -134,36 +205,6 @@
             }
 
             return list;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        protected override Control CreateControl(BaseItem item)
-        {
-            Topic topic = item as Topic;
-            if (topic != null)
-            {
-                if (this._topControls.ContainsKey(topic.Uri))
-                {
-                    TopControl topControl = this._topControls[topic.Uri];
-                    topControl.Update(topic);
-                    return topControl;
-                }
-
-                TopControl tc = new TopControl();
-                tc.Name = "tcTop" + topic.ID;
-                tc.Initialize(topic);
-                tc.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(TopControl_OnTopLinkClicked);
-                tc.OnTopBoardLinkClicked += TopControl_OnTopBoardLinkClicked;
-                tc.Width = this.panelContainer.Width - 4;
-                this._topControls.Add(topic.Uri, tc);
-                return tc;
-            }
-
-            return base.CreateControl(item);
         }
         
         /// <summary>
@@ -214,9 +255,9 @@
         private void TopControl_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
-            if (linklbl != null && this.OnTopLinkClicked != null)
+            if (linklbl != null && OnTopLinkClicked != null)
             {
-                this.OnTopLinkClicked(sender, e);
+                OnTopLinkClicked(sender, e);
                 e.Link.Visited = true;
             }
         }
@@ -229,9 +270,9 @@
         private void TopControl_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
-            if (linklbl != null && this.OnTopBoardLinkClicked != null)
+            if (linklbl != null && OnTopBoardLinkClicked != null)
             {
-                this.OnTopBoardLinkClicked(sender, e);
+                OnTopBoardLinkClicked(sender, e);
                 e.Link.Visited = true;
             }
         }

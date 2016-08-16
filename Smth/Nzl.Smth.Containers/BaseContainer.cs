@@ -9,6 +9,7 @@
     using Nzl.Web.Page;
     using Nzl.Web.Util;
     using Nzl.Smth.Common;
+    using Nzl.Smth.Controls;
     using Nzl.Smth.Utils;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Logger;
@@ -82,11 +83,6 @@
         /// 
         /// </summary>
         private bool _isWorkCompleted = false;
-
-        /// <summary>
-        /// Recycled the unused controls.
-        /// </summary>
-        private Queue<Control> _recycledControls = new Queue<Control>();
         #endregion
 
         #region Ctor
@@ -128,6 +124,15 @@
         /// </summary>
         /// <param name="baseUrl"></param>
         protected virtual Panel GetContainer()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseUrl"></param>
+        protected virtual Queue<BaseControl> GetRecycledControls()
         {
             return null;
         }
@@ -213,6 +218,19 @@
                     {
                         container.Location = new Point(container.Location.X, this._margin);
                         container.Height = 3;
+                        Queue<BaseControl> qcs = this.GetRecycledControls();
+                        if (qcs != null)
+                        {
+                            foreach (Control ctl in container.Controls)
+                            {
+                                BaseControl bc = ctl as BaseControl;
+                                if (bc != null)
+                                {
+                                    qcs.Enqueue(bc);
+                                }
+                            }
+                        }
+
                         container.Controls.Clear();
                         GC.Collect();
                     }
@@ -756,16 +774,5 @@
             }
         }
         #endregion
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // BaseContainer
-            // 
-            this.Name = "BaseContainer";
-            this.ResumeLayout(false);
-
-        }
     }
 }

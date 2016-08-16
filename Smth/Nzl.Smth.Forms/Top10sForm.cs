@@ -49,8 +49,8 @@
             this.panelContainer.Controls.Add(tbc);
             this.Width = tbc.Width + 2 + this.Width - this.panelContainer.Width;
             this.Height = tbc.Height + 2 + this.Height - this.panelContainer.Height;
-            tbc.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(tbc_OnTopLinkClicked);
-            tbc.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
+            Top10sBrowserControl.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(tbc_OnTopLinkClicked);
+            Top10sBrowserControl.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
         }
 
         /// <summary>
