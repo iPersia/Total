@@ -161,91 +161,6 @@ namespace Nzl.Smth.Containers
         private Control _parentControl = null;
         #endregion
 
-        #region Recyled controls.
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="bc"></param>
-        //protected override void RecylingControl(ThreadControl bc)
-        //{
-        //    ThreadControl tc = bc as ThreadControl;
-        //    if (tc != null)
-        //    {
-        //        RecycledQueues.AddRecycled<ThreadControl>(tc);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="item"></param>
-        ///// <returns></returns>
-        //protected override ThreadControl GetRecycledControl()
-        //{
-        //    ThreadControl recycledThreadControl = RecycledQueues.GetRecycled<ThreadControl>();
-        //    if (recycledThreadControl != null)
-        //    {
-        //        //recycledThreadControl.OnUserLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
-        //        recycledThreadControl.OnQueryTypeLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
-        //        recycledThreadControl.OnEditLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
-        //        recycledThreadControl.OnDeleteLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
-        //        recycledThreadControl.OnReplyLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
-        //        recycledThreadControl.OnMailLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
-        //        recycledThreadControl.OnTransferLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
-        //        recycledThreadControl.OnTextBoxLinkClicked -= ThreadControl_OnTextBoxLinkClicked;
-        //        recycledThreadControl.OnTextBoxMouseWheel -= new MouseEventHandler(TopicBrowserControl_MouseWheel);
-
-        //        //recycledThreadControl.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
-        //        recycledThreadControl.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
-        //        recycledThreadControl.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
-        //        recycledThreadControl.OnDeleteLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
-        //        recycledThreadControl.OnReplyLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
-        //        recycledThreadControl.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
-        //        recycledThreadControl.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
-        //        recycledThreadControl.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
-        //        recycledThreadControl.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
-        //    }
-
-        //    return recycledThreadControl;
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="thread"></param>
-        /// <returns></returns>
-        private ThreadControl CreateThreadControl(Thread thread)
-        {
-            try
-            {
-
-                ThreadControl tc = new ThreadControl();
-                tc.Name = "tc" + thread.ID;
-                //tc.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
-                tc.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
-                tc.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
-                tc.OnDeleteLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
-                tc.OnReplyLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
-                tc.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
-                tc.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
-                tc.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
-                tc.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
-                return tc;
-            }
-            catch (Exception e)
-            {
-                if (Logger.Enabled)
-                {
-                    Logger.Instance.Error(e.Message + "\n" + e.StackTrace);
-                }
-#if (DEBUG)
-                MessageQueue.Enqueue(MessageFactory.CreateMessage(e));
-#endif
-                return null;
-            }
-        }
-        #endregion
-
         #region Properties
         /// <summary>
         /// 
@@ -447,9 +362,20 @@ namespace Nzl.Smth.Containers
             IList<Thread> threads = ThreadFactory.CreateThreads(wp, this);
             if (this._settingBrowserType == BrowserType.LastReply)
             {
-                if (threads != null && this._hostThread != null)
+                IList<Thread> reversedThreads = new List<Thread>();
+                if (threads != null)
                 {
-                    threads.Insert(0, this._hostThread);
+                    if (this._hostThread != null)
+                    {
+                        reversedThreads.Insert(0, this._hostThread);
+                    }
+                    
+                    for(int i=threads.Count-1; i>=0;i--)
+                    {
+                        reversedThreads.Add(threads[i]);
+                    }
+
+                    return reversedThreads;
                 }
             }
 
@@ -461,9 +387,45 @@ namespace Nzl.Smth.Containers
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected override ThreadControl CreateControl(Thread item)
+        protected override ThreadControl CreateControl(Thread thread)
         {
-            return this.CreateThreadControl(item as Thread);
+            return this.CreateThreadControl(thread);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="thread"></param>
+        /// <returns></returns>
+        private ThreadControl CreateThreadControl(Thread thread)
+        {
+            try
+            {
+
+                ThreadControl tc = new ThreadControl();
+                tc.Name = "tc" + thread.ID;
+                //tc.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
+                tc.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
+                tc.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
+                tc.OnDeleteLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
+                tc.OnReplyLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
+                tc.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
+                tc.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
+                tc.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
+                tc.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
+                return tc;
+            }
+            catch (Exception e)
+            {
+                if (Logger.Enabled)
+                {
+                    Logger.Instance.Error(e.Message + "\n" + e.StackTrace);
+                }
+#if (DEBUG)
+                MessageQueue.Enqueue(MessageFactory.CreateMessage(e));
+#endif
+                return null;
+            }
         }
 
         /// <summary>
@@ -487,6 +449,26 @@ namespace Nzl.Smth.Containers
         /// 
         /// </summary>
         /// <param name="ctl"></param>
+        protected override void RecylingControl(ThreadControl ctl)
+        {
+            base.RecylingControl(ctl);
+            if (ctl != null)
+            {
+                ctl.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
+                ctl.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
+                ctl.OnDeleteLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
+                ctl.OnReplyLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
+                ctl.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
+                ctl.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
+                ctl.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
+                ctl.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctl"></param>
         /// <returns></returns>
         protected override bool CheckAddingControl(ThreadControl ctl)
         {
@@ -494,7 +476,7 @@ namespace Nzl.Smth.Containers
                 this._settingAutoUpdating == false &&
                 ctl.Name != null)
             {
-                return this.GetContainer().Controls.ContainsKey(ctl.Name);
+                return this.GetContainer().Controls.ContainsKey(ctl.Name) == false;
             }
 
             return base.CheckAddingControl(ctl);

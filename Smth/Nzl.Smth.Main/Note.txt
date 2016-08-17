@@ -10,3 +10,5 @@
    后面添加：
        TopicBrowserControl
        BoardBrowserControl
+
+5、查看同一ID时，鼠标滚轮导致原浏览页面也跟着滚动。

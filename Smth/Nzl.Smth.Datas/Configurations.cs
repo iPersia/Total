@@ -41,12 +41,12 @@
         /// <summary>
         /// The interval to update the section tops in SectionTopControl.
         /// </summary>
-        public static int staticSectionTopsUpdatingInterval = 1 * 1000;
+        public static int staticSectionTopsUpdatingInterval = 5 *60 * 1000;
         
         /// <summary>
         /// The interval to load the SectionTopControls.
         /// </summary>
-        public static int staticTop10sLoadingInterval = 1 * 1000;
+        public static int staticTop10sLoadingInterval = 30 * 1000;
         #endregion
 
 

@@ -390,7 +390,7 @@
                 Thread thread = linkLabel.Tag as Thread;
                 if (thread != null)
                 {
-                    NewMailForm newMailForm = new NewMailForm(thread.ID, "Re: " + this.tcTopics.SelectedTab.ToolTipText, SmthUtil.GetReplyContent(thread));
+                    NewMailForm newMailForm = new NewMailForm(thread.User, "Re: " + this.tcTopics.SelectedTab.ToolTipText, SmthUtil.GetReplyContent(thread));
                     newMailForm.StartPosition = FormStartPosition.CenterParent;
                     newMailForm.ShowDialog(this);
                     e.Link.Visited = true;

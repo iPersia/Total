@@ -121,6 +121,30 @@
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            Panel container = this.GetContainer();
+            if (container != null)
+            {
+                foreach (Control ctl in container.Controls)
+                {
+                    TBaseControl bc = ctl as TBaseControl;
+                    if (bc != null)
+                    {
+                        this.RecylingControl(bc);
+                    }
+                }
+
+                container.Controls.Clear();
+            }
+
+            base.Dispose(disposing);
+        }
         #endregion
 
         #region virtual
@@ -280,7 +304,7 @@
                         accumulateHeight += ctl.Height + 1;
                         container.Height = accumulateHeight + 3;
 
-#if (DEBUG)
+#if (X)
                         System.Diagnostics.Debug.WriteLine("BaseContainer - AddControl - container.Controls.Count is " + container.Controls.Count);
 #endif
 

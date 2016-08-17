@@ -77,7 +77,7 @@
 
             this._timerLoadingTops.Interval = Configurations.Top10sLoadingInterval;
             this._timerLoadingTops.Tick += new EventHandler(_timerLoadingTops_Tick);
-            //this._timerLoadingTops.Start();
+            this._timerLoadingTops.Start();
         }
 
         /// <summary>

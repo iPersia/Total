@@ -174,6 +174,7 @@
                 if (string.IsNullOrEmpty(thread.ReplyUrl) == false)
                 {
                     this.linklblReply.Visible = true;
+                    this.linklblReply.Links.Clear();
                     this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, thread.ReplyUrl);
                     this.linklblReply.Tag = thread;
                 }

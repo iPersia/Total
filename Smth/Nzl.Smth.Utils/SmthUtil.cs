@@ -135,7 +135,7 @@
                 mtCollection = new Regex(@"[\n]+", RegexOptions.Multiline | RegexOptions.IgnoreCase).Matches(content);
                 int saveLastReplyLineCount = 5;
                 string tail = string.Empty;
-                string head = "\n\n【 在 " + thread.ID + " 的大作中提到: 】\n: ";
+                string head = "\n\n【 在 " + thread.User + " 的大作中提到: 】\n: ";
                 if (mtCollection != null && mtCollection.Count > saveLastReplyLineCount)
                 {
                     for (int i = mtCollection.Count; i > saveLastReplyLineCount; i--)
