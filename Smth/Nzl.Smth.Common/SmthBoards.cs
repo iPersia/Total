@@ -90,23 +90,20 @@
                 if (args != null)
                 {
                     WebPage wp = pl.GetResult() as WebPage;
-                    IList<BaseItem> bsList = SectionUtil.GetSectionsAndBoards(wp);
-                    foreach (BaseItem bi in bsList)
+                    IList<Section> bsList = SectionUtil.GetSections(wp);
+                    foreach (Section bi in bsList)
                     {
                         ///Board
+                        if (bi.IsBoard)
                         {
-                            Board board = bi as Board;
-                            if (board != null)
-                            {
-                                TreeNode tnBoard = new TreeNode();
-                                tnBoard.Item = board;
-                                tnBoard.Parent = args.Node;
-                                args.Node.AddChild(board.Code, tnBoard);
+                            TreeNode tnBoard = new TreeNode();
+                            tnBoard.Item = bi;
+                            tnBoard.Parent = args.Node;
+                            args.Node.AddChild(bi.Code, tnBoard);
 
-                                this.AddBoard(board.Code, board.Name);
-                            }
+                            this.AddBoard(bi.Code, bi.Name);
                         }
-
+                        else
                         ///Section
                         {
                             Section section = bi as Section;

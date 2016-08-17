@@ -1,4 +1,5 @@
-﻿namespace Nzl.Smth.Containers
+﻿//#define DESIGNMODE
+namespace Nzl.Smth.Containers
 {
     using System;
     using System.Collections.Generic;
@@ -23,8 +24,14 @@
     /// <summary>
     /// The topic form.
     /// </summary>
-    public partial class TopicBrowserControl : BaseContainer, IContainsThread
+#if (DESIGNMODE)
+    public partial class TopicBrowserControl : UserControl
+#else
+    public partial class TopicBrowserControl : BaseContainer<ThreadControl, Thread>, IContainsThread
+#endif
     {
+#if (DESIGNMODE)
+#else
         #region events.
         /// <summary>
         /// 
@@ -141,7 +148,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private UrlInfo _resultUrlInfo = new UrlInfo();
+        private UrlInfo<ThreadControl, Thread> _resultUrlInfo = new UrlInfo<ThreadControl, Thread>();
 
         /// <summary>
         /// 
@@ -155,43 +162,52 @@
         #endregion
 
         #region Recyled controls.
-        /// <summary>
-        /// Recycled the unused controls.
-        /// </summary>
-        private static Queue<BaseControl> RecycledControls = new Queue<BaseControl>();
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="bc"></param>
+        //protected override void RecylingControl(ThreadControl bc)
+        //{
+        //    ThreadControl tc = bc as ThreadControl;
+        //    if (tc != null)
+        //    {
+        //        RecycledQueues.AddRecycled<ThreadControl>(tc);
+        //    }
+        //}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected override Queue<BaseControl> GetRecycledControls()
-        {
-            return TopicBrowserControl.RecycledControls;
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="item"></param>
+        ///// <returns></returns>
+        //protected override ThreadControl GetRecycledControl()
+        //{
+        //    ThreadControl recycledThreadControl = RecycledQueues.GetRecycled<ThreadControl>();
+        //    if (recycledThreadControl != null)
+        //    {
+        //        //recycledThreadControl.OnUserLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
+        //        recycledThreadControl.OnQueryTypeLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
+        //        recycledThreadControl.OnEditLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
+        //        recycledThreadControl.OnDeleteLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
+        //        recycledThreadControl.OnReplyLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
+        //        recycledThreadControl.OnMailLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
+        //        recycledThreadControl.OnTransferLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
+        //        recycledThreadControl.OnTextBoxLinkClicked -= ThreadControl_OnTextBoxLinkClicked;
+        //        recycledThreadControl.OnTextBoxMouseWheel -= new MouseEventHandler(TopicBrowserControl_MouseWheel);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private static BaseControl GetRecycledControl()
-        {
-            lock (TopicBrowserControl.RecycledControls)
-            {
-                try
-                {
-                    if (TopicBrowserControl.RecycledControls.Count > 0)
-                    {
-                        return TopicBrowserControl.RecycledControls.Dequeue();
-                    }
+        //        //recycledThreadControl.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
+        //        recycledThreadControl.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
+        //        recycledThreadControl.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
+        //        recycledThreadControl.OnDeleteLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
+        //        recycledThreadControl.OnReplyLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
+        //        recycledThreadControl.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
+        //        recycledThreadControl.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
+        //        recycledThreadControl.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
+        //        recycledThreadControl.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
+        //    }
 
-                    return null;
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-        }
+        //    return recycledThreadControl;
+        //}
 
         /// <summary>
         /// 
@@ -202,47 +218,9 @@
         {
             try
             {
-                int width = this.panel.Width - 4;
-                BaseControl bc = TopicBrowserControl.GetRecycledControl();
-                if (bc != null)
-                {
-                    ThreadControl recycledThreadControl = bc as ThreadControl;
-                    if (recycledThreadControl != null)
-                    {
-#if (DEBUG)
-                        CommonUtil.ShowMessage(this, "TopicBrowserControl.GetRecycledControl");
-#endif
 
-                        recycledThreadControl.SetWidth(width);
-                        recycledThreadControl.Initialize(thread);
-
-                        //recycledThreadControl.OnUserLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
-                        recycledThreadControl.OnQueryTypeLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
-                        recycledThreadControl.OnEditLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
-                        recycledThreadControl.OnDeleteLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
-                        recycledThreadControl.OnReplyLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
-                        recycledThreadControl.OnMailLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
-                        recycledThreadControl.OnTransferLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
-                        recycledThreadControl.OnTextBoxLinkClicked -= ThreadControl_OnTextBoxLinkClicked;
-                        recycledThreadControl.OnTextBoxMouseWheel -= new MouseEventHandler(TopicBrowserControl_MouseWheel);
-
-                        //recycledThreadControl.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
-                        recycledThreadControl.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
-                        recycledThreadControl.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
-                        recycledThreadControl.OnDeleteLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
-                        recycledThreadControl.OnReplyLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
-                        recycledThreadControl.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
-                        recycledThreadControl.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
-                        recycledThreadControl.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
-                        recycledThreadControl.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
-
-                        return recycledThreadControl;
-                    }
-                }
-
-                ThreadControl tc = new ThreadControl(width);
+                ThreadControl tc = new ThreadControl();
                 tc.Name = "tc" + thread.ID;
-                //tc.Thread = thread;
                 //tc.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
                 tc.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
                 tc.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
@@ -282,7 +260,7 @@
 
             set
             {
-                this._topicUrl = value;                
+                this._topicUrl = value;
                 this.SetBaseUrl(this._topicUrl);
                 try
                 {
@@ -350,6 +328,25 @@
             this._updatingTimer.Tick += _updatingTimer_Tick;
             LogStatus.Instance.LoginStatusChanged += Instance_LoginStatusChanged;
             this.Text = "Topic";
+            {
+                this.btnFirst1.Click += new System.EventHandler(this.btnFirst_Click);
+                this.btnPrev1.Click += new System.EventHandler(this.btnPrev_Click);
+                this.btnNext1.Click += new System.EventHandler(this.btnNext_Click);
+                this.btnLast1.Click += new System.EventHandler(this.btnLast_Click);
+                this.btnGo1.Click += new System.EventHandler(this.btnGo_Click);
+
+                this.btnFirst2.Click += new System.EventHandler(this.btnFirst_Click);
+                this.btnPrev2.Click += new System.EventHandler(this.btnPrev_Click);
+                this.btnNext2.Click += new System.EventHandler(this.btnNext_Click);
+                this.btnLast2.Click += new System.EventHandler(this.btnLast_Click);
+                this.btnGo2.Click += new System.EventHandler(this.btnGo_Click);
+
+                this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+                this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+                this.btnOpenInBrowser.Click += new System.EventHandler(this.btnOpenInBrowser_Click);
+                this.linklblReply.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblReply_LinkClicked);
+                this.linklblBoard.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblBoard_LinkClicked);
+            }            
         }
 
         /// <summary>
@@ -387,7 +384,7 @@
         /// 
         /// </summary>
         /// <param name="state"></param>
-        protected override void DoWork(UrlInfo info)
+        protected override void DoWork(UrlInfo<ThreadControl, Thread> info)
         {
             base.DoWork(info);
         }
@@ -396,12 +393,12 @@
         /// 
         /// </summary>
         /// <param name="state"></param>
-        protected override void WorkCompleted(UrlInfo info)
+        protected override void WorkCompleted(UrlInfo<ThreadControl, Thread> info)
         {
             base.WorkCompleted(info);
             if (info.Status == PageStatus.Normal)
             {
-                this.SaveThreads(info.Result as IList<BaseItem>);
+                this.SaveThreads(info.Result);
                 this.UpdateInfor(info.WebPage);
                 this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
                 this.lblPage2.Text = this.lblPage1.Text;
@@ -409,12 +406,11 @@
 
 
                 ///Save the host thread.
-                IList<BaseItem> list = info.Result as IList<BaseItem>;
-                if (info.Index == 1 && list.Count > 0)
+                if (info.Index == 1 && info.Result.Count > 0)
                 {
-                    this._hostThread = list[0] as Thread;
+                    this._hostThread = info.Result[0];
                 }
-                
+
                 ///Fetch next page when the container is not full.
                 if (this.GetContainer().Height < this.panelContainer.Height)
                 {
@@ -446,34 +442,18 @@
         /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
-        protected override IList<BaseItem> GetItems(WebPage wp)
+        protected override IList<Thread> GetItems(WebPage wp)
         {
             IList<Thread> threads = ThreadFactory.CreateThreads(wp, this);
-            IList<BaseItem> list = new List<BaseItem>();
             if (this._settingBrowserType == BrowserType.LastReply)
             {
-                if (threads != null)
+                if (threads != null && this._hostThread != null)
                 {
-                    if (this._hostThread != null)
-                    {
-                        list.Add(this._hostThread);
-                    }
-
-                    for (int i=threads.Count-1; i>=0; i--)
-                    {
-                        list.Add(threads[i]);
-                    }
-                }
-            }
-            else
-            {
-                foreach (Thread thread in threads)
-                {
-                    list.Add(thread);
+                    threads.Insert(0, this._hostThread);
                 }
             }
 
-            return list;
+            return threads;
         }
 
         /// <summary>
@@ -481,7 +461,7 @@
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected override Control CreateControl(BaseItem item)
+        protected override ThreadControl CreateControl(Thread item)
         {
             return this.CreateThreadControl(item as Thread);
         }
@@ -491,14 +471,33 @@
         /// </summary>
         /// <param name="ctl"></param>
         /// <param name="item"></param>
-        protected override void InitializeControl(Control ctl, BaseItem item)
+        protected override void InitializeControl(ThreadControl ctl, Thread item)
         {
             ThreadControl tc = ctl as ThreadControl;
-            Thread thread = item as Thread;
-            if (tc != null && thread != null)
+            if (tc != null)
             {
-                tc.Thread = thread;
+                tc.SetWidth(this.panel.Width - 4);
+                tc.Initialize(item);
+                tc.OnTextBoxMouseWheel -= this.TopicBrowserControl_MouseWheel;
+                tc.OnTextBoxMouseWheel += this.TopicBrowserControl_MouseWheel;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctl"></param>
+        /// <returns></returns>
+        protected override bool CheckAddingControl(ThreadControl ctl)
+        {
+            if (this._settingBrowserType == BrowserType.LastReply && 
+                this._settingAutoUpdating == false &&
+                ctl.Name != null)
+            {
+                return this.GetContainer().Controls.ContainsKey(ctl.Name);
+            }
+
+            return base.CheckAddingControl(ctl);
         }
 
         /// <summary>
@@ -514,7 +513,7 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override string GetUrl(UrlInfo info)
+        protected override string GetUrl(UrlInfo<ThreadControl, Thread> info)
         {
             return base.GetUrl(info) + (string.IsNullOrEmpty(this._targetUserID) ? "" : "&au=" + this._targetUserID);
         }
@@ -546,7 +545,7 @@
             this.txtGoTo2.Enabled = flag;
 
             //this.btnRefresh.Enabled = flag;
-        }        
+        }
 
         protected override void UpdateProgress(int proc)
         {
@@ -613,14 +612,14 @@
             try
             {
                 int panelContainerHeight = this.panelContainer.Height; //panel容器高度
-#if (DEBUG)
+#if (X)
                 System.Diagnostics.Debug.WriteLine("---------------------***TopicForm_MouseWheel***---------------------");
                 System.Diagnostics.Debug.WriteLine("Sender is:" + sender.GetType().ToString());
                 System.Diagnostics.Debug.WriteLine("panelContainerHeight:" + panelContainerHeight);
 #endif
                 if (this.panel.Height > panelContainerHeight)
                 {
-#if (DEBUG)
+#if (X)
                     System.Diagnostics.Debug.WriteLine("oldYPos:" + this.panel.Location.Y);
                     System.Diagnostics.Debug.WriteLine("Delta  :" + e.Delta);
 #endif
@@ -628,7 +627,7 @@
                     newYPos = newYPos > this._margin ? this._margin : newYPos;
                     newYPos = newYPos < panelContainerHeight - this.panel.Height - this._margin
                          ? panelContainerHeight - this.panel.Height - this._margin : newYPos;
-#if (DEBUG)
+#if (X)
                     System.Diagnostics.Debug.WriteLine("newYPos:" + newYPos);
 #endif
                     this.panel.Location = new Point(this.panel.Location.X, newYPos);
@@ -643,7 +642,7 @@
                         {
                             this.FetchPrevPage();
                         }
-#if (DEBUG)
+#if (X)
                         System.Diagnostics.Debug.WriteLine("FetchNextPage - newYPos is " + newYPos);
 #endif
                     }
@@ -753,7 +752,7 @@
                     this._settingUpdatingInterval = tsEventArgs.UpdatingInterval;
                     ApplyTopicSetting();
                 }
-            }            
+            }
         }
 
         private void ApplyTopicSetting()
@@ -778,7 +777,7 @@
                 this.FetchLastPage();
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -1071,136 +1070,21 @@
         /// 
         /// </summary>
         /// <param name="threadList"></param>
-        private void SaveThreads(IList<BaseItem> items)
+        private void SaveThreads(IList<Thread> items)
         {
-            foreach (BaseItem item in items)
+            foreach (Thread thread in items)
             {
-                Thread thread = item as Thread;
-                if (thread != null)
+                if (this._sortedlistThread.ContainsKey(thread.ID))
                 {
-                    if (this._sortedlistThread.ContainsKey(thread.ID))
-                    {
-                        this._sortedlistThread[thread.ID] = thread;
-                    }
-                    else
-                    {
-                        this._sortedlistThread.Add(thread.ID, thread);
-                    }
+                    this._sortedlistThread[thread.ID] = thread;
                 }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="listThreadControl"></param>
-        private void UpdateView(IList<ThreadControl> listThreadControl, bool isAppend)
-        {
-            lock (this.panel)
-            {
-                /////Show the loading form.
-                //this._loadingForm.StartPosition = FormStartPosition.CenterParent;                
-                //this._loadingForm.Show(this);
-
-                if (this._settingBrowserType == BrowserType.FirstReply)
+                else
                 {
-                    bool flag = false;
-                    int accumulateHeight = 0;
-                    if (isAppend == false)
-                    {
-                        this.panel.Controls.Clear();
-                    }
-                    else
-                    {
-                        accumulateHeight = this.panel.Height - 3;
-                    }
-
-                    foreach (ThreadControl tc in listThreadControl)
-                    {
-                        tc.Top = accumulateHeight + 1;
-                        tc.Left = 1;
-                        if (flag)
-                        {
-                            tc.BackColor = Color.White;
-                        }
-
-                        flag = !flag;
-                        this.panel.Controls.Add(tc);
-                        accumulateHeight += tc.Height + 1;
-                    }
-
-                    System.Diagnostics.Debug.WriteLine("accumulateHeight:" + accumulateHeight);
-                    this.panel.Height = accumulateHeight + 3;
+                    this._sortedlistThread.Add(thread.ID, thread);
                 }
-
-                if (this._settingBrowserType == BrowserType.LastReply)
-                {
-                    //Add the host thread.
-                    //listThreadControl.Add(this.GetSavedControl(this._hostThread) as ThreadControl);
-
-                    //Check whether need updating.
-                    {
-                        if (this.panel.Controls.Count == listThreadControl.Count)
-                        {
-                            bool isUpdated = false;
-                            foreach (ThreadControl tcNew in listThreadControl)
-                            {
-                                if (this.panel.Controls.ContainsKey(tcNew.Name))
-                                {
-                                    ThreadControl tc = this.panel.Controls[tcNew.Name] as ThreadControl;
-                                    Thread thread = tc.Tag as Thread;
-                                    Thread threadNew = tcNew.Tag as Thread;
-                                    if (threadNew.ID == thread.ID)
-                                    {
-                                        if (thread.Content == threadNew.Content)
-                                        {
-                                            continue;
-                                        }
-                                    }
-                                }
-
-                                isUpdated = true;
-                                break;
-                            }
-
-                            if (isUpdated == false)
-                            {
-                                return;
-                            }
-                        }
-                    }
-
-                    bool flag = false;
-                    int accumulateHeight = 0;
-                    this.panel.Controls.Clear();
-                    for (int i = listThreadControl.Count - 1; i >= 0; i--)
-                    {
-                        ThreadControl tc = listThreadControl[i];
-                        tc.Top = accumulateHeight + 1;
-                        tc.Left = 1;
-                        if (flag)
-                        {
-                            tc.BackColor = Color.White;
-                        }
-
-                        flag = !flag;
-                        this.panel.Controls.Add(tc);
-                        accumulateHeight += tc.Height + 1;
-                    }
-
-                    System.Diagnostics.Debug.WriteLine("accumulateHeight:" + accumulateHeight);
-                    this.panel.Height = accumulateHeight + 3;
-                }
-
-                if (isAppend == false)
-                {
-                    this.panel.Location = new Point(this.panel.Location.X, this._margin);
-                }
-
-                /////Hide the loading form.
-                //this._loadingForm.Hide();
             }
         }
         #endregion
+#endif
     }
 }

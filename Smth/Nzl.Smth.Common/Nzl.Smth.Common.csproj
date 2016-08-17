@@ -53,6 +53,7 @@
     <Compile Include="PageDispatcher.cs" />
     <Compile Include="PageLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecycledQueues.cs" />
     <Compile Include="SmthBoards.cs" />
     <Compile Include="TopicSettingEventArgs.cs" />
     <Compile Include="TreeNode.cs" />

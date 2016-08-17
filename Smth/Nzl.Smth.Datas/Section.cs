@@ -13,6 +13,14 @@
         /// <summary>
         /// 
         /// </summary>
+        public Section()
+        {
+            this.IsBoard = false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name
         {
             get;
@@ -23,6 +31,15 @@
         /// 
         /// </summary>
         public string Code
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsBoard
         {
             get;
             set;

@@ -13,7 +13,7 @@
     /// <summary>
     /// Thread control.
     /// </summary>
-    public partial class ThreadControl : BaseControl
+    public partial class ThreadControl : BaseControl<Thread>
     {
         #region events.
         /// <summary>
@@ -66,7 +66,7 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        ThreadControl()
+        public ThreadControl()
         {
             InitializeComponent();
             this.linklblID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblID_LinkClicked);
@@ -101,23 +101,11 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="width"></param>
-        public ThreadControl(int width)
-            : this()
-        {
-            this.Width = width;
-            this.panelLine.Width = this.Width - 10;
-            this.richtxtContent.Width = this.panelLine.Width - 8;         
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void richtxtContent_ContentsResized(object sender, ContentsResizedEventArgs e)
         {
-#if (DEBUG)
+#if (X)
             System.Diagnostics.Debug.WriteLine("richtxtContent_ContentsResized - "
                                               + "Url - " + (this.Tag as Thread).Url + "\t"
                                               + "Floor -" + (this.Tag as Thread).Floor + "\t"
@@ -134,9 +122,8 @@
         /// 
         /// </summary>
         /// <param name="thread"></param>
-        public override void Initialize(BaseItem item)
+        public override void Initialize(Thread thread)
         {
-            Thread thread = item as Thread;
             if (thread != null)
             {
                 ///Tag
@@ -251,17 +238,6 @@
         #endregion
 
         #region Properties
-        /// <summary>
-        /// 
-        /// </summary>
-        public Thread Thread
-        {
-            set
-            {
-                this.Initialize(value);
-            }
-        }
-
         /// <summary>
         /// 
         /// </summary>

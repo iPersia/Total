@@ -19,7 +19,7 @@
     /// So when the linklabel lose focus, the SectionNavigationControl must
     /// be focused.
     /// </summary>
-    public partial class SectionNavigationControl : BaseContainer
+    public partial class SectionNavigationControl : BaseContainer<SectionControl,Section>
     {
         #region event
         /// <summary>
@@ -98,7 +98,7 @@
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        protected override string GetUrl(UrlInfo info)
+        protected override string GetUrl(UrlInfo<SectionControl, Section> info)
         {
             return info.BaseUrl;
         }
@@ -108,9 +108,9 @@
         /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
-        protected override IList<BaseItem> GetItems(WebPage wp)
+        protected override IList<Section> GetItems(WebPage wp)
         {
-            return SectionUtil.GetSectionsAndBoards(wp);
+            return SectionUtil.GetSections(wp);
         }
 
         /// <summary>
@@ -118,21 +118,13 @@
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected override Control CreateControl(BaseItem item)
+        protected override SectionControl CreateControl(Section item)
         {
-            Board board = item as Board;
-            if (board != null)
-            {
-                BoardControl bc = new BoardControl(board);
-                bc.Name = "bc" + board.Code;
-                bc.OnLinkClicked += Bc_OnLinkClicked;
-                return bc;
-            }
-
             Section section = item as Section;
             if (section != null)
             {
-                SectionControl sc = new SectionControl(section);
+                SectionControl sc = new SectionControl();
+                sc.Initialize(section);
                 sc.Name = "sc" + section.Code;
                 sc.OnLinkClicked += Sc_OnLinkClicked;
                 return sc;
@@ -145,7 +137,7 @@
         /// 
         /// </summary>
         /// <param name="info"></param>
-        protected override void WorkCompleted(UrlInfo info)
+        protected override void WorkCompleted(UrlInfo<SectionControl, Section> info)
         {
             base.WorkCompleted(info);
             this.GetInfors(info.WebPage);

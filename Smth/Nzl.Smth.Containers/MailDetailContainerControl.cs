@@ -12,7 +12,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class MailDetailContainerControl : BaseContainer
+    public partial class MailDetailContainerControl : BaseContainer<MailDetailControl, Mail>
     {
         #region events.
         /// <summary>
@@ -123,12 +123,12 @@
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected override Control CreateControl(BaseItem item)
+        protected override MailDetailControl CreateControl(Mail mail)
         {
-            Mail mail = item as Mail;
             if (mail != null)
             {
-                MailDetailControl mdc = new MailDetailControl(mail);
+                MailDetailControl mdc = new MailDetailControl();
+                mdc.Initialize(mail);
                 mdc.Name = "mdc" + mail.Url;
                 mdc.OnDeleteLinkClicked += Mdc_OnDeleteLinkClicked;
                 mdc.OnReplyLinkClicked += Mdc_OnReplyLinkClicked;
@@ -137,14 +137,14 @@
                 return mdc;
             }
 
-            return base.CreateControl(item);
+            return base.CreateControl(mail);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="ctl"></param>
-        protected override void AddControl(Control ctl)
+        protected override void AddControl(MailDetailControl ctl)
         {
             Panel container = GetContainer();
             if (container != null)
@@ -216,7 +216,7 @@
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        protected override string GetUrl(UrlInfo info)
+        protected override string GetUrl(UrlInfo<MailDetailControl, Mail> info)
         {
             return info.BaseUrl;
         }
@@ -226,9 +226,9 @@
         /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
-        protected override IList<BaseItem> GetItems(WebPage wp)
+        protected override IList<Mail> GetItems(WebPage wp)
         {
-            IList<BaseItem> list = new List<BaseItem>();
+            IList<Mail> list = new List<Mail>();
             Mail mail = MailFactory.CreateMailDetail(wp);
             if (mail != null)
             {
@@ -242,7 +242,7 @@
         /// 
         /// </summary>
         /// <param name="info"></param>
-        protected override void WorkCompleted(UrlInfo info)
+        protected override void WorkCompleted(UrlInfo<MailDetailControl, Mail> info)
         {
             base.WorkCompleted(info);
             if (this._parentControl != null)

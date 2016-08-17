@@ -207,7 +207,7 @@
             }
 
             ///NOT Exsits
-            {
+            {                
                 TopicBrowserControl tbc = new TopicBrowserControl();
                 tbc.Name = "tbc" + url;
                 tbc.TopicUrl = url;
@@ -614,7 +614,7 @@
         protected void Global_KeyUp(object sender, KeyExEventArgs e)
         {
             string fwtpName = HookUtil.GetForegroundWindowThreadProcessName();
-#if (DEBUG)
+#if (X)
             System.Diagnostics.Debug.WriteLine("Global_KeyUp - " + fwtpName);
             System.Diagnostics.Debug.WriteLine("Global_KeyUp - " +
                                                "Control.ModifierKeys " + Control.ModifierKeys + "\t" +

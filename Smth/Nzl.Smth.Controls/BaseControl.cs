@@ -7,7 +7,8 @@
     /// <summary>
     /// 
     /// </summary>
-    public class BaseControl : UserControl
+    public class BaseControl<TBaseItem> : UserControl
+        where TBaseItem : BaseItem
     {
         /// <summary>
         /// 
@@ -21,7 +22,7 @@
         /// 
         /// </summary>
         /// <param name="item"></param>
-        public virtual void Initialize(BaseItem item)
+        public virtual void Initialize(TBaseItem item)
         {
         }
 

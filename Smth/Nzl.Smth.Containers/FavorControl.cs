@@ -13,7 +13,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class FavorControl : BaseContainer
+    public partial class FavorControl : BaseContainer<BoardControl, Board>
     {
         #region event
         /// <summary>
@@ -79,7 +79,7 @@
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        protected override string GetUrl(UrlInfo info)
+        protected override string GetUrl(UrlInfo<BoardControl, Board> info)
         {
             return info.BaseUrl;
         }
@@ -89,19 +89,9 @@
         /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
-        protected override IList<BaseItem> GetItems(WebPage wp)
+        protected override IList<Board> GetItems(WebPage wp)
         {
-            IList<BaseItem> list = SectionUtil.GetSectionsAndBoards(wp);
-            foreach(BaseItem bi in list)
-            {
-                Board board = bi as Board;
-                if (board != null)
-                {
-                    board.Name = board.Name.Replace("(" + board.Code + ")", "");
-                }
-            }
-
-            return list;
+            return SectionUtil.GetFavorBoards(wp);
         }
 
         /// <summary>
@@ -109,18 +99,18 @@
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected override Control CreateControl(BaseItem item)
+        protected override BoardControl CreateControl(Board board)
         {
-            Board board = item as Board;
             if (board != null)
             {
-                BoardControl bc = new BoardControl(board);
+                BoardControl bc = new BoardControl();
+                bc.Initialize(board);
                 bc.Name = "bc" + board.Code;
                 bc.OnLinkClicked += Bc_OnLinkClicked;
                 return bc;
             }
 
-            return base.CreateControl(item);
+            return base.CreateControl(board);
         }
         #endregion
 

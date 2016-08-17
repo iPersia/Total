@@ -16,7 +16,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class XBoxControl : BaseContainer
+    public partial class XBoxControl : BaseContainer<MailControl, Mail>
     {
         #region Event
         /// <summary>
@@ -109,23 +109,16 @@
         /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
-        protected override IList<BaseItem> GetItems(WebPage wp)
+        protected override IList<Mail> GetItems(WebPage wp)
         {
-            IList<Mail> mails = MailFactory.CreateMails(wp);
-            IList<BaseItem> items = new List<BaseItem>();
-            foreach (Mail mail in mails)
-            {
-                items.Add(mail);
-            }
-
-            return items;
+            return MailFactory.CreateMails(wp);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="state"></param>
-        protected override void WorkCompleted(UrlInfo info)
+        protected override void WorkCompleted(UrlInfo<MailControl, Mail> info)
         {
             base.WorkCompleted(info);
             this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
@@ -137,7 +130,7 @@
         /// </summary>
         /// <param name="ctl"></param>
         /// <param name="oeFlag"></param>
-        protected override void SetControl(Control ctl, bool oeFlag)
+        protected override void SetControl(MailControl ctl, bool oeFlag)
         {
             base.SetControl(ctl, oeFlag);
             Mail mail = ctl.Tag as Mail;
@@ -161,9 +154,9 @@
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected override Control CreateControl(BaseItem item)
+        protected override MailControl CreateControl(Mail mail)
         {
-            return this.CreateMailControl(item as Mail);
+            return this.CreateMailControl(mail);
         }
 
         /// <summary>
@@ -202,7 +195,8 @@
         /// <returns></returns>
         private MailControl CreateMailControl(Mail mail)
         {
-            MailControl mc = new MailControl(mail);
+            MailControl mc = new MailControl();
+            mc.Initialize(mail);
             mc.Name = "mc" + mail.Url;
             mc.Width = this.panel.Width - 4;
             mc.OnMailLinkClicked += Tc_OnMailLinkClicked;

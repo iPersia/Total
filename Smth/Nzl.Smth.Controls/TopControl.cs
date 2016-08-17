@@ -1,6 +1,8 @@
-﻿namespace Nzl.Smth.Controls
+﻿//#define DESIGNMODE
+namespace Nzl.Smth.Controls
 {
     using System;
+    using System.Drawing;
     using System.Windows.Forms;
     using Nzl.Smth.Common;
     using Nzl.Smth.Datas;
@@ -8,8 +10,14 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class TopControl : BaseControl
+#if (DESIGNMODE)
+    public partial class TopControl : UserControl
+#else
+    public partial class TopControl : BaseControl<Topic>
+#endif
     {
+#if (DESIGNMODE)
+#else
         #region Event
         /// <summary>
         /// 
@@ -38,13 +46,13 @@
         /// 
         /// </summary>
         /// <param name="topic"></param>
-        public override void Initialize(BaseItem item)
+        public override void Initialize(Topic topic)
         {
-            Topic topic = item as Topic;
             if (topic != null)
             {
                 this.Tag = topic;
                 this.lblIndex.Text = topic.TopSeq.ToString("00");
+                this.linklblTop.Text = "";
                 this.linklblTop.Text = topic.Title;
                 this.linklblTop.Links.Clear();
                 this.linklblTop.Links.Add(0, this.linklblTop.Text.Length, topic.Uri);
@@ -54,6 +62,10 @@
                     this.lblReplies.Text = "(" + topic.Replies + ")";
                     this.lblReplies.Left = this.linklblTop.Left + this.linklblTop.Width + 1;
                 }
+                else
+                {
+                    this.lblReplies.Visible = false;
+                }
 
                 string boardName = SmthBoards.Instance.GetBoardName(topic.Board);
                 this.linklblBoard.Text = string.IsNullOrEmpty(boardName) ? topic.Board : boardName;
@@ -61,9 +73,25 @@
                 this.linklblBoard.Links.Add(0, this.linklblBoard.Text.Length, topic.Board);
             }
         }
+
+        public override void SetWidth(int width)
+        {
+            base.SetWidth(width);
+            this.Width = width;
+        }
         #endregion
 
         #region Properties
+        /// <summary>
+        /// 
+        /// </summary>
+        public override Color BackColor
+        {
+            set
+            {
+                this.panel.BackColor = value;
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -103,5 +131,6 @@
             }
         }
         #endregion
+#endif
     }
 }

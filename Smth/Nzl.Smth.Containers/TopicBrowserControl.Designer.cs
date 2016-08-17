@@ -140,7 +140,7 @@
             this.btnLast2.Text = "Last";
             this.btnLast2.UseCompatibleTextRendering = true;
             this.btnLast2.UseVisualStyleBackColor = true;
-            this.btnLast2.Click += new System.EventHandler(this.btnLast_Click);
+            
             // 
             // btnFirst2
             // 
@@ -153,7 +153,7 @@
             this.btnFirst2.Text = "First";
             this.btnFirst2.UseCompatibleTextRendering = true;
             this.btnFirst2.UseVisualStyleBackColor = true;
-            this.btnFirst2.Click += new System.EventHandler(this.btnFirst_Click);
+            
             // 
             // btnNext2
             // 
@@ -165,8 +165,7 @@
             this.btnNext2.TabStop = false;
             this.btnNext2.Text = "Next";
             this.btnNext2.UseCompatibleTextRendering = true;
-            this.btnNext2.UseVisualStyleBackColor = true;
-            this.btnNext2.Click += new System.EventHandler(this.btnNext_Click);
+            this.btnNext2.UseVisualStyleBackColor = true;            
             // 
             // btnPrev2
             // 
@@ -179,7 +178,6 @@
             this.btnPrev2.Text = "Prev";
             this.btnPrev2.UseCompatibleTextRendering = true;
             this.btnPrev2.UseVisualStyleBackColor = true;
-            this.btnPrev2.Click += new System.EventHandler(this.btnPrev_Click);
             // 
             // panelContainer
             // 
@@ -225,7 +223,6 @@
             this.btnOpenInBrowser.Text = "OiB";
             this.btnOpenInBrowser.UseCompatibleTextRendering = true;
             this.btnOpenInBrowser.UseVisualStyleBackColor = true;
-            this.btnOpenInBrowser.Click += new System.EventHandler(this.btnOpenInBrowser_Click);
             // 
             // scContainer
             // 
@@ -280,7 +277,6 @@
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseCompatibleTextRendering = true;
             this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // linklblBoard
             // 
@@ -292,8 +288,7 @@
             this.linklblBoard.TabIndex = 17;
             this.linklblBoard.TabStop = true;
             this.linklblBoard.Text = "Board";
-            this.linklblBoard.Visible = false;
-            this.linklblBoard.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblBoard_LinkClicked);
+            this.linklblBoard.Visible = false;            
             // 
             // linklblReply
             // 
@@ -305,7 +300,6 @@
             this.linklblReply.TabStop = true;
             this.linklblReply.Text = "Reply";
             this.linklblReply.Visible = false;
-            this.linklblReply.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblReply_LinkClicked);
             // 
             // btnSettings
             // 
@@ -318,8 +312,7 @@
             this.btnSettings.TabStop = false;
             this.btnSettings.Text = "Settings";
             this.btnSettings.UseCompatibleTextRendering = true;
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            this.btnSettings.UseVisualStyleBackColor = true;            
             // 
             // btnGo1
             // 
@@ -332,8 +325,7 @@
             this.btnGo1.TabStop = false;
             this.btnGo1.Text = "Go";
             this.btnGo1.UseCompatibleTextRendering = true;
-            this.btnGo1.UseVisualStyleBackColor = true;
-            this.btnGo1.Click += new System.EventHandler(this.btnGo_Click);
+            this.btnGo1.UseVisualStyleBackColor = true;            
             // 
             // txtGoTo1
             // 
@@ -369,7 +361,6 @@
             this.btnLast1.Text = "Last";
             this.btnLast1.UseCompatibleTextRendering = true;
             this.btnLast1.UseVisualStyleBackColor = true;
-            this.btnLast1.Click += new System.EventHandler(this.btnLast_Click);
             // 
             // btnFirst1
             // 
@@ -382,7 +373,6 @@
             this.btnFirst1.Text = "First";
             this.btnFirst1.UseCompatibleTextRendering = true;
             this.btnFirst1.UseVisualStyleBackColor = true;
-            this.btnFirst1.Click += new System.EventHandler(this.btnFirst_Click);
             // 
             // btnNext1
             // 
@@ -395,7 +385,6 @@
             this.btnNext1.Text = "Next";
             this.btnNext1.UseCompatibleTextRendering = true;
             this.btnNext1.UseVisualStyleBackColor = true;
-            this.btnNext1.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnPrev1
             // 
@@ -408,7 +397,6 @@
             this.btnPrev1.Text = "Prev";
             this.btnPrev1.UseCompatibleTextRendering = true;
             this.btnPrev1.UseVisualStyleBackColor = true;
-            this.btnPrev1.Click += new System.EventHandler(this.btnPrev_Click);
             // 
             // label1
             // 

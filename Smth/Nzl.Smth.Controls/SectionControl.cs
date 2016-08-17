@@ -7,7 +7,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class SectionControl : UserControl
+    public partial class SectionControl : BaseControl<Section>
     {
         /// <summary>
         /// 
@@ -22,18 +22,25 @@
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Ctor.
-        /// </summary>
-        public SectionControl(Section section)
-            : this()
+        public override void Initialize(Section section)
         {
+            base.Initialize(section);
             if (section != null)
             {
                 this.linklblSection.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblBorS_LinkClicked);
                 this.linklblSection.Text = section.Name;
                 LinkLabel.Link link = new LinkLabel.Link(0, this.linklblSection.Text.Length, SmthUtil.GetSectionUrl(section.Code));
-                link.Tag = "Section";
+                if (section.IsBoard)
+                {
+                    this.lblType.Text = "版面";
+                    link.Tag = "Board";
+                }
+                else
+                {
+                    link.Tag = "Section";
+                }
+
+                this.linklblSection.Links.Clear();
                 this.linklblSection.Links.Add(link);
             }
         }

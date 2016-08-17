@@ -15,7 +15,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class MailDetailControl : UserControl
+    public partial class MailDetailControl : BaseControl<Mail>
     {
         #region events.
         /// <summary>
@@ -52,28 +52,28 @@
             this.linklblTransfer.LinkClicked += LinklblTransfer_LinkClicked;
             this.scContainer.Visible = false;
         }
+        #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="url"></param>
-        public MailDetailControl(Mail mail)
-            : this()
+        public override void Initialize(Mail mail)
         {
+            base.Initialize(mail);
             if (mail != null)
             {
+                this.linklblReply.Tag = mail;
                 this.scContainer.Visible = true;
                 this.lblTitle.Text = mail.Title;
                 this.linklblID.Text = mail.Author;
+                this.linklblDelete.Links.Clear();
                 this.linklblDelete.Links.Add(0, this.linklblDelete.Text.Length, mail.DeleteUrl);
+                this.linklblID.Links.Clear();
                 this.linklblID.Links.Add(0, this.linklblID.Text.Length, mail.Author);
-                this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, mail.ReplyUrl);
-                this.linklblReply.Tag = mail;
+                this.linklblReply.Links.Clear();
+                this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, mail.ReplyUrl);                
+                this.linklblTransfer.Links.Clear();
                 this.linklblTransfer.Links.Add(0, this.linklblTransfer.Text.Length, mail.TransferUrl);
                 this.richtxtContent.AppendText(mail.Content);
             }
         }
-        #endregion
 
         #region eventhandler
         /// <summary>

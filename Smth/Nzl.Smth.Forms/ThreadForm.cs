@@ -46,9 +46,9 @@
         /// <returns></returns>
         private ThreadControl CreateThreadControl(Thread thread)
         {
-            int width = this.panel.Width - 4;
-            ThreadControl tc = new ThreadControl(width);
-            tc.Thread = thread;
+            ThreadControl tc = new ThreadControl();
+            tc.SetWidth(this.panel.Width - 4);
+            tc.Initialize(thread);
             tc.IsPlainView = true;
             return tc;
         }

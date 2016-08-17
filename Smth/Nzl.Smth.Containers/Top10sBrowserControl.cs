@@ -42,6 +42,15 @@
         /// <summary>
         /// 
         /// </summary>
+        static Top10sBrowserControl()
+        {
+            SectionTopsControl.OnTopBoardLinkClicked += SectionTopsControl_OnTopBoardLinkClicked;
+            SectionTopsControl.OnTopLinkClicked += SectionTopsControl_OnTopLinkClicked;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Top10sBrowserControl()
         {
             InitializeComponent();            
@@ -68,7 +77,7 @@
 
             this._timerLoadingTops.Interval = Configurations.Top10sLoadingInterval;
             this._timerLoadingTops.Tick += new EventHandler(_timerLoadingTops_Tick);
-            this._timerLoadingTops.Start();
+            //this._timerLoadingTops.Start();
         }
 
         /// <summary>
@@ -99,7 +108,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tbc_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private static void SectionTopsControl_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
             if (linklbl != null && OnTopLinkClicked != null)
@@ -113,7 +122,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tbc_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private static void SectionTopsControl_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
             if (linklbl != null && OnTopBoardLinkClicked != null)

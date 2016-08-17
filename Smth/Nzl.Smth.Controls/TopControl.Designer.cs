@@ -38,6 +38,7 @@
             // 
             // panel
             // 
+            this.panel.BackColor = System.Drawing.SystemColors.Control;
             this.panel.Controls.Add(this.linklblBoard);
             this.panel.Controls.Add(this.lblReplies);
             this.panel.Controls.Add(this.linklblTop);

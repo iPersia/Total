@@ -8,7 +8,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class BoardControl : BaseControl
+    public partial class BoardControl : BaseControl<Board>
     {
         /// <summary>
         /// 
@@ -24,29 +24,12 @@
         }
 
         /// <summary>
-        /// Ctor.
-        /// </summary>
-        public BoardControl(Board board)
-            : this()
-        {
-            if (board != null)
-            {
-                this.linklblBoard.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblBorS_LinkClicked);
-                this.linklblBoard.Text = board.Name;
-                LinkLabel.Link link = new LinkLabel.Link(0, this.linklblBoard.Text.Length, SmthUtil.GetBoardUrl(board.Code));
-                link.Tag = "Board";
-                this.linklblBoard.Links.Add(link);
-            }
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="item"></param>
-        public override void Initialize(BaseItem item)
+        public override void Initialize(Board board)
         {
-            base.Initialize(item);
-            Board board = item as Board;
+            base.Initialize(board);
             if (board != null)
             {
                 this.linklblBoard.LinkClicked -= new LinkLabelLinkClickedEventHandler(linklblBorS_LinkClicked);

@@ -7,7 +7,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class MailControl : UserControl
+    public partial class MailControl : BaseControl<Mail>
     {
         /// <summary>
         /// 
@@ -35,7 +35,7 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        MailControl()
+        public MailControl()
         {
             InitializeComponent();
             this.Height = MailControl.ControlHeight;
@@ -43,20 +43,20 @@
             this.linklblTitle.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblTitle_LinkClicked);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mail"></param>
-        public MailControl(Mail mail)
-            : this()
+        public override void Initialize(Mail mail)
         {
-            this.Tag = mail;
-            this.lblIndex.Text = mail.Index.ToString("00");
-            this.linklblTitle.Text = CommonUtil.ReplaceSpecialChars(mail.Title);
-            this.linklblTitle.Links.Add(0, this.linklblTitle.Text.Length, mail.Url);
-            this.linklblAuthor.Text = mail.Author;
-            this.linklblAuthor.Links.Add(0, mail.Author.Length, mail.Author);
-            this.lblDT.Text = mail.DateTime;
+            base.Initialize(mail);
+            if (mail != null)
+            {
+                this.Tag = mail;
+                this.lblIndex.Text = mail.Index.ToString("00");
+                this.linklblTitle.Text = CommonUtil.ReplaceSpecialChars(mail.Title);
+                this.linklblTitle.Links.Add(0, this.linklblTitle.Text.Length, mail.Url);
+                this.linklblAuthor.Text = mail.Author;
+                this.linklblAuthor.Links.Clear();
+                this.linklblAuthor.Links.Add(0, mail.Author.Length, mail.Author);
+                this.lblDT.Text = mail.DateTime;
+            }
         }
 
         /// <summary>

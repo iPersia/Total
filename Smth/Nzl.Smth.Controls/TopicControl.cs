@@ -9,7 +9,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class TopicControl : UserControl
+    public partial class TopicControl : BaseControl<Topic>
     {
         /// <summary>
         /// 
@@ -32,32 +32,57 @@
         public TopicControl()
         {
             InitializeComponent();
+            this.linklblTopic.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblTopic_LinkClicked);
+            this.linklblCreateID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblCreateID_LinkClicked);
+            this.linklblLastID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblLastID_LinkClicked);
         }
 
-        /// <summary>
-        /// Ctor.
-        /// </summary>
-        public TopicControl(Topic topic)
-            : this()
+        ///// <summary>
+        ///// Ctor.
+        ///// </summary>
+        //public TopicControl(Topic topic)
+        //    : this()
+        //{
+        //    this.Tag = topic;
+        //    if (topic != null)
+        //    {
+        //        this.linklblTopic.Text = CommonUtil.ReplaceSpecialChars(topic.Title);
+        //        this.lblReplies.Text = "（" + topic.Replies + "）";
+        //        this.lblReplies.Left = this.linklblTopic.Left + this.linklblTopic.Width + 1;
+        //        this.linklblTopic.Links.Add(0, topic.Title.Length, topic.Uri);
+        //        this.lblCreateDT.Text = topic.CreateDateTime;
+        //        this.lblLastDT.Text = topic.LastThreadDateTime;
+        //        this.linklblCreateID.Text = topic.CreateID;
+        //        this.linklblCreateID.Links.Add(0, topic.CreateID.Length, topic.CreateID);
+        //        this.linklblLastID.Text = topic.LastThreadID;
+        //        this.linklblLastID.Links.Add(0, topic.LastThreadID.Length, topic.LastThreadID);
+        //    }
+
+        //    this.linklblTopic.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblTopic_LinkClicked);
+        //    this.linklblCreateID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblCreateID_LinkClicked);
+        //    this.linklblLastID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblLastID_LinkClicked);
+        //}
+
+        public override void Initialize(Topic topic)
         {
+            base.Initialize(topic);
             this.Tag = topic;
             if (topic != null)
             {
                 this.linklblTopic.Text = CommonUtil.ReplaceSpecialChars(topic.Title);
                 this.lblReplies.Text = "（" + topic.Replies + "）";
                 this.lblReplies.Left = this.linklblTopic.Left + this.linklblTopic.Width + 1;
+                this.linklblTopic.Links.Clear();
                 this.linklblTopic.Links.Add(0, topic.Title.Length, topic.Uri);
                 this.lblCreateDT.Text = topic.CreateDateTime;
                 this.lblLastDT.Text = topic.LastThreadDateTime;
                 this.linklblCreateID.Text = topic.CreateID;
+                this.linklblCreateID.Links.Clear();
                 this.linklblCreateID.Links.Add(0, topic.CreateID.Length, topic.CreateID);
                 this.linklblLastID.Text = topic.LastThreadID;
+                this.linklblLastID.Links.Clear();
                 this.linklblLastID.Links.Add(0, topic.LastThreadID.Length, topic.LastThreadID);
             }
-
-            this.linklblTopic.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblTopic_LinkClicked);
-            this.linklblCreateID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblCreateID_LinkClicked);
-            this.linklblLastID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblLastID_LinkClicked);
         }
 
         /// <summary>

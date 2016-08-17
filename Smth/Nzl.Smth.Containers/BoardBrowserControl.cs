@@ -17,7 +17,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class BoardBrowserControl : BaseContainer
+    public partial class BoardBrowserControl : BaseContainer<TopicControl, Topic>
     {
         #region Event
         /// <summary>
@@ -80,27 +80,26 @@
         /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
-        protected override IList<BaseItem> GetItems(WebPage wp)
+        protected override IList<Topic> GetItems(WebPage wp)
         {
             IList<Topic> topics = TopicFactory.CreateTopics(wp);
-            IList<BaseItem> items = new List<BaseItem>();
-            foreach (Topic topic in topics)
-            {
-                if (topic.Mode == TopicMode.Normal ||
-                    topic.Mode == TopicMode.Magic)
-                {
-                    items.Add(topic);
-                }
-            }
+            //foreach (Topic topic in topics)
+            //{
+            //    if (topic.Mode == TopicMode.Normal ||
+            //        topic.Mode == TopicMode.Magic)
+            //    {
+            //        topics.Add(topic);
+            //    }
+            //}
 
-            return items;
+            return topics;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="state"></param>
-        protected override void WorkCompleted(UrlInfo info)
+        protected override void WorkCompleted(UrlInfo<TopicControl, Topic> info)
         {
             base.WorkCompleted(info);
             this.UpdateBoardTitle(info.WebPage);
@@ -119,7 +118,7 @@
         /// </summary>
         /// <param name="ctl"></param>
         /// <param name="oeFlag"></param>
-        protected override void SetControl(Control ctl, bool oeFlag)
+        protected override void SetControl(TopicControl ctl, bool oeFlag)
         {
             base.SetControl(ctl, oeFlag);
             Topic topic = ctl.Tag as Topic;
@@ -151,9 +150,9 @@
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected override Control CreateControl(BaseItem item)
+        protected override TopicControl CreateControl(Topic item)
         {
-            return this.CreateTopicControl(item as Topic);
+            return this.CreateTopicControl(item);
         }
 
         /// <summary>
@@ -192,7 +191,8 @@
         /// <returns></returns>
         private TopicControl CreateTopicControl(Topic topic)
         {
-            TopicControl tc = new TopicControl(topic);
+            TopicControl tc = new TopicControl();
+            tc.Initialize(topic);
             tc.Name = "tc" + topic.ID;
             tc.Width = this.panel.Width - 2;;
             tc.Left = 1;
@@ -323,7 +323,7 @@
             {
                 int panelContainerHeight = this.splitContainer2.Panel1.Height; //panel容器高度
 
-#if (DEBUG)
+#if (X)
                 System.Diagnostics.Debug.WriteLine("********************---BoardBrowserControl_MouseWheel---********************");
                 //System.Diagnostics.Debug.WriteLine("Sender is:" + sender.GetType().ToString());
                 //System.Diagnostics.Debug.WriteLine("HashCode is:" + sender.GetHashCode());
@@ -331,7 +331,7 @@
 #endif
                 if (this.panel.Height > panelContainerHeight)
                 {
-#if (DEBUG)
+#if (X)
                     //System.Diagnostics.Debug.WriteLine("oldYPos:" + this.panel.Location.Y);
                     //System.Diagnostics.Debug.WriteLine("Delta  :" + e.Delta);
 #endif
@@ -339,20 +339,20 @@
                     newYPos = newYPos > this._margin ? this._margin : newYPos;
                     newYPos = newYPos < panelContainerHeight - this.panel.Height - this._margin
                          ? panelContainerHeight - this.panel.Height - this._margin : newYPos;
-#if (DEBUG)
+#if (X)
                     System.Diagnostics.Debug.WriteLine("newYPos:" + newYPos);
 #endif
                     this.panel.Location = new Point(this.panel.Location.X, newYPos);
                     if (newYPos == panelContainerHeight - this.panel.Height - this._margin)
                     {
-#if (DEBUG)
+#if (X)
                         System.Diagnostics.Debug.WriteLine("Cause BaseContainer's FetchNextPage!");
 #endif
                         this.SetUrlInfo(true);
                         this.FetchNextPage();
                     }
                 }
-#if (DEBUG)
+#if (X)
                 System.Diagnostics.Debug.WriteLine("--------------------***BoardBrowserControl_MouseWheel***--------------------");
 #endif
             }
