@@ -154,6 +154,10 @@
       <Project>{b9de9cff-d84e-4bf9-a615-cf7f4519f139}</Project>
       <Name>Nzl.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Nzl.Recycling\Nzl.Recycling.csproj">
+      <Project>{dc293647-8798-4539-bea1-77185e5c66c1}</Project>
+      <Name>Nzl.Recycling</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Web\Nzl.Web.Page\Nzl.Web.Page.csproj">
       <Project>{58bc70f0-3ff6-4095-87ac-08a4b7c00f58}</Project>
       <Name>Nzl.Web.Page</Name>
