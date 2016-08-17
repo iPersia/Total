@@ -134,11 +134,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Interfaces", "Smth
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Utils", "Smth\Nzl.Smth.Utils\Nzl.Smth.Utils.csproj", "{ED81BEF2-92F1-474D-80E9-635644D7D0A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Controls", "Components\Nzl.Controls\Nzl.Controls.csproj", "{ADF447E1-D907-4237-AF2A-225E7588E1A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Controlss", "Components\Nzl.Controls\Nzl.Controls.csproj", "{ADF447E1-D907-4237-AF2A-225E7588E1A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Logger", "Smth\Nzl.Smth.Logger\Nzl.Smth.Logger.csproj", "{55E4F995-1273-44E1-AEA1-52FED6442660}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Recycling", "Nzl.Recycling\Nzl.Recycling.csproj", "{DC293647-8798-4539-BEA1-77185E5C66C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Recycling", "Components\Nzl.Recycling\Nzl.Recycling.csproj", "{DC293647-8798-4539-BEA1-77185E5C66C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

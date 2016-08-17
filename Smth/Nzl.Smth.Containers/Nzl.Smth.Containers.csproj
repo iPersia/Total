@@ -154,7 +154,7 @@
       <Project>{b9de9cff-d84e-4bf9-a615-cf7f4519f139}</Project>
       <Name>Nzl.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Nzl.Recycling\Nzl.Recycling.csproj">
+    <ProjectReference Include="..\..\Components\Nzl.Recycling\Nzl.Recycling.csproj">
       <Project>{dc293647-8798-4539-bea1-77185e5c66c1}</Project>
       <Name>Nzl.Recycling</Name>
     </ProjectReference>
