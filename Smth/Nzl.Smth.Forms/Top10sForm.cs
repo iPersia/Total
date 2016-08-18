@@ -46,11 +46,11 @@
             tbc.Name = "tbcTop10s";
             tbc.Top = 1;
             tbc.Left = 1;
+            tbc.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
+            tbc.OnTopLinkClicked += Tbc_OnTopLinkClicked;
             this.panelContainer.Controls.Add(tbc);
             this.Width = tbc.Width + 2 + this.Width - this.panelContainer.Width;
             this.Height = tbc.Height + 2 + this.Height - this.panelContainer.Height;
-            Top10sBrowserControl.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(tbc_OnTopLinkClicked);
-            Top10sBrowserControl.OnTopBoardLinkClicked += Tbc_OnTopBoardLinkClicked;
         }
 
         /// <summary>
@@ -71,7 +71,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tbc_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Tbc_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (this.OnTopLinkClicked != null)
             {

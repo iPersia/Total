@@ -41,21 +41,24 @@
             this.panelUp.SuspendLayout();
             this.SuspendLayout();
             // 
+            // panel
+            // 
+            //this.panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            //this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel.Location = new System.Drawing.Point(4, 4);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(341, 100);
+            this.panel.TabIndex = 0;
+            // 
             // panelContainer
             // 
+            this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelContainer.Controls.Add(this.panel);
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
             this.panelContainer.Size = new System.Drawing.Size(350, 454);
             this.panelContainer.TabIndex = 0;
-            // 
-            // panel
-            // 
-            this.panel.Location = new System.Drawing.Point(4, 4);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(343, 100);
-            this.panel.TabIndex = 0;
             // 
             // scContainer
             // 

@@ -15,6 +15,14 @@
 
         }
 
+        public override string ID
+        {
+            get
+            {
+                return this.Url;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

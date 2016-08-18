@@ -1,4 +1,5 @@
-﻿namespace Nzl.Smth.Containers
+﻿//#define DESIGNMODE
+namespace Nzl.Smth.Containers
 {
     using System;
     using System.Collections.Generic;
@@ -12,8 +13,14 @@
     /// <summary>
     /// 
     /// </summary>
+#if (DESIGNMODE)
+    public partial class MailDetailContainerControl : UserControl
+#else
     public partial class MailDetailContainerControl : BaseContainer<MailDetailControl, Mail>
+#endif
     {
+#if (DESIGNMODE)
+#else
         #region events.
         /// <summary>
         /// 
@@ -95,7 +102,7 @@
         {
             this._parentControl = ctl;
         }
-        #endregion        
+        #endregion
 
         #region override
         /// <summary>
@@ -108,6 +115,32 @@
             this.SetUrlInfo(false);
             this.FetchPage();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        protected override string GetUrl(UrlInfo<MailDetailControl, Mail> info)
+        {
+            return info.BaseUrl;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="wp"></param>
+        /// <returns></returns>
+        protected override IList<Mail> GetItems(WebPage wp)
+        {
+            IList<Mail> list = new List<Mail>();
+            Mail mail = MailFactory.CreateMailDetail(wp);
+            if (mail != null)
+            {
+                list.Add(mail);
+            }
+
+            return list;
+        }
 
         /// <summary>
         /// 
@@ -115,48 +148,69 @@
         /// <returns></returns>
         protected override Panel GetContainer()
         {
-            return this.panelContainer;
+            return this.panel;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="item"></param>
         /// <returns></returns>
-        protected override MailDetailControl CreateControl(Mail mail)
+        protected override MailDetailControl GetRecycledControl()
         {
-            if (mail != null)
-            {
-                MailDetailControl mdc = new MailDetailControl();
-                mdc.Initialize(mail);
-                mdc.Name = "mdc" + mail.Url;
-                mdc.OnDeleteLinkClicked += Mdc_OnDeleteLinkClicked;
-                mdc.OnReplyLinkClicked += Mdc_OnReplyLinkClicked;
-                mdc.OnTransferLinkClicked += Mdc_OnTransferLinkClicked;
-                mdc.OnUserLinkClicked += Mdc_OnUserLinkClicked;
-                return mdc;
-            }
-
-            return base.CreateControl(mail);
+            return Recycling.RecycledQueues.GetRecycled<MailDetailControl>();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="ctl"></param>
-        protected override void AddControl(MailDetailControl ctl)
+        /// <param name="item"></param>
+        protected override void InitializeControl(MailDetailControl ctl, Mail item)
         {
-            Panel container = GetContainer();
-            if (container != null)
+            base.InitializeControl(ctl, item);
+            if (ctl != null && item != null)
             {
-                lock (container)
+                ctl.Name = "mdc" + item.Url;
+                ctl.OnDeleteLinkClicked += Mdc_OnDeleteLinkClicked;
+                ctl.OnReplyLinkClicked += Mdc_OnReplyLinkClicked;
+                ctl.OnTransferLinkClicked += Mdc_OnTransferLinkClicked;
+                ctl.OnUserLinkClicked += Mdc_OnUserLinkClicked;
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="ctl"></param>
+        protected override void RecylingControl(MailDetailControl ctl)
+        {
+            base.RecylingControl(ctl);
+            if (ctl != null)
+            {
+                ctl.OnDeleteLinkClicked -= Mdc_OnDeleteLinkClicked;
+                ctl.OnReplyLinkClicked -= Mdc_OnReplyLinkClicked;
+                ctl.OnTransferLinkClicked -= Mdc_OnTransferLinkClicked;
+                ctl.OnUserLinkClicked -= Mdc_OnUserLinkClicked;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        protected override void WorkCompleted(UrlInfo<MailDetailControl, Mail> info)
+        {
+            base.WorkCompleted(info);
+            if (this._parentControl != null)
+            {
+                if (info.Status == PageStatus.Normal && info.Result != null && info.Result.Count > 0)
                 {
-                    ctl.Top = 1;
-                    ctl.Left = 1;
-                    container.Controls.Add(ctl);
+                    this._parentControl.Text = (info.Result[0] as Mail).Title;
                 }
             }
         }
+        #endregion
+
         #region eventhandler
         /// <summary>
         /// 
@@ -210,49 +264,6 @@
             }
         }
         #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="info"></param>
-        /// <returns></returns>
-        protected override string GetUrl(UrlInfo<MailDetailControl, Mail> info)
-        {
-            return info.BaseUrl;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="wp"></param>
-        /// <returns></returns>
-        protected override IList<Mail> GetItems(WebPage wp)
-        {
-            IList<Mail> list = new List<Mail>();
-            Mail mail = MailFactory.CreateMailDetail(wp);
-            if (mail != null)
-            {
-                list.Add(mail);
-            }
-
-            return list;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="info"></param>
-        protected override void WorkCompleted(UrlInfo<MailDetailControl, Mail> info)
-        {
-            base.WorkCompleted(info);
-            if (this._parentControl != null)
-            {
-                if (info.Status == PageStatus.Normal && info.Result != null && info.Result.Count > 0)
-                {
-                    this._parentControl.Text = (info.Result[0] as Mail).Title;
-                }
-            }
-        }
-        #endregion
+#endif
     }
 }

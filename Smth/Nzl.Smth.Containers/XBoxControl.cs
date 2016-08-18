@@ -107,11 +107,50 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        protected override Panel GetContainer()
+        {
+            return this.panel;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
         protected override IList<Mail> GetItems(WebPage wp)
         {
             return MailFactory.CreateMails(wp);
+        }        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctl"></param>
+        /// <param name="item"></param>
+        protected override void InitializeControl(MailControl ctl, Mail item)
+        {
+            base.InitializeControl(ctl, item);
+            if (ctl != null && item != null)
+            {
+                ctl.Name = "mc" + item.Url;
+                ctl.OnMailLinkClicked += Tc_OnMailLinkClicked;
+                ctl.OnUserLinkClicked += Tc_OnUserLinkClicked;
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="ctl"></param>
+        protected override void RecylingControl(MailControl ctl)
+        {
+            base.RecylingControl(ctl);
+            if (ctl != null)
+            {
+                ctl.OnMailLinkClicked -= Tc_OnMailLinkClicked;
+                ctl.OnUserLinkClicked -= Tc_OnUserLinkClicked;
+            }
         }
 
         /// <summary>
@@ -138,26 +177,7 @@
             {
                 ctl.ForeColor = Color.Red;
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected override Panel GetContainer()
-        {
-            return this.panel;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        protected override MailControl CreateControl(Mail mail)
-        {
-            return this.CreateMailControl(mail);
-        }
+        }        
 
         /// <summary>
         /// 
@@ -196,12 +216,8 @@
         private MailControl CreateMailControl(Mail mail)
         {
             MailControl mc = new MailControl();
-            mc.Initialize(mail);
-            mc.Name = "mc" + mail.Url;
-            mc.Width = this.panel.Width - 4;
-            mc.OnMailLinkClicked += Tc_OnMailLinkClicked;
-            mc.OnUserLinkClicked += Tc_OnUserLinkClicked;
-           return mc;
+            
+            return mc;
         }
 
         /// <summary>

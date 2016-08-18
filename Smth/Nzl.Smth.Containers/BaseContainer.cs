@@ -15,14 +15,14 @@
     using Nzl.Utils;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
-    
+
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    delegate TBaseControl CreateControlCallback<TBaseControl, TBaseItem>(TBaseItem item);
+    delegate TBaseControl CreateControlCallback<TBaseControl>();
 
     /// <summary>
     /// 
@@ -49,7 +49,7 @@
     /// 
     /// </summary>
     public class BaseContainer<TBaseControl, TBaseItem> : UserControl
-        where TBaseControl : BaseControl<TBaseItem>
+        where TBaseControl : BaseControl<TBaseItem>, new()
         where TBaseItem : BaseItem
     {
         #region event
@@ -199,7 +199,7 @@
                         System.Threading.Thread.Sleep(0);
                     }
                 }
-                
+
                 this.UpdateView(info.Controls);
             }
         }
@@ -221,7 +221,7 @@
                         System.Threading.Thread.Sleep(0);
                     }
                 }
-            }            
+            }
         }
 
         /// <summary>
@@ -236,8 +236,6 @@
                 {
                     if (isAppend == false)
                     {
-                        container.Location = new Point(container.Location.X, this._margin);
-                        container.Height = 3;
                         foreach (Control ctl in container.Controls)
                         {
                             TBaseControl bc = ctl as TBaseControl;
@@ -247,6 +245,8 @@
                             }
                         }
 
+                        container.Location = new Point(container.Location.X, this._margin);
+                        container.Height = 3;
                         container.Controls.Clear();
                         GC.Collect();
                     }
@@ -270,7 +270,10 @@
         /// <param name="bc"></param>
         protected virtual void RecylingControl(TBaseControl ctl)
         {
-            RecycledQueues.AddRecycled<TBaseControl>(ctl);
+            if (ctl != null)
+            {
+                RecycledQueues.AddRecycled<TBaseControl>(ctl);
+            }
         }
 
         /// <summary>
@@ -303,7 +306,6 @@
                         container.Controls.Add(ctl);
                         accumulateHeight += ctl.Height + 1;
                         container.Height = accumulateHeight + 3;
-
 #if (X)
                         System.Diagnostics.Debug.WriteLine("BaseContainer - AddControl - container.Controls.Count is " + container.Controls.Count);
 #endif
@@ -317,7 +319,7 @@
                 }
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -408,9 +410,9 @@
         /// </summary>
         /// <param name="thread"></param>
         /// <returns></returns>
-        protected virtual TBaseControl CreateControl(TBaseItem item)
+        protected virtual TBaseControl CreateControl()
         {
-            return null;
+            return new TBaseControl();
         }
 
         /// <summary>
@@ -422,6 +424,17 @@
         {
             if (ctl != null)
             {
+                Panel container = this.GetContainer();
+                if (container != null)
+                {
+                    ctl.SetWidth(container.Width - 4);
+                }
+
+                if (item != null)
+                {
+                    ctl.Name = "ctl" + item.ID;
+                }
+
                 ctl.Initialize(item);
             }
         }
@@ -542,18 +555,18 @@
                 if (this.InvokeRequired)
                 {
                     TBaseControl ctl = this.GetRecycledControl();
-                    if (ctl == null)
+                    if (ctl == null || ctl.IsDisposed)
                     {
 #if (DEBUG)
                         System.Diagnostics.Debug.WriteLine("BaseContainer - GetControl - GetRecycledControl failed, type is " + typeof(TBaseControl).ToString());
 #endif
                         System.Threading.Thread.Sleep(0);
-                        object obj = this.Invoke(new CreateControlCallback<TBaseControl,TBaseItem>(CreateControl), new object[] { item });
+                        object obj = this.Invoke(new CreateControlCallback<TBaseControl>(CreateControl));
                         System.Threading.Thread.Sleep(0);
                         ctl = obj as TBaseControl;
                     }
-                    
-                    if (ctl != null)
+
+                    if (ctl != null && item != null)
                     {
                         if (this.IsHandleCreated)
                         {

@@ -31,22 +31,27 @@
         /// <summary>
         /// The base url of smth.
         /// </summary>
-        public static string staticLoginUrl = @"http://m.newsmth.net/user/login";
+        private static string staticLoginUrl = @"http://m.newsmth.net/user/login";
 
         /// <summary>
         /// The base url of smth.
         /// </summary>
-        public static string staticLogoutUrl = @"http://m.newsmth.net/user/logout";
+        private static string staticLogoutUrl = @"http://m.newsmth.net/user/logout";
 
         /// <summary>
         /// The interval to update the section tops in SectionTopControl.
         /// </summary>
-        public static int staticSectionTopsUpdatingInterval = 5 *60 * 1000;
-        
+        private static int staticSectionTopsUpdatingInterval = 5 *60 * 1000;
+
         /// <summary>
         /// The interval to load the SectionTopControls.
         /// </summary>
-        public static int staticTop10sLoadingInterval = 30 * 1000;
+        private static int staticTop10sLoadingInterval = 30 * 1000;
+
+        /// <summary>
+        /// The count of sections.
+        /// </summary>
+        private static int staticSectionCount = 9;
         #endregion
 
 
@@ -103,6 +108,17 @@
             get
             {
                 return staticTop10sLoadingInterval;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static int SectionCount
+        {
+            get
+            {
+                return staticSectionCount;
             }
         }
         #endregion

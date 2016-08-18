@@ -51,6 +51,7 @@
                 this.Tag = mail;
                 this.lblIndex.Text = mail.Index.ToString("00");
                 this.linklblTitle.Text = CommonUtil.ReplaceSpecialChars(mail.Title);
+                this.linklblTitle.Links.Clear();
                 this.linklblTitle.Links.Add(0, this.linklblTitle.Text.Length, mail.Url);
                 this.linklblAuthor.Text = mail.Author;
                 this.linklblAuthor.Links.Clear();

@@ -22,12 +22,12 @@ namespace Nzl.Smth.Controls
         /// <summary>
         /// 
         /// </summary>
-        public static event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
 
         /// <summary>
         /// 
         /// </summary>
-        public static event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
         #endregion
 
         #region Ctor.
@@ -112,9 +112,9 @@ namespace Nzl.Smth.Controls
         /// <param name="e"></param>
         private void linklblTop_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (OnTopLinkClicked != null)
+            if (this.OnTopLinkClicked != null)
             {
-                OnTopLinkClicked(sender, e);
+                this.OnTopLinkClicked(sender, e);
             }
         }
 
@@ -125,9 +125,9 @@ namespace Nzl.Smth.Controls
         /// <param name="e"></param>
         private void LinklblBoard_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (OnTopBoardLinkClicked != null)
+            if (this.OnTopBoardLinkClicked != null)
             {
-                OnTopBoardLinkClicked(sender, e);
+                this.OnTopBoardLinkClicked(sender, e);
             }
         }
         #endregion

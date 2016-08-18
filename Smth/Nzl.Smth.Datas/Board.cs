@@ -26,6 +26,17 @@
         {
             get;
             set;
-        }        
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string ID
+        {
+            get
+            {
+                return this.Code;
+            }
+        }
     }
 }

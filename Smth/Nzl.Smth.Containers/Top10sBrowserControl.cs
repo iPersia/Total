@@ -19,12 +19,12 @@
         /// <summary>
         /// 
         /// </summary>
-        public static event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
 
         /// <summary>
         /// 
         /// </summary>
-        public static event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
         #endregion
 
         #region Variable
@@ -38,16 +38,6 @@
         /// </summary>
         private int _sectionIndex = 1;
         #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        static Top10sBrowserControl()
-        {
-            SectionTopsControl.OnTopBoardLinkClicked += SectionTopsControl_OnTopBoardLinkClicked;
-            SectionTopsControl.OnTopLinkClicked += SectionTopsControl_OnTopLinkClicked;
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -70,6 +60,8 @@
                 tbc.Name = "tbcHot";
                 tbc.SetParent(tp);
                 tbc.CreateControl();
+                tbc.OnTopBoardLinkClicked += SectionTopsControl_OnTopBoardLinkClicked;
+                tbc.OnTopLinkClicked += SectionTopsControl_OnTopLinkClicked;
                 tp.Controls.Add(tbc);
                 this.tcTop10s.TabPages.Add(tp);
                 this.Size = new Size(tbc.Width + 8, tbc.Height + 26);
@@ -87,7 +79,7 @@
         /// <param name="e"></param>
         private void _timerLoadingTops_Tick(object sender, EventArgs e)
         {
-            if (this._sectionIndex > 9)
+            if (this._sectionIndex > Configurations.SectionCount)
             {
                 this._timerLoadingTops.Stop();
                 return;
@@ -99,6 +91,8 @@
             tbc.Name = "tbcHot" + this._sectionIndex++;
             tbc.SetParent(tp);
             tbc.CreateControl();
+            tbc.OnTopBoardLinkClicked += SectionTopsControl_OnTopBoardLinkClicked;
+            tbc.OnTopLinkClicked += SectionTopsControl_OnTopLinkClicked;
             tp.Controls.Add(tbc);
             this.tcTop10s.TabPages.Add(tp);
         }
@@ -108,12 +102,12 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void SectionTopsControl_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void SectionTopsControl_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
-            if (linklbl != null && OnTopLinkClicked != null)
+            if (linklbl != null && this.OnTopLinkClicked != null)
             {
-                OnTopLinkClicked(sender, e);
+                this.OnTopLinkClicked(sender, e);
             }
         }
 
@@ -122,12 +116,12 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void SectionTopsControl_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void SectionTopsControl_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
-            if (linklbl != null && OnTopBoardLinkClicked != null)
+            if (linklbl != null && this.OnTopBoardLinkClicked != null)
             {
-                OnTopBoardLinkClicked(sender, e);
+                this.OnTopBoardLinkClicked(sender, e);
             }
         }        
     }

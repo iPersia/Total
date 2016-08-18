@@ -37,7 +37,7 @@
             this.lblDateTime = new System.Windows.Forms.Label();
             this.linklblReply = new System.Windows.Forms.LinkLabel();
             this.panelDown = new System.Windows.Forms.Panel();
-            this.richtxtContent = new System.Windows.Forms.RichTextBox();
+            this.richtxtContent = new Nzl.Controls.RichTextBoxEx();
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).BeginInit();
             this.scContainer.Panel1.SuspendLayout();
             this.scContainer.Panel2.SuspendLayout();
@@ -162,10 +162,12 @@
             // 
             this.richtxtContent.BackColor = System.Drawing.SystemColors.Control;
             this.richtxtContent.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richtxtContent.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.richtxtContent.HiglightColor = Nzl.Controls.RtfColor.White;
             this.richtxtContent.Location = new System.Drawing.Point(11, 12);
             this.richtxtContent.Name = "richtxtContent";
-            this.richtxtContent.ReadOnly = true;
             this.richtxtContent.Size = new System.Drawing.Size(565, 380);
+            this.richtxtContent.TextColor = Nzl.Controls.RtfColor.Black;
             this.richtxtContent.TabIndex = 12;
             this.richtxtContent.TabStop = false;
             this.richtxtContent.Text = "";
@@ -174,6 +176,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.scContainer);
             this.Name = "MailDetailControl";
             this.Size = new System.Drawing.Size(590, 468);
@@ -185,11 +188,10 @@
             this.panelUp.PerformLayout();
             this.panelDown.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion
-        private System.Windows.Forms.RichTextBox richtxtContent;
+        private Nzl.Controls.RichTextBoxEx richtxtContent;
         private System.Windows.Forms.LinkLabel linklblDelete;
         private System.Windows.Forms.LinkLabel linklblTransfer;
         private System.Windows.Forms.LinkLabel linklblReply;

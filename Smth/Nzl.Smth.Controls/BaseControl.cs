@@ -32,6 +32,28 @@
         /// <param name="width"></param>
         public virtual void SetWidth(int width)
         {
+            this.Width = width;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(this.CanBeDisposed);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool CanBeDisposed
+        {
+           get
+            {
+                return false;
+            }
         }
     }
 }

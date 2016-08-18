@@ -51,15 +51,16 @@
             base.OnShown(e);
             MailDetailContainerControl mdcc = new MailDetailContainerControl(this._url);
             //mdcc.MailUrl = this._url;
-            mdcc.Left = 1;
-            mdcc.Top = 1;
+            mdcc.Left = 4;
+            mdcc.Top = 4;
             mdcc.OnMailAuthorLinkClicked += Mdcc_OnMailAuthorLinkClicked;
             mdcc.OnMailDeleteLinkClicked += Mdcc_OnMailDeleteLinkClicked;
             mdcc.OnMailReplyLinkClicked += Mdcc_OnMailReplyLinkClicked;
             mdcc.OnMailTransferLinkClicked += Mdcc_OnMailTransferLinkClicked;
             mdcc.SetParentControl(this);
+            mdcc.BorderStyle = BorderStyle.FixedSingle;
             this.panelContainer.Controls.Add(mdcc);
-            //this.Size = new Size(mdcc.Width + this.Width - this.panelContainer.Width + 2, mdcc.Height + this.Height - this.panelContainer.Height + 2);
+            this.Size = new Size(mdcc.Width + this.Width - this.panelContainer.Width + 2, mdcc.Height + this.Height - this.panelContainer.Height + 2);
         }
 
         /// <summary>

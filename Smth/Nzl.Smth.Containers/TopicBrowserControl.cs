@@ -177,20 +177,6 @@ namespace Nzl.Smth.Containers
             {
                 this._topicUrl = value;
                 this.SetBaseUrl(this._topicUrl);
-                try
-                {
-                    string tail = CommonUtil.GetMatch(@"/\d+", this._topicUrl);
-                    this._postUrl = this._topicUrl.Replace(tail, "/post" + tail);
-                    this.linklblReply.Links.Clear();
-                    this.linklblReply.Links.Add(0, 5, this._postUrl);
-                }
-                catch (Exception exp)
-                {
-                    if (Logger.Enabled)
-                    {
-                        Logger.Instance.Error(exp.Message + "\t" + value + "\n" + exp.StackTrace);
-                    }
-                };
             }
         }
 
@@ -212,14 +198,6 @@ namespace Nzl.Smth.Containers
         #endregion
 
         #region Ctors.
-        /// <summary>
-        /// 
-        /// </summary>
-        static TopicBrowserControl()
-        {
-            ThreadControl.OnUserLinkClicked += ThreadControl_OnUserLinkClicked;
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -381,53 +359,7 @@ namespace Nzl.Smth.Containers
 
             return threads;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        protected override ThreadControl CreateControl(Thread thread)
-        {
-            return this.CreateThreadControl(thread);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="thread"></param>
-        /// <returns></returns>
-        private ThreadControl CreateThreadControl(Thread thread)
-        {
-            try
-            {
-
-                ThreadControl tc = new ThreadControl();
-                tc.Name = "tc" + thread.ID;
-                //tc.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
-                tc.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
-                tc.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
-                tc.OnDeleteLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
-                tc.OnReplyLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
-                tc.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
-                tc.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
-                tc.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
-                tc.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
-                return tc;
-            }
-            catch (Exception e)
-            {
-                if (Logger.Enabled)
-                {
-                    Logger.Instance.Error(e.Message + "\n" + e.StackTrace);
-                }
-#if (DEBUG)
-                MessageQueue.Enqueue(MessageFactory.CreateMessage(e));
-#endif
-                return null;
-            }
-        }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -435,13 +367,19 @@ namespace Nzl.Smth.Containers
         /// <param name="item"></param>
         protected override void InitializeControl(ThreadControl ctl, Thread item)
         {
-            ThreadControl tc = ctl as ThreadControl;
-            if (tc != null)
+            base.InitializeControl(ctl, item);
+            if (ctl != null && item != null)
             {
-                tc.SetWidth(this.panel.Width - 4);
-                tc.Initialize(item);
-                tc.OnTextBoxMouseWheel -= this.TopicBrowserControl_MouseWheel;
-                tc.OnTextBoxMouseWheel += this.TopicBrowserControl_MouseWheel;
+                ctl.Name = "tc" + item.ID;
+                ctl.OnUserLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
+                ctl.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
+                ctl.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
+                ctl.OnDeleteLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
+                ctl.OnReplyLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
+                ctl.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
+                ctl.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
+                ctl.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
+                ctl.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
             }
         }
 
@@ -454,14 +392,15 @@ namespace Nzl.Smth.Containers
             base.RecylingControl(ctl);
             if (ctl != null)
             {
-                ctl.OnQueryTypeLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
-                ctl.OnEditLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
-                ctl.OnDeleteLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
-                ctl.OnReplyLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
-                ctl.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
-                ctl.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
-                ctl.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
-                ctl.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
+                ctl.OnUserLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnUserClicked);
+                ctl.OnQueryTypeLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnQueryTypeLinkClicked);
+                ctl.OnEditLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnEditLinkClicked);
+                ctl.OnDeleteLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnDeleteLinkClicked);
+                ctl.OnReplyLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnReplyLinkClicked);
+                ctl.OnMailLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
+                ctl.OnTransferLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
+                ctl.OnTextBoxLinkClicked -= ThreadControl_OnTextBoxLinkClicked;
+                ctl.OnTextBoxMouseWheel -= new MouseEventHandler(TopicBrowserControl_MouseWheel);
             }
         }
 
@@ -569,7 +508,7 @@ namespace Nzl.Smth.Containers
             }
             else
             {
-                this.linklblReply.Visible = e.IsLogin;
+                this.linklblReply.Visible = e.IsLogin && string.IsNullOrEmpty(this._postUrl) == false;
             }
         }
 

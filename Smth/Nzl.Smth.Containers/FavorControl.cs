@@ -97,20 +97,29 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="ctl"></param>
         /// <param name="item"></param>
-        /// <returns></returns>
-        protected override BoardControl CreateControl(Board board)
+        protected override void InitializeControl(BoardControl ctl, Board item)
         {
-            if (board != null)
+            base.InitializeControl(ctl, item);
+            if (ctl != null && item != null)
             {
-                BoardControl bc = new BoardControl();
-                bc.Initialize(board);
-                bc.Name = "bc" + board.Code;
-                bc.OnLinkClicked += Bc_OnLinkClicked;
-                return bc;
+                ctl.Name = "bc" + item.Code;
+                ctl.OnLinkClicked += Bc_OnLinkClicked;
             }
+        }
 
-            return base.CreateControl(board);
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="ctl"></param>
+        protected override void RecylingControl(BoardControl ctl)
+        {
+            base.RecylingControl(ctl);
+            if (ctl != null)
+            {
+                ctl.OnLinkClicked -= Bc_OnLinkClicked;
+            }
         }
         #endregion
 

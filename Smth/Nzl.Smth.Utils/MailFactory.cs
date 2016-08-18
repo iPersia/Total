@@ -118,14 +118,18 @@
 
             pattern = @"<div class=\Wsp\W>(?'Content'[\w,\W]+)</div></li></ul>";
             string content = CommonUtil.GetMatch(pattern, html, "Content");
-            content = content.Replace("<br />", "\n");
-            content = content.Replace("<br/>", "\n");
-            content = content.Replace("<br>", "\n");
-            content = content.Replace("<div class=\"sp\">", "");
-            content = content.Replace("&nbsp;", " ");
-            content = content.Replace("</div>", "");
-            content = CommonUtil.ReplaceSpecialChars(content);
-            mail.Content = content;
+            if (content != null)
+            {
+                content = content.Replace("<br />", "\n");
+                content = content.Replace("<br/>", "\n");
+                content = content.Replace("<br>", "\n");
+                content = content.Replace("<div class=\"sp\">", "");
+                content = content.Replace("&nbsp;", " ");
+                content = content.Replace("</div>", "");
+                content = CommonUtil.ReplaceSpecialChars(content);
+                mail.Content = content;
+            }
+
             return mail;
         }
     }

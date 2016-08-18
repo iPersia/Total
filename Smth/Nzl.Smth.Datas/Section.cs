@@ -21,6 +21,17 @@
         /// <summary>
         /// 
         /// </summary>
+        public override string ID
+        {
+            get
+            {
+                return this.Code;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name
         {
             get;

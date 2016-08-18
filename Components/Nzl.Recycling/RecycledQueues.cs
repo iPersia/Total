@@ -75,7 +75,7 @@
                 Queue<object> queue = GetQueue(typeof(T));
                 queue.Enqueue(obj);
 #if (DEBUG)
-//                System.Diagnostics.Debug.WriteLine("RecycledQueues - AddRecycled - Type is " + obj.GetType().ToString() + "\tQueue size is " + queue.Count);
+                System.Diagnostics.Debug.WriteLine("RecycledQueues - AddRecycled - Type is " + obj.GetType().ToString() + "\tQueue size is " + queue.Count);
 #endif
             }
         }

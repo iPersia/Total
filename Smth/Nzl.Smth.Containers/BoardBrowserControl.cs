@@ -148,11 +148,33 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="ctl"></param>
         /// <param name="item"></param>
-        /// <returns></returns>
-        protected override TopicControl CreateControl(Topic item)
+        protected override void InitializeControl(TopicControl ctl, Topic item)
         {
-            return this.CreateTopicControl(item);
+            base.InitializeControl(ctl, item);
+            if (ctl != null && item != null)
+            {
+                ctl.Name = "tc" + item.ID;
+                ctl.OnTopicLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnTopicLinkClicked);
+                ctl.OnCreateIDLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnCreateIDLinkClicked);
+                ctl.OnLastIDLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnLastIDLinkClicked);
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="ctl"></param>
+        protected override void RecylingControl(TopicControl ctl)
+        {
+            base.RecylingControl(ctl);
+            if (ctl != null)
+            {
+                ctl.OnTopicLinkClicked -= new LinkLabelLinkClickedEventHandler(TopicControl_OnTopicLinkClicked);
+                ctl.OnCreateIDLinkClicked -= new LinkLabelLinkClickedEventHandler(TopicControl_OnCreateIDLinkClicked);
+                ctl.OnLastIDLinkClicked -= new LinkLabelLinkClickedEventHandler(TopicControl_OnLastIDLinkClicked);
+            }
         }
 
         /// <summary>
@@ -182,24 +204,6 @@
             this.txtGoTo2.Enabled = flag;
 
             //this.btnRefresh.Enabled = flag;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="thread"></param>
-        /// <returns></returns>
-        private TopicControl CreateTopicControl(Topic topic)
-        {
-            TopicControl tc = new TopicControl();
-            tc.Initialize(topic);
-            tc.Name = "tc" + topic.ID;
-            tc.Width = this.panel.Width - 2;;
-            tc.Left = 1;
-            tc.OnTopicLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnTopicLinkClicked);
-            tc.OnCreateIDLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnCreateIDLinkClicked);
-            tc.OnLastIDLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnLastIDLinkClicked);
-            return tc;
         }
         #endregion
 

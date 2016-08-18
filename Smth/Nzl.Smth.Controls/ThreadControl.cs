@@ -19,7 +19,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public static event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
 
         /// <summary>
         /// 
@@ -171,6 +171,7 @@
                 }
 
                 ///Reply link
+                this.linklblReply.Visible = false;
                 if (string.IsNullOrEmpty(thread.ReplyUrl) == false)
                 {
                     this.linklblReply.Visible = true;
@@ -180,6 +181,7 @@
                 }
 
                 ///Mail url
+                this.linklblMail.Visible = false;
                 if (string.IsNullOrEmpty(thread.MailUrl) == false)
                 {
                     this.linklblMail.Visible = true;
@@ -189,6 +191,7 @@
                 }
 
                 ///Transfer url
+                this.linklblTransfer.Visible = false;
                 if (string.IsNullOrEmpty(thread.TransferUrl) == false)
                 {
                     this.linklblTransfer.Visible = true;
@@ -198,6 +201,7 @@
                 }
 
                 ///Edit url
+                this.linklblEdit.Visible = false;
                 if (string.IsNullOrEmpty(thread.EditUrl) == false)
                 {
                     this.linklblEdit.Visible = true;
@@ -207,6 +211,7 @@
                 }
 
                 ///Delete url
+                this.linklblDelete.Visible = false;
                 if (string.IsNullOrEmpty(thread.DeleteUrl) == false)
                 {
                     this.linklblDelete.Visible = true;
@@ -280,9 +285,9 @@
         /// <param name="e"></param>
         private void linklblID_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (ThreadControl.OnUserLinkClicked != null)
+            if (this.OnUserLinkClicked != null)
             {
-                ThreadControl.OnUserLinkClicked(sender, e);
+                this.OnUserLinkClicked(sender, e);
             }
         }
 

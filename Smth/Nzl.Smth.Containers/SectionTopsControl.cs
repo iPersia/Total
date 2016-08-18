@@ -22,12 +22,12 @@
         /// <summary>
         /// 
         /// </summary>
-        public static event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnTopLinkClicked;
 
         /// <summary>
         /// 
         /// </summary>
-        public static event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnTopBoardLinkClicked;
         #endregion
 
         #region variable
@@ -43,15 +43,6 @@
         #endregion
 
         #region Ctor.
-        /// <summary>
-        /// 
-        /// </summary>
-        static SectionTopsControl()
-        {
-            TopControl.OnTopBoardLinkClicked += TopControl_OnTopBoardLinkClicked;
-            TopControl.OnTopLinkClicked += TopControl_OnTopLinkClicked;
-        }
-        
         /// <summary>
         /// 
         /// </summary>
@@ -146,31 +137,31 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        protected override TopControl CreateControl(Topic topic)
-        {
-            if (topic != null)
-            {
-                TopControl tc = new TopControl();
-                tc.Name = "tcTop" + topic.ID;
-                tc.Initialize(topic);
-                return tc;
-            }
-
-            return base.CreateControl(topic);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="ctl"></param>
         /// <param name="item"></param>
         protected override void InitializeControl(TopControl ctl, Topic topic)
         {
             base.InitializeControl(ctl, topic);
-            ctl.Initialize(topic);
-            ctl.SetWidth(this.panelContainer.Width - 4);
+            if (ctl != null && topic != null)
+            {
+                ctl.Name = "tcTop" + topic.ID;
+                ctl.OnTopLinkClicked += TopControl_OnTopLinkClicked;
+                ctl.OnTopBoardLinkClicked += TopControl_OnTopBoardLinkClicked;
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="ctl"></param>
+        protected override void RecylingControl(TopControl ctl)
+        {
+            base.RecylingControl(ctl);
+            if (ctl != null)
+            {
+                ctl.OnTopLinkClicked -= TopControl_OnTopLinkClicked;
+                ctl.OnTopBoardLinkClicked -= TopControl_OnTopBoardLinkClicked;
+            }
         }
 
         /// <summary>
@@ -218,12 +209,12 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void TopControl_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void TopControl_OnTopLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
-            if (linklbl != null && OnTopLinkClicked != null)
+            if (linklbl != null && this.OnTopLinkClicked != null)
             {
-                OnTopLinkClicked(sender, e);
+                this.OnTopLinkClicked(sender, e);
                 e.Link.Visited = true;
             }
         }
@@ -233,12 +224,12 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void TopControl_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void TopControl_OnTopBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
-            if (linklbl != null && OnTopBoardLinkClicked != null)
+            if (linklbl != null && this.OnTopBoardLinkClicked != null)
             {
-                OnTopBoardLinkClicked(sender, e);
+                this.OnTopBoardLinkClicked(sender, e);
                 e.Link.Visited = true;
             }
         }

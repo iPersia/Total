@@ -112,25 +112,33 @@
         {
             return SectionUtil.GetSections(wp);
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="ctl"></param>
         /// <param name="item"></param>
-        /// <returns></returns>
-        protected override SectionControl CreateControl(Section item)
+        protected override void InitializeControl(SectionControl ctl, Section item)
         {
-            Section section = item as Section;
-            if (section != null)
+            base.InitializeControl(ctl, item);
+            if (ctl != null && item != null)
             {
-                SectionControl sc = new SectionControl();
-                sc.Initialize(section);
-                sc.Name = "sc" + section.Code;
-                sc.OnLinkClicked += Sc_OnLinkClicked;
-                return sc;
+                ctl.Name = "sc" + item.Code;
+                ctl.OnLinkClicked += Bc_OnLinkClicked;
             }
+        }
 
-            return base.CreateControl(item);
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="ctl"></param>
+        protected override void RecylingControl(SectionControl ctl)
+        {
+            base.RecylingControl(ctl);
+            if (ctl != null)
+            {
+                ctl.OnLinkClicked -= Bc_OnLinkClicked;
+            }
         }
 
         /// <summary>
