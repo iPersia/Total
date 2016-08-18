@@ -15,7 +15,15 @@
         /// </summary>
         public BaseControl()
         {
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public TBaseItem Item
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -24,6 +32,7 @@
         /// <param name="item"></param>
         public virtual void Initialize(TBaseItem item)
         {
+            this.Item = item;
         }
 
         /// <summary>

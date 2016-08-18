@@ -66,7 +66,6 @@
         public override void Initialize(Topic topic)
         {
             base.Initialize(topic);
-            this.Tag = topic;
             if (topic != null)
             {
                 this.linklblTopic.Text = CommonUtil.ReplaceSpecialChars(topic.Title);

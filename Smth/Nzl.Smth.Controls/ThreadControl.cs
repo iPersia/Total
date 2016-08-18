@@ -126,9 +126,6 @@
         {
             if (thread != null)
             {
-                ///Tag
-                this.Tag = thread;
-
                 ///Floor
                 this.lblFloor.Visible = true;
                 if (thread.Floor == "楼主")
@@ -170,14 +167,13 @@
                     this.linklblQuryType.Links.Add(0, this.linklblQuryType.Text.Length, thread.QueryUrl);
                 }
 
-                ///Reply link
+                ///Reply url
                 this.linklblReply.Visible = false;
                 if (string.IsNullOrEmpty(thread.ReplyUrl) == false)
                 {
                     this.linklblReply.Visible = true;
                     this.linklblReply.Links.Clear();
                     this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, thread.ReplyUrl);
-                    this.linklblReply.Tag = thread;
                 }
 
                 ///Mail url
@@ -187,7 +183,6 @@
                     this.linklblMail.Visible = true;
                     this.linklblMail.Links.Clear();
                     this.linklblMail.Links.Add(0, this.linklblMail.Text.Length, thread.MailUrl);
-                    this.linklblMail.Tag = thread;
                 }
 
                 ///Transfer url
@@ -197,7 +192,6 @@
                     this.linklblTransfer.Visible = true;
                     this.linklblTransfer.Links.Clear();
                     this.linklblTransfer.Links.Add(0, this.linklblTransfer.Text.Length, thread.TransferUrl);
-                    this.linklblTransfer.Tag = thread;
                 }
 
                 ///Edit url
@@ -207,7 +201,6 @@
                     this.linklblEdit.Visible = true;
                     this.linklblEdit.Links.Clear();
                     this.linklblEdit.Links.Add(0, this.linklblEdit.Text.Length, thread.EditUrl);
-                    this.linklblEdit.Tag = thread;
                 }
 
                 ///Delete url
@@ -217,7 +210,6 @@
                     this.linklblDelete.Visible = true;
                     this.linklblDelete.Links.Clear();
                     this.linklblDelete.Links.Add(0, this.linklblDelete.Text.Length, thread.DeleteUrl);
-                    this.linklblDelete.Tag = thread;
                 }
 
                 ///Add content.

@@ -50,7 +50,6 @@ namespace Nzl.Smth.Controls
         {
             if (topic != null)
             {
-                this.Tag = topic;
                 this.lblIndex.Text = topic.TopSeq.ToString("00");
                 this.linklblTop.Text = "";
                 this.linklblTop.Text = topic.Title;

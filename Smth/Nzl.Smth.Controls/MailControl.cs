@@ -48,7 +48,6 @@
             base.Initialize(mail);
             if (mail != null)
             {
-                this.Tag = mail;
                 this.lblIndex.Text = mail.Index.ToString("00");
                 this.linklblTitle.Text = CommonUtil.ReplaceSpecialChars(mail.Title);
                 this.linklblTitle.Links.Clear();

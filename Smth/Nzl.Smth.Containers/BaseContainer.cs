@@ -273,6 +273,13 @@
             if (ctl != null)
             {
                 RecycledQueues.AddRecycled<TBaseControl>(ctl);
+
+                TBaseItem item = ctl.Item;
+                if (item != null)
+                {
+                    RecycledQueues.AddRecycled<TBaseItem>(item);
+                    ctl.Item = null;
+                }
             }
         }
 
