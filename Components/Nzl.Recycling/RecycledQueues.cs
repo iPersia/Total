@@ -11,7 +11,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private static Dictionary<Type, Queue<Object>> _dictRecycledQueues = new Dictionary<Type, Queue<object>>();
+        private static Dictionary<Type, Queue<object>> _dictRecycledQueues = new Dictionary<Type, Queue<object>>();
 
         /// <summary>
         /// 
