@@ -81,19 +81,6 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-#if (X)
-            System.Diagnostics.Debug.WriteLine("SectionTopsControl - " + this.Name);
-#endif
-            this.SetUrlInfo(false);
-            this.FetchPage();
-        }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
         protected override Panel GetContainer()
         {

@@ -124,6 +124,7 @@
         /// <param name="thread"></param>
         public override void Initialize(Thread thread)
         {
+            base.Initialize(thread);
             if (thread != null)
             {
                 ///Floor

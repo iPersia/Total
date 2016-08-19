@@ -15,8 +15,7 @@
     using Nzl.Utils;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
-
-
+    
     /// <summary>
     /// 
     /// </summary>
@@ -43,12 +42,10 @@
     /// <param name="ctl"></param>
     delegate void InitializeContainerCallback(bool isAppend);
 
-
-
     /// <summary>
     /// 
     /// </summary>
-    public class BaseContainer<TBaseControl, TBaseItem> : UserControl
+    public class BaseContainer<TBaseControl, TBaseItem> : UserControl, IRecycled
         where TBaseControl : BaseControl<TBaseItem>, new()
         where TBaseItem : BaseItem
     {
@@ -84,11 +81,6 @@
         /// 
         /// </summary>
         private int _margin = 4;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private bool _isWorkCompleted = false;
         #endregion
 
         #region Ctor
@@ -98,10 +90,84 @@
         public BaseContainer()
             : base()
         {
+            this.IsRecycled = false;
+        }
+        #endregion
+
+        #region properties
+        #endregion
+
+        #region public
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="flag"></param>
+        public void RefreshingSizeChanged(bool flag)
+        {
+            this.SizeChanged -= BaseContainer_SizeChanged;
+            if (flag)
+            {
+                this.SizeChanged += BaseContainer_SizeChanged;
+            }
+        }
+        #endregion
+
+        #region IRecycled
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsRecycled
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void Reusing()
+        {
+            if (this.IsRecycled)
+            {
+                this.SetUrlInfo(1, false);
+                this.FetchPage();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void Recycling()
+        {
+            Panel container = this.GetContainer();
+            if (container != null)
+            {
+                foreach (Control ctl in container.Controls)
+                {
+                    this.RecylingControl(ctl as TBaseControl);
+                }
+
+                container.Controls.Clear();
+                container.Height = 100;
+            }
+
+            this.IsRecycled = true;
+            this.SetUrlInfo(1, false);
         }
         #endregion
 
         #region override
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            this.SetUrlInfo(false);
+            this.FetchPage();
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -113,12 +179,24 @@
             if (container != null)
             {
                 container.Width = this.Width - 10;
-                ///Prevent the three time loading of the FetchPage function.
-                if (this._isWorkCompleted)
-                {
-                    this.SetUrlInfo(false);
-                    this.FetchPage();
-                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BaseContainer_SizeChanged(object sender, EventArgs e)
+        {
+            Panel container = this.GetContainer();
+            if (container != null)
+            {
+#if (DEBUG)
+                System.Diagnostics.Debug.WriteLine("BaseContainer - BaseContainer_SizeChanged - FetchPage");
+#endif
+                this.SetUrlInfo(false);
+                this.FetchPage();
             }
         }
 
@@ -417,7 +495,7 @@
         /// </summary>
         /// <param name="thread"></param>
         /// <returns></returns>
-        protected virtual TBaseControl CreateControl()
+        protected virtual TBaseControl CreateBaseControl()
         {
             return new TBaseControl();
         }
@@ -469,7 +547,7 @@
         protected virtual void UpdateProgress(int proc)
         {
             ///Noting to do.
-        }
+        }        
         #endregion
 
         #region protected
@@ -568,7 +646,7 @@
                         System.Diagnostics.Debug.WriteLine("BaseContainer - GetControl - GetRecycledControl failed, type is " + typeof(TBaseControl).ToString());
 #endif
                         System.Threading.Thread.Sleep(0);
-                        object obj = this.Invoke(new CreateControlCallback<TBaseControl>(CreateControl));
+                        object obj = this.Invoke(new CreateControlCallback<TBaseControl>(CreateBaseControl));
                         System.Threading.Thread.Sleep(0);
                         ctl = obj as TBaseControl;
                     }
@@ -682,7 +760,6 @@
                     WorkCompletedBase(e);
                 }
 
-                this._isWorkCompleted = true;
                 this.SetControlEnabled(true);
             }
             catch (Exception exp)
@@ -775,7 +852,7 @@
                 pl.Tag = urlInfo;
                 pl.PageLoaded += new EventHandler(PageLoader_PageLoaded);
                 PageDispatcher.Instance.Add(pl);
-#if (X)
+#if (DEBUG)
                 Nzl.Web.Util.CommonUtil.ShowMessage(this, "BaseContainer - FetchPage(UrlInfo's index is equal to " + urlInfo.Index + ")!");
 #endif
                 SetControlEnabled(false);

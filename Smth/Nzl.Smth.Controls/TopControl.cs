@@ -48,6 +48,7 @@ namespace Nzl.Smth.Controls
         /// <param name="topic"></param>
         public override void Initialize(Topic topic)
         {
+            base.Initialize(topic);
             if (topic != null)
             {
                 this.lblIndex.Text = topic.TopSeq.ToString("00");

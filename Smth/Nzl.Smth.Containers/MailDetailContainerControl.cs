@@ -5,11 +5,10 @@ namespace Nzl.Smth.Containers
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows.Forms;
-    using Nzl.Smth.Datas;
-    using Nzl.Web.Page;
+    using Nzl.Smth.Datas;    
     using Nzl.Smth.Controls;
     using Nzl.Smth.Utils;
-
+    using Nzl.Web.Page;
     /// <summary>
     /// 
     /// </summary>
@@ -108,16 +107,6 @@ namespace Nzl.Smth.Containers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            this.SetUrlInfo(false);
-            this.FetchPage();
-        }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
         protected override string GetUrl(UrlInfo<MailDetailControl, Mail> info)
@@ -150,16 +139,7 @@ namespace Nzl.Smth.Containers
         {
             return this.panel;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected override MailDetailControl GetRecycledControl()
-        {
-            return Recycling.RecycledQueues.GetRecycled<MailDetailControl>();
-        }
-
+        
         /// <summary>
         /// 
         /// </summary>

@@ -52,29 +52,23 @@
             InitializeComponent();
             this.panel.MouseWheel += new MouseEventHandler(BoardBrowserControl_MouseWheel);
         }
+        #endregion
 
+        #region Properties
         /// <summary>
-        /// Ctor.
+        /// 
         /// </summary>
-        public BoardBrowserControl(string boardUrl)
-            : this()
+        [Browsable(true)]
+        public string Url
         {
-            this.SetBaseUrl(boardUrl);
+            set
+            {
+                this.SetBaseUrl(value);
+            }
         }
         #endregion
 
         #region override
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);            
-            this.SetUrlInfo(false);
-            this.FetchPage();
-        }
-
         /// <summary>
         /// 
         /// </summary>

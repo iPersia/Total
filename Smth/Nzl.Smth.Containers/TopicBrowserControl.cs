@@ -36,7 +36,7 @@ namespace Nzl.Smth.Containers
         /// <summary>
         /// 
         /// </summary>
-        public static event LinkLabelLinkClickedEventHandler OnThreadUserLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnThreadUserLinkClicked;
 
         /// <summary>
         /// 
@@ -166,7 +166,7 @@ namespace Nzl.Smth.Containers
         /// 
         /// </summary>
         [Browsable(true)]
-        public string TopicUrl
+        public string Url
         {
             get
             {
@@ -198,19 +198,6 @@ namespace Nzl.Smth.Containers
         #endregion
 
         #region Ctors.
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private static void ThreadControl_OnUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (TopicBrowserControl.OnThreadUserLinkClicked != null)
-            {
-                TopicBrowserControl.OnThreadUserLinkClicked(sender, e);
-            }
-        }
-
         /// <summary>
         /// Ctor.
         /// </summary>
@@ -253,17 +240,6 @@ namespace Nzl.Smth.Containers
         #endregion
 
         #region overrides
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            this.SetUrlInfo(1, false);
-            this.FetchPage();
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -337,7 +313,7 @@ namespace Nzl.Smth.Containers
         /// <returns></returns>
         protected override IList<Thread> GetItems(WebPage wp)
         {
-            IList<Thread> threads = ThreadFactory.CreateThreads(wp, this);
+            IList<Thread> threads = ThreadFactory.CreateThreads(wp);
             if (this._settingBrowserType == BrowserType.LastReply)
             {
                 IList<Thread> reversedThreads = new List<Thread>();
@@ -822,9 +798,9 @@ namespace Nzl.Smth.Containers
         /// <param name="e"></param>
         private void ThreadControl_OnUserClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (TopicBrowserControl.OnThreadUserLinkClicked != null)
+            if (this.OnThreadUserLinkClicked != null)
             {
-                TopicBrowserControl.OnThreadUserLinkClicked(sender, e);
+                this.OnThreadUserLinkClicked(sender, e);
             }
         }
 

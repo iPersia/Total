@@ -16,7 +16,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public static Queue<Object> GetQueue(Type type)
+        private static Queue<Object> GetQueue(Type type)
         {
             if (type != null)
             {

@@ -52,8 +52,11 @@
         public SectionNavigationControl()
         {
             InitializeComponent();
+            this.btnRefresh.Left = this.panelUp.Width / 2 - this.btnRefresh.Width / 2;
             this.panel.MouseWheel += Panel_MouseWheel;
+            this.linklblPrevious.LinkClicked += LinklblPrevious_LinkClicked;
             this.linklblPrevious.LostFocus += LinklblPrevious_LostFocus;
+            this.SetBaseUrl(@"http://m.newsmth.net/section");
             this.Text = "Section navigation";
         }
 
@@ -70,20 +73,6 @@
 
 
         #region override
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            this.SetBaseUrl(@"http://m.newsmth.net/section");
-            this.SetUrlInfo(false);
-            this.FetchPage();
-            this.linklblPrevious.LinkClicked += LinklblPrevious_LinkClicked;
-            this.btnRefresh.Left = this.panelUp.Width / 2 - this.btnRefresh.Width / 2;
-        }
-
         /// <summary>
         /// 
         /// </summary>

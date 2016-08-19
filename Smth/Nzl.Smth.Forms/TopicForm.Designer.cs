@@ -39,7 +39,7 @@
             this.tbcTopic.Size = new System.Drawing.Size(756, 569);
             this.tbcTopic.TabIndex = 0;
             this.tbcTopic.TargetUserID = null;
-            this.tbcTopic.TopicUrl = null;
+            this.tbcTopic.Url = null;
             // 
             // TopicForm
             // 

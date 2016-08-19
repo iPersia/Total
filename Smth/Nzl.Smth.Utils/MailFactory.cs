@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
+    using Nzl.Recycling;
     using Nzl.Smth.Datas;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
@@ -61,7 +62,13 @@
                 IList<Mail> mailList = new List<Mail>();
                 foreach (Match mt in mtMailCollection)
                 {
-                    Mail mail = new Mail();
+                    //Mail mail = new Mail();
+                    Mail mail = RecycledQueues.GetRecycled<Mail>();
+                    if (mail == null)
+                    {
+                        mail = new Mail();
+                    }
+
                     mail.Index = System.Convert.ToInt32(mt.Groups["Index"].Value);
                     mail.Url = Configurations.BaseUrl + mt.Groups["MailUrl"].Value.ToString();
                     mail.Title = mt.Groups["MailTitle"].Value.ToString();
@@ -88,7 +95,12 @@
         /// <returns></returns>
         private static Mail CreateMailDetail(string html)
         {
-            Mail mail = new Mail();
+            //Mail mail = new Mail();
+            Mail mail = RecycledQueues.GetRecycled<Mail>();
+            if (mail == null)
+            {
+                mail = new Mail();
+            }
             string pattern = @"<li><div class=\Wnav hl\W><a href=\W/user/query/[a-zA-z][a-zA-Z0-9]{1,11}(\.)?\W>"
                            + @"(?'Author'[a-zA-z][a-zA-Z0-9]{1,11})(\.)?</a>\|<a class=\Wplant\W>"
                            + @"(?'DateTime'[\d, \-, \:]+)</a>\|<a href=\W"

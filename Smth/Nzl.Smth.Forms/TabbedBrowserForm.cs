@@ -6,6 +6,7 @@
     using System.Windows.Forms;
     using System.Reflection;
     using Nzl.Hook;
+    using Nzl.Recycling;
     using Nzl.Web.Page;
     using Nzl.Smth.Common;
     using Nzl.Smth.Containers;
@@ -75,7 +76,7 @@
             _uahKey.Start();
             this.HideWhenDeactivate = false;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -163,9 +164,6 @@
             FavorForm.Instance.OnFavorBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
             LoginForm.Instance.OnLoginFailed += LoginForm_OnLoginFailed;
             LoginForm.Instance.OnLogoutFailed += LoginForm_OnLogoutFailed;
-
-            TopicBrowserControl.OnThreadUserLinkClicked += TopicBrowserControl_OnThreadUserLinkClicked;
-
             this._entryAssemblyTitle = this.GetEntryAssemblyTitle();
         }
 
@@ -207,10 +205,23 @@
             }
 
             ///NOT Exsits
-            {                
-                TopicBrowserControl tbc = new TopicBrowserControl();
+            {
+                TabPage tp = new TabPage();
+                tp.Name = key;
+                tp.Text = subject == null ? "Unknown" : subject.Length > 10 ? subject.Substring(0, 10) + ".." : "" + subject;
+                tp.ToolTipText = subject;
+                this.tcTopics.TabPages.Add(tp);
+                this.tcTopics.SelectedTab = tp;
+
+                //TopicBrowserControl tbc = new TopicBrowserControl();
+                TopicBrowserControl tbc = RecycledQueues.GetRecycled<TopicBrowserControl>();
+                if (tbc == null)
+                {
+                    tbc = new TopicBrowserControl();
+                }
+
                 tbc.Name = "tbc" + url;
-                tbc.TopicUrl = url;
+                tbc.Url = url;
                 tbc.Dock = DockStyle.Fill;
                 tbc.OnThreadDeleteLinkClicked += TopicBrowserControl_OnThreadDeleteLinkClicked;
                 tbc.OnThreadEditLinkClicked += TopicBrowserControl_OnThreadEditLinkClicked;
@@ -218,22 +229,17 @@
                 tbc.OnThreadQueryTypeLinkClicked += TopicBrowserControl_OnThreadQueryTypeLinkClicked;
                 tbc.OnThreadReplyLinkClicked += TopicBrowserControl_OnThreadReplyLinkClicked;
                 tbc.OnThreadTransferLinkClicked += TopicBrowserControl_OnThreadTransferLinkClicked;
-                ///tbc.OnThreadUserLinkClicked += TabbedBrowserForm_IDLinkClicked;
+                tbc.OnThreadUserLinkClicked += TabbedBrowserForm_IDLinkClicked;
                 tbc.OnTopicReplyLinkClicked += TopicBrowserControl_OnTopicReplyLinkClicked;
                 tbc.OnThreadContentLinkClicked += TopicBrowserControl_OnThreadContentLinkClicked;
                 tbc.OnBoardLinkClicked += TopicBrowserControl_OnBoardLinkClicked;
                 tbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
                 tbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
-                tbc.OnTopicSettingsClicked += TopicBrowserControl_OnTopicSettingsClicked;
-
-                TabPage tp = new TabPage();
-                tp.Name = key;
-                tp.Text = subject == null ? "Unknown" : subject.Length > 10 ? subject.Substring(0, 10) + ".." : "" + subject;
-                //tp.Text = subject;
-                tp.ToolTipText = subject;
+                tbc.OnTopicSettingsClicked += TopicBrowserControl_OnTopicSettingsClicked;               
                 tp.Controls.Add(tbc);
-                this.tcTopics.TabPages.Add(tp);
-                this.tcTopics.SelectedTab = tp;
+
+                tbc.RefreshingSizeChanged(true);
+                tbc.Reusing();
             }
         }
 
@@ -479,21 +485,33 @@
 
             ///NOT Exsits
             {
-                BoardBrowserControl bbc = new BoardBrowserControl(url);
-                bbc.OnTopicLinkClicked += new LinkLabelLinkClickedEventHandler(BoardBrowserControl_OnTopicLinkClicked);
-                bbc.OnTopicCreateIDLinkClicked += new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
-                bbc.OnTopicLastIDLinkClicked += new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
-                bbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
-                bbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
-                bbc.Dock = DockStyle.Fill;
-
                 TabPage tp = new TabPage();
                 tp.Name = "tp" + url; ;
                 tp.Text = "[ " + title + " ]";
                 tp.ToolTipText = tp.Text;
-                tp.Controls.Add(bbc);
                 this.tcTopics.TabPages.Add(tp);
                 this.tcTopics.SelectedTab = tp;
+
+                //BoardBrowserControl bbc = new BoardBrowserControl(url);
+                BoardBrowserControl bbc = RecycledQueues.GetRecycled<BoardBrowserControl>();
+                if (bbc == null)
+                {
+                    bbc = new BoardBrowserControl();
+                }
+
+                bbc.Name = "bbc" + url;
+                bbc.Url = url;
+                bbc.OnTopicLinkClicked += BoardBrowserControl_OnTopicLinkClicked;
+                bbc.OnTopicCreateIDLinkClicked += TabbedBrowserForm_IDLinkClicked;
+                bbc.OnTopicLastIDLinkClicked += TabbedBrowserForm_IDLinkClicked;
+                bbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
+                bbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
+                bbc.Dock = DockStyle.Fill;
+                tp.Controls.Add(bbc);
+
+                ///
+                bbc.RefreshingSizeChanged(true);
+                bbc.Reusing();
             }
         }
 
@@ -591,7 +609,7 @@
         {
             int index = this.tcTopics.SelectedIndex;
             TabPage tp = this.tcTopics.TabPages[index];
-            if (index == this.tcTopics.TabCount - 1 )
+            if (index == this.tcTopics.TabCount - 1)
             {
                 index--;
             }
@@ -627,8 +645,8 @@
 #endif
             if (fwtpName == this._entryAssemblyTitle)
             {
-                if ((e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey) && 
-                     Control.ModifierKeys == Keys.Control 
+                if ((e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey) &&
+                     Control.ModifierKeys == Keys.Control
                      && (this.Active || Top10sForm.Instance.Active))
                 {
                     ShowTop10s();
@@ -741,11 +759,62 @@
         {
             foreach (TabPage tp in this.tcTopics.TabPages)
             {
+                foreach (Control ctl in tp.Controls)
+                {
+                    Recycling(ctl as TopicBrowserControl);
+                    Recycling(ctl as BoardBrowserControl);
+                }
+
+                tp.Controls.Clear();
                 tp.Dispose();
             }
 
             this.tcTopics.TabPages.Clear();
             GC.Collect();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tbc"></param>
+        private void Recycling(TopicBrowserControl tbc)
+        {
+            if (tbc != null)
+            {
+                tbc.Recycling();
+                tbc.OnThreadDeleteLinkClicked -= TopicBrowserControl_OnThreadDeleteLinkClicked;
+                tbc.OnThreadEditLinkClicked -= TopicBrowserControl_OnThreadEditLinkClicked;
+                tbc.OnThreadMailLinkClicked -= TopicBrowserControl_OnThreadMailLinkClicked;
+                tbc.OnThreadQueryTypeLinkClicked -= TopicBrowserControl_OnThreadQueryTypeLinkClicked;
+                tbc.OnThreadReplyLinkClicked -= TopicBrowserControl_OnThreadReplyLinkClicked;
+                tbc.OnThreadTransferLinkClicked -= TopicBrowserControl_OnThreadTransferLinkClicked;
+                tbc.OnThreadUserLinkClicked -= TabbedBrowserForm_IDLinkClicked;
+                tbc.OnTopicReplyLinkClicked -= TopicBrowserControl_OnTopicReplyLinkClicked;
+                tbc.OnThreadContentLinkClicked -= TopicBrowserControl_OnThreadContentLinkClicked;
+                tbc.OnBoardLinkClicked -= TopicBrowserControl_OnBoardLinkClicked;
+                tbc.OnWorkerFailed -= TabbedBrowserForm_OnWorkerFailed;
+                tbc.OnWorkerCancelled -= TabbedBrowserFrom_OnWorkerCancelled;
+                tbc.OnTopicSettingsClicked -= TopicBrowserControl_OnTopicSettingsClicked;
+                RecycledQueues.AddRecycled<TopicBrowserControl>(tbc);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tbc"></param>
+        private void Recycling(BoardBrowserControl bbc)
+        {
+            if (bbc != null)
+            {
+                bbc.Recycling();
+                bbc.OnTopicLinkClicked -= BoardBrowserControl_OnTopicLinkClicked;
+                bbc.OnTopicCreateIDLinkClicked -= TabbedBrowserForm_IDLinkClicked;
+                bbc.OnTopicLastIDLinkClicked -= TabbedBrowserForm_IDLinkClicked;
+                bbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
+                bbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
+                RecycledQueues.AddRecycled<BoardBrowserControl>(bbc);
+            }
         }
 
         /// <summary>
@@ -981,7 +1050,7 @@
                 form.Visible = !form.Visible;
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>

@@ -49,9 +49,7 @@
         /// <param name="e"></param>
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);
-            this.SetUrlInfo(false);
-            this.FetchPage();            
+            base.OnLoad(e);            
             this.btnRefresh.Left = this.panelUp.Width / 2 - this.btnRefresh.Width / 2;
         }
 

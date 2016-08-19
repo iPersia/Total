@@ -3,8 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using Nzl.Web.Page;
+    using Nzl.Recycling;    
     using Nzl.Smth.Datas;
+    using Nzl.Web.Page;
     using Nzl.Web.Util;
 
     /// <summary>
@@ -39,7 +40,13 @@
 
                             if (mt.Groups["BoardName"].Value != "")
                             {
-                                Section board = new Section();
+                                //Section board = new Section();
+                                Section board = RecycledQueues.GetRecycled<Section>();
+                                if (board == null)
+                                {
+                                    board = new Section();
+                                }
+
                                 board.Name = mt.Groups["BoardName"].Value.ToString();
                                 board.Code = mt.Groups["BoardCode"].Value.ToString();
                                 board.IsBoard = true;
@@ -48,7 +55,13 @@
 
                             if (mt.Groups["SectionName"].Value != "")
                             {
-                                Section section = new Section();
+                                //Section section = new Section();
+                                Section section = RecycledQueues.GetRecycled<Section>();
+                                if (section == null)
+                                {
+                                    section = new Section();
+                                }
+
                                 section.Name = mt.Groups["SectionName"].Value.ToString();
                                 section.Code = mt.Groups["SectionCode"].Value.ToString();
                                 list.Add(section);

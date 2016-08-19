@@ -5,6 +5,7 @@
     using System.Drawing;
     using System.Text;
     using System.Text.RegularExpressions;
+    using Nzl.Recycling;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Interfaces;
     using Nzl.Web.Page;
@@ -86,7 +87,13 @@
                            + @"(?'LastThreadDateTime'[\d, \:, \-, \s]+)<a href=\W/user/query/\w+\.?\W>"
                            + @"(?'LastThreadID'\w+)\.?</a></div></li>";
 
-            Topic topic = new Topic();
+            //Topic topic = new Topic();
+            Topic topic = RecycledQueues.GetRecycled<Topic>();
+            if (topic == null)
+            {
+                topic = new Topic();
+            }
+
             content = content.Replace("&nbsp;", " ");
             topic.Uri = Configurations.BaseUrl + CommonUtil.GetMatch(pattern, content, "TopicUrl");
             topic.Board = CommonUtil.GetMatch(pattern, content, "Board");
@@ -127,7 +134,13 @@
             {
                 if (mt.Success)
                 {
-                    Topic topic = new Topic();
+                    //Topic topic = new Topic();
+                    Topic topic = RecycledQueues.GetRecycled<Topic>();
+                    if (topic == null)
+                    {
+                        topic = new Topic();
+                    }
+
                     topic.TopSeq = System.Convert.ToInt32(mt.Groups["TopSeq"].Value);
                     topic.Uri = Configurations.BaseUrl + mt.Groups["Url"].ToString();
                     topic.Board = mt.Groups["Board"].ToString().Replace("%5F", "_").Replace("%2E", ".");

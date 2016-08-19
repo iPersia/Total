@@ -34,7 +34,7 @@
             : this()
         {
             this.tbcTopic.SetParent(this);
-            this.tbcTopic.TopicUrl = uri;
+            this.tbcTopic.Url = uri;
         }
 
         /// <summary>

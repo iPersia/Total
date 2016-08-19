@@ -5,6 +5,7 @@
     using System.Drawing;
     using System.Text;
     using System.Text.RegularExpressions;
+    using Nzl.Recycling;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Interfaces;
     using Nzl.Smth.Logger;
@@ -192,7 +193,7 @@
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
-        public static IList<Thread> CreateThreads(WebPage page, IContainsThread iContainThread)
+        private static IList<Thread> CreateThreads(WebPage page, IContainsThread iContainThread)
         {
             try
             {
@@ -406,7 +407,13 @@
             {
                 foreach (Match mt in mtColletion)
                 {
-                    Thread thread = new Thread();
+                    //Thread thread = new Thread();
+                    Thread thread = RecycledQueues.GetRecycled<Thread>();
+                    if (thread == null)
+                    {
+                        thread = new Thread();
+                    }
+
                     thread.User = mt.Groups["User"].Value.ToString();
                     thread.ID = mt.Groups["TID"].Value.ToString();
                     thread.DateTime = mt.Groups["DateTime"].Value.ToString();
@@ -417,24 +424,45 @@
                     {
                         thread.ReplyUrl = Configurations.BaseUrl + mt.Groups["ReplyUrl"].Value.ToString();
                     }
+                    else
+                    {
+                        thread.ReplyUrl = null;
+                    }
 
                     if (mt.Groups["MailUrl"].Value != null && mt.Groups["MailUrl"].Value != "")
                     {
                         thread.MailUrl = Configurations.BaseUrl + mt.Groups["MailUrl"].Value.ToString();
+                    }
+                    else
+                    {
+                        thread.MailUrl = null;
                     }
 
                     if (mt.Groups["TransferUrl"].Value != null && mt.Groups["TransferUrl"].Value != "")
                     {
                         thread.TransferUrl = Configurations.BaseUrl + mt.Groups["TransferUrl"].Value.ToString();
                     }
+                    else
+                    {
+                        thread.TransferUrl = null;
+                    }
+
                     if (mt.Groups["EditUrl"].Value != null && mt.Groups["EditUrl"].Value != "")
                     {
                         thread.EditUrl = Configurations.BaseUrl + mt.Groups["EditUrl"].Value.ToString();
+                    }
+                    else
+                    {
+                        thread.EditUrl = null;
                     }
 
                     if (mt.Groups["DeleteUrl"].Value != null && mt.Groups["DeleteUrl"].Value != "")
                     {
                         thread.DeleteUrl = Configurations.BaseUrl + mt.Groups["DeleteUrl"].Value.ToString();
+                    }
+                    else
+                    {
+                        thread.DeleteUrl = null;
                     }
 
                     threadList.Add(thread);
