@@ -199,30 +199,6 @@
                 this.FetchPage();
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
-        {
-            Panel container = this.GetContainer();
-            if (container != null)
-            {
-                foreach (Control ctl in container.Controls)
-                {
-                    TBaseControl bc = ctl as TBaseControl;
-                    if (bc != null)
-                    {
-                        this.RecylingControl(bc);
-                    }
-                }
-
-                container.Controls.Clear();
-            }
-
-            base.Dispose(disposing);
-        }
         #endregion
 
         #region virtual
@@ -351,13 +327,20 @@
             if (ctl != null)
             {
                 RecycledQueues.AddRecycled<TBaseControl>(ctl);
+                this.RecyclingItem(ctl.Item);
+                ctl.Item = null;
+            }
+        }
 
-                TBaseItem item = ctl.Item;
-                if (item != null)
-                {
-                    RecycledQueues.AddRecycled<TBaseItem>(item);
-                    ctl.Item = null;
-                }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctl"></param>
+        protected virtual void RecyclingItem(TBaseItem item)
+        {
+            if (item != null)
+            {
+                RecycledQueues.AddRecycled<TBaseItem>(item);                
             }
         }
 
@@ -548,6 +531,14 @@
         {
             ///Noting to do.
         }        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void DoDisposing(bool disposing)
+        {
+        }
         #endregion
 
         #region protected
