@@ -98,7 +98,7 @@
             topic.Uri = Configurations.BaseUrl + CommonUtil.GetMatch(pattern, content, "TopicUrl");
             topic.Board = CommonUtil.GetMatch(pattern, content, "Board");
             topic.Index = CommonUtil.GetMatch(pattern, content, "Index");            
-            topic.Title = CommonUtil.GetMatch(pattern, content, "Title");
+            topic.Title = CommonUtil.ReplaceSpecialChars(CommonUtil.GetMatch(pattern, content, "Title"));
             topic.Replies = System.Convert.ToInt32(CommonUtil.GetMatch(pattern, content, "Replies"));
             topic.CreateDateTime = CommonUtil.GetMatch(pattern, content, "CreateDateTime");
             topic.CreateID = CommonUtil.GetMatch(pattern, content, "CreateID");
