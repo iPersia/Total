@@ -52,9 +52,7 @@
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
-                UserForm userForm = new UserForm(e.Link.LinkData.ToString());
-                userForm.StartPosition = FormStartPosition.CenterParent;
-                userForm.ShowDialog(this._parentForm);
+                ShowFormAsDialog(new UserForm(e.Link.LinkData.ToString()), this._parentForm);
             }
         }
 
@@ -76,6 +74,7 @@
                     e.Link.Tag = "Success";
                 }
 
+                this.Focus();
                 this.HideWhenDeactivate = true;
             }
         }
