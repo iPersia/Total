@@ -117,6 +117,7 @@
         {
             if (form != null && form.IsDisposed == false)
             {
+                ///以下Owner设置将导致，子窗口失焦点时，主窗口也失焦点
                 ///form.Owner = this;
                 form.StartPosition = FormStartPosition.Manual;
                 int centerX = this.Location.X + this.Size.Width / 2;
@@ -137,6 +138,21 @@
             {
                 form.StartPosition = FormStartPosition.CenterParent;
                 return form.ShowDialog(this);
+            }
+
+            return DialogResult.None;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="form"></param>
+        protected DialogResult ShowFormAsDialog(Form form, Form owner)
+        {
+            if (form != null && form.IsDisposed == false)
+            {
+                form.StartPosition = FormStartPosition.CenterParent;
+                return form.ShowDialog(owner);
             }
 
             return DialogResult.None;
