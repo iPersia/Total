@@ -521,9 +521,10 @@
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void TabbedBrowserFrom_OnWorkerCancelled(object sender, MessageEventArgs e)
-        {
+        {            
             Common.MessageForm msgForm = new Common.MessageForm("Geting page Cancelled", e.Message);
             msgForm.StartPosition = FormStartPosition.CenterParent;
+            this.Activate();
             msgForm.ShowDialog(this);
         }
 
@@ -536,6 +537,7 @@
         {
             Common.MessageForm msgForm = new Common.MessageForm("Geting page failed", e.Message);
             msgForm.StartPosition = FormStartPosition.CenterParent;
+            this.Activate();
             msgForm.ShowDialog(this);
         }
 
