@@ -29,6 +29,11 @@
     /// <summary>
     /// 
     /// </summary>
+    delegate void OnLogStatusChangedCallBack(bool flag);
+
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class LoginControl : UserControl
     {
         #region event
@@ -67,6 +72,7 @@
         public LoginControl()
         {
             InitializeComponent();
+            LogStatus.Instance.LoginStatusChanged += Instance_LoginStatusChanged;
         }
         #endregion
 
@@ -93,6 +99,43 @@
         #endregion
 
         #region event handler
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Instance_LoginStatusChanged(object sender, LogStatusEventArgs e)
+        {
+            SetLogStatus(e.IsLogin);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SetLogStatus(bool flag)
+        {
+            if (this.IsHandleCreated)
+            {
+                if (this.InvokeRequired)
+                {
+                    System.Threading.Thread.Sleep(0);
+                    this.Invoke(new OnLogStatusChangedCallBack(SetLogStatus), new object[] { flag });
+                    System.Threading.Thread.Sleep(0);
+                }
+                else
+                {
+                    lock (this.btnLogon)
+                    {
+                        this.txtUserID.Enabled = !flag;
+                        this.txtPassword.Enabled = !flag;
+                        this.ckbAutoLogon.Enabled = !flag;
+                        this.btnLogon.Enabled = !flag;
+                        this.btnLogout.Enabled = flag;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
