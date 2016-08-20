@@ -39,14 +39,14 @@
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(592, 470);
+            this.panelContainer.Size = new System.Drawing.Size(592, 480);
             this.panelContainer.TabIndex = 0;
             // 
             // panel
             // 
             this.panel.Location = new System.Drawing.Point(4, 4);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(583, 100);
+            this.panel.Size = new System.Drawing.Size(582, 100);
             this.panel.TabIndex = 0;
             // 
             // MailDetailContainerControl
@@ -55,7 +55,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelContainer);
             this.Name = "MailDetailContainerControl";
-            this.Size = new System.Drawing.Size(592, 470);
+            this.Size = new System.Drawing.Size(592, 480);
             this.panelContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
