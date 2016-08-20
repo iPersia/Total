@@ -64,6 +64,7 @@
 
                                 section.Name = mt.Groups["SectionName"].Value.ToString();
                                 section.Code = mt.Groups["SectionCode"].Value.ToString();
+                                section.IsBoard = false;
                                 list.Add(section);
                             }
                         }
