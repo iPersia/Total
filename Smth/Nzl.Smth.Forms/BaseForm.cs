@@ -107,5 +107,40 @@
         #region virtual
 
         #endregion
+
+        #region static
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="form"></param>
+        protected void ShowFormOnCenterParent(Form form)
+        {
+            if (form != null && form.IsDisposed == false)
+            {
+                ///form.Owner = this;
+                form.StartPosition = FormStartPosition.Manual;
+                int centerX = this.Location.X + this.Size.Width / 2;
+                int centerY = this.Location.Y + this.Size.Height / 2;
+                form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
+                form.Show();
+                form.Focus();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="form"></param>
+        protected DialogResult ShowFormAsDialog(Form form)
+        {
+            if (form != null && form.IsDisposed == false)
+            {
+                form.StartPosition = FormStartPosition.CenterParent;
+                return form.ShowDialog(this);
+            }
+
+            return DialogResult.None;
+        }
+        #endregion
     }
 }
