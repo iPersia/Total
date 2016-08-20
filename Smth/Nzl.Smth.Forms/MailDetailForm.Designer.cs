@@ -47,6 +47,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MailDetailForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.ResumeLayout(false);
 
         }

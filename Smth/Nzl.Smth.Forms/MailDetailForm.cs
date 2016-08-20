@@ -16,11 +16,18 @@
     /// </summary>
     public partial class MailDetailForm : Form
     {
+        #region variable
         /// <summary>
         /// 
         /// </summary>
         private string _url = null;
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private MailDetailContainerControl _mccContainer = null;
+        #endregion
+
         #region Ctor
         /// <summary>
         /// Ctor.
@@ -28,41 +35,35 @@
         public MailDetailForm()
         {
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="url"></param>
-        public MailDetailForm(string url)
-            : this()
-        {
-            this._url = url;
+            this._mccContainer = new MailDetailContainerControl();
+            this._mccContainer.Left = 1;
+            this._mccContainer.Top = 1;
+            this._mccContainer.OnMailAuthorLinkClicked += Mdcc_OnMailAuthorLinkClicked;
+            this._mccContainer.OnMailDeleteLinkClicked += Mdcc_OnMailDeleteLinkClicked;
+            this._mccContainer.OnMailReplyLinkClicked += Mdcc_OnMailReplyLinkClicked;
+            this._mccContainer.OnMailTransferLinkClicked += Mdcc_OnMailTransferLinkClicked;
+            this._mccContainer.SetParentControl(this);
+            this._mccContainer.BorderStyle = BorderStyle.FixedSingle;
+            this.panelContainer.Controls.Add(this._mccContainer);
+            this.Size = new Size(this._mccContainer.Width + this.Width - this.panelContainer.Width + 2, 
+                                 this._mccContainer.Height + this.Height - this.panelContainer.Height + 2);
         }
         #endregion
 
-        #region override
+        #region properties
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="e"></param>
-        protected override void OnShown(EventArgs e)
+        public string Url
         {
-            base.OnShown(e);
-            MailDetailContainerControl mdcc = new MailDetailContainerControl(this._url);
-            //mdcc.MailUrl = this._url;
-            mdcc.Left = 4;
-            mdcc.Top = 4;
-            mdcc.OnMailAuthorLinkClicked += Mdcc_OnMailAuthorLinkClicked;
-            mdcc.OnMailDeleteLinkClicked += Mdcc_OnMailDeleteLinkClicked;
-            mdcc.OnMailReplyLinkClicked += Mdcc_OnMailReplyLinkClicked;
-            mdcc.OnMailTransferLinkClicked += Mdcc_OnMailTransferLinkClicked;
-            mdcc.SetParentControl(this);
-            mdcc.BorderStyle = BorderStyle.FixedSingle;
-            this.panelContainer.Controls.Add(mdcc);
-            this.Size = new Size(mdcc.Width + this.Width - this.panelContainer.Width + 2, mdcc.Height + this.Height - this.panelContainer.Height + 2);
+            set
+            {
+                this._mccContainer.Url = value;
+            }
         }
+        #endregion
 
+        #region eventhandler
         /// <summary>
         /// 
         /// </summary>
@@ -83,15 +84,58 @@
             if (linkLabel != null)
             {
                 Mail mail = linkLabel.Tag as Mail;
-                string content = GetReplyContent(mail.Title, mail.Content);
-                NewMailForm newMailForm = new NewMailForm(mail.Author, mail.Title, content);
-                newMailForm.StartPosition = FormStartPosition.CenterParent;
-                if (newMailForm.ShowDialog(this) == DialogResult.Yes)
+                if (mail != null)
                 {
-                    e.Link.Visited = true;
+                    string content = GetReplyContent(mail.Title, mail.Content);
+                    NewMailForm newMailForm = new NewMailForm(mail.Author, mail.Title, content);
+                    newMailForm.StartPosition = FormStartPosition.CenterParent;
+                    if (newMailForm.ShowDialog(this) == DialogResult.Yes)
+                    {
+                        e.Link.Visited = true;
+                    }
+                }
+            }
+        }        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Mdcc_OnMailDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                if (string.IsNullOrEmpty(e.Link.LinkData.ToString()) == false)
+                {
+                    WebPage page = WebPageFactory.CreateWebPage(e.Link.LinkData.ToString());
+                    string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", page.Html, "Result");
+                    if (result != null && result.Contains("成功"))
+                    {
+                        this.DialogResult = System.Windows.Forms.DialogResult.Yes;
+                        this.Close();
+                    }
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Mdcc_OnMailAuthorLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                UserForm userForm = new UserForm(e.Link.LinkData.ToString());
+                userForm.StartPosition = FormStartPosition.CenterParent;
+                userForm.ShowDialog(this);
+            }
+        }
+        #endregion
 
         #region private
         /// <summary>
@@ -143,46 +187,6 @@
             }
 
             return null;
-        }
-        #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Mdcc_OnMailDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                if (string.IsNullOrEmpty(e.Link.LinkData.ToString()) == false)
-                {
-                    WebPage page = WebPageFactory.CreateWebPage(e.Link.LinkData.ToString());
-                    string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", page.Html, "Result");
-                    if (result != null && result.Contains("成功"))
-                    {
-                        this.DialogResult = System.Windows.Forms.DialogResult.Yes;
-                        this.Close();
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Mdcc_OnMailAuthorLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                UserForm userForm = new UserForm(e.Link.LinkData.ToString());
-                userForm.StartPosition = FormStartPosition.CenterParent;
-                userForm.ShowDialog(this);
-            }
         }
         #endregion
     }
