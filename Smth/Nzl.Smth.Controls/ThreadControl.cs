@@ -175,6 +175,7 @@
                     this.linklblReply.Visible = true;
                     this.linklblReply.Links.Clear();
                     this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, thread.ReplyUrl);
+                    this.linklblReply.Tag = thread;
                 }
 
                 ///Mail url
@@ -184,6 +185,7 @@
                     this.linklblMail.Visible = true;
                     this.linklblMail.Links.Clear();
                     this.linklblMail.Links.Add(0, this.linklblMail.Text.Length, thread.MailUrl);
+                    this.linklblMail.Tag = thread;
                 }
 
                 ///Transfer url
@@ -202,6 +204,7 @@
                     this.linklblEdit.Visible = true;
                     this.linklblEdit.Links.Clear();
                     this.linklblEdit.Links.Add(0, this.linklblEdit.Text.Length, thread.EditUrl);
+                    this.linklblEdit.Tag = thread;
                 }
 
                 ///Delete url
