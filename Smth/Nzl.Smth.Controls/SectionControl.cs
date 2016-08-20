@@ -29,18 +29,20 @@
             {
                 this.linklblSection.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblBorS_LinkClicked);
                 this.linklblSection.Text = section.Name;
-                LinkLabel.Link link = new LinkLabel.Link(0, this.linklblSection.Text.Length, SmthUtil.GetSectionUrl(section.Code));
+                LinkLabel.Link link = null;
                 if (section.IsBoard)
                 {
+                    link = new LinkLabel.Link(0, this.linklblSection.Text.Length, SmthUtil.GetBoardUrl(section.Code));
                     this.lblType.ForeColor = System.Drawing.Color.Black;
                     this.lblType.Text = "版面";
-                    link.Tag = "Board";
+                    this.Tag = "Board";
                 }
                 else
                 {
+                    link = new LinkLabel.Link(0, this.linklblSection.Text.Length, SmthUtil.GetSectionUrl(section.Code));
                     this.lblType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
                     this.lblType.Text = "目录";
-                    link.Tag = "Section";
+                    this.Tag = "Section";
                 }
 
                 this.linklblSection.Links.Clear();
