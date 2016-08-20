@@ -722,7 +722,9 @@
         /// <param name="e"></param>
         private void btnMail_Click(object sender, EventArgs e)
         {
-            ShowFormAsDialog(MailBoxForm.Instance);
+            MailBoxForm.Instance.SetParent(this);
+            ShowFormOnCenterParent(MailBoxForm.Instance);
+            //ShowFormAsDialog(MailBoxForm.Instance);
         }
 
         /// <summary>
@@ -1003,37 +1005,7 @@
             this._dicWindows.Remove(key);
             this._dicWindows.Add(key, t);
             return t;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="form"></param>
-        private void ShowFormOnCenterParent(Form form)
-        {
-            if (form != null && form.IsDisposed == false)
-            {
-                form.StartPosition = FormStartPosition.Manual;
-                int centerX = this.Location.X + this.Size.Width / 2;
-                int centerY = this.Location.Y + this.Size.Height / 2;
-                form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
-                form.Show();
-                form.Focus();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="form"></param>
-        private void ShowFormAsDialog(Form form)
-        {
-            if (form != null && form.IsDisposed == false)
-            {
-                form.StartPosition = FormStartPosition.CenterParent;
-                form.ShowDialog(this);
-            }
-        }
+        }        
 
         /// <summary>
         /// 
