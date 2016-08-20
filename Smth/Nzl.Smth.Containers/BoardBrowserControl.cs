@@ -115,15 +115,14 @@
         protected override void SetControl(TopicControl ctl, bool oeFlag)
         {
             base.SetControl(ctl, oeFlag);
-            Topic topic = ctl.Tag as Topic;
-            if (topic != null)
+            if (ctl.Item != null)
             {
-                if (topic.Mode == TopicMode.Top)
+                if (ctl.Item.Mode == TopicMode.Top)
                 {
                     ctl.ForeColor = Color.Red;
                 }
 
-                if (topic.Mode == TopicMode.Magic)
+                if (ctl.Item.Mode == TopicMode.Magic)
                 {
                     ctl.ForeColor = Color.FromArgb(255, 128, 128);
                 }
