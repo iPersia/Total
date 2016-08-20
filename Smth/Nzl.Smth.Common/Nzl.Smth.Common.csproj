@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="BrowserType.cs" />
     <Compile Include="LogStatus.cs" />
+    <Compile Include="LogStatusEventArgs.cs" />
+    <Compile Include="MailStatus.cs" />
     <Compile Include="MessageEventArgs.cs" />
     <Compile Include="MessageForm.cs">
       <SubType>Form</SubType>
