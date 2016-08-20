@@ -20,14 +20,14 @@
         public SectionControl()
         {
             InitializeComponent();
+            this.linklblSection.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblBorS_LinkClicked);
         }
 
         public override void Initialize(Section section)
         {
             base.Initialize(section);
             if (section != null)
-            {
-                this.linklblSection.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblBorS_LinkClicked);
+            {                
                 this.linklblSection.Text = section.Name;
                 LinkLabel.Link link = null;
                 if (section.IsBoard)
