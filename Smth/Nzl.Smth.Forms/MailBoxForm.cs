@@ -20,14 +20,17 @@
         /// <summary>
         /// 
         /// </summary>
+        private MailDetailForm _mailDetailForm = new MailDetailForm();
+
+        /// <summary>
+        /// 
+        /// </summary>
         public MailBoxForm()
         {
             InitializeComponent();
             this.mbcMailBox.OnMailLinkClicked += MbcMailBox_OnMailLinkClicked;
             this.mbcMailBox.OnUserLinkClicked += MbcMailBox_OnUserLinkClicked;
             this.mbcMailBox.OnNewMailClicked += MbcMailBox_OnNewMailClicked;
-
-            this.HideWhenDeactivate = false;     
         }
 
         /// <summary>
@@ -51,7 +54,7 @@
             {
                 UserForm userForm = new UserForm(e.Link.LinkData.ToString());
                 userForm.StartPosition = FormStartPosition.CenterParent;
-                userForm.ShowDialog(this);
+                userForm.ShowDialog(this._parentForm);
             }
         }
 
@@ -65,13 +68,15 @@
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
-                MailDetailForm mailDetailForm = new MailDetailForm(e.Link.LinkData.ToString());
-                mailDetailForm.StartPosition = FormStartPosition.CenterParent;
+                _mailDetailForm.StartPosition = FormStartPosition.CenterParent;
+                _mailDetailForm.Url = e.Link.LinkData.ToString();
                 this.HideWhenDeactivate = false;
-                if (mailDetailForm.ShowDialog(this) == System.Windows.Forms.DialogResult.Yes)
+                if (_mailDetailForm.ShowDialog(this._parentForm) == System.Windows.Forms.DialogResult.Yes)
                 {
                     e.Link.Tag = "Success";
                 }
+
+                this.HideWhenDeactivate = true;
             }
         }
         
@@ -97,36 +102,6 @@
             if (this._parentForm != null)
             {
                 this._parentForm.Focus();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="form"></param>
-        private void ShowFormOnCenterParent(Form form)
-        {
-            if (form != null && form.IsDisposed == false)
-            {
-                form.StartPosition = FormStartPosition.Manual;
-                int centerX = this.Location.X + this.Size.Width / 2;
-                int centerY = this.Location.Y + this.Size.Height / 2;
-                form.Location = new System.Drawing.Point(centerX - form.Size.Width / 2, centerY - form.Size.Height / 2);
-                form.Show();
-                form.Focus();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="form"></param>
-        private void ShowFormAsDialog(Form form)
-        {
-            if (form != null && form.IsDisposed == false)
-            {
-                form.StartPosition = FormStartPosition.CenterParent;
-                form.ShowDialog(this);
             }
         }
     }
