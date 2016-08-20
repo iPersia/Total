@@ -62,23 +62,24 @@ namespace Nzl.Smth.Containers
         {
             InitializeComponent();
             this.Text = "Mail Detail";
-        }
+        }        
 
         /// <summary>
         /// 
         /// </summary>
-        public MailDetailContainerControl(string url)
-            : this()
+        /// <param name="ctl"></param>
+        public void SetParentControl(Control ctl)
         {
-            this.SetBaseUrl(url);
+            this._parentControl = ctl;
         }
+        #endregion
 
         #region Properties
         /// <summary>
         /// 
         /// </summary>
         [Browsable(true)]
-        public string MailUrl
+        public string Url
         {
             get
             {
@@ -90,16 +91,6 @@ namespace Nzl.Smth.Containers
                 this._mailUrl = value;
                 this.SetBaseUrl(this._mailUrl);
             }
-        }
-        #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ctl"></param>
-        public void SetParentControl(Control ctl)
-        {
-            this._parentControl = ctl;
         }
         #endregion
 
