@@ -113,7 +113,15 @@
             if (ctl != null && item != null)
             {
                 ctl.Name = "sc" + item.Code;
-                ctl.OnLinkClicked += Bc_OnLinkClicked;
+                if (ctl.Tag.ToString() == "Board")
+                {
+                    ctl.OnLinkClicked += Bc_OnLinkClicked;
+                }
+
+                if (ctl.Tag.ToString() == "Section")
+                {
+                    ctl.OnLinkClicked += Sc_OnLinkClicked;
+                }
             }
         }
 
@@ -127,6 +135,7 @@
             if (ctl != null)
             {
                 ctl.OnLinkClicked -= Bc_OnLinkClicked;
+                ctl.OnLinkClicked -= Sc_OnLinkClicked;
             }
         }
 
