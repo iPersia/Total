@@ -113,6 +113,7 @@ namespace Nzl.Smth.Controls
                     }
 
                     ///Content.
+                    this.richtxtContent.ReadOnly = true;
                     this.richtxtContent.Clear();
                     if (mail.Content != null)
                     {
@@ -127,10 +128,14 @@ namespace Nzl.Smth.Controls
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="width"></param>
         public override void SetWidth(int width)
         {
-            this.richtxtContent.Width = width - (this.Width - this.richtxtContent.Width);
-            this.Width = width;
+            this.richtxtContent.Width = width + 2 - (this.Width - this.richtxtContent.Width);
+            this.Width = width + 2;
         }
 
         #region eventhandler

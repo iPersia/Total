@@ -77,6 +77,7 @@
             this.panelUp.Controls.Add(this.linklblTransfer);
             this.panelUp.Controls.Add(this.lblDateTime);
             this.panelUp.Controls.Add(this.linklblReply);
+            this.panelUp.BackColor = System.Drawing.SystemColors.Control;
             this.panelUp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelUp.Location = new System.Drawing.Point(0, 0);
             this.panelUp.Name = "panelUp";
@@ -152,6 +153,7 @@
             // panelDown
             // 
             this.panelDown.Controls.Add(this.richtxtContent);
+            this.panelDown.BackColor = System.Drawing.SystemColors.Control;
             this.panelDown.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDown.Location = new System.Drawing.Point(0, 0);
             this.panelDown.Name = "panelDown";
@@ -176,7 +178,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.scContainer);
             this.Name = "MailDetailControl";
             this.Size = new System.Drawing.Size(590, 468);
