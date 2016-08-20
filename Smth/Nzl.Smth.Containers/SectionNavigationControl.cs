@@ -112,7 +112,6 @@
             base.InitializeControl(ctl, item);
             if (ctl != null && item != null)
             {
-                ctl.Name = "sc" + item.Code;
                 if (ctl.Tag.ToString() == "Board")
                 {
                     ctl.OnLinkClicked += Bc_OnLinkClicked;
@@ -134,8 +133,15 @@
             base.RecylingControl(ctl);
             if (ctl != null)
             {
-                ctl.OnLinkClicked -= Bc_OnLinkClicked;
-                ctl.OnLinkClicked -= Sc_OnLinkClicked;
+                if (ctl.Tag.ToString() == "Board")
+                {
+                    ctl.OnLinkClicked -= Bc_OnLinkClicked;
+                }
+
+                if (ctl.Tag.ToString() == "Section")
+                {
+                    ctl.OnLinkClicked -= Sc_OnLinkClicked;
+                }
             }
         }
 
