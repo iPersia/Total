@@ -18,7 +18,7 @@
     /// <summary>
     /// 
     /// </summary>
-    delegate void SetLogStatusCallBack(bool flag);
+    delegate void OnLogStatusChangedCallBack(bool flag);
 
     /// <summary>
     /// 
@@ -235,7 +235,7 @@
                 tbc.OnBoardLinkClicked += TopicBrowserControl_OnBoardLinkClicked;
                 tbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
                 tbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
-                tbc.OnTopicSettingsClicked += TopicBrowserControl_OnTopicSettingsClicked;               
+                tbc.OnTopicSettingsClicked += TopicBrowserControl_OnTopicSettingsClicked;
                 tp.Controls.Add(tbc);
 
                 tbc.RefreshingSizeChanged(true);
@@ -521,7 +521,7 @@
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void TabbedBrowserFrom_OnWorkerCancelled(object sender, MessageEventArgs e)
-        {            
+        {
             Common.MessageForm msgForm = new Common.MessageForm("Geting page Cancelled", e.Message);
             msgForm.StartPosition = FormStartPosition.CenterParent;
             this.Activate();
@@ -621,7 +621,23 @@
             }
 
             this.tcTopics.SelectedIndex = index;
+            this.DisposeTabPage(tp);
             this.tcTopics.TabPages.Remove(tp);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tp"></param>
+        private void DisposeTabPage(TabPage tp)
+        {
+            foreach (Control ctl in tp.Controls)
+            {
+                Recycling(ctl as TopicBrowserControl);
+                Recycling(ctl as BoardBrowserControl);
+            }
+
+            tp.Controls.Clear();
             tp.Dispose();
         }
         #endregion
@@ -726,7 +742,6 @@
         {
             MailBoxForm.Instance.SetParent(this);
             ShowFormOnCenterParent(MailBoxForm.Instance);
-            //ShowFormAsDialog(MailBoxForm.Instance);
         }
 
         /// <summary>
@@ -763,14 +778,7 @@
         {
             foreach (TabPage tp in this.tcTopics.TabPages)
             {
-                foreach (Control ctl in tp.Controls)
-                {
-                    Recycling(ctl as TopicBrowserControl);
-                    Recycling(ctl as BoardBrowserControl);
-                }
-
-                tp.Controls.Clear();
-                tp.Dispose();
+                this.DisposeTabPage(tp);
             }
 
             this.tcTopics.TabPages.Clear();
@@ -926,7 +934,7 @@
                 if (this.InvokeRequired)
                 {
                     System.Threading.Thread.Sleep(0);
-                    this.Invoke(new SetLogStatusCallBack(SetLogStatus), new object[] { flag });
+                    this.Invoke(new OnLogStatusChangedCallBack(SetLogStatus), new object[] { flag });
                     System.Threading.Thread.Sleep(0);
                 }
                 else
@@ -1007,7 +1015,7 @@
             this._dicWindows.Remove(key);
             this._dicWindows.Add(key, t);
             return t;
-        }        
+        }
 
         /// <summary>
         /// 
