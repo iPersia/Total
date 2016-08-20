@@ -6,14 +6,15 @@ namespace Nzl.Smth.Containers
     using System.ComponentModel;
     using System.Drawing;
     using System.Windows.Forms;
-    using Nzl.Web.Util;
-    using Nzl.Web.Page;
+    using Nzl.Recycling;
     using Nzl.Smth.Common;
     using Nzl.Smth.Controls;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Interfaces;
     using Nzl.Smth.Logger;
     using Nzl.Smth.Utils;
+    using Nzl.Web.Util;
+    using Nzl.Web.Page;
 
     /// <summary>
     /// 
@@ -27,7 +28,7 @@ namespace Nzl.Smth.Containers
 #if (DESIGNMODE)
     public partial class TopicBrowserControl : UserControl
 #else
-    public partial class TopicBrowserControl : BaseContainer<ThreadControl, Thread>, IContainsThread
+    public partial class TopicBrowserControl : BaseContainer<ThreadControl, Thread>
 #endif
     {
 #if (DESIGNMODE)
@@ -153,11 +154,6 @@ namespace Nzl.Smth.Containers
         /// <summary>
         /// 
         /// </summary>
-        private SortedList<string, Thread> _sortedlistThread = new SortedList<string, Thread>();
-
-        /// <summary>
-        /// 
-        /// </summary>
         private Control _parentControl = null;
         #endregion
 
@@ -226,7 +222,7 @@ namespace Nzl.Smth.Containers
                 this.btnOpenInBrowser.Click += new System.EventHandler(this.btnOpenInBrowser_Click);
                 this.linklblReply.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblReply_LinkClicked);
                 this.linklblBoard.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblBoard_LinkClicked);
-            }            
+            }
         }
 
         /// <summary>
@@ -267,7 +263,6 @@ namespace Nzl.Smth.Containers
             base.WorkCompleted(info);
             if (info.Status == PageStatus.Normal)
             {
-                this.SaveThreads(info.Result);
                 this.UpdateInfor(info.WebPage);
                 this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
                 this.lblPage2.Text = this.lblPage1.Text;
@@ -323,8 +318,8 @@ namespace Nzl.Smth.Containers
                     {
                         reversedThreads.Insert(0, this._hostThread);
                     }
-                    
-                    for(int i=threads.Count-1; i>=0;i--)
+
+                    for (int i = threads.Count - 1; i >= 0; i--)
                     {
                         reversedThreads.Add(threads[i]);
                     }
@@ -335,7 +330,7 @@ namespace Nzl.Smth.Containers
 
             return threads;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -383,11 +378,23 @@ namespace Nzl.Smth.Containers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="item"></param>
+        protected override void RecyclingItem(Thread item)
+        {
+            if (item.Floor != "楼主")
+            {
+                base.RecyclingItem(item);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="ctl"></param>
         /// <returns></returns>
         protected override bool CheckAddingControl(ThreadControl ctl)
         {
-            if (this._settingBrowserType == BrowserType.LastReply && 
+            if (this._settingBrowserType == BrowserType.LastReply &&
                 this._settingAutoUpdating == false &&
                 ctl.Name != null)
             {
@@ -448,22 +455,33 @@ namespace Nzl.Smth.Containers
         {
             this.btnFirst1.Text = (proc * 11111).ToString();
         }
-        #endregion
 
-        #region Interface.
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="tid"></param>
-        /// <returns></returns>
-        public Thread GetSavedThread(string tid)
+        /// <param name="disposing"></param>
+        public override void Recycling()
         {
-            if (this._sortedlistThread.ContainsKey(tid))
+            base.Recycling();
+
+            ///Recyling the host thread.
+            if (this._hostThread != null)
             {
-                return this._sortedlistThread[tid];
+                RecycledQueues.AddRecycled<Thread>(this._hostThread);
+                this._hostThread = null;
             }
 
-            return null;
+            ///Initialize the settings.
+            this._settingBrowserType = BrowserType.FirstReply;
+            this._settingAutoUpdating = false;
+            this._settingUpdatingInterval = 60;
+            this._updatingTimer.Stop();
+            this._topic = null;
+            this._topicUrl = null;
+            this._subject = null;
+            this._postUrl = null;
+            this._targetUserID = null;
+            this._parentControl = null;
         }
         #endregion
 
@@ -961,25 +979,6 @@ namespace Nzl.Smth.Containers
             }
 
             this.linklblReply.Visible = LogStatus.Instance.IsLogin;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="threadList"></param>
-        private void SaveThreads(IList<Thread> items)
-        {
-            foreach (Thread thread in items)
-            {
-                if (this._sortedlistThread.ContainsKey(thread.ID))
-                {
-                    this._sortedlistThread[thread.ID] = thread;
-                }
-                else
-                {
-                    this._sortedlistThread.Add(thread.ID, thread);
-                }
-            }
         }
         #endregion
 #endif
