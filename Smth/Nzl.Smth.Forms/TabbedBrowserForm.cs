@@ -442,21 +442,17 @@
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
-                Thread thread = linkLabel.Tag as Thread;
-                if (thread != null)
+                MessageForm confirmForm = new MessageForm("提示", "确认删除此信息？");
+                confirmForm.StartPosition = FormStartPosition.CenterParent;
+                DialogResult dlgResult = confirmForm.ShowDialog(this);
+                if (dlgResult == DialogResult.OK)
                 {
-                    MessageForm confirmForm = new MessageForm("提示", "确认删除此信息？");
-                    confirmForm.StartPosition = FormStartPosition.CenterParent;
-                    DialogResult dlgResult = confirmForm.ShowDialog(this);
-                    if (dlgResult == DialogResult.OK)
+                    WebPage page = WebPageFactory.CreateWebPage(e.Link.LinkData.ToString());
+                    string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", page.Html, "Result");
+                    if (result != null && result.Contains("成功"))
                     {
-                        WebPage page = WebPageFactory.CreateWebPage(thread.DeleteUrl);
-                        string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", page.Html, "Result");
-                        if (result != null && result.Contains("成功"))
-                        {
-                            e.Link.Tag = "Success";
-                            e.Link.Visited = true;
-                        }
+                        e.Link.Tag = "Success";
+                        e.Link.Visited = true;
                     }
                 }
             }
