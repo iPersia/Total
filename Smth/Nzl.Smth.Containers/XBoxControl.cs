@@ -398,6 +398,6 @@
         /// <summary>
         /// 
         /// </summary>
-        Dustbin
+        Trash
     }
 }

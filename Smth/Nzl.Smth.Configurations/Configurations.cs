@@ -20,8 +20,13 @@
         /// 
         /// </summary>
         public static EventHandler OnTop10sLoadingIntervalChanged;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static EventHandler OnNewMailUpdatingIntervalChanged;
         #endregion
-        
+
         #region variable
         /// <summary>
         /// The base url of smth.
@@ -39,6 +44,21 @@
         private static string staticLogoutUrl = @"http://m.newsmth.net/user/logout";
 
         /// <summary>
+        /// The base url of smth.
+        /// </summary>
+        private static string staticInboxUrl = @"http://m.newsmth.net/mail/inbox";
+
+        /// <summary>
+        /// The base url of smth.
+        /// </summary>
+        private static string staticOutboxUrl = @"http://m.newsmth.net/mail/outbox";
+
+        /// <summary>
+        /// The base url of smth.
+        /// </summary>
+        private static string staticTrashBaseUrl = @"http://m.newsmth.net/mail/deleted";
+
+        /// <summary>
         /// The interval to update the section tops in SectionTopControl.
         /// </summary>
         private static int staticSectionTopsUpdatingInterval = 5 *60 * 1000;
@@ -47,6 +67,11 @@
         /// The interval to load the SectionTopControls.
         /// </summary>
         private static int staticTop10sLoadingInterval = 30 * 1000;
+
+        /// <summary>
+        /// The interval to load the SectionTopControls.
+        /// </summary>
+        private static int staticNewMailUpdatingInterval = 60 * 1000;
 
         /// <summary>
         /// The count of sections.
@@ -92,6 +117,39 @@
         /// <summary>
         /// 
         /// </summary>
+        public static string InboxUrl
+        {
+            get
+            {
+                return staticInboxUrl;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string OutboxUrl
+        {
+            get
+            {
+                return staticOutboxUrl;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string TrashUrl
+        {
+            get
+            {
+                return staticTrashBaseUrl;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static int SectionTopsUpdatingInterval
         {
             get
@@ -108,6 +166,17 @@
             get
             {
                 return staticTop10sLoadingInterval;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static int NewMailUpdatingInterval
+        {
+            get
+            {
+                return staticNewMailUpdatingInterval;
             }
         }
 
@@ -152,6 +221,22 @@
                 if (OnTop10sLoadingIntervalChanged != null)
                 {
                     OnTop10sLoadingIntervalChanged(typeof(Configuration), new EventArgs());
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        public static void SetNewMailUpdatingInterval(int value)
+        {
+            if (value != staticNewMailUpdatingInterval)
+            {
+                staticNewMailUpdatingInterval = value;
+                if (OnNewMailUpdatingIntervalChanged != null)
+                {
+                    OnNewMailUpdatingIntervalChanged(typeof(Configuration), new EventArgs());
                 }
             }
         }

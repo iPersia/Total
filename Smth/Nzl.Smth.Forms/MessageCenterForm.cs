@@ -29,9 +29,28 @@
         /// <summary>
         /// 
         /// </summary>
+        private Timer _updatingTimer = new Timer();
+
+        /// <summary>
+        /// 
+        /// </summary>
         MessageCenterForm()
         {
             InitializeComponent();
+            this._updatingTimer.Interval = 1000;
+            this._updatingTimer.Tick += _updatingTimer_Tick;
+            this._updatingTimer.Start();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void _updatingTimer_Tick(object sender, EventArgs e)
+        {
+            this.txtCache.Clear();
+            this.txtCache.AppendText(Nzl.Recycling.RecycledQueues.GetStatistics());
         }
 
         /// <summary>

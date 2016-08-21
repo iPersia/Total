@@ -5,10 +5,12 @@
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
     using System.Reflection;
+    using Nzl.Dispatcher;
     using Nzl.Hook;
     using Nzl.Recycling;
     using Nzl.Web.Page;
     using Nzl.Smth.Common;
+    using Nzl.Smth.Configurations;
     using Nzl.Smth.Containers;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Logger;
@@ -67,6 +69,11 @@
         /// 
         /// </summary>
         private string _entryAssemblyTitle = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Timer _newMailUpdateTimer = new Timer();
         #endregion
 
         #region Ctor
@@ -78,29 +85,11 @@
             InitializeComponent();
             LogStatus.Instance.OnLoginStatusChanged += Instance_OnLoginStatusChanged;
             MailStatus.Instance.OnNewMaiArrived += Instance_OnNewMaiArrived;
-            _uahKey.KeyUp += new EventHandler<KeyExEventArgs>(Global_KeyUp);
-            _uahKey.Start();
+            Configuration.OnNewMailUpdatingIntervalChanged += Configuration_OnNewMailUpdatingIntervalChanged;
+            this._newMailUpdateTimer.Tick += _newMailUpdateTimer_Tick;
+            this._uahKey.KeyUp += new EventHandler<KeyExEventArgs>(Global_KeyUp);
+            this._uahKey.Start();
             this.HideWhenDeactivate = false;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Instance_OnNewMaiArrived(object sender, MailStatusEventArgs e)
-        {
-            this.SetNewMailStatus(e.NewCount);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Instance_OnLoginStatusChanged(object sender, LogStatusEventArgs e)
-        {
-            SetLogStatus(e.IsLogin);
         }
 
         /// <summary>
@@ -933,6 +922,68 @@
                 form.ShowDialog(this);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void _newMailUpdateTimer_Tick(object sender, EventArgs e)
+        {
+            PageLoader pl = new PageLoader(Configuration.InboxUrl);
+            pl.PageLoaded += NewMailUpdating_PageLoaded;
+            PageDispatcher.Instance.Add(pl);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NewMailUpdating_PageLoaded(object sender, EventArgs e)
+        {
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                LogStatus.Instance.UpdateStatus(pl.GetResult() as WebPage);
+                MailStatus.Instance.UpdateStatus(pl.GetResult() as WebPage);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Instance_OnNewMaiArrived(object sender, MailStatusEventArgs e)
+        {
+            this.SetNewMailStatus(e.NewCount);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Instance_OnLoginStatusChanged(object sender, LogStatusEventArgs e)
+        {
+            SetLogStatus(e.IsLogin);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Configuration_OnNewMailUpdatingIntervalChanged(object sender, EventArgs e)
+        {
+            this._newMailUpdateTimer.Stop();
+            if (LogStatus.Instance.IsLogin)
+            {
+                this._newMailUpdateTimer.Interval = Configuration.NewMailUpdatingInterval;
+                this._newMailUpdateTimer.Stop();
+            }
+        }
         #endregion
 
         #region Private
@@ -972,6 +1023,13 @@
                             this.linklblUserID.Links.Clear();
                             this.btnLogon.Text = "Log In";
                         }
+
+                        this._newMailUpdateTimer.Stop();
+                        if (flag)
+                        {
+                            this._newMailUpdateTimer.Interval = Configuration.NewMailUpdatingInterval;
+                            this._newMailUpdateTimer.Start();
+                        }
                     }
 
                     this.btnFavor.Visible = flag;
@@ -1006,16 +1064,17 @@
                         if (newMailCount > 0)
                         {
                             this.btnMail.ForeColor = System.Drawing.Color.Red;
-                            this.btnMail.Text = "New " + newMailCount + "!";
+                            this.btnMail.Text = "New mail!";
 
-                            _mailToolTip.SetToolTip(this.btnMail, "You have " + newMailCount + " new mails!");
-                            _mailToolTip.ShowAlways = true;
+                            this._mailToolTip.ShowAlways = true;
+                            this._mailToolTip.SetToolTip(this.btnMail, "You have " + newMailCount + " new mail" + (newMailCount == 1 ? "!" : "s!"));
                         }
                         else
                         {
                             this.btnMail.ForeColor = System.Drawing.Color.Black;
                             this.btnMail.Text = "Mails";
-
+                            this._mailToolTip.ShowAlways = false;
+                            this._mailToolTip.SetToolTip(this.btnMail, "You have no new mail!");
                         }
                     }
                 }

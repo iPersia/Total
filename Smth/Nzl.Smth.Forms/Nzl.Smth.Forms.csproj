@@ -211,6 +211,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Components\Nzl.Dispatcher\Nzl.Dispatcher.csproj">
+      <Project>{665400e9-dc26-40f4-bd09-0e7151c3ca18}</Project>
+      <Name>Nzl.Dispatcher</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Components\Nzl.Hook\Nzl.Hook.csproj">
       <Project>{6eca3d2e-3f31-4eb2-ab38-cd4e1d4abee9}</Project>
       <Name>Nzl.Hook</Name>
@@ -242,6 +246,10 @@
     <ProjectReference Include="..\Nzl.Smth.Common\Nzl.Smth.Common.csproj">
       <Project>{e22371cb-bcae-41e5-82b3-2b696c7e05d1}</Project>
       <Name>Nzl.Smth.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Configurations\Nzl.Smth.Configurations.csproj">
+      <Project>{7a3921a8-a2e3-4ffb-84c8-9bb605772ebd}</Project>
+      <Name>Nzl.Smth.Configurations</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nzl.Smth.Containers\Nzl.Smth.Containers.csproj">
       <Project>{3466c961-acdb-4f03-bb1d-10fad9fb88f1}</Project>
