@@ -1,4 +1,4 @@
-﻿namespace Nzl.Smth.Common
+﻿namespace Nzl.Smth.Forms
 {
     using System;
     using System.Windows.Forms;

@@ -1,4 +1,4 @@
-﻿namespace Nzl.Smth.Common
+﻿namespace Nzl.Smth.Forms
 {
     partial class MessageForm
     {
