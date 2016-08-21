@@ -142,6 +142,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Recycling", "Components
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Repository", "Components\Nzl.Repository\Nzl.Repository.csproj", "{34E73DFF-0B1D-4820-9DF9-F9EFE29E23AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Configurations", "Smth\Nzl.Smth.Configurations\Nzl.Smth.Configurations.csproj", "{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -709,6 +711,18 @@ Global
 		{34E73DFF-0B1D-4820-9DF9-F9EFE29E23AC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{34E73DFF-0B1D-4820-9DF9-F9EFE29E23AC}.Release|x86.ActiveCfg = Release|Any CPU
 		{34E73DFF-0B1D-4820-9DF9-F9EFE29E23AC}.Release|x86.Build.0 = Release|Any CPU
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}.Debug|x86.Build.0 = Debug|Any CPU
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}.Release|x86.ActiveCfg = Release|Any CPU
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -767,5 +781,6 @@ Global
 		{55E4F995-1273-44E1-AEA1-52FED6442660} = {21988C76-462B-47A7-80C6-4FFCA16BEA0E}
 		{DC293647-8798-4539-BEA1-77185E5C66C1} = {362DE052-0617-4DB4-AECD-1AA8DD42A90D}
 		{34E73DFF-0B1D-4820-9DF9-F9EFE29E23AC} = {362DE052-0617-4DB4-AECD-1AA8DD42A90D}
+		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD} = {21988C76-462B-47A7-80C6-4FFCA16BEA0E}
 	EndGlobalSection
 EndGlobal

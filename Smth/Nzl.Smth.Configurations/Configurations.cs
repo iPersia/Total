@@ -1,4 +1,4 @@
-﻿namespace Nzl.Smth.Datas
+﻿namespace Nzl.Smth.Configurations
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public static class Configurations
+    public static class Configuration
     {
         #region event
         /// <summary>
@@ -135,7 +135,7 @@
                 staticSectionTopsUpdatingInterval = value;
                 if (OnSectionTopsUpdatingIntervalChanged != null)
                 {
-                    OnSectionTopsUpdatingIntervalChanged(typeof(Configurations), new EventArgs());
+                    OnSectionTopsUpdatingIntervalChanged(typeof(Configuration), new EventArgs());
                 }
             }            
         }
@@ -151,7 +151,7 @@
                 staticTop10sLoadingInterval = value;
                 if (OnTop10sLoadingIntervalChanged != null)
                 {
-                    OnTop10sLoadingIntervalChanged(typeof(Configurations), new EventArgs());
+                    OnTop10sLoadingIntervalChanged(typeof(Configuration), new EventArgs());
                 }
             }
         }

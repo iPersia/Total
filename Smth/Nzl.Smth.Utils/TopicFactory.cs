@@ -1,13 +1,10 @@
 ﻿namespace Nzl.Smth.Utils
 {
-    using System;
     using System.Collections.Generic;
-    using System.Drawing;
-    using System.Text;
     using System.Text.RegularExpressions;
     using Nzl.Recycling;
+    using Nzl.Smth.Configurations;
     using Nzl.Smth.Datas;
-    using Nzl.Smth.Interfaces;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
     
@@ -95,7 +92,7 @@
             }
 
             content = content.Replace("&nbsp;", " ");
-            topic.Uri = Configurations.BaseUrl + CommonUtil.GetMatch(pattern, content, "TopicUrl");
+            topic.Uri = Configuration.BaseUrl + CommonUtil.GetMatch(pattern, content, "TopicUrl");
             topic.Board = CommonUtil.GetMatch(pattern, content, "Board");
             topic.Index = CommonUtil.GetMatch(pattern, content, "Index");            
             topic.Title = CommonUtil.ReplaceSpecialChars(CommonUtil.GetMatch(pattern, content, "Title"));
@@ -142,7 +139,7 @@
                     }
 
                     topic.TopSeq = System.Convert.ToInt32(mt.Groups["TopSeq"].Value);
-                    topic.Uri = Configurations.BaseUrl + mt.Groups["Url"].ToString();
+                    topic.Uri = Configuration.BaseUrl + mt.Groups["Url"].ToString();
                     topic.Board = mt.Groups["Board"].ToString().Replace("%5F", "_").Replace("%2E", ".");
                     topic.Index = mt.Groups["Index"].ToString();
                     topic.Title = CommonUtil.ReplaceSpecialChars(mt.Groups["Title"].ToString());

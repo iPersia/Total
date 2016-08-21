@@ -10,7 +10,16 @@
         /// <summary>
         /// 
         /// </summary>
-        public bool IsNewMail
+        public bool NewArrived
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int NewCount
         {
             get;
             set;

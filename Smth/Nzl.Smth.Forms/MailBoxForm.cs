@@ -52,7 +52,12 @@
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
-                ShowFormAsDialog(new UserForm(e.Link.LinkData.ToString()), this._parentForm);
+                UserForm form  = new UserForm(e.Link.LinkData.ToString());
+                form.StartPosition = FormStartPosition.CenterParent;
+                this.HideWhenDeactivate = false;
+                form.ShowDialog(this._parentForm);
+                this.Focus();
+                this.HideWhenDeactivate = true;
             }
         }
 
@@ -66,10 +71,10 @@
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
-                _mailDetailForm.StartPosition = FormStartPosition.CenterParent;
-                _mailDetailForm.Url = e.Link.LinkData.ToString();
+                this._mailDetailForm.StartPosition = FormStartPosition.CenterParent;
+                this._mailDetailForm.Url = e.Link.LinkData.ToString();
                 this.HideWhenDeactivate = false;
-                if (_mailDetailForm.ShowDialog(this._parentForm) == System.Windows.Forms.DialogResult.Yes)
+                if (this._mailDetailForm.ShowDialog(this._parentForm) == System.Windows.Forms.DialogResult.Yes)
                 {
                     e.Link.Tag = "Success";
                 }
@@ -86,7 +91,12 @@
         /// <param name="e"></param>
         private void MbcMailBox_OnNewMailClicked(object sender, EventArgs e)
         {
-            ShowFormAsDialog(new NewMailForm());
+            NewMailForm form = new NewMailForm();
+            form.StartPosition = FormStartPosition.CenterParent;
+            this.HideWhenDeactivate = false;
+            form.ShowDialog(this._parentForm);
+            this.Focus();
+            this.HideWhenDeactivate = true;
         }
 
         /// <summary>

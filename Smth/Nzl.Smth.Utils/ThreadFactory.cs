@@ -6,7 +6,8 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using Nzl.Recycling;
-    using Nzl.Smth.Datas;
+    using Nzl.Smth.Configurations;
+    using Nzl.Smth.Datas;    
     using Nzl.Smth.Interfaces;
     using Nzl.Smth.Logger;
     using Nzl.Web.Page;
@@ -419,10 +420,10 @@
                     thread.DateTime = mt.Groups["DateTime"].Value.ToString();
                     thread.Floor = mt.Groups["Floor"].Value.ToString();
                     thread.QueryType = mt.Groups["QueryType"].Value.ToString();
-                    thread.QueryUrl = Configurations.BaseUrl + mt.Groups["QueryUrl"].Value.ToString();
+                    thread.QueryUrl = Configuration.BaseUrl + mt.Groups["QueryUrl"].Value.ToString();
                     if (mt.Groups["ReplyUrl"].Value != null && mt.Groups["ReplyUrl"].Value != "")
                     {
-                        thread.ReplyUrl = Configurations.BaseUrl + mt.Groups["ReplyUrl"].Value.ToString();
+                        thread.ReplyUrl = Configuration.BaseUrl + mt.Groups["ReplyUrl"].Value.ToString();
                     }
                     else
                     {
@@ -431,7 +432,7 @@
 
                     if (mt.Groups["MailUrl"].Value != null && mt.Groups["MailUrl"].Value != "")
                     {
-                        thread.MailUrl = Configurations.BaseUrl + mt.Groups["MailUrl"].Value.ToString();
+                        thread.MailUrl = Configuration.BaseUrl + mt.Groups["MailUrl"].Value.ToString();
                     }
                     else
                     {
@@ -440,7 +441,7 @@
 
                     if (mt.Groups["TransferUrl"].Value != null && mt.Groups["TransferUrl"].Value != "")
                     {
-                        thread.TransferUrl = Configurations.BaseUrl + mt.Groups["TransferUrl"].Value.ToString();
+                        thread.TransferUrl = Configuration.BaseUrl + mt.Groups["TransferUrl"].Value.ToString();
                     }
                     else
                     {
@@ -449,7 +450,7 @@
 
                     if (mt.Groups["EditUrl"].Value != null && mt.Groups["EditUrl"].Value != "")
                     {
-                        thread.EditUrl = Configurations.BaseUrl + mt.Groups["EditUrl"].Value.ToString();
+                        thread.EditUrl = Configuration.BaseUrl + mt.Groups["EditUrl"].Value.ToString();
                     }
                     else
                     {
@@ -458,7 +459,7 @@
 
                     if (mt.Groups["DeleteUrl"].Value != null && mt.Groups["DeleteUrl"].Value != "")
                     {
-                        thread.DeleteUrl = Configurations.BaseUrl + mt.Groups["DeleteUrl"].Value.ToString();
+                        thread.DeleteUrl = Configuration.BaseUrl + mt.Groups["DeleteUrl"].Value.ToString();
                     }
                     else
                     {

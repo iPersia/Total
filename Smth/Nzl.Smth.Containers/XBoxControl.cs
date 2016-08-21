@@ -4,19 +4,20 @@
     using System.ComponentModel;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Text.RegularExpressions;
     using System.Windows.Forms;
-    using Nzl.Web.Util;
-    using Nzl.Web.Page;
-    using Nzl.Smth.Datas;
+    using Nzl.Smth.Common;
     using Nzl.Smth.Controls;
+    using Nzl.Smth.Datas;    
     using Nzl.Smth.Utils;
     using Nzl.Smth.Logger;
+    using Nzl.Web.Page;
+    using Nzl.Web.Util;
+
 
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class XBoxControl : BaseContainer<MailControl, Mail>
+    internal partial class XBoxControl : BaseContainer<MailControl, Mail>
     {
         #region Event
         /// <summary>
@@ -39,8 +40,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private int _margin = 4;
-
+        private MailBoxType _mailBoxType = MailBoxType.Inbox;
         /// <summary>
         /// 
         /// </summary>
@@ -51,7 +51,7 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        public XBoxControl()
+        XBoxControl()
         {
             InitializeComponent();
             this.Text = "Mailbox";
@@ -62,10 +62,10 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        public XBoxControl(string mailUrl)
+        public XBoxControl(MailBoxType type)
             : this()
         {
-            this.SetBaseUrl(mailUrl);
+            this._mailBoxType = type;
         }
 
         /// <summary>
@@ -151,6 +151,10 @@
             base.WorkCompleted(info);
             this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
             this.lblPage2.Text = this.lblPage1.Text;
+            if (this._mailBoxType == MailBoxType.Inbox)
+            {
+                MailStatus.Instance.UpdateStatus(info.WebPage);
+            }
         }
 
         /// <summary>
@@ -161,10 +165,16 @@
         protected override void SetControl(MailControl ctl, bool oeFlag)
         {
             base.SetControl(ctl, oeFlag);
-            Mail mail = ctl.Tag as Mail;
-            if (mail != null && mail.IsNew)
+            if (ctl.Item != null)
             {
-                ctl.ForeColor = Color.Red;
+                if (ctl.Item.IsNew)
+                {
+                    ctl.ForeColor = Color.Red;
+                }
+                else
+                {
+                    ctl.ForeColor = Color.Blue;
+                }
             }
         }        
 
@@ -368,5 +378,26 @@
         #region privates.
 
         #endregion
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    internal enum MailBoxType
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        Inbox,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Outbox,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Dustbin
     }
 }

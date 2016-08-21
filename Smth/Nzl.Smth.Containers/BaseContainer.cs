@@ -444,7 +444,7 @@
             {
                 if (info.Status == PageStatus.Normal)
                 {
-                    LogStatus.Instance.UpdateLoginStatus(info.WebPage);
+                    LogStatus.Instance.UpdateStatus(info.WebPage);
                 }
                 else
                 {

@@ -20,14 +20,17 @@
         {
             if (type != null)
             {
-                if (_dictRecycledQueues.ContainsKey(type))
+                lock(_dictRecycledQueues)
                 {
-                    return _dictRecycledQueues[type];
-                }
+                    if (_dictRecycledQueues.ContainsKey(type))
+                    {
+                        return _dictRecycledQueues[type];
+                    }
 
-                Queue<object> queue = new Queue<object>();
-                _dictRecycledQueues.Add(type, queue);
-                return queue;
+                    Queue<object> queue = new Queue<object>();
+                    _dictRecycledQueues.Add(type, queue);
+                    return queue;
+                }
             }
 
             return null;
@@ -78,6 +81,21 @@
                 System.Diagnostics.Debug.WriteLine("RecycledQueues - AddRecycled - Type is " + obj.GetType().ToString() + "\tQueue size is " + queue.Count);
 #endif
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string GetStatistics()
+        {
+            string msg = "Recycled object list:\n";
+            foreach (KeyValuePair<Type, Queue<object>> pair in _dictRecycledQueues)
+            {
+                msg += "\t" + pair.Key.ToString() + "\t" + pair.Value.Count + "\n";
+            }
+
+            return msg.TrimEnd('\n');
         }
     }
 }

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
+    using Nzl.Smth.Configurations;
     using Nzl.Smth.Controls;
     using Nzl.Smth.Datas;
     using Nzl.Web.Page;
@@ -276,7 +277,7 @@
                 this.linklblPrevious.Links.Clear();
                 if (string.IsNullOrEmpty(url) == false)
                 {
-                    this.linklblPrevious.Links.Add(0, this.linklblPrevious.Text.Length, Configurations.BaseUrl + url);
+                    this.linklblPrevious.Links.Add(0, this.linklblPrevious.Text.Length, Configuration.BaseUrl + url);
                 }
 
                 ///Section name.

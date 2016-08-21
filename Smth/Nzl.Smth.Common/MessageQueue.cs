@@ -1,4 +1,4 @@
-﻿namespace Nzl.Smth.Utils
+﻿namespace Nzl.Smth.Common
 {
     using System;
     using System.Collections.Generic;

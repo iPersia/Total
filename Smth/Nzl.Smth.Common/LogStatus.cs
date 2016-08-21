@@ -23,7 +23,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public event EventHandler<LogStatusEventArgs> LoginStatusChanged;
+        public event EventHandler<LogStatusEventArgs> OnLoginStatusChanged;
         #endregion
 
         #region Variable
@@ -87,16 +87,16 @@
         /// 
         /// </summary>
         /// <param name="page"></param>
-        public void UpdateLoginStatus(WebPage page)
+        public void UpdateStatus(WebPage page)
         {
-            this.UpdateLoginStatus(page != null ? page.Html : "");
+            this.UpdateStatus(page != null ? page.Html : "");
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="page"></param>
-        public void UpdateLoginStatus(string html)
+        public void UpdateStatus(string html)
         {
             lock (_isLoginLocker)
             {
@@ -109,22 +109,13 @@
 
                 if (srcLogStatus != this._isLogin)
                 {
-                    this.OnLoginStatusChanged(_isLogin);
+                    if (this.OnLoginStatusChanged != null)
+                    {
+                        LogStatusEventArgs e = new LogStatusEventArgs();
+                        e.IsLogin = this._isLogin;
+                        this.OnLoginStatusChanged(this, e);
+                    }
                 }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="isLogin"></param>
-        protected void OnLoginStatusChanged(bool isLogin)
-        {
-            if (this.LoginStatusChanged != null)
-            {
-                LogStatusEventArgs e = new LogStatusEventArgs();
-                e.IsLogin = isLogin;
-                this.LoginStatusChanged(this, e);
             }
         }
         #endregion

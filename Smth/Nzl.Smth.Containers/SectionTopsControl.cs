@@ -1,17 +1,15 @@
 ﻿namespace Nzl.Smth.Containers
 {
     using System;
-    using System.ComponentModel;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Text.RegularExpressions;
-    using System.Windows.Forms;
+    using System.Windows.Forms;        
+    using Nzl.Smth.Configurations;
+    using Nzl.Smth.Controls;
+    using Nzl.Smth.Datas;
+    using Nzl.Smth.Utils;
     using Nzl.Web.Util;
     using Nzl.Web.Page;
-    using Nzl.Smth.Common;
-    using Nzl.Smth.Datas;
-    using Nzl.Smth.Controls;
-    using Nzl.Smth.Utils;
 
     /// <summary>
     /// 
@@ -49,7 +47,7 @@
         SectionTopsControl()
         {
             InitializeComponent();
-            Configurations.OnSectionTopsUpdatingIntervalChanged += Configuration_OnSectionTopsUpdatingIntervalChanged;
+            Configuration.OnSectionTopsUpdatingIntervalChanged += Configuration_OnSectionTopsUpdatingIntervalChanged;
             this.panelContainer.Size = new Size(this.Width - 10, TopControl.ControlHeight * 10 + 12);
             this.Height = this.panelContainer.Height + 11;
             this.Text = "Section top topic";            
@@ -62,7 +60,7 @@
             : this()
         {
             this.SetBaseUrl(url);
-            this._updatingTimer.Interval = Configurations.SectionTopsUpdatingInterval;
+            this._updatingTimer.Interval = Configuration.SectionTopsUpdatingInterval;
             this._updatingTimer.Tick += new EventHandler(_updatingTimer_Tick);
             this._updatingTimer.Start();
         }
@@ -174,7 +172,7 @@
         private void Configuration_OnSectionTopsUpdatingIntervalChanged(object sender, EventArgs e)
         {
             this._updatingTimer.Stop();
-            this._updatingTimer.Interval = Configurations.SectionTopsUpdatingInterval;
+            this._updatingTimer.Interval = Configuration.SectionTopsUpdatingInterval;
             this._updatingTimer.Tick -= new EventHandler(_updatingTimer_Tick);
             this._updatingTimer.Tick += new EventHandler(_updatingTimer_Tick);
             this._updatingTimer.Start();

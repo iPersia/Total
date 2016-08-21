@@ -170,6 +170,10 @@
       <Project>{e22371cb-bcae-41e5-82b3-2b696c7e05d1}</Project>
       <Name>Nzl.Smth.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Configurations\Nzl.Smth.Configurations.csproj">
+      <Project>{7a3921a8-a2e3-4ffb-84c8-9bb605772ebd}</Project>
+      <Name>Nzl.Smth.Configurations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nzl.Smth.Controls\Nzl.Smth.Controls.csproj">
       <Project>{3d39e4a3-0ed7-4175-a2ba-68a00919a998}</Project>
       <Name>Nzl.Smth.Controls</Name>

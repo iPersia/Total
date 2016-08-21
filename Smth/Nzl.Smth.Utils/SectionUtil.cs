@@ -1,9 +1,9 @@
 ﻿namespace Nzl.Smth.Utils
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text.RegularExpressions;
-    using Nzl.Recycling;    
+    using Nzl.Recycling;
+    using Nzl.Smth.Configurations;
     using Nzl.Smth.Datas;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
@@ -35,7 +35,7 @@
                     {
                         foreach (Match mt in mtCollection)
                         {
-                            string url = Configurations.BaseUrl + mt.Groups[2].Value.ToString();
+                            string url = Configuration.BaseUrl + mt.Groups[2].Value.ToString();
                             string title = mt.Groups[3].Value.ToString();
 
                             if (mt.Groups["BoardName"].Value != "")
@@ -97,7 +97,7 @@
                     {
                         foreach (Match mt in mtCollection)
                         {
-                            string url = Configurations.BaseUrl + mt.Groups[2].Value.ToString();
+                            string url = Configuration.BaseUrl + mt.Groups[2].Value.ToString();
                             string title = mt.Groups[3].Value.ToString();
                             if (mt.Groups["BoardName"].Value != "")
                             {

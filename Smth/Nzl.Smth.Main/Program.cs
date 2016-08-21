@@ -5,7 +5,7 @@
     using System.Text;
     using System.Windows.Forms;
     using System.Runtime.CompilerServices;
-    using Nzl.Smth.Datas;
+    using Nzl.Smth.Common;
     using Nzl.Smth.Forms;
     using Nzl.Smth.Logger;
     using Nzl.Smth.Utils;

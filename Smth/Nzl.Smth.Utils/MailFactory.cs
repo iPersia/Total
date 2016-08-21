@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using Nzl.Recycling;
+    using Nzl.Smth.Configurations;
     using Nzl.Smth.Datas;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
@@ -70,15 +71,11 @@
                     }
 
                     mail.Index = System.Convert.ToInt32(mt.Groups["Index"].Value);
-                    mail.Url = Configurations.BaseUrl + mt.Groups["MailUrl"].Value.ToString();
+                    mail.Url = Configuration.BaseUrl + mt.Groups["MailUrl"].Value.ToString();
                     mail.Title = mt.Groups["MailTitle"].Value.ToString();
                     mail.Author = mt.Groups["Author"].Value.ToString();
                     mail.DateTime = mt.Groups["DateTime"].Value.ToString();
-                    if (string.IsNullOrEmpty(mt.Groups["IsNew"].Value.ToString()) == false)
-                    {
-                        mail.IsNew = true;
-                    }
-
+                    mail.IsNew = !string.IsNullOrEmpty(mt.Groups["IsNew"].Value.ToString());
                     mailList.Add(mail);
                 }
 
@@ -114,17 +111,17 @@
                 mail.Author = mtColleton[0].Groups["Author"].Value.ToString();
                 if (mtColleton[0].Groups["ReplyUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["ReplyUrl"].Value) == false)
                 {
-                    mail.ReplyUrl = Configurations.BaseUrl + mtColleton[0].Groups["ReplyUrl"].Value.ToString();
+                    mail.ReplyUrl = Configuration.BaseUrl + mtColleton[0].Groups["ReplyUrl"].Value.ToString();
                 }
 
                 if (mtColleton[0].Groups["DeleteUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["DeleteUrl"].Value) == false)
                 {
-                    mail.DeleteUrl = Configurations.BaseUrl + mtColleton[0].Groups["DeleteUrl"].Value.ToString();
+                    mail.DeleteUrl = Configuration.BaseUrl + mtColleton[0].Groups["DeleteUrl"].Value.ToString();
                 }
 
                 if (mtColleton[0].Groups["TransferUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["TransferUrl"].Value) == false)
                 {
-                    mail.TransferUrl = Configurations.BaseUrl + mtColleton[0].Groups["TransferUrl"].Value.ToString();
+                    mail.TransferUrl = Configuration.BaseUrl + mtColleton[0].Groups["TransferUrl"].Value.ToString();
                 }
             }
 

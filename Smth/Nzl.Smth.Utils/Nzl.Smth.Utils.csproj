@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="MailFactory.cs" />
     <Compile Include="MessageFactory.cs" />
-    <Compile Include="MessageQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RtfUtil.cs" />
     <Compile Include="SectionUtil.cs" />
@@ -72,6 +71,10 @@
     <ProjectReference Include="..\..\Web\Nzl.Web.Util\Nzl.Web.Util.csproj">
       <Project>{6cba8f35-e6f4-4a6d-876f-38ea9de4649a}</Project>
       <Name>Nzl.Web.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Configurations\Nzl.Smth.Configurations.csproj">
+      <Project>{7a3921a8-a2e3-4ffb-84c8-9bb605772ebd}</Project>
+      <Name>Nzl.Smth.Configurations</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nzl.Smth.Datas\Nzl.Smth.Datas.csproj">
       <Project>{bbc9010b-cb89-4f7e-b418-5b653e5eb005}</Project>

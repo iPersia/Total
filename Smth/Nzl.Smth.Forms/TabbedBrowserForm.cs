@@ -23,6 +23,11 @@
     /// <summary>
     /// 
     /// </summary>
+    delegate void OnNewMailArrivedCallBack(object obj);
+
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class TabbedBrowserForm : BaseForm
     {
         #region Singleton
@@ -71,7 +76,8 @@
         TabbedBrowserForm()
         {
             InitializeComponent();
-            LogStatus.Instance.LoginStatusChanged += Instance_LoginStatusChanged;
+            LogStatus.Instance.OnLoginStatusChanged += Instance_OnLoginStatusChanged;
+            MailStatus.Instance.OnNewMaiArrived += Instance_OnNewMaiArrived;
             _uahKey.KeyUp += new EventHandler<KeyExEventArgs>(Global_KeyUp);
             _uahKey.Start();
             this.HideWhenDeactivate = false;
@@ -82,7 +88,17 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Instance_LoginStatusChanged(object sender, LogStatusEventArgs e)
+        private void Instance_OnNewMaiArrived(object sender, MailStatusEventArgs e)
+        {
+            this.SetNewMailStatus(e.NewCount);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Instance_OnLoginStatusChanged(object sender, LogStatusEventArgs e)
         {
             SetLogStatus(e.IsLogin);
         }
@@ -960,6 +976,48 @@
 
                     this.btnFavor.Visible = flag;
                     this.btnMail.Visible = flag;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private ToolTip _mailToolTip = new ToolTip();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SetNewMailStatus(object obj)
+        {
+            if (this.IsHandleCreated)
+            {
+                if (this.InvokeRequired)
+                {
+                    System.Threading.Thread.Sleep(0);
+                    this.Invoke(new OnNewMailArrivedCallBack(SetNewMailStatus), new object[] { obj });
+                    System.Threading.Thread.Sleep(0);
+                }
+                else
+                {
+                    lock (this.btnMail)
+                    {
+                        int newMailCount = Convert.ToInt32(obj);
+                        if (newMailCount > 0)
+                        {
+                            this.btnMail.ForeColor = System.Drawing.Color.Red;
+                            this.btnMail.Text = "New " + newMailCount + "!";
+
+                            _mailToolTip.SetToolTip(this.btnMail, "You have " + newMailCount + " new mails!");
+                            _mailToolTip.ShowAlways = true;
+                        }
+                        else
+                        {
+                            this.btnMail.ForeColor = System.Drawing.Color.Black;
+                            this.btnMail.Text = "Mails";
+
+                        }
+                    }
                 }
             }
         }

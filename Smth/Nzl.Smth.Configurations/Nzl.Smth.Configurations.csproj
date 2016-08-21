@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E22371CB-BCAE-41E5-82B3-2B696C7E05D1}</ProjectGuid>
+    <ProjectGuid>{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nzl.Smth.Common</RootNamespace>
-    <AssemblyName>Nzl.Smth.Common</AssemblyName>
+    <RootNamespace>Nzl.Smth.Configurations</RootNamespace>
+    <AssemblyName>Nzl.Smth.Configurations</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,8 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,46 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BrowserType.cs" />
-    <Compile Include="LogStatus.cs" />
-    <Compile Include="LogStatusEventArgs.cs" />
-    <Compile Include="MailStatus.cs" />
-    <Compile Include="MailStatusEventArgs.cs" />
-    <Compile Include="MessageEventArgs.cs" />
-    <Compile Include="MessageQueue.cs" />
-    <Compile Include="PageDispatcher.cs" />
-    <Compile Include="PageLoader.cs" />
+    <Compile Include="Configurations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SmthBoards.cs" />
-    <Compile Include="TaskCompletedEventArgs.cs" />
-    <Compile Include="TopicSettingEventArgs.cs" />
-    <Compile Include="TreeNode.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Components\Nzl.Log4Net\Nzl.Log4Net.csproj">
-      <Project>{181fe707-e161-4722-9f38-6aaab6faa106}</Project>
-      <Name>Nzl.Log4Net</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Components\Nzl.Dispatcher\Nzl.Dispatcher.csproj">
-      <Project>{665400e9-dc26-40f4-bd09-0e7151c3ca18}</Project>
-      <Name>Nzl.Dispatcher</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Web\Nzl.Web.Page\Nzl.Web.Page.csproj">
-      <Project>{58bc70f0-3ff6-4095-87ac-08a4b7c00f58}</Project>
-      <Name>Nzl.Web.Page</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nzl.Smth.Datas\Nzl.Smth.Datas.csproj">
-      <Project>{bbc9010b-cb89-4f7e-b418-5b653e5eb005}</Project>
-      <Name>Nzl.Smth.Datas</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nzl.Smth.Logger\Nzl.Smth.Logger.csproj">
-      <Project>{55e4f995-1273-44e1-aea1-52fed6442660}</Project>
-      <Name>Nzl.Smth.Logger</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nzl.Smth.Utils\Nzl.Smth.Utils.csproj">
-      <Project>{ed81bef2-92f1-474d-80e9-635644d7d0a3}</Project>
-      <Name>Nzl.Smth.Utils</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

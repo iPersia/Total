@@ -8,6 +8,7 @@ namespace Nzl.Smth.Containers
     using System.Windows.Forms;
     using Nzl.Recycling;
     using Nzl.Smth.Common;
+    using Nzl.Smth.Configurations;
     using Nzl.Smth.Controls;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Interfaces;
@@ -202,7 +203,7 @@ namespace Nzl.Smth.Containers
             InitializeComponent();
             this.panel.MouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
             this._updatingTimer.Tick += _updatingTimer_Tick;
-            LogStatus.Instance.LoginStatusChanged += Instance_LoginStatusChanged;
+            LogStatus.Instance.OnLoginStatusChanged += Instance_OnLoginStatusChanged;
             this.Text = "Topic";
             {
                 this.btnFirst1.Click += new System.EventHandler(this.btnFirst_Click);
@@ -494,7 +495,7 @@ namespace Nzl.Smth.Containers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Instance_LoginStatusChanged(object sender, LogStatusEventArgs e)
+        private void Instance_OnLoginStatusChanged(object sender, LogStatusEventArgs e)
         {
             if (this.InvokeRequired)
             {
@@ -960,7 +961,7 @@ namespace Nzl.Smth.Containers
             {
                 this._postUrl.Replace("%2E", ".");
                 this._postUrl.Replace("%5F", "_");
-                this._postUrl = Configurations.BaseUrl + this._postUrl;
+                this._postUrl = Configuration.BaseUrl + this._postUrl;
 
                 this.linklblReply.Visible = true;
                 this.linklblReply.Links.Clear();

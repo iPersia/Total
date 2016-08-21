@@ -72,6 +72,29 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public static int GetNewMailCount(string html)
+        {
+            if (string.IsNullOrEmpty(html) == false)
+            {
+                string pattern = @"(<li>|<li class=\Whla\W>)\s*"
+                               + @"(?'Index'[1-9]0?)\.<a href=\W"
+                               + @"(?'MailUrl'/mail/[a-z]+/\d+)\W"
+                               + @"(?'IsNew'(\Wclass=\Wtop\W))>"
+                               + @"(?'MailTitle'[^<]+)</a><br\s*/><a href=\W/user/query/"
+                               + @"(?'Author'[a-zA-z][a-zA-Z0-9]{1,11})(\.)?\W>[a-zA-z][a-zA-Z0-9]{1,11}(\.)?</a>\|"
+                               + @"(?'DateTime'[0-9,\-]{10}\s[0-9,\:]{8})</li>";
+
+                MatchCollection mc = CommonUtil.GetMatchCollection(pattern, html);
+                return mc == null ? 0 : mc.Count;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
         public static string GetBoard(WebPage wp)

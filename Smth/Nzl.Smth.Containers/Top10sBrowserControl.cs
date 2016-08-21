@@ -1,14 +1,9 @@
 ﻿namespace Nzl.Smth.Containers
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
     using System.Drawing;
-    using System.Linq;
-    using System.Text;
     using System.Windows.Forms;
-    using Nzl.Smth.Datas;
+    using Nzl.Smth.Configurations;
 
     /// <summary>
     /// 
@@ -67,7 +62,7 @@
                 this.Size = new Size(tbc.Width + 8, tbc.Height + 26);
             }
 
-            this._timerLoadingTops.Interval = Configurations.Top10sLoadingInterval;
+            this._timerLoadingTops.Interval = Configuration.Top10sLoadingInterval;
             this._timerLoadingTops.Tick += new EventHandler(_timerLoadingTops_Tick);
             this._timerLoadingTops.Start();
         }
@@ -79,7 +74,7 @@
         /// <param name="e"></param>
         private void _timerLoadingTops_Tick(object sender, EventArgs e)
         {
-            if (this._sectionIndex > Configurations.SectionCount)
+            if (this._sectionIndex > Configuration.SectionCount)
             {
                 this._timerLoadingTops.Stop();
                 return;

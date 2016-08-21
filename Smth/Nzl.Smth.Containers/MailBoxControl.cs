@@ -71,7 +71,7 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpInbox";
                 tp.Text = "Inbox";
-                XBoxControl xbc = new XBoxControl();
+                XBoxControl xbc = new XBoxControl(MailBoxType.Inbox);
                 xbc.Url = this._inboxUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
@@ -87,7 +87,7 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpOutbox";
                 tp.Text = "Outbox";
-                XBoxControl xbc = new XBoxControl();
+                XBoxControl xbc = new XBoxControl(MailBoxType.Outbox);
                 xbc.Url = this._sentUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
@@ -102,7 +102,7 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpTrash";
                 tp.Text = "Trash";
-                XBoxControl xbc = new XBoxControl();
+                XBoxControl xbc = new XBoxControl(MailBoxType.Dustbin);
                 xbc.Url = this._trashUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
@@ -169,7 +169,7 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpOutbox";
                 tp.Text = "Outbox";
-                XBoxControl xbc = new XBoxControl();
+                XBoxControl xbc = new XBoxControl(MailBoxType.Outbox);
                 xbc.Url = this._sentUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
@@ -185,7 +185,7 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpTrash";
                 tp.Text = "Trash";
-                XBoxControl xbc = new XBoxControl();
+                XBoxControl xbc = new XBoxControl(MailBoxType.Dustbin);
                 xbc.Url = this._trashUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;

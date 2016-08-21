@@ -6,6 +6,7 @@
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Windows.Forms;
     using Nzl.Smth.Common;
+    using Nzl.Smth.Configurations;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Utils;
     using Nzl.Smth.Logger;
@@ -72,7 +73,7 @@
         public LoginControl()
         {
             InitializeComponent();
-            LogStatus.Instance.LoginStatusChanged += Instance_LoginStatusChanged;
+            LogStatus.Instance.OnLoginStatusChanged += Instance_OnLoginStatusChanged;
         }
         #endregion
 
@@ -104,7 +105,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Instance_LoginStatusChanged(object sender, LogStatusEventArgs e)
+        private void Instance_OnLoginStatusChanged(object sender, LogStatusEventArgs e)
         {
             SetLogStatus(e.IsLogin);
         }
@@ -146,7 +147,7 @@
             if (string.IsNullOrEmpty(this.txtUserID.Text) == false && string.IsNullOrEmpty(this.txtPassword.Text) == false)
             {
                 this.Enabled = false;
-                WebPageFactory.RemoveCookie(Configurations.BaseUrl);
+                WebPageFactory.RemoveCookie(Configuration.BaseUrl);
                 LogIn(this.txtUserID.Text, this.txtPassword.Text);
             }
         }
@@ -159,7 +160,7 @@
         private void btnLogout_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
-            WebPageFactory.RemoveCookie(Configurations.BaseUrl);
+            WebPageFactory.RemoveCookie(Configuration.BaseUrl);
             LogOut();
         }
         #endregion
@@ -174,7 +175,7 @@
         /// <param name="password"></param>
         private void LogIn(string userID, string password)
         {
-            PageLoader pl = new PageLoader(Configurations.LoginUrl, @"id=" + userID + "&passwd=" + password + "&save=on");
+            PageLoader pl = new PageLoader(Configuration.LoginUrl, @"id=" + userID + "&passwd=" + password + "&save=on");
             pl.PageLoaded += new EventHandler(LoginPageLoader_PageLoaded);
             PageDispatcher.Instance.Add(pl);
             this.SetControlEnabled(false);
@@ -228,7 +229,7 @@
             try
             {
                 string html = e.Argument as string;
-                LogStatus.Instance.UpdateLoginStatus(html);
+                LogStatus.Instance.UpdateStatus(html);
                 if (LogStatus.Instance.IsLogin)
                 {
                     if (this.ckbAutoLogon.Checked)
@@ -303,7 +304,7 @@
         /// </summary>
         private void LogOut()
         {
-            PageLoader pl = new PageLoader(Configurations.LogoutUrl, "");
+            PageLoader pl = new PageLoader(Configuration.LogoutUrl, "");
             pl.PageLoaded += new EventHandler(LogoutPageLoader_PageLoaded);
             PageDispatcher.Instance.Add(pl);
             this.SetControlEnabled(false);
@@ -358,7 +359,7 @@
             try
             {
                 string html = e.Argument as string;
-                LogStatus.Instance.UpdateLoginStatus(html);
+                LogStatus.Instance.UpdateStatus(html);
                 if (LogStatus.Instance.IsLogin == false)
                 {
                     e.Result = "Success";
