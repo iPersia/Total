@@ -78,7 +78,7 @@
         {
             base.DoWork(info);
             IList<Topic> topics = TopicFactory.GetTopics(info.WebPage);
-            IList<BaseItem> items = new List<BaseItem>();
+            IList<BaseData> items = new List<BaseData>();
             foreach (Topic topic in topics)
             {
                 items.Add(topic);

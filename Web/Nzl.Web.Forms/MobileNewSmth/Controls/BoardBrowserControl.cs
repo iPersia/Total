@@ -91,7 +91,7 @@
         {
             base.DoWork(info);
             IList<Topic> topics = TopicFactory.GetTopics(info.WebPage);
-            IList<BaseItem> items = new List<BaseItem>();
+            IList<BaseData> items = new List<BaseData>();
             foreach (Topic topic in topics)
             {
                 items.Add(topic);
@@ -142,7 +142,7 @@
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected override Control CreateControl(BaseItem item)
+        protected override Control CreateControl(BaseData item)
         {
             return this.CreateThreadControl(item as Topic);
         }

@@ -28,7 +28,7 @@
     /// </summary>
     /// <param name="ctl"></param>
     /// <param name="item"></param>
-    delegate void InitializeControlCallback<TBaseControl, TBaseItem>(TBaseControl ctl, TBaseItem item);
+    delegate void InitializeControlCallback<TBaseControl, TBaseData>(TBaseControl ctl, TBaseData data);
 
     /// <summary>
     /// 
@@ -45,9 +45,9 @@
     /// <summary>
     /// 
     /// </summary>
-    public class BaseContainer<TBaseControl, TBaseItem> : UserControl, IRecycled
-        where TBaseControl : BaseControl<TBaseItem>, new()
-        where TBaseItem : BaseItem
+    public class BaseContainer<TBaseControl, TBaseData> : UserControl, IRecycled
+        where TBaseControl : BaseControl<TBaseData>, new()
+        where TBaseData : BaseData
     {
         #region event
         /// <summary>
@@ -65,7 +65,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private UrlInfo<TBaseControl, TBaseItem> _urlInfo = new UrlInfo<TBaseControl, TBaseItem>();
+        private UrlInfo<TBaseControl, TBaseData> _urlInfo = new UrlInfo<TBaseControl, TBaseData>();
 
         /// <summary>
         /// 
@@ -224,7 +224,7 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        protected virtual string GetUrl(UrlInfo<TBaseControl, TBaseItem> info)
+        protected virtual string GetUrl(UrlInfo<TBaseControl, TBaseData> info)
         {
             return info.BaseUrl + "?p=" + info.Index;
         }
@@ -233,7 +233,7 @@
         /// 
         /// </summary>
         /// <param name="info"></param>
-        protected virtual void DoWork(UrlInfo<TBaseControl, TBaseItem> info)
+        protected virtual void DoWork(UrlInfo<TBaseControl, TBaseData> info)
         {
             this.UpdatePageInfo(info.WebPage, info);
             info.Result = this.GetItems(info.WebPage);
@@ -327,8 +327,8 @@
             if (ctl != null)
             {
                 RecycledQueues.AddRecycled<TBaseControl>(ctl);
-                this.RecyclingItem(ctl.Item);
-                ctl.Item = null;
+                this.RecyclingItem(ctl.Data);
+                ctl.Data = null;
             }
         }
 
@@ -336,11 +336,11 @@
         /// 
         /// </summary>
         /// <param name="ctl"></param>
-        protected virtual void RecyclingItem(TBaseItem item)
+        protected virtual void RecyclingItem(TBaseData data)
         {
-            if (item != null)
+            if (data != null)
             {
-                RecycledQueues.AddRecycled<TBaseItem>(item);                
+                RecycledQueues.AddRecycled<TBaseData>(data);                
             }
         }
 
@@ -393,7 +393,7 @@
         /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
-        protected virtual IList<TBaseItem> GetItems(WebPage wp)
+        protected virtual IList<TBaseData> GetItems(WebPage wp)
         {
             return null;
         }
@@ -403,7 +403,7 @@
         /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
-        protected virtual bool CheckPage(WebPage wp, UrlInfo<TBaseControl, TBaseItem> info)
+        protected virtual bool CheckPage(WebPage wp, UrlInfo<TBaseControl, TBaseData> info)
         {
             if (wp == null)
             {
@@ -438,7 +438,7 @@
         /// 
         /// </summary>
         /// <param name="info"></param>
-        protected virtual void WorkCompleted(UrlInfo<TBaseControl, TBaseItem> info)
+        protected virtual void WorkCompleted(UrlInfo<TBaseControl, TBaseData> info)
         {
             if (info != null)
             {
@@ -488,7 +488,7 @@
         /// </summary>
         /// <param name="ctl"></param>
         /// <param name="item"></param>
-        protected virtual void InitializeControl(TBaseControl ctl, TBaseItem item)
+        protected virtual void InitializeControl(TBaseControl ctl, TBaseData data)
         {
             if (ctl != null)
             {
@@ -498,12 +498,12 @@
                     ctl.SetWidth(container.Width - 4);
                 }
 
-                if (item != null)
+                if (data != null)
                 {
-                    ctl.Name = "ctl" + item.ID;
+                    ctl.Name = "ctl" + data.ID;
                 }
 
-                ctl.Initialize(item);
+                ctl.Initialize(data);
             }
         }
 
@@ -572,9 +572,9 @@
         /// 
         /// </summary>
         /// <param name="items"></param>
-        private IList<TBaseItem> PrepareInfos(UrlInfo<TBaseControl, TBaseItem> info)
+        private IList<TBaseData> PrepareInfos(UrlInfo<TBaseControl, TBaseData> info)
         {
-            return info.Result as IList<TBaseItem>;
+            return info.Result as IList<TBaseData>;
         }
 
         /// <summary>
@@ -582,7 +582,7 @@
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        private void UpdatePageInfo(WebPage wp, UrlInfo<TBaseControl, TBaseItem> info)
+        private void UpdatePageInfo(WebPage wp, UrlInfo<TBaseControl, TBaseData> info)
         {
             if (wp != null)
             {
@@ -602,12 +602,12 @@
         /// 
         /// </summary>
         /// <param name="listThread"></param>
-        private IList<TBaseControl> PrepareControls(IList<TBaseItem> list)
+        private IList<TBaseControl> PrepareControls(IList<TBaseData> list)
         {
             IList<TBaseControl> listThreacControl = new List<TBaseControl>();
-            foreach (TBaseItem item in list)
+            foreach (TBaseData data in list)
             {
-                TBaseControl ctl = this.GetControl(item);
+                TBaseControl ctl = this.GetControl(data);
                 if (ctl != null)
                 {
                     listThreacControl.Add(ctl);
@@ -624,7 +624,7 @@
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        protected TBaseControl GetControl(TBaseItem item)
+        protected TBaseControl GetControl(TBaseData data)
         {
             if (this.IsHandleCreated)
             {
@@ -642,14 +642,14 @@
                         ctl = obj as TBaseControl;
                     }
 
-                    if (ctl != null && item != null)
+                    if (ctl != null && data != null)
                     {
                         if (this.IsHandleCreated)
                         {
                             if (this.InvokeRequired)
                             {
                                 System.Threading.Thread.Sleep(0);
-                                this.Invoke(new InitializeControlCallback<TBaseControl, TBaseItem>(InitializeControl), new object[] { ctl, item });
+                                this.Invoke(new InitializeControlCallback<TBaseControl, TBaseData>(InitializeControl), new object[] { ctl, data });
                                 System.Threading.Thread.Sleep(0);
                             }
                         }
@@ -676,7 +676,7 @@
             {
                 try
                 {
-                    UrlInfo<TBaseControl, TBaseItem> urlInfo = e.Argument as UrlInfo<TBaseControl, TBaseItem>;
+                    UrlInfo<TBaseControl, TBaseData> urlInfo = e.Argument as UrlInfo<TBaseControl, TBaseData>;
                     if (CheckPage(urlInfo.WebPage, urlInfo))
                     {
                         e.Result = urlInfo;
@@ -694,7 +694,7 @@
                         Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                     }
 
-                    (e.Argument as UrlInfo<TBaseControl, TBaseItem>).Status = PageStatus.UnKnown;
+                    (e.Argument as UrlInfo<TBaseControl, TBaseData>).Status = PageStatus.UnKnown;
                     MessageQueue.Enqueue(MessageFactory.CreateMessage(exp));
                 }
             }
@@ -709,7 +709,7 @@
             DoWorkEventArgs e = state as DoWorkEventArgs;
             try
             {
-                UrlInfo<TBaseControl, TBaseItem> urlInfo = e.Result as UrlInfo<TBaseControl, TBaseItem>;
+                UrlInfo<TBaseControl, TBaseData> urlInfo = e.Result as UrlInfo<TBaseControl, TBaseData>;
                 if (urlInfo != null)
                 {
                     DoWork(urlInfo);
@@ -768,7 +768,7 @@
         /// <param name="state">State is RunWorkerCompletedEventArgs!</param>
         protected void WorkCompletedBase(RunWorkerCompletedEventArgs e)
         {
-            UrlInfo<TBaseControl, TBaseItem> urlInfo = e.Result as UrlInfo<TBaseControl, TBaseItem>;
+            UrlInfo<TBaseControl, TBaseData> urlInfo = e.Result as UrlInfo<TBaseControl, TBaseData>;
             if (urlInfo != null)
             {
                 WorkCompleted(urlInfo);
@@ -798,7 +798,7 @@
         /// </summary>
         protected bool FetchPage()
         {
-            UrlInfo<TBaseControl, TBaseItem> info = new UrlInfo<TBaseControl, TBaseItem>(this._urlInfo);
+            UrlInfo<TBaseControl, TBaseData> info = new UrlInfo<TBaseControl, TBaseData>(this._urlInfo);
             return FetchPage(info);
         }
 
@@ -807,7 +807,7 @@
         /// </summary>
         protected bool FetchPrevPage()
         {
-            UrlInfo<TBaseControl, TBaseItem> info = new UrlInfo<TBaseControl, TBaseItem>(this._urlInfo);
+            UrlInfo<TBaseControl, TBaseData> info = new UrlInfo<TBaseControl, TBaseData>(this._urlInfo);
             info.Index = this._urlInfo.Index - 1;
             return FetchPage(info);
         }
@@ -817,7 +817,7 @@
         /// </summary>
         protected bool FetchNextPage()
         {
-            UrlInfo<TBaseControl, TBaseItem> info = new UrlInfo<TBaseControl, TBaseItem>(this._urlInfo);
+            UrlInfo<TBaseControl, TBaseData> info = new UrlInfo<TBaseControl, TBaseData>(this._urlInfo);
             info.Index = this._urlInfo.Index + 1;
             return FetchPage(info);
         }
@@ -827,7 +827,7 @@
         /// </summary>
         protected bool FetchLastPage()
         {
-            UrlInfo<TBaseControl, TBaseItem> info = new UrlInfo<TBaseControl, TBaseItem>(this._urlInfo);
+            UrlInfo<TBaseControl, TBaseData> info = new UrlInfo<TBaseControl, TBaseData>(this._urlInfo);
             info.Index = this._urlInfo.Total;
             return FetchPage(info);
         }
@@ -835,7 +835,7 @@
         /// <summary>
         /// 
         /// </summary>
-        protected bool FetchPage(UrlInfo<TBaseControl, TBaseItem> urlInfo)
+        protected bool FetchPage(UrlInfo<TBaseControl, TBaseData> urlInfo)
         {
             if (urlInfo.Index > 0 && urlInfo.Index <= urlInfo.Total && string.IsNullOrEmpty(urlInfo.BaseUrl) == false)
             {
@@ -866,7 +866,7 @@
                 WebPage wp = pl.GetResult() as WebPage;
                 if (wp != null && wp.IsGood)
                 {
-                    UrlInfo<TBaseControl, TBaseItem> info = pl.Tag as UrlInfo<TBaseControl, TBaseItem>;
+                    UrlInfo<TBaseControl, TBaseData> info = pl.Tag as UrlInfo<TBaseControl, TBaseData>;
                     info.WebPage = wp;
                     if (this.IsHandleCreated)
                     {
@@ -887,7 +887,7 @@
         /// <param name="info"></param>
         private void PageLoaded(object pageInfor)
         {
-            UrlInfo<TBaseControl, TBaseItem> info = pageInfor as UrlInfo<TBaseControl, TBaseItem>;
+            UrlInfo<TBaseControl, TBaseData> info = pageInfor as UrlInfo<TBaseControl, TBaseData>;
             this.bwFetchPage = new System.ComponentModel.BackgroundWorker();
             this.bwFetchPage.DoWork += new System.ComponentModel.DoWorkEventHandler(bwFetchPage_DoWork);
             this.bwFetchPage.ProgressChanged += BwFetchPage_ProgressChanged;

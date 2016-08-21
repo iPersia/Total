@@ -11,9 +11,9 @@
     /// <summary>
     /// 
     /// </summary>
-    public class UrlInfo<TControl, TBaseItem>
+    public class UrlInfo<TControl, TBaseData>
         where TControl : Control
-        where TBaseItem : BaseItem
+        where TBaseData : BaseData
     {
         /// <summary>
         /// 
@@ -40,7 +40,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public UrlInfo(UrlInfo<TControl, TBaseItem> srcInfo)
+        public UrlInfo(UrlInfo<TControl, TBaseData> srcInfo)
         {
             this.BaseUrl = srcInfo.BaseUrl;
             this.Subject = srcInfo.Subject;
@@ -130,7 +130,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public IList<TBaseItem> Result
+        public IList<TBaseData> Result
         {
             get;
             set;

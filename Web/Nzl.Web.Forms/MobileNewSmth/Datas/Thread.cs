@@ -7,7 +7,7 @@
     /// <summary>
     /// The thread class.
     /// </summary>
-    public class Thread : BaseItem
+    public class Thread : BaseData
     {
         /// <summary>
         /// 

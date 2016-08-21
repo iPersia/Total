@@ -5,7 +5,7 @@
     /// <summary>
     /// The topic class.
     /// </summary>
-    public class Topic : BaseItem
+    public class Topic : BaseData
     {
         /// <summary>
         /// Ctor.

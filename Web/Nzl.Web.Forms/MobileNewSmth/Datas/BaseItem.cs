@@ -8,7 +8,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class BaseItem
+    public class BaseData
     {
         /// <summary>
         /// 

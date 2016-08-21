@@ -127,7 +127,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public IList<BaseItem> Result
+        public IList<BaseData> Result
         {
             get;
             set;

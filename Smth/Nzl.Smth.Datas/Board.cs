@@ -8,7 +8,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class Board : BaseItem
+    public class Board : BaseData
     {  
         /// <summary>
         /// 

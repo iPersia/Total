@@ -17,7 +17,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public BaseItem Item
+        public BaseData Item
         {
             get;
             set;

@@ -192,7 +192,7 @@
         {
             base.DoWork(info);
             IList<Thread> threads = ThreadFactory.CreateThreads(info.WebPage, this);
-            IList<BaseItem> list = new List<BaseItem>();
+            IList<BaseData> list = new List<BaseData>();
             foreach (Thread thread in threads)
             {
                 list.Add(thread);
@@ -210,7 +210,7 @@
             base.WorkerCompleted(info);
             if (info.Status == PageStatus.Normal)
             {
-                this.SaveThreads(info.Result as IList<BaseItem>);
+                this.SaveThreads(info.Result as IList<BaseData>);
                 this.UpdateText(info.WebPage);
                 this.GetTopicInfo(info.WebPage);
                 this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
@@ -236,7 +236,7 @@
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected override Control CreateControl(BaseItem item)
+        protected override Control CreateControl(BaseData item)
         {
             return this.CreateThreadControl(item as Thread);
         }
@@ -780,9 +780,9 @@
         /// 
         /// </summary>
         /// <param name="threadList"></param>
-        private void SaveThreads(IList<BaseItem> items)
+        private void SaveThreads(IList<BaseData> items)
         {
-            foreach (BaseItem item in items)
+            foreach (BaseData item in items)
             {
                 Thread thread = item as Thread;
                 if (thread != null)

@@ -74,7 +74,7 @@
                     IList<Control> ctls = new List<Control>();
                     foreach (Control ctl in container.Controls)
                     {
-                        BaseItem thread = ctl.Tag as BaseItem;
+                        BaseData thread = ctl.Tag as BaseData;
                         if (thread != null)
                         {
                             ctls.Add(CreateControl(thread));
@@ -305,7 +305,7 @@
                 {
                     LoginForm.UpdateLoginStatus(info.WebPage);
                     this.UpdatePageInfo(info.WebPage, info);
-                    IList<BaseItem> items = this.PrepareInfos(info); ;
+                    IList<BaseData> items = this.PrepareInfos(info); ;
                     if (items != null)
                     {
                         this.UpdateView(this.PrepareControls(items), info.IsAppend);
@@ -334,9 +334,9 @@
         /// 
         /// </summary>
         /// <param name="items"></param>
-        private IList<BaseItem> PrepareInfos(UrlInfo info)
+        private IList<BaseData> PrepareInfos(UrlInfo info)
         {
-            return info.Result as IList<BaseItem>;
+            return info.Result as IList<BaseData>;
         }
 
         /// <summary>
@@ -424,10 +424,10 @@
         /// 
         /// </summary>
         /// <param name="listThread"></param>
-        private IList<Control> PrepareControls(IList<BaseItem> list)
+        private IList<Control> PrepareControls(IList<BaseData> list)
         {
             IList<Control> listThreacControl = new List<Control>();
-            foreach (BaseItem item in list)
+            foreach (BaseData item in list)
             {
                 listThreacControl.Add(this.GetSavedControl(item));
             }
@@ -441,7 +441,7 @@
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        protected Control GetSavedControl(BaseItem item)
+        protected Control GetSavedControl(BaseData item)
         {
             lock (this._dicControl)
             {
@@ -476,7 +476,7 @@
         /// </summary>
         /// <param name="thread"></param>
         /// <returns></returns>
-        protected virtual Control CreateControl(BaseItem item)
+        protected virtual Control CreateControl(BaseData item)
         {            
             return null;
         }

@@ -8,7 +8,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class Section : BaseItem
+    public class Section : BaseData
     {
         /// <summary>
         /// 

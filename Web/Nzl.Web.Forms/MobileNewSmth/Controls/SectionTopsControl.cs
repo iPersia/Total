@@ -93,7 +93,7 @@
             base.DoWork(info);
             info.Subject = SmthUtil.GetSectionTitle(info.WebPage);
             IList<Topic> topics = TopicFactory.GetTop10Topics(info.WebPage);
-            IList<BaseItem> list = new List<BaseItem>();
+            IList<BaseData> list = new List<BaseData>();
             foreach (Topic topic in topics)
             {
                 list.Add(topic);
@@ -107,7 +107,7 @@
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected override Control CreateControl(BaseItem item)
+        protected override Control CreateControl(BaseData item)
         {
             TopControl tc = new TopControl(item as Topic);
             tc.OnTopLinkClicked += new LinkLabelLinkClickedEventHandler(TopControl_OnTopLinkClicked);

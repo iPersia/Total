@@ -165,9 +165,9 @@
         protected override void SetControl(MailControl ctl, bool oeFlag)
         {
             base.SetControl(ctl, oeFlag);
-            if (ctl.Item != null)
+            if (ctl.Data != null)
             {
-                if (ctl.Item.IsNew)
+                if (ctl.Data.IsNew)
                 {
                     ctl.ForeColor = Color.Red;
                 }

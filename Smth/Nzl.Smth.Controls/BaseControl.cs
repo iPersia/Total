@@ -7,8 +7,8 @@
     /// <summary>
     /// 
     /// </summary>
-    public class BaseControl<TBaseItem> : UserControl
-        where TBaseItem : BaseItem
+    public class BaseControl<TBaseData> : UserControl
+        where TBaseData : BaseData
     {
         /// <summary>
         /// 
@@ -20,7 +20,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public TBaseItem Item
+        public TBaseData Data
         {
             get;
             set;
@@ -30,9 +30,9 @@
         /// 
         /// </summary>
         /// <param name="item"></param>
-        public virtual void Initialize(TBaseItem item)
+        public virtual void Initialize(TBaseData data)
         {
-            this.Item = item;
+            this.Data = data;
         }
 
         /// <summary>
