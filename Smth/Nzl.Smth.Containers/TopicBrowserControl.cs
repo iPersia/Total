@@ -271,8 +271,11 @@ namespace Nzl.Smth.Containers
 
 
                 ///Save the host thread.
-                if (info.Index == 1 && info.Result.Count > 0)
+                if (info.Index == 1 &&                     
+                    info.Result.Count > 0 &&
+                    info.Result[0].Floor == "楼主")
                 {
+                    RecycledQueues.AddRecycled<Thread>(this._hostThread);
                     this._hostThread = info.Result[0];
                 }
 

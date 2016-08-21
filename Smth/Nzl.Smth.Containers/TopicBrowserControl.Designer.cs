@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtGoTo2 = new System.Windows.Forms.TextBox();
             this.btnGo2 = new System.Windows.Forms.Button();
@@ -53,7 +54,6 @@
             this.btnFirst1 = new System.Windows.Forms.Button();
             this.btnNext1 = new System.Windows.Forms.Button();
             this.btnPrev1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelContainer.SuspendLayout();
@@ -77,6 +77,18 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(841, 351);
             this.panel.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(330, 171);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Loading...";
             // 
             // panel2
             // 
@@ -140,7 +152,6 @@
             this.btnLast2.Text = "Last";
             this.btnLast2.UseCompatibleTextRendering = true;
             this.btnLast2.UseVisualStyleBackColor = true;
-            
             // 
             // btnFirst2
             // 
@@ -153,7 +164,6 @@
             this.btnFirst2.Text = "First";
             this.btnFirst2.UseCompatibleTextRendering = true;
             this.btnFirst2.UseVisualStyleBackColor = true;
-            
             // 
             // btnNext2
             // 
@@ -165,7 +175,7 @@
             this.btnNext2.TabStop = false;
             this.btnNext2.Text = "Next";
             this.btnNext2.UseCompatibleTextRendering = true;
-            this.btnNext2.UseVisualStyleBackColor = true;            
+            this.btnNext2.UseVisualStyleBackColor = true;
             // 
             // btnPrev2
             // 
@@ -281,14 +291,14 @@
             // linklblBoard
             // 
             this.linklblBoard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linklblBoard.Location = new System.Drawing.Point(545, 7);
+            this.linklblBoard.Location = new System.Drawing.Point(445, 7);
             this.linklblBoard.Name = "linklblBoard";
             this.linklblBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.linklblBoard.Size = new System.Drawing.Size(100, 12);
+            this.linklblBoard.Size = new System.Drawing.Size(200, 12);
             this.linklblBoard.TabIndex = 17;
             this.linklblBoard.TabStop = true;
-            this.linklblBoard.Text = "Board";
-            this.linklblBoard.Visible = false;            
+            this.linklblBoard.Text = "金融产品及个人理财";
+            this.linklblBoard.Visible = false;
             // 
             // linklblReply
             // 
@@ -312,7 +322,7 @@
             this.btnSettings.TabStop = false;
             this.btnSettings.Text = "Settings";
             this.btnSettings.UseCompatibleTextRendering = true;
-            this.btnSettings.UseVisualStyleBackColor = true;            
+            this.btnSettings.UseVisualStyleBackColor = true;
             // 
             // btnGo1
             // 
@@ -325,7 +335,7 @@
             this.btnGo1.TabStop = false;
             this.btnGo1.Text = "Go";
             this.btnGo1.UseCompatibleTextRendering = true;
-            this.btnGo1.UseVisualStyleBackColor = true;            
+            this.btnGo1.UseVisualStyleBackColor = true;
             // 
             // txtGoTo1
             // 
@@ -397,18 +407,6 @@
             this.btnPrev1.Text = "Prev";
             this.btnPrev1.UseCompatibleTextRendering = true;
             this.btnPrev1.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(330, 171);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Loading...";
             // 
             // TopicBrowserControl
             // 
