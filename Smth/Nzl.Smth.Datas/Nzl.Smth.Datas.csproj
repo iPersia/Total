@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseItem.cs" />
+    <Compile Include="BaseData.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="Mail.cs" />
     <Compile Include="Message.cs" />
