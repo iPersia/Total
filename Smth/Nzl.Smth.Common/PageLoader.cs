@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Text;
     using Nzl.Dispatcher;
+    using Nzl.Messaging;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Logger;
     using Nzl.Web.Page;

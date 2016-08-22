@@ -203,7 +203,7 @@ namespace Nzl.Smth.Containers
             InitializeComponent();
             this.panel.MouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
             this._updatingTimer.Tick += _updatingTimer_Tick;
-            LogStatus.Instance.OnLoginStatusChanged += Instance_OnLoginStatusChanged;
+            LogStatus.Instance.OnLoginStatusChanged += LogStatus_OnLoginStatusChanged;
             this.Text = "Topic";
             {
                 this.btnFirst1.Click += new System.EventHandler(this.btnFirst_Click);
@@ -273,9 +273,9 @@ namespace Nzl.Smth.Containers
                 ///Save the host thread.
                 if (info.Index == 1 &&                     
                     info.Result.Count > 0 &&
-                    info.Result[0].Floor == "楼主")
+                    info.Result[0].Floor == "楼主" &&
+                    this._hostThread == null)
                 {
-                    RecycledQueues.AddRecycled<Thread>(this._hostThread);
                     this._hostThread = info.Result[0];
                 }
 
@@ -383,11 +383,11 @@ namespace Nzl.Smth.Containers
         /// 
         /// </summary>
         /// <param name="item"></param>
-        protected override void RecyclingItem(Thread item)
+        protected override void RecyclingItem(Thread thread)
         {
-            if (item.Floor != "楼主")
+            if (this._hostThread != thread)
             {
-                base.RecyclingItem(item);
+                base.RecyclingItem(thread);
             }
         }
 
@@ -498,11 +498,13 @@ namespace Nzl.Smth.Containers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Instance_OnLoginStatusChanged(object sender, LogStatusEventArgs e)
+        private void LogStatus_OnLoginStatusChanged(object sender, LogStatusEventArgs e)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new MethodInvoker(delegate () { this.linklblReply.Visible = e.IsLogin; }));
+                this.Invoke(new MethodInvoker(delegate () {
+                    this.linklblReply.Visible = e.IsLogin && string.IsNullOrEmpty(this._postUrl) == false;
+                }));
             }
             else
             {
@@ -960,6 +962,7 @@ namespace Nzl.Smth.Containers
 
             this._subject = this._topic;//CommonUtil.GetMatch(@"<input type=\Whidden\W name=\Wsubject\W value=\W(?'subject'Re[0-9A-Z,%,~,-]+)\W\s/>", html, 1);
             this._postUrl = CommonUtil.GetMatch(@"<form action=\W(?'post'/article/[\w, %2E, %5F]+/post/\d+)\W method=\Wpost\W>", wp.Html, 1);
+            this.linklblReply.Visible = false;
             if (string.IsNullOrEmpty(this._postUrl) == false)
             {
                 this._postUrl.Replace("%2E", ".");

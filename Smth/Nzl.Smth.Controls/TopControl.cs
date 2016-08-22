@@ -13,7 +13,7 @@ namespace Nzl.Smth.Controls
 #if (DESIGNMODE)
     public partial class TopControl : UserControl
 #else
-    public partial class TopControl : BaseControl<Topic>
+    public partial class TopControl : BaseControl<Top>
 #endif
     {
 #if (DESIGNMODE)
@@ -46,12 +46,12 @@ namespace Nzl.Smth.Controls
         /// 
         /// </summary>
         /// <param name="topic"></param>
-        public override void Initialize(Topic topic)
+        public override void Initialize(Top topic)
         {
             base.Initialize(topic);
             if (topic != null)
             {
-                this.lblIndex.Text = topic.TopSeq.ToString("00");
+                this.lblIndex.Text = topic.Sequence.ToString("00");
                 this.linklblTop.Text = "";
                 this.linklblTop.Text = topic.Title;
                 this.linklblTop.Links.Clear();
@@ -67,7 +67,7 @@ namespace Nzl.Smth.Controls
                     this.lblReplies.Visible = false;
                 }
 
-                string boardName = SmthBoards.Instance.GetBoardName(topic.Board);
+                string boardName = Boards.Instance.GetBoardName(topic.Board);
                 this.linklblBoard.Text = string.IsNullOrEmpty(boardName) ? topic.Board : boardName;
                 this.linklblBoard.Links.Clear();
                 this.linklblBoard.Links.Add(0, this.linklblBoard.Text.Length, topic.Board);
@@ -92,6 +92,7 @@ namespace Nzl.Smth.Controls
                 this.panel.BackColor = value;
             }
         }
+
         /// <summary>
         /// 
         /// </summary>

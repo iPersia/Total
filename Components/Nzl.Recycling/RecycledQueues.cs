@@ -76,7 +76,13 @@
             if (obj != null)
             {
                 Queue<object> queue = GetQueue(typeof(T));
-                queue.Enqueue(obj);
+                lock(queue)
+                {
+                    if (queue.Contains(obj) == false)
+                    {
+                        queue.Enqueue(obj);
+                    }
+                }
 #if (DEBUG)
                 System.Diagnostics.Debug.WriteLine("RecycledQueues - AddRecycled - Type is " + obj.GetType().ToString() + "\tQueue size is " + queue.Count);
 #endif

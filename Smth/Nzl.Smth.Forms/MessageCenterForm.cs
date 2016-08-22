@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.Windows.Forms;
-    using Nzl.Smth.Common;
+    using Nzl.Messaging;
     using Nzl.Smth.Logger;
 
     /// <summary>
@@ -88,7 +88,7 @@
             {
                 while (true)
                 {
-                    Datas.Message msg = MessageQueue.Dequeue();
+                    Nzl.Messaging.Message msg = MessageQueue.Dequeue();
                     if (msg != null)
                     {
                         this.bgwMessager.ReportProgress(1, msg);
@@ -118,7 +118,7 @@
         /// <param name="e"></param>
         private void bgwMessager_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            Datas.Message msg = e.UserState as Datas.Message;
+            Nzl.Messaging.Message msg = e.UserState as Nzl.Messaging.Message;
             if (msg != null)
             {
                 this.txtMsg.AppendText(msg.DateTime.TimeOfDay.ToString() + "\t\t" + msg.Source + "\n");

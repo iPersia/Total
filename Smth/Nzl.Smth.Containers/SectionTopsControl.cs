@@ -14,7 +14,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class SectionTopsControl : BaseContainer<TopControl, Topic>
+    public partial class SectionTopsControl : BaseContainer<TopControl, Top>
     {
         #region event
         /// <summary>
@@ -90,7 +90,7 @@
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        protected override string GetUrl(UrlInfo<TopControl, Topic> info)
+        protected override string GetUrl(UrlInfo<TopControl, Top> info)
         {
             return info.BaseUrl;
         }
@@ -99,7 +99,7 @@
         /// 
         /// </summary>
         /// <param name="info"></param>
-        protected override void DoWork(UrlInfo<TopControl, Topic> info)
+        protected override void DoWork(UrlInfo<TopControl, Top> info)
         {
             base.DoWork(info);
             info.Subject = SmthUtil.GetSectionName(info.WebPage);
@@ -110,9 +110,9 @@
         /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
-        protected override IList<Topic> GetItems(WebPage wp)
+        protected override IList<Top> GetItems(WebPage wp)
         {
-            IList<Topic> list = TopicFactory.CreateTop10Topics(wp);
+            IList<Top> list = TopFactory.CreateTops(wp);
 #if (DEBUG)
             System.Diagnostics.Debug.WriteLine("SectionTopsControl - GetItems - Item count is " + list.Count);
 #endif
@@ -124,7 +124,7 @@
         /// </summary>
         /// <param name="ctl"></param>
         /// <param name="item"></param>
-        protected override void InitializeControl(TopControl ctl, Topic topic)
+        protected override void InitializeControl(TopControl ctl, Top topic)
         {
             base.InitializeControl(ctl, topic);
             if (ctl != null && topic != null)
@@ -153,7 +153,7 @@
         /// 
         /// </summary>
         /// <param name="info"></param>
-        protected override void WorkCompleted(UrlInfo<TopControl, Topic> info)
+        protected override void WorkCompleted(UrlInfo<TopControl, Top> info)
         {
             base.WorkCompleted(info);
             if (this._parentControl != null)

@@ -150,6 +150,10 @@
       <Project>{665400e9-dc26-40f4-bd09-0e7151c3ca18}</Project>
       <Name>Nzl.Dispatcher</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Components\Nzl.Messaging\Nzl.Messaging.csproj">
+      <Project>{a91bd567-b912-4f7a-a9b7-84d914923d53}</Project>
+      <Name>Nzl.Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Components\Nzl.Util\Nzl.Utils.csproj">
       <Project>{b9de9cff-d84e-4bf9-a615-cf7f4519f139}</Project>
       <Name>Nzl.Utils</Name>

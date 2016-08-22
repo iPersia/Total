@@ -2,31 +2,23 @@
 {
     using System;
     using System.Collections.Generic;
-    using Nzl.Smth.Datas;
     using Nzl.Smth.Logger;
 
     /// <summary>
     /// 
     /// </summary>
-    public class TreeNode
+    internal class BoardNode
     {
         /// <summary>
         /// 
         /// </summary>
-        private Dictionary<string, TreeNode> _dicChilds = new Dictionary<string, TreeNode>();
-        /// <summary>
-        /// 
-        /// </summary>
-        public BaseData Item
-        {
-            get;
-            set;
-        }
+        private Dictionary<string, BoardNode> _dicChilds = new Dictionary<string, BoardNode>();
+
 
         /// <summary>
         /// 
         /// </summary>
-        public TreeNode Parent
+        public BoardNode Parent
         {
             get;
             set;
@@ -35,7 +27,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<string, TreeNode> Childs
+        public Dictionary<string, BoardNode> Childs
         {
             get
             {
@@ -48,7 +40,7 @@
         /// </summary>
         /// <param name="key"></param>
         /// <param name="node"></param>
-        public void AddChild(string key, TreeNode node)
+        public void AddChild(string key, BoardNode node)
         {
             try
             {

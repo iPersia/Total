@@ -2,9 +2,15 @@
 {
     using System;
     using System.Runtime.Remoting.Messaging;
-    using Nzl.Dispatcher;
+    using Nzl.Dispatcher;    
+    using Nzl.Messaging;
     using Nzl.Smth.Logger;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     delegate bool AsyncExecuteItem(IExecute item);
 
     /// <summary>
@@ -40,7 +46,7 @@
                 caller.BeginInvoke(item, new AsyncCallback(ExecuteItemCallBack), caller);
                 System.Threading.Thread.Sleep(0);
 #if (DEBUG)
-                MessageQueue.Enqueue(Utils.MessageFactory.CreateMessage("Page dispatcher", "the queue size is " + this.mQueues.Count + "!"));
+                MessageQueue.Enqueue(MessageFactory.CreateMessage("Page dispatcher", "the queue size is " + this.mQueues.Count + "!"));
 #endif
                 return;
             }

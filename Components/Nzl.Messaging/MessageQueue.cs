@@ -1,11 +1,7 @@
-﻿namespace Nzl.Smth.Common
+﻿namespace Nzl.Messaging
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using Nzl.Smth.Datas;
-    using Nzl.Smth.Logger;
 
     /// <summary>
     /// 
@@ -58,11 +54,6 @@
             }
             catch (Exception exp)
             {
-                if (Logger.Enabled)
-                {
-                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
-                }
-
                 return null;
             }
         }

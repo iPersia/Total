@@ -12,6 +12,7 @@
     using Nzl.Smth.Utils;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Logger;
+    using Nzl.Messaging;
     using Nzl.Utils;
     using Nzl.Web.Page;
     using Nzl.Web.Util;

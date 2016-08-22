@@ -42,13 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MailFactory.cs" />
-    <Compile Include="MessageFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RtfUtil.cs" />
     <Compile Include="SectionUtil.cs" />
     <Compile Include="SmthUtil.cs" />
     <Compile Include="TextBoxUtil.cs" />
     <Compile Include="ThreadFactory.cs" />
+    <Compile Include="TopFactory.cs" />
     <Compile Include="TopicFactory.cs" />
   </ItemGroup>
   <ItemGroup>

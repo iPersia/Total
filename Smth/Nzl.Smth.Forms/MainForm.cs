@@ -40,7 +40,7 @@
             this.nfiMain.Visible = true;
 
             ///Load board's infor.
-            SmthBoards.Instance.Initilize();
+            Boards.Instance.Initilize();
 
             TabbedBrowserForm.Instance.SetParent(this);
             TabbedBrowserForm.Instance.Show();

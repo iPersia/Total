@@ -3,21 +3,23 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using Nzl.Messaging;
+    using Nzl.Recycling;
     using Nzl.Smth.Datas;
-    using Nzl.Web.Page;
     using Nzl.Smth.Logger;
     using Nzl.Smth.Utils;
+    using Nzl.Web.Page;
 
     /// <summary>
     /// 
     /// </summary>
-    public class SmthBoards
+    public class Boards
     {
         #region Singleton
         /// <summary>
         /// 
         /// </summary>
-        public static readonly SmthBoards Instance = new SmthBoards();
+        public static readonly Boards Instance = new Boards();
         #endregion
 
         #region Variables
@@ -29,14 +31,14 @@
         /// <summary>
         /// 
         /// </summary>
-        private TreeNode _treenodeRoot = new TreeNode();
+        private BoardNode _treenodeRoot = new BoardNode();
         #endregion
 
         #region Ctors.
         /// <summary>
         /// 
         /// </summary>
-        SmthBoards()
+        Boards()
         { }
         #endregion
 
@@ -90,40 +92,36 @@
                 if (args != null)
                 {
                     WebPage wp = pl.GetResult() as WebPage;
-                    IList<Section> bsList = SectionUtil.GetSections(wp);
-                    foreach (Section bi in bsList)
+                    IList<Section> secList = SectionUtil.GetSections(wp);
+                    foreach (Section sec in secList)
                     {
                         ///Board
-                        if (bi.IsBoard)
+                        if (sec.IsBoard)
                         {
-                            TreeNode tnBoard = new TreeNode();
-                            tnBoard.Item = bi;
+                            BoardNode tnBoard = new BoardNode();
                             tnBoard.Parent = args.Node;
-                            args.Node.AddChild(bi.Code, tnBoard);
+                            args.Node.AddChild(sec.Code, tnBoard);
 
-                            this.AddBoard(bi.Code, bi.Name);
+                            this.AddBoard(sec.Code, sec.Name);                            
                         }
                         else
                         ///Section
                         {
-                            Section section = bi as Section;
-                            if (section != null)
-                            {
-                                TreeNode tnSection = new TreeNode();
-                                tnSection.Item = section;
-                                tnSection.Parent = args.Node;
-                                args.Node.AddChild(section.Code, tnSection);
+                            BoardNode tnSection = new BoardNode();
+                            tnSection.Parent = args.Node;
+                            args.Node.AddChild(sec.Code, tnSection);
 
-                                WorkerArgs newArgs = new WorkerArgs();
-                                newArgs.SectionUrl = @"http://m.newsmth.net/section/" + section.Code;
-                                newArgs.Node = tnSection;
+                            WorkerArgs newArgs = new WorkerArgs();
+                            newArgs.SectionUrl = @"http://m.newsmth.net/section/" + sec.Code;
+                            newArgs.Node = tnSection;
 
-                                PageLoader pageLoader = new PageLoader(newArgs.SectionUrl);
-                                pageLoader.Tag = newArgs;
-                                pageLoader.PageLoaded += PageLoader_PageLoaded;
-                                PageDispatcher.Instance.Add(pageLoader);
-                            }
+                            PageLoader pageLoader = new PageLoader(newArgs.SectionUrl);
+                            pageLoader.Tag = newArgs;
+                            pageLoader.PageLoaded += PageLoader_PageLoaded;
+                            PageDispatcher.Instance.Add(pageLoader);
                         }
+
+                        RecycledQueues.AddRecycled<Section>(sec);
                     }
                 }
 
@@ -149,14 +147,9 @@
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             //WorkerArgs args = e.Result as WorkerArgs;
-            //if (args != null && args.Node == this._treenodeRoot)
+            //if (args != null)
             //{
-            //    Message msg = new Message();
-            //    msg.DateTime = System.DateTime.Now;
-            //    msg.Source = "Loading section information completed!";
-            //    msg.Detail = "The root url is " + args.SectionUrl + "!";
-            //    msg.Type = MessageType.Information;
-            //    MessageQueue.Enqueue(msg);
+
             //}
         }
 
@@ -219,7 +212,7 @@
             /// <summary>
             /// 
             /// </summary>
-            public TreeNode Node
+            public BoardNode Node
             {
                 get;
                 set;
