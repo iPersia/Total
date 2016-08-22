@@ -30,7 +30,16 @@
         /// </summary>
         PageDispatcher()
         {
+            this.Synchronous = true;
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Synchronous
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -42,8 +51,15 @@
             if (item != null)
             {
                 AsyncExecuteItem caller = new AsyncExecuteItem(ExecuteItem);
-                //caller.Invoke(item);
-                caller.BeginInvoke(item, new AsyncCallback(ExecuteItemCallBack), caller);
+                if (Synchronous)
+                {
+                    caller.Invoke(item);
+                }
+                else
+                {
+                    caller.BeginInvoke(item, new AsyncCallback(ExecuteItemCallBack), caller);
+                }
+
                 System.Threading.Thread.Sleep(0);
 #if (DEBUG)
                 MessageQueue.Enqueue(MessageFactory.CreateMessage("Page dispatcher", "the queue size is " + this.mQueues.Count + "!"));
