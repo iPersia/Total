@@ -41,12 +41,12 @@
             this.cmsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiExit});
             this.cmsMain.Name = "cmsMain";
-            this.cmsMain.Size = new System.Drawing.Size(153, 48);
+            this.cmsMain.Size = new System.Drawing.Size(97, 26);
             // 
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(152, 22);
+            this.tsmiExit.Size = new System.Drawing.Size(96, 22);
             this.tsmiExit.Text = "Exit";
             this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
@@ -54,7 +54,7 @@
             // 
             this.nfiMain.ContextMenuStrip = this.cmsMain;
             this.nfiMain.Icon = ((System.Drawing.Icon)(resources.GetObject("nfiMain.Icon")));
-            this.nfiMain.Text = "Main";
+            this.nfiMain.Text = "Smth PC Client";
             this.nfiMain.Visible = true;
             this.nfiMain.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.nfiMain_MouseDoubleClick);
             // 

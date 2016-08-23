@@ -8,7 +8,7 @@
     using System.Linq;
     using System.Text;
     using System.Windows.Forms;
-    using Nzl.Smth.Controls;
+    using Nzl.Smth.Controls.Elements;
     using Nzl.Smth.Datas;
 
     /// <summary>

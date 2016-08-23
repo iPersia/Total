@@ -44,6 +44,7 @@
     <Compile Include="BrowserType.cs" />
     <Compile Include="LogStatus.cs" />
     <Compile Include="LogStatusEventArgs.cs" />
+    <Compile Include="MailBoxType.cs" />
     <Compile Include="MailStatus.cs" />
     <Compile Include="MailStatusEventArgs.cs" />
     <Compile Include="MessageEventArgs.cs" />

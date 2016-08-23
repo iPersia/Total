@@ -1,4 +1,4 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Containers
 {
     using System;
     using System.ComponentModel;
@@ -6,7 +6,8 @@
     using System.Drawing;
     using System.Windows.Forms;
     using Nzl.Smth.Common;
-    using Nzl.Smth.Controls;
+    using Nzl.Smth.Controls.Base;
+    using Nzl.Smth.Controls.Elements;
     using Nzl.Smth.Datas;    
     using Nzl.Smth.Utils;
     using Nzl.Smth.Logger;
@@ -17,7 +18,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    internal partial class XBoxControl : BaseContainer<MailControl, Mail>
+    public partial class MailContainer : BaseContainer<MailControl, Mail>
     {
         #region Event
         /// <summary>
@@ -51,7 +52,7 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        XBoxControl()
+        MailContainer()
         {
             InitializeComponent();
             this.Text = "Mailbox";
@@ -62,7 +63,7 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        public XBoxControl(MailBoxType type)
+        public MailContainer(MailBoxType type)
             : this()
         {
             this._mailBoxType = type;
@@ -346,7 +347,7 @@
                 }
 
 #if (DEBUG)
-                CommonUtil.ShowMessage(typeof(TopicBrowserControl), exp.Message);
+                CommonUtil.ShowMessage(typeof(ThreadContainer), exp.Message);
 #endif
             }
         }
@@ -378,26 +379,5 @@
         #region privates.
 
         #endregion
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    internal enum MailBoxType
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        Inbox,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        Outbox,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        Trash
     }
 }

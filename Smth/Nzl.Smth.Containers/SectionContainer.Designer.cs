@@ -1,6 +1,6 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Containers
 {
-    partial class SectionNavigationControl
+    partial class SectionContainer
     {
         /// <summary> 
         /// 必需的设计器变量。

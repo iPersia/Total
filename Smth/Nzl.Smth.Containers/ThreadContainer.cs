@@ -1,5 +1,5 @@
 ﻿//#define DESIGNMODE
-namespace Nzl.Smth.Containers
+namespace Nzl.Smth.Controls.Containers
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,8 @@ namespace Nzl.Smth.Containers
     using Nzl.Recycling;
     using Nzl.Smth.Common;
     using Nzl.Smth.Configurations;
-    using Nzl.Smth.Controls;
+    using Nzl.Smth.Controls.Base;
+    using Nzl.Smth.Controls.Elements;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Interfaces;
     using Nzl.Smth.Logger;
@@ -29,7 +30,7 @@ namespace Nzl.Smth.Containers
 #if (DESIGNMODE)
     public partial class TopicBrowserControl : UserControl
 #else
-    public partial class TopicBrowserControl : BaseContainer<ThreadControl, Thread>
+    public partial class ThreadContainer : BaseContainer<ThreadControl, Thread>
 #endif
     {
 #if (DESIGNMODE)
@@ -198,7 +199,7 @@ namespace Nzl.Smth.Containers
         /// <summary>
         /// Ctor.
         /// </summary>
-        public TopicBrowserControl()
+        public ThreadContainer()
         {
             InitializeComponent();
             this.panel.MouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
@@ -746,7 +747,7 @@ namespace Nzl.Smth.Containers
                 }
 
 #if (DEBUG)
-                CommonUtil.ShowMessage(typeof(TopicBrowserControl), exp.Message);
+                CommonUtil.ShowMessage(typeof(ThreadContainer), exp.Message);
 #endif
             }
         }

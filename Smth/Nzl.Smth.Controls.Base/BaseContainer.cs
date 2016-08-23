@@ -1,4 +1,4 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Base
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,6 @@
     using System.ComponentModel;
     using Nzl.Recycling;
     using Nzl.Smth.Common;
-    using Nzl.Smth.Controls;
     using Nzl.Smth.Utils;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Logger;

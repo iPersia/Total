@@ -2,7 +2,7 @@
 {
     using System;
     using System.Windows.Forms;
-    using Nzl.Smth.Containers;
+    using Nzl.Smth.Controls.Complexes;
 
     /// <summary>
     /// 

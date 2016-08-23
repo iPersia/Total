@@ -1,8 +1,9 @@
-﻿namespace Nzl.Smth.Controls
+﻿namespace Nzl.Smth.Controls.Elements
 {
     using System.Windows.Forms;
-    using Datas;
-    using Utils;
+    using Nzl.Smth.Controls.Base;
+    using Nzl.Smth.Datas;
+    using Nzl.Smth.Utils;
 
     /// <summary>
     /// Class.

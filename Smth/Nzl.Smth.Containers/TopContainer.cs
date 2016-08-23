@@ -1,11 +1,12 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Containers
 {
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;        
     using Nzl.Smth.Configurations;
-    using Nzl.Smth.Controls;
+    using Nzl.Smth.Controls.Base;
+    using Nzl.Smth.Controls.Elements;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Utils;
     using Nzl.Web.Util;
@@ -14,7 +15,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class SectionTopsControl : BaseContainer<TopControl, Top>
+    public partial class TopContainer : BaseContainer<TopControl, Top>
     {
         #region event
         /// <summary>
@@ -44,7 +45,7 @@
         /// <summary>
         /// 
         /// </summary>
-        SectionTopsControl()
+        TopContainer()
         {
             InitializeComponent();
             Configuration.OnSectionTopsUpdatingIntervalChanged += Configuration_OnSectionTopsUpdatingIntervalChanged;
@@ -56,7 +57,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public SectionTopsControl(string url)
+        public TopContainer(string url)
             : this()
         {
             this.SetBaseUrl(url);

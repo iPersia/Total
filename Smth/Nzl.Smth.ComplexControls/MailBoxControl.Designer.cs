@@ -1,4 +1,4 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Complexes
 {
     partial class MailBoxControl
     {

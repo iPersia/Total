@@ -1,10 +1,11 @@
 ﻿//#define DESIGNMODE
-namespace Nzl.Smth.Controls
+namespace Nzl.Smth.Controls.Elements
 {
     using System;
     using System.Drawing;
     using System.Windows.Forms;
     using Nzl.Smth.Common;
+    using Nzl.Smth.Controls.Base;
     using Nzl.Smth.Datas;
 
     /// <summary>

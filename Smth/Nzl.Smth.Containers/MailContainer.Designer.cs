@@ -1,6 +1,6 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Containers
 {
-    partial class BoardBrowserControl
+    partial class MailContainer
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,6 +30,7 @@
         {
             this.scContainer = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnNew = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnOpenInBrower = new System.Windows.Forms.Button();
             this.btnGo1 = new System.Windows.Forms.Button();
@@ -87,6 +88,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnNew);
             this.panel1.Controls.Add(this.btnRefresh);
             this.panel1.Controls.Add(this.btnOpenInBrower);
             this.panel1.Controls.Add(this.btnGo1);
@@ -102,10 +104,23 @@
             this.panel1.Size = new System.Drawing.Size(635, 25);
             this.panel1.TabIndex = 0;
             // 
+            // btnNew
+            // 
+            this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnNew.Location = new System.Drawing.Point(274, 1);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(56, 23);
+            this.btnNew.TabIndex = 20;
+            this.btnNew.TabStop = false;
+            this.btnNew.Text = "New";
+            this.btnNew.UseCompatibleTextRendering = true;
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
             // btnRefresh
             // 
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRefresh.Location = new System.Drawing.Point(273, 1);
+            this.btnRefresh.Location = new System.Drawing.Point(463, 1);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(56, 23);
             this.btnRefresh.TabIndex = 19;
@@ -119,9 +134,9 @@
             // 
             this.btnOpenInBrower.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenInBrower.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnOpenInBrower.Location = new System.Drawing.Point(479, 1);
+            this.btnOpenInBrower.Location = new System.Drawing.Point(525, 1);
             this.btnOpenInBrower.Name = "btnOpenInBrower";
-            this.btnOpenInBrower.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenInBrower.Size = new System.Drawing.Size(32, 23);
             this.btnOpenInBrower.TabIndex = 16;
             this.btnOpenInBrower.TabStop = false;
             this.btnOpenInBrower.Text = "OiB";
@@ -363,12 +378,12 @@
             this.btnPrev2.UseVisualStyleBackColor = true;
             this.btnPrev2.Click += new System.EventHandler(this.btnPrev_Click);
             // 
-            // BoardBrowserControl
+            // XBoxControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.scContainer);
-            this.Name = "BoardBrowserControl";
+            this.Name = "XBoxControl";
             this.Size = new System.Drawing.Size(635, 544);
             this.scContainer.Panel1.ResumeLayout(false);
             this.scContainer.Panel2.ResumeLayout(false);
@@ -411,5 +426,6 @@
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.Panel panelContainer;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnNew;
     }
 }

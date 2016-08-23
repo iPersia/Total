@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Nzl.Smth.Controls.Containers")]
-[assembly: AssemblyDescription("The ontainer controls component.")]
+[assembly: AssemblyTitle("Nzl.Smth.Controls.Complexes")]
+[assembly: AssemblyDescription("The complex controls component.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Nzl.Smth.Controls.Containers")]
+[assembly: AssemblyProduct("Nzl.Smth.Controls.Complexes")]
 [assembly: AssemblyCopyright("Copyright © Nesus 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("3466c961-acdb-4f03-bb1d-10fad9fb88f1")]
+[assembly: Guid("0386c5f4-d40e-4fb3-bcff-cae90693e049")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

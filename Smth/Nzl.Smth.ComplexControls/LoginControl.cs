@@ -1,4 +1,4 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Complexes
 {
     using System;
     using System.ComponentModel;
@@ -7,9 +7,9 @@
     using System.Windows.Forms;
     using Nzl.Smth.Common;
     using Nzl.Smth.Configurations;
-    using Nzl.Smth.Datas;
     using Nzl.Smth.Utils;
     using Nzl.Smth.Logger;
+    using Nzl.Utils;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
 
@@ -483,12 +483,12 @@
                     {
                         byte[] edatas = new byte[fStream.Length];
                         fStream.Read(edatas, 0, (int)fStream.Length);
-                        byte[] datas = Nzl.Utils.EncryptUtil.Decrypt(edatas, System.Text.Encoding.Default.GetBytes(this._filename));
+                        byte[] datas = EncryptUtil.Decrypt(edatas, System.Text.Encoding.Default.GetBytes(this._filename));
                         UserInformation ui = (UserInformation)BufferHelper.Deserialize(datas, 0);
                         if (ui != null)
                         {
-                            this.txtUserID.Text = Nzl.Utils.EncryptUtil.Decrypt(ui.UserName, this._filename);
-                            this.txtPassword.Text = Nzl.Utils.EncryptUtil.Decrypt(ui.Password, this._filename);
+                            this.txtUserID.Text = EncryptUtil.Decrypt(ui.UserName, this._filename);
+                            this.txtPassword.Text = EncryptUtil.Decrypt(ui.Password, this._filename);
                         }
                     }
 

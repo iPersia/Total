@@ -1,10 +1,9 @@
-﻿namespace Nzl.Smth.Controls
+﻿namespace Nzl.Smth.Controls.Elements
 {
-    using System;
-    using System.Drawing;
     using System.Windows.Forms;
-    using Nzl.Web.Util;
+    using Nzl.Smth.Controls.Base;
     using Nzl.Smth.Datas;
+    using Nzl.Web.Util;
 
     /// <summary>
     /// 
@@ -36,33 +35,11 @@
             this.linklblCreateID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblCreateID_LinkClicked);
             this.linklblLastID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblLastID_LinkClicked);
         }
-
-        ///// <summary>
-        ///// Ctor.
-        ///// </summary>
-        //public TopicControl(Topic topic)
-        //    : this()
-        //{
-        //    this.Tag = topic;
-        //    if (topic != null)
-        //    {
-        //        this.linklblTopic.Text = CommonUtil.ReplaceSpecialChars(topic.Title);
-        //        this.lblReplies.Text = "（" + topic.Replies + "）";
-        //        this.lblReplies.Left = this.linklblTopic.Left + this.linklblTopic.Width + 1;
-        //        this.linklblTopic.Links.Add(0, topic.Title.Length, topic.Uri);
-        //        this.lblCreateDT.Text = topic.CreateDateTime;
-        //        this.lblLastDT.Text = topic.LastThreadDateTime;
-        //        this.linklblCreateID.Text = topic.CreateID;
-        //        this.linklblCreateID.Links.Add(0, topic.CreateID.Length, topic.CreateID);
-        //        this.linklblLastID.Text = topic.LastThreadID;
-        //        this.linklblLastID.Links.Add(0, topic.LastThreadID.Length, topic.LastThreadID);
-        //    }
-
-        //    this.linklblTopic.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblTopic_LinkClicked);
-        //    this.linklblCreateID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblCreateID_LinkClicked);
-        //    this.linklblLastID.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblLastID_LinkClicked);
-        //}
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="topic"></param>
         public override void Initialize(Topic topic)
         {
             base.Initialize(topic);

@@ -1,23 +1,22 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Containers
 {
     using System;
-    using System.Reflection;
     using System.ComponentModel;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Text.RegularExpressions;
     using System.Windows.Forms;
-    using Nzl.Web.Util;
-    using Nzl.Web.Page;
+    using Nzl.Smth.Controls.Base;
+    using Nzl.Smth.Controls.Elements;
     using Nzl.Smth.Datas;
-    using Nzl.Smth.Controls;
     using Nzl.Smth.Utils;
     using Nzl.Smth.Logger;
+    using Nzl.Web.Util;
+    using Nzl.Web.Page;
 
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class BoardBrowserControl : BaseContainer<TopicControl, Topic>
+    public partial class TopicContainer : BaseContainer<TopicControl, Topic>
     {
         #region Event
         /// <summary>
@@ -47,7 +46,7 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        public BoardBrowserControl()
+        public TopicContainer()
         {
             InitializeComponent();
             this.panel.MouseWheel += new MouseEventHandler(BoardBrowserControl_MouseWheel);
@@ -294,7 +293,7 @@
                 }
 
 #if (DEBUG)
-                CommonUtil.ShowMessage(typeof(TopicBrowserControl), exp.Message);
+                CommonUtil.ShowMessage(typeof(ThreadContainer), exp.Message);
 #endif
             }
         }

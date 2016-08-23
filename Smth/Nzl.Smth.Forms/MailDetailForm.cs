@@ -9,7 +9,7 @@
     using Nzl.Web.Util;
     using Nzl.Web.Page;
     using Nzl.Smth.Datas;
-    using Nzl.Smth.Containers;
+    using Nzl.Smth.Controls.Containers;
 
     /// <summary>
     /// Class.
@@ -25,7 +25,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private MailDetailContainerControl _mccContainer = null;
+        private MailDetailContainer _mccContainer = null;
         #endregion
 
         #region Ctor
@@ -35,7 +35,7 @@
         public MailDetailForm()
         {
             InitializeComponent();
-            this._mccContainer = new MailDetailContainerControl();
+            this._mccContainer = new MailDetailContainer();
             this._mccContainer.Left = 1;
             this._mccContainer.Top = 1;
             this._mccContainer.OnMailAuthorLinkClicked += Mdcc_OnMailAuthorLinkClicked;

@@ -120,13 +120,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Smth", "Smth", "{21988C76-4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Main", "Smth\Nzl.Smth.Main\Nzl.Smth.Main.csproj", "{FF135DEC-4DE1-41F8-84CD-139B02A500DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Controls", "Smth\Nzl.Smth.Controls\Nzl.Smth.Controls.csproj", "{3D39E4A3-0ED7-4175-A2BA-68A00919A998}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Controls.Elements", "Smth\Nzl.Smth.Controls\Nzl.Smth.Controls.Elements.csproj", "{3D39E4A3-0ED7-4175-A2BA-68A00919A998}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Forms", "Smth\Nzl.Smth.Forms\Nzl.Smth.Forms.csproj", "{25147225-1AEF-41DB-B5F3-A3EF07B7A862}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Common", "Smth\Nzl.Smth.Common\Nzl.Smth.Common.csproj", "{E22371CB-BCAE-41E5-82B3-2B696C7E05D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Containers", "Smth\Nzl.Smth.Containers\Nzl.Smth.Containers.csproj", "{3466C961-ACDB-4F03-BB1D-10FAD9FB88F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Controls.Containers", "Smth\Nzl.Smth.Containers\Nzl.Smth.Controls.Containers.csproj", "{3466C961-ACDB-4F03-BB1D-10FAD9FB88F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Datas", "Smth\Nzl.Smth.Datas\Nzl.Smth.Datas.csproj", "{BBC9010B-CB89-4F7E-B418-5B653E5EB005}"
 EndProject
@@ -145,6 +145,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Configurations", "Smth\Nzl.Smth.Configurations\Nzl.Smth.Configurations.csproj", "{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Messaging", "Components\Nzl.Messaging\Nzl.Messaging.csproj", "{A91BD567-B912-4F7A-A9B7-84D914923D53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Controls.Complexes", "Smth\Nzl.Smth.ComplexControls\Nzl.Smth.Controls.Complexes.csproj", "{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Controls.Base", "Smth\Nzl.Smth.Controls.Base\Nzl.Smth.Controls.Base.csproj", "{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -737,6 +741,30 @@ Global
 		{A91BD567-B912-4F7A-A9B7-84D914923D53}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A91BD567-B912-4F7A-A9B7-84D914923D53}.Release|x86.ActiveCfg = Release|Any CPU
 		{A91BD567-B912-4F7A-A9B7-84D914923D53}.Release|x86.Build.0 = Release|Any CPU
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}.Debug|x86.Build.0 = Debug|Any CPU
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}.Release|x86.ActiveCfg = Release|Any CPU
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049}.Release|x86.Build.0 = Release|Any CPU
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}.Debug|x86.Build.0 = Debug|Any CPU
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}.Release|x86.ActiveCfg = Release|Any CPU
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -797,5 +825,7 @@ Global
 		{34E73DFF-0B1D-4820-9DF9-F9EFE29E23AC} = {362DE052-0617-4DB4-AECD-1AA8DD42A90D}
 		{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD} = {21988C76-462B-47A7-80C6-4FFCA16BEA0E}
 		{A91BD567-B912-4F7A-A9B7-84D914923D53} = {362DE052-0617-4DB4-AECD-1AA8DD42A90D}
+		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049} = {21988C76-462B-47A7-80C6-4FFCA16BEA0E}
+		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6} = {21988C76-462B-47A7-80C6-4FFCA16BEA0E}
 	EndGlobalSection
 EndGlobal

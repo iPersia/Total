@@ -1,6 +1,6 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Containers
 {
-    partial class TopicBrowserControl
+    partial class ThreadContainer
     {
         /// <summary> 
         /// Required designer variable.

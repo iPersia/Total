@@ -1,6 +1,6 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Containers
 {
-    partial class FavorControl
+    partial class BoardContainer
     {
         /// <summary> 
         /// 必需的设计器变量。

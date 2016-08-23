@@ -1,10 +1,11 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Containers
 {
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
-    using Nzl.Smth.Controls;
+    using Nzl.Smth.Controls.Base;
+    using Nzl.Smth.Controls.Elements;
     using Nzl.Smth.Datas;
     using Nzl.Web.Page;
     using Nzl.Smth.Utils;
@@ -13,7 +14,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class FavorControl : BaseContainer<BoardControl, Board>
+    public partial class BoardContainer : BaseContainer<BoardControl, Board>
     {
         #region event
         /// <summary>
@@ -33,7 +34,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public FavorControl()
+        public BoardContainer()
         {
             InitializeComponent();
             this.panel.MouseWheel += Panel_MouseWheel;

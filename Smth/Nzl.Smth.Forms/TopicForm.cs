@@ -8,7 +8,7 @@
     using System.Windows.Forms;
     using Nzl.Web.Util;
     using Nzl.Web.Page;
-    using Nzl.Smth.Controls;
+    using Nzl.Smth.Controls.Elements;
     using Nzl.Smth.Datas;
 
     /// <summary>

@@ -40,7 +40,7 @@
             this.nfiMain.Visible = true;
 
             ///Load board's infor.
-            Boards.Instance.Initilize();
+            //Boards.Instance.Initilize();
 
             TabbedBrowserForm.Instance.SetParent(this);
             TabbedBrowserForm.Instance.Show();
@@ -127,7 +127,7 @@
             if (TabbedBrowserForm.Instance.Visible)
             {
                 TabbedBrowserForm.Instance.Show();
-                TabbedBrowserForm.Instance.Focus();
+                TabbedBrowserForm.Instance.Activate();
             }
         }
 

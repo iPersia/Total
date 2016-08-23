@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lcLog = new Nzl.Smth.Containers.LoginControl();
+            this.lcLog = new Nzl.Smth.Controls.Complexes.LoginControl();
             this.SuspendLayout();
             // 
             // lcLog
@@ -56,6 +56,6 @@
 
         #endregion
 
-        private Containers.LoginControl lcLog;
+        private Controls.Complexes.LoginControl lcLog;
     }
 }

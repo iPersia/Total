@@ -1,11 +1,12 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Containers
 {
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
     using Nzl.Smth.Configurations;
-    using Nzl.Smth.Controls;
+    using Nzl.Smth.Controls.Base;
+    using Nzl.Smth.Controls.Elements;
     using Nzl.Smth.Datas;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
@@ -20,7 +21,7 @@
     /// So when the linklabel lose focus, the SectionNavigationControl must
     /// be focused.
     /// </summary>
-    public partial class SectionNavigationControl : BaseContainer<SectionControl,Section>
+    public partial class SectionContainer : BaseContainer<SectionControl,Section>
     {
         #region event
         /// <summary>
@@ -50,7 +51,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public SectionNavigationControl()
+        public SectionContainer()
         {
             InitializeComponent();
             this.btnRefresh.Left = this.panelUp.Width / 2 - this.btnRefresh.Width / 2;

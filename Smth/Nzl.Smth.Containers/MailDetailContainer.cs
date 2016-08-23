@@ -1,12 +1,13 @@
 ﻿//#define DESIGNMODE
-namespace Nzl.Smth.Containers
+namespace Nzl.Smth.Controls.Containers
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows.Forms;
-    using Nzl.Smth.Datas;    
-    using Nzl.Smth.Controls;
+    using Nzl.Smth.Datas;
+    using Nzl.Smth.Controls.Base;
+    using Nzl.Smth.Controls.Elements;
     using Nzl.Smth.Utils;
     using Nzl.Web.Page;
     /// <summary>
@@ -15,7 +16,7 @@ namespace Nzl.Smth.Containers
 #if (DESIGNMODE)
     public partial class MailDetailContainerControl : UserControl
 #else
-    public partial class MailDetailContainerControl : BaseContainer<MailDetailControl, Mail>
+    public partial class MailDetailContainer : BaseContainer<MailDetailControl, Mail>
 #endif
     {
 #if (DESIGNMODE)
@@ -58,11 +59,11 @@ namespace Nzl.Smth.Containers
         /// <summary>
         /// 
         /// </summary>
-        public MailDetailContainerControl()
+        public MailDetailContainer()
         {
             InitializeComponent();
             this.Text = "Mail Detail";
-        }        
+        }
 
         /// <summary>
         /// 
@@ -130,7 +131,7 @@ namespace Nzl.Smth.Containers
         {
             return this.panel;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>

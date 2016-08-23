@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BoardNavigatorForm));
-            this.sncSection = new Nzl.Smth.Containers.SectionNavigationControl();
+            this.sncSection = new Nzl.Smth.Controls.Containers.SectionContainer();
             this.SuspendLayout();
             // 
             // sncSection
@@ -58,6 +58,6 @@
 
         #endregion
 
-        private Containers.SectionNavigationControl sncSection;
+        private Controls.Containers.SectionContainer sncSection;
     }
 }

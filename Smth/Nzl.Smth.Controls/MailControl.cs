@@ -1,9 +1,11 @@
-﻿namespace Nzl.Smth.Controls
+﻿namespace Nzl.Smth.Controls.Elements
 {
     using System;
     using System.Windows.Forms;
     using Nzl.Web.Util;
+    using Nzl.Smth.Controls.Base;
     using Nzl.Smth.Datas;
+
     /// <summary>
     /// Class.
     /// </summary>

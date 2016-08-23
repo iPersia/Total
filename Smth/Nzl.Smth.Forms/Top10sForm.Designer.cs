@@ -57,7 +57,7 @@
 
         #endregion
 
-        private Containers.SectionTopsControl sectionTopsControl1;
+        private Controls.Containers.TopContainer sectionTopsControl1;
         private System.Windows.Forms.Panel panelContainer;
 
     }

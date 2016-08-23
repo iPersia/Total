@@ -1,9 +1,10 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Complexes
 {
     using System;
     using System.Drawing;
     using System.Windows.Forms;
     using Nzl.Smth.Configurations;
+    using Nzl.Smth.Controls.Containers;
 
     /// <summary>
     /// 
@@ -51,7 +52,7 @@
             {
                 TabPage tp = new TabPage();
                 tp.Name = "tpHot";
-                SectionTopsControl tbc = new SectionTopsControl("http://m.newsmth.net/hot");
+                TopContainer tbc = new TopContainer("http://m.newsmth.net/hot");
                 tbc.Name = "tbcHot";
                 tbc.SetParent(tp);
                 tbc.CreateControl();
@@ -82,7 +83,7 @@
 
             TabPage tp = new TabPage();
             tp.Name = "tbcHot" + this._sectionIndex;
-            SectionTopsControl tbc = new SectionTopsControl("http://m.newsmth.net/hot/" + this._sectionIndex);
+            TopContainer tbc = new TopContainer("http://m.newsmth.net/hot/" + this._sectionIndex);
             tbc.Name = "tbcHot" + this._sectionIndex++;
             tbc.SetParent(tp);
             tbc.CreateControl();

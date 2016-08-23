@@ -1,9 +1,11 @@
-﻿namespace Nzl.Smth.Containers
+﻿namespace Nzl.Smth.Controls.Complexes
 {
     using System;
     using System.Drawing;
     using System.Windows.Forms;
+    using Nzl.Smth.Common;
     using Nzl.Smth.Configurations;
+    using Nzl.Smth.Controls.Containers;
 
     /// <summary>
     /// 
@@ -43,7 +45,7 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpInbox";
                 tp.Text = "Inbox";
-                XBoxControl xbc = new XBoxControl(MailBoxType.Inbox);
+                MailContainer xbc = new MailContainer(MailBoxType.Inbox);
                 xbc.Url = Configuration.InboxUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
@@ -59,7 +61,7 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpOutbox";
                 tp.Text = "Outbox";
-                XBoxControl xbc = new XBoxControl(MailBoxType.Outbox);
+                MailContainer xbc = new MailContainer(MailBoxType.Outbox);
                 xbc.Url = Configuration.OutboxUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
@@ -74,7 +76,7 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpTrash";
                 tp.Text = "Trash";
-                XBoxControl xbc = new XBoxControl(MailBoxType.Trash);
+                MailContainer xbc = new MailContainer(MailBoxType.Trash);
                 xbc.Url = Configuration.TrashUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;

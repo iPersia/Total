@@ -1,4 +1,4 @@
-﻿namespace Nzl.Smth.Controls
+﻿namespace Nzl.Smth.Controls.Elements
 {
     partial class BoardControl
     {

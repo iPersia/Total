@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Nzl.Smth.Controls")]
-[assembly: AssemblyDescription("The Controls component.")]
+[assembly: AssemblyTitle("Nzl.Smth.Controls.Elements")]
+[assembly: AssemblyDescription("The element controls component.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Nzl.Smth.Controls")]
+[assembly: AssemblyProduct("Nzl.Smth.Controls.Elements")]
 [assembly: AssemblyCopyright("Copyright © Nesus 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

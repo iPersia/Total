@@ -11,7 +11,8 @@
     using Nzl.Web.Page;
     using Nzl.Smth.Common;
     using Nzl.Smth.Configurations;
-    using Nzl.Smth.Containers;
+    using Nzl.Smth.Controls.Complexes;
+    using Nzl.Smth.Controls.Containers;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Logger;
     using Nzl.Smth.Utils;
@@ -219,10 +220,10 @@
                 this.tcTopics.SelectedTab = tp;
 
                 //TopicBrowserControl tbc = new TopicBrowserControl();
-                TopicBrowserControl tbc = RecycledQueues.GetRecycled<TopicBrowserControl>();
+                ThreadContainer tbc = RecycledQueues.GetRecycled<ThreadContainer>();
                 if (tbc == null)
                 {
-                    tbc = new TopicBrowserControl();
+                    tbc = new ThreadContainer();
                 }
 
                 tbc.Name = "tbc" + url;
@@ -494,10 +495,10 @@
                 this.tcTopics.SelectedTab = tp;
 
                 //BoardBrowserControl bbc = new BoardBrowserControl(url);
-                BoardBrowserControl bbc = RecycledQueues.GetRecycled<BoardBrowserControl>();
+                TopicContainer bbc = RecycledQueues.GetRecycled<TopicContainer>();
                 if (bbc == null)
                 {
-                    bbc = new BoardBrowserControl();
+                    bbc = new TopicContainer();
                 }
 
                 bbc.Name = "bbc" + url;
@@ -634,8 +635,8 @@
         {
             foreach (Control ctl in tp.Controls)
             {
-                Recycling(ctl as TopicBrowserControl);
-                Recycling(ctl as BoardBrowserControl);
+                Recycling(ctl as ThreadContainer);
+                Recycling(ctl as TopicContainer);
             }
 
             tp.Controls.Clear();
@@ -790,7 +791,7 @@
         /// 
         /// </summary>
         /// <param name="tbc"></param>
-        private void Recycling(TopicBrowserControl tbc)
+        private void Recycling(ThreadContainer tbc)
         {
             if (tbc != null)
             {
@@ -808,7 +809,7 @@
                 tbc.OnWorkerFailed -= TabbedBrowserForm_OnWorkerFailed;
                 tbc.OnWorkerCancelled -= TabbedBrowserFrom_OnWorkerCancelled;
                 tbc.OnTopicSettingsClicked -= TopicBrowserControl_OnTopicSettingsClicked;
-                RecycledQueues.AddRecycled<TopicBrowserControl>(tbc);
+                RecycledQueues.AddRecycled<ThreadContainer>(tbc);
             }
         }
 
@@ -816,7 +817,7 @@
         /// 
         /// </summary>
         /// <param name="tbc"></param>
-        private void Recycling(BoardBrowserControl bbc)
+        private void Recycling(TopicContainer bbc)
         {
             if (bbc != null)
             {
@@ -826,7 +827,7 @@
                 bbc.OnTopicLastIDLinkClicked -= TabbedBrowserForm_IDLinkClicked;
                 bbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
                 bbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
-                RecycledQueues.AddRecycled<BoardBrowserControl>(bbc);
+                RecycledQueues.AddRecycled<TopicContainer>(bbc);
             }
         }
 
