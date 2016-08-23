@@ -251,7 +251,7 @@
       <Project>{e22371cb-bcae-41e5-82b3-2b696c7e05d1}</Project>
       <Name>Nzl.Smth.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nzl.Smth.ComplexControls\Nzl.Smth.Controls.Complexes.csproj">
+    <ProjectReference Include="..\Nzl.Smth.Controls.Complexes\Nzl.Smth.Controls.Complexes.csproj">
       <Project>{0386c5f4-d40e-4fb3-bcff-cae90693e049}</Project>
       <Name>Nzl.Smth.Controls.Complexes</Name>
     </ProjectReference>
