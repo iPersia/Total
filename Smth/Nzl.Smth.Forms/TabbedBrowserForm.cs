@@ -244,7 +244,7 @@
                 tbc.OnTopicSettingsClicked += TopicBrowserControl_OnTopicSettingsClicked;
                 tp.Controls.Add(tbc);
 
-                tbc.RefreshingSizeChanged(true);
+                tbc.RefreshingOnSizeChanged(true);
                 tbc.Reusing();
             }
         }
@@ -512,7 +512,7 @@
                 tp.Controls.Add(bbc);
 
                 ///
-                bbc.RefreshingSizeChanged(true);
+                bbc.RefreshingOnSizeChanged(true);
                 bbc.Reusing();
             }
         }

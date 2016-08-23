@@ -102,7 +102,7 @@
         /// 
         /// </summary>
         /// <param name="flag"></param>
-        public void RefreshingSizeChanged(bool flag)
+        public void RefreshingOnSizeChanged(bool flag)
         {
             this.SizeChanged -= BaseContainer_SizeChanged;
             if (flag)
