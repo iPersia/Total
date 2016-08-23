@@ -1,6 +1,5 @@
 ﻿namespace Nzl.Smth.Controls.Base
 {
-    using System;
     using System.Windows.Forms;
     using Nzl.Smth.Datas;
 
