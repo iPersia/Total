@@ -149,7 +149,7 @@
       <Project>{08b0d4de-d38a-466d-8afc-e436bb30e4a6}</Project>
       <Name>Nzl.Smth.Controls.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nzl.Smth.Controls\Nzl.Smth.Controls.Elements.csproj">
+    <ProjectReference Include="..\Nzl.Smth.Controls.Elements\Nzl.Smth.Controls.Elements.csproj">
       <Project>{3d39e4a3-0ed7-4175-a2ba-68a00919a998}</Project>
       <Name>Nzl.Smth.Controls.Elements</Name>
     </ProjectReference>

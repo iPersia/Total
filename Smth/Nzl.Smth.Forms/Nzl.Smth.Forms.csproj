@@ -259,7 +259,7 @@
       <Project>{7a3921a8-a2e3-4ffb-84c8-9bb605772ebd}</Project>
       <Name>Nzl.Smth.Configurations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nzl.Smth.Containers\Nzl.Smth.Controls.Containers.csproj">
+    <ProjectReference Include="..\Nzl.Smth.Controls.Containers\Nzl.Smth.Controls.Containers.csproj">
       <Project>{3466c961-acdb-4f03-bb1d-10fad9fb88f1}</Project>
       <Name>Nzl.Smth.Controls.Containers</Name>
     </ProjectReference>
@@ -267,7 +267,7 @@
       <Project>{08b0d4de-d38a-466d-8afc-e436bb30e4a6}</Project>
       <Name>Nzl.Smth.Controls.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nzl.Smth.Controls\Nzl.Smth.Controls.Elements.csproj">
+    <ProjectReference Include="..\Nzl.Smth.Controls.Elements\Nzl.Smth.Controls.Elements.csproj">
       <Project>{3d39e4a3-0ed7-4175-a2ba-68a00919a998}</Project>
       <Name>Nzl.Smth.Controls.Elements</Name>
     </ProjectReference>
