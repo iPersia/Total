@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseContainer.cs">
+    <Compile Include="BaseControlContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="BaseControl.cs">
@@ -50,8 +50,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BaseContainer.resx">
-      <DependentUpon>BaseContainer.cs</DependentUpon>
+    <EmbeddedResource Include="BaseControlContainer.resx">
+      <DependentUpon>BaseControlContainer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class TopicControlContainer : BaseContainer<TopicControl, Topic>
+    public partial class TopicControlContainer : BaseControlContainer<TopicControl, Topic>
     {
         #region Event
         /// <summary>

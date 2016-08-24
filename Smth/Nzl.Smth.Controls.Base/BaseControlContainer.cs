@@ -45,7 +45,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class BaseContainer<TBaseControl, TBaseData> : UserControl, IRecycled
+    public class BaseControlContainer<TBaseControl, TBaseData> : UserControl, IRecycled
         where TBaseControl : BaseControl<TBaseData>, new()
         where TBaseData : BaseData
     {

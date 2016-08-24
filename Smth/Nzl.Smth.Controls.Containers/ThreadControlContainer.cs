@@ -30,7 +30,7 @@ namespace Nzl.Smth.Controls.Containers
 #if (DESIGNMODE)
     public partial class TopicBrowserControl : UserControl
 #else
-    public partial class ThreadControlContainer : BaseContainer<ThreadControl, Thread>
+    public partial class ThreadControlContainer : BaseControlContainer<ThreadControl, Thread>
 #endif
     {
 #if (DESIGNMODE)
