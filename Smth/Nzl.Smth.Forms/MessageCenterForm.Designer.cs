@@ -49,7 +49,8 @@
             this.txtMsg.HiglightColor = Nzl.Controls.RtfColor.White;
             this.txtMsg.Location = new System.Drawing.Point(0, 0);
             this.txtMsg.Name = "txtMsg";
-            this.txtMsg.Size = new System.Drawing.Size(622, 288);
+            this.txtMsg.ReadOnly = true;
+            this.txtMsg.Size = new System.Drawing.Size(782, 318);
             this.txtMsg.TabIndex = 0;
             this.txtMsg.Text = "";
             this.txtMsg.TextColor = Nzl.Controls.RtfColor.Black;
@@ -69,8 +70,8 @@
             // scContainer.Panel2
             // 
             this.scContainer.Panel2.Controls.Add(this.panelDown);
-            this.scContainer.Size = new System.Drawing.Size(624, 441);
-            this.scContainer.SplitterDistance = 150;
+            this.scContainer.Size = new System.Drawing.Size(784, 561);
+            this.scContainer.SplitterDistance = 240;
             this.scContainer.SplitterWidth = 1;
             this.scContainer.TabIndex = 1;
             // 
@@ -80,7 +81,7 @@
             this.panelUp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelUp.Location = new System.Drawing.Point(0, 0);
             this.panelUp.Name = "panelUp";
-            this.panelUp.Size = new System.Drawing.Size(622, 148);
+            this.panelUp.Size = new System.Drawing.Size(782, 238);
             this.panelUp.TabIndex = 0;
             // 
             // txtCache
@@ -90,7 +91,8 @@
             this.txtCache.HiglightColor = Nzl.Controls.RtfColor.White;
             this.txtCache.Location = new System.Drawing.Point(0, 0);
             this.txtCache.Name = "txtCache";
-            this.txtCache.Size = new System.Drawing.Size(622, 148);
+            this.txtCache.ReadOnly = true;
+            this.txtCache.Size = new System.Drawing.Size(782, 238);
             this.txtCache.TabIndex = 1;
             this.txtCache.Text = "";
             this.txtCache.TextColor = Nzl.Controls.RtfColor.Black;
@@ -101,14 +103,14 @@
             this.panelDown.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDown.Location = new System.Drawing.Point(0, 0);
             this.panelDown.Name = "panelDown";
-            this.panelDown.Size = new System.Drawing.Size(622, 288);
+            this.panelDown.Size = new System.Drawing.Size(782, 318);
             this.panelDown.TabIndex = 1;
             // 
             // MessageCenterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 441);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.scContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
