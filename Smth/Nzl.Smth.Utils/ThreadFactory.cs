@@ -323,14 +323,23 @@
         /// <returns></returns>
         private static IList<string> GetImageUrls(ref string content)
         {
-            MatchCollection mtCollection = CommonUtil.GetMatchCollection(@"<a target=\W_blank\W href=\Whttp://att.newsmth.net/nForum/att/[\w, %2E, %5F]+/\d+/\d+\W><img border=\W0\W title=\W单击此查看原图\W src=\W(?'ImageUrl'http://att.newsmth.net/nForum/att/[\w, %2E, %5F]+/\d+/\d+/middle)\W class=\Wresizeable\W /></a>", content);
+            string pattern = @"<a target=\W_blank\W href=\W("
+                           + Configuration.AttachmentBaseUrl
+                           + @")?/att/[\w, %2E, %5F]+/\d+/\d+\W><img border=\W0\W title=\W单击此查看原图\W src=\W(?'ImageUrl'(?'HostUrl'"
+                           + Configuration.AttachmentBaseUrl
+                           + @")?/att/[\w, %2E, %5F]+/\d+/\d+/middle)\W class=\Wresizeable\W /></a>";
+            MatchCollection mtCollection = CommonUtil.GetMatchCollection(pattern, content);
             IList<string> imageUrlList = new List<string>();
             if (mtCollection != null)
             {
                 foreach (Match mt in mtCollection)
                 {
-                    imageUrlList.Add(mt.Groups["ImageUrl"].Value.ToString());
-                    content = content.Replace(mt.Groups[0].Value.ToString(), ThreadFactory._tokenPrefix + ThreadFactory._imageToken + ThreadFactory._tokenSuffix);
+                    string hostUrl = string.IsNullOrEmpty(mt.Groups["HostUrl"].Value.ToString()) ? Configuration.AttachmentBaseUrl : "";
+                    string imageUrl = hostUrl + mt.Groups["ImageUrl"].Value.ToString();
+                    imageUrlList.Add(imageUrl);
+                    content = content.Replace(mt.Groups[0].Value.ToString(), ThreadFactory.TokenPrefix
+                                                                           + ThreadFactory.ImageToken
+                                                                           + ThreadFactory.TokenSuffix);
                 }
             }
 
@@ -351,7 +360,7 @@
                 foreach (Match mt in mtCollection)
                 {
                     iconUrlList.Add("http://m.newsmth.net" + mt.Groups["IconUrl"].Value.ToString());
-                    content = content.Replace(mt.Groups[0].Value.ToString(), ThreadFactory._tokenPrefix + ThreadFactory._iconToken + ThreadFactory._tokenSuffix);
+                    content = content.Replace(mt.Groups[0].Value.ToString(), ThreadFactory.TokenPrefix + ThreadFactory.IconToken + ThreadFactory.TokenSuffix);
                 }
             }
 
@@ -375,7 +384,7 @@
                     anchor.Text = mt.Groups["Text"].Value.ToString();
                     anchor.Url = mt.Groups["Url"].Value.ToString();
                     anchorList.Add(anchor);
-                    content = content.Replace(mt.Groups[0].Value.ToString(), ThreadFactory._tokenPrefix + ThreadFactory._anchorToken + ThreadFactory._tokenSuffix);
+                    content = content.Replace(mt.Groups[0].Value.ToString(), ThreadFactory.TokenPrefix + ThreadFactory.AnchorToken + ThreadFactory.TokenSuffix);
                 }
             }
 
