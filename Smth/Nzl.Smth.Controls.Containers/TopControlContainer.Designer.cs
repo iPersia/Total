@@ -1,6 +1,6 @@
 ﻿namespace Nzl.Smth.Controls.Containers
 {
-    partial class TopContainer
+    partial class TopControlContainer
     {
         /// <summary> 
         /// Required designer variable.

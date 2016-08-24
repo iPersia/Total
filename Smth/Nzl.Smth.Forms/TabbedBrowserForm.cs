@@ -220,10 +220,10 @@
                 this.tcTopics.SelectedTab = tp;
 
                 //TopicBrowserControl tbc = new TopicBrowserControl();
-                ThreadContainer tbc = RecycledQueues.GetRecycled<ThreadContainer>();
+                ThreadControlContainer tbc = RecycledQueues.GetRecycled<ThreadControlContainer>();
                 if (tbc == null)
                 {
-                    tbc = new ThreadContainer();
+                    tbc = new ThreadControlContainer();
                 }
 
                 tbc.Name = "tbc" + url;
@@ -495,10 +495,10 @@
                 this.tcTopics.SelectedTab = tp;
 
                 //BoardBrowserControl bbc = new BoardBrowserControl(url);
-                TopicContainer bbc = RecycledQueues.GetRecycled<TopicContainer>();
+                TopicControlContainer bbc = RecycledQueues.GetRecycled<TopicControlContainer>();
                 if (bbc == null)
                 {
-                    bbc = new TopicContainer();
+                    bbc = new TopicControlContainer();
                 }
 
                 bbc.Name = "bbc" + url;
@@ -635,8 +635,8 @@
         {
             foreach (Control ctl in tp.Controls)
             {
-                Recycling(ctl as ThreadContainer);
-                Recycling(ctl as TopicContainer);
+                Recycling(ctl as ThreadControlContainer);
+                Recycling(ctl as TopicControlContainer);
             }
 
             tp.Controls.Clear();
@@ -791,7 +791,7 @@
         /// 
         /// </summary>
         /// <param name="tbc"></param>
-        private void Recycling(ThreadContainer tbc)
+        private void Recycling(ThreadControlContainer tbc)
         {
             if (tbc != null)
             {
@@ -809,7 +809,7 @@
                 tbc.OnWorkerFailed -= TabbedBrowserForm_OnWorkerFailed;
                 tbc.OnWorkerCancelled -= TabbedBrowserFrom_OnWorkerCancelled;
                 tbc.OnTopicSettingsClicked -= TopicBrowserControl_OnTopicSettingsClicked;
-                RecycledQueues.AddRecycled<ThreadContainer>(tbc);
+                RecycledQueues.AddRecycled<ThreadControlContainer>(tbc);
             }
         }
 
@@ -817,7 +817,7 @@
         /// 
         /// </summary>
         /// <param name="tbc"></param>
-        private void Recycling(TopicContainer bbc)
+        private void Recycling(TopicControlContainer bbc)
         {
             if (bbc != null)
             {
@@ -827,7 +827,7 @@
                 bbc.OnTopicLastIDLinkClicked -= TabbedBrowserForm_IDLinkClicked;
                 bbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
                 bbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
-                RecycledQueues.AddRecycled<TopicContainer>(bbc);
+                RecycledQueues.AddRecycled<TopicControlContainer>(bbc);
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace Nzl.Smth.Controls.Containers
 {
-    partial class MailDetailContainer
+    partial class MailDetailControlContainer
     {
         /// <summary> 
         /// 必需的设计器变量。

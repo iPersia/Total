@@ -45,7 +45,7 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpInbox";
                 tp.Text = "Inbox";
-                MailContainer xbc = new MailContainer(MailBoxType.Inbox);
+                MailControlContainer xbc = new MailControlContainer(MailBoxType.Inbox);
                 xbc.Url = Configuration.InboxUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
@@ -61,7 +61,7 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpOutbox";
                 tp.Text = "Outbox";
-                MailContainer xbc = new MailContainer(MailBoxType.Outbox);
+                MailControlContainer xbc = new MailControlContainer(MailBoxType.Outbox);
                 xbc.Url = Configuration.OutboxUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
@@ -76,7 +76,7 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpTrash";
                 tp.Text = "Trash";
-                MailContainer xbc = new MailContainer(MailBoxType.Trash);
+                MailControlContainer xbc = new MailControlContainer(MailBoxType.Trash);
                 xbc.Url = Configuration.TrashUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;

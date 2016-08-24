@@ -41,71 +41,71 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TopicContainer.cs">
+    <Compile Include="TopicControlContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TopicContainer.Designer.cs">
-      <DependentUpon>TopicContainer.cs</DependentUpon>
+    <Compile Include="TopicControlContainer.Designer.cs">
+      <DependentUpon>TopicControlContainer.cs</DependentUpon>
     </Compile>
-    <Compile Include="BoardContainer.cs">
+    <Compile Include="BoardControlContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BoardContainer.Designer.cs">
-      <DependentUpon>BoardContainer.cs</DependentUpon>
+    <Compile Include="BoardControlContainer.Designer.cs">
+      <DependentUpon>BoardControlContainer.cs</DependentUpon>
     </Compile>
-    <Compile Include="MailDetailContainer.cs">
+    <Compile Include="MailDetailControlContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MailDetailContainer.Designer.cs">
-      <DependentUpon>MailDetailContainer.cs</DependentUpon>
+    <Compile Include="MailDetailControlContainer.Designer.cs">
+      <DependentUpon>MailDetailControlContainer.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SectionContainer.cs">
+    <Compile Include="SectionControlContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SectionContainer.Designer.cs">
-      <DependentUpon>SectionContainer.cs</DependentUpon>
+    <Compile Include="SectionControlContainer.Designer.cs">
+      <DependentUpon>SectionControlContainer.cs</DependentUpon>
     </Compile>
-    <Compile Include="TopContainer.cs">
+    <Compile Include="TopControlContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TopContainer.Designer.cs">
-      <DependentUpon>TopContainer.cs</DependentUpon>
+    <Compile Include="TopControlContainer.Designer.cs">
+      <DependentUpon>TopControlContainer.cs</DependentUpon>
     </Compile>
-    <Compile Include="ThreadContainer.cs">
+    <Compile Include="ThreadControlContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ThreadContainer.Designer.cs">
-      <DependentUpon>ThreadContainer.cs</DependentUpon>
+    <Compile Include="ThreadControlContainer.Designer.cs">
+      <DependentUpon>ThreadControlContainer.cs</DependentUpon>
     </Compile>
-    <Compile Include="MailContainer.cs">
+    <Compile Include="MailControlContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MailContainer.Designer.cs">
-      <DependentUpon>MailContainer.cs</DependentUpon>
+    <Compile Include="MailControlContainer.Designer.cs">
+      <DependentUpon>MailControlContainer.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TopicContainer.resx">
-      <DependentUpon>TopicContainer.cs</DependentUpon>
+    <EmbeddedResource Include="TopicControlContainer.resx">
+      <DependentUpon>TopicControlContainer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BoardContainer.resx">
-      <DependentUpon>BoardContainer.cs</DependentUpon>
+    <EmbeddedResource Include="BoardControlContainer.resx">
+      <DependentUpon>BoardControlContainer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MailDetailContainer.resx">
-      <DependentUpon>MailDetailContainer.cs</DependentUpon>
+    <EmbeddedResource Include="MailDetailControlContainer.resx">
+      <DependentUpon>MailDetailControlContainer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SectionContainer.resx">
-      <DependentUpon>SectionContainer.cs</DependentUpon>
+    <EmbeddedResource Include="SectionControlContainer.resx">
+      <DependentUpon>SectionControlContainer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TopContainer.resx">
-      <DependentUpon>TopContainer.cs</DependentUpon>
+    <EmbeddedResource Include="TopControlContainer.resx">
+      <DependentUpon>TopControlContainer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ThreadContainer.resx">
-      <DependentUpon>ThreadContainer.cs</DependentUpon>
+    <EmbeddedResource Include="ThreadControlContainer.resx">
+      <DependentUpon>ThreadControlContainer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MailContainer.resx">
-      <DependentUpon>MailContainer.cs</DependentUpon>
+    <EmbeddedResource Include="MailControlContainer.resx">
+      <DependentUpon>MailControlContainer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

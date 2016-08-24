@@ -52,7 +52,7 @@
             {
                 TabPage tp = new TabPage();
                 tp.Name = "tpHot";
-                TopContainer tbc = new TopContainer("http://m.newsmth.net/hot");
+                TopControlContainer tbc = new TopControlContainer("http://m.newsmth.net/hot");
                 tbc.Name = "tbcHot";
                 tbc.SetParent(tp);
                 tbc.CreateControl();
@@ -83,7 +83,7 @@
 
             TabPage tp = new TabPage();
             tp.Name = "tbcHot" + this._sectionIndex;
-            TopContainer tbc = new TopContainer("http://m.newsmth.net/hot/" + this._sectionIndex);
+            TopControlContainer tbc = new TopControlContainer("http://m.newsmth.net/hot/" + this._sectionIndex);
             tbc.Name = "tbcHot" + this._sectionIndex++;
             tbc.SetParent(tp);
             tbc.CreateControl();

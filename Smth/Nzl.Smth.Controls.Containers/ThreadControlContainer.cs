@@ -30,7 +30,7 @@ namespace Nzl.Smth.Controls.Containers
 #if (DESIGNMODE)
     public partial class TopicBrowserControl : UserControl
 #else
-    public partial class ThreadContainer : BaseContainer<ThreadControl, Thread>
+    public partial class ThreadControlContainer : BaseContainer<ThreadControl, Thread>
 #endif
     {
 #if (DESIGNMODE)
@@ -199,7 +199,7 @@ namespace Nzl.Smth.Controls.Containers
         /// <summary>
         /// Ctor.
         /// </summary>
-        public ThreadContainer()
+        public ThreadControlContainer()
         {
             InitializeComponent();
             this.panel.MouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
@@ -747,7 +747,7 @@ namespace Nzl.Smth.Controls.Containers
                 }
 
 #if (DEBUG)
-                CommonUtil.ShowMessage(typeof(ThreadContainer), exp.Message);
+                CommonUtil.ShowMessage(typeof(ThreadControlContainer), exp.Message);
 #endif
             }
         }

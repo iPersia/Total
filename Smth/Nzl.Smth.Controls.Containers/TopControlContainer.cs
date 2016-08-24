@@ -15,7 +15,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class TopContainer : BaseContainer<TopControl, Top>
+    public partial class TopControlContainer : BaseContainer<TopControl, Top>
     {
         #region event
         /// <summary>
@@ -45,7 +45,7 @@
         /// <summary>
         /// 
         /// </summary>
-        TopContainer()
+        TopControlContainer()
         {
             InitializeComponent();
             Configuration.OnSectionTopsUpdatingIntervalChanged += Configuration_OnSectionTopsUpdatingIntervalChanged;
@@ -57,7 +57,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public TopContainer(string url)
+        public TopControlContainer(string url)
             : this()
         {
             this.SetBaseUrl(url);

@@ -14,7 +14,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public partial class BoardContainer : BaseContainer<BoardControl, Board>
+    public partial class BoardControlContainer : BaseContainer<BoardControl, Board>
     {
         #region event
         /// <summary>
@@ -34,7 +34,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public BoardContainer()
+        public BoardControlContainer()
         {
             InitializeComponent();
             this.panel.MouseWheel += Panel_MouseWheel;

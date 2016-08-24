@@ -16,7 +16,7 @@ namespace Nzl.Smth.Controls.Containers
 #if (DESIGNMODE)
     public partial class MailDetailContainerControl : UserControl
 #else
-    public partial class MailDetailContainer : BaseContainer<MailDetailControl, Mail>
+    public partial class MailDetailControlContainer : BaseContainer<MailDetailControl, Mail>
 #endif
     {
 #if (DESIGNMODE)
@@ -59,7 +59,7 @@ namespace Nzl.Smth.Controls.Containers
         /// <summary>
         /// 
         /// </summary>
-        public MailDetailContainer()
+        public MailDetailControlContainer()
         {
             InitializeComponent();
             this.Text = "Mail Detail";

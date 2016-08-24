@@ -16,7 +16,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class TopicContainer : BaseContainer<TopicControl, Topic>
+    public partial class TopicControlContainer : BaseContainer<TopicControl, Topic>
     {
         #region Event
         /// <summary>
@@ -46,7 +46,7 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        public TopicContainer()
+        public TopicControlContainer()
         {
             InitializeComponent();
             this.panel.MouseWheel += new MouseEventHandler(BoardBrowserControl_MouseWheel);
@@ -293,7 +293,7 @@
                 }
 
 #if (DEBUG)
-                CommonUtil.ShowMessage(typeof(ThreadContainer), exp.Message);
+                CommonUtil.ShowMessage(typeof(ThreadControlContainer), exp.Message);
 #endif
             }
         }

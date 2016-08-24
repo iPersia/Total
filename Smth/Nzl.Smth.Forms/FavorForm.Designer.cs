@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FavorForm));
-            this.fcFavor = new Nzl.Smth.Controls.Containers.BoardContainer();
+            this.fcFavor = new Nzl.Smth.Controls.Containers.BoardControlContainer();
             this.SuspendLayout();
             // 
             // fcFavor
@@ -58,6 +58,6 @@
 
         #endregion
 
-        private Controls.Containers.BoardContainer fcFavor;
+        private Controls.Containers.BoardControlContainer fcFavor;
     }
 }

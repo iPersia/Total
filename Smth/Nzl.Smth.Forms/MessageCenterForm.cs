@@ -4,6 +4,7 @@
     using System.ComponentModel;
     using System.Windows.Forms;
     using Nzl.Messaging;
+    using Nzl.Smth.Common;
     using Nzl.Smth.Logger;
 
     /// <summary>
@@ -50,7 +51,10 @@
         private void _updatingTimer_Tick(object sender, EventArgs e)
         {
             this.txtCache.Clear();
-            this.txtCache.AppendText(Nzl.Recycling.RecycledQueues.GetStatistics());
+            this.txtCache.AppendText("PageDispatcher queue count is "
+                                   + PageDispatcher.Instance.Count
+                                   + "\n"
+                                   + Nzl.Recycling.RecycledQueues.GetStatistics());            
         }
 
         /// <summary>

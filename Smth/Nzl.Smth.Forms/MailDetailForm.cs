@@ -25,7 +25,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private MailDetailContainer _mccContainer = null;
+        private MailDetailControlContainer _mccContainer = null;
         #endregion
 
         #region Ctor
@@ -35,7 +35,7 @@
         public MailDetailForm()
         {
             InitializeComponent();
-            this._mccContainer = new MailDetailContainer();
+            this._mccContainer = new MailDetailControlContainer();
             this._mccContainer.Left = 1;
             this._mccContainer.Top = 1;
             this._mccContainer.OnMailAuthorLinkClicked += Mdcc_OnMailAuthorLinkClicked;

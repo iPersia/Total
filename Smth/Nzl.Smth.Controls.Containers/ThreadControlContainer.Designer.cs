@@ -1,6 +1,6 @@
 ﻿namespace Nzl.Smth.Controls.Containers
 {
-    partial class ThreadContainer
+    partial class ThreadControlContainer
     {
         /// <summary> 
         /// Required designer variable.

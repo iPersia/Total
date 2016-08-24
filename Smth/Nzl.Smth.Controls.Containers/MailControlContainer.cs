@@ -18,7 +18,7 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class MailContainer : BaseContainer<MailControl, Mail>
+    public partial class MailControlContainer : BaseContainer<MailControl, Mail>
     {
         #region Event
         /// <summary>
@@ -52,7 +52,7 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        MailContainer()
+        MailControlContainer()
         {
             InitializeComponent();
             this.Text = "Mailbox";
@@ -63,7 +63,7 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        public MailContainer(MailBoxType type)
+        public MailControlContainer(MailBoxType type)
             : this()
         {
             this._mailBoxType = type;
@@ -347,7 +347,7 @@
                 }
 
 #if (DEBUG)
-                CommonUtil.ShowMessage(typeof(ThreadContainer), exp.Message);
+                CommonUtil.ShowMessage(typeof(ThreadControlContainer), exp.Message);
 #endif
             }
         }

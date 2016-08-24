@@ -21,7 +21,7 @@
     /// So when the linklabel lose focus, the SectionNavigationControl must
     /// be focused.
     /// </summary>
-    public partial class SectionContainer : BaseContainer<SectionControl,Section>
+    public partial class SectionControlContainer : BaseContainer<SectionControl,Section>
     {
         #region event
         /// <summary>
@@ -51,7 +51,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public SectionContainer()
+        public SectionControlContainer()
         {
             InitializeComponent();
             this.btnRefresh.Left = this.panelUp.Width / 2 - this.btnRefresh.Width / 2;
