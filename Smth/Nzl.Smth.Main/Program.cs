@@ -36,8 +36,8 @@
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
                 ////应用程序的主入口点
-                //Application.Run(new MainForm());
-                Application.Run(new TestForm());
+                Application.Run(new MainForm());
+                //Application.Run(new TestForm());
             }
             catch (Exception exp)
             {
