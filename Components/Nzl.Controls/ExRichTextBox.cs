@@ -662,16 +662,20 @@
             StringBuilder _rtf = new StringBuilder();
 
             // Calculate the current width of the image in (0.01)mm
-            int picw = (int)Math.Round((_image.Width / xDpi) * HMM_PER_INCH);
+            //int picw = (int)Math.Round((_image.Width / xDpi) * HMM_PER_INCH);
+            int picw = (int)Math.Round(_image.Width * HMM_PER_INCH / xDpi);
 
             // Calculate the current height of the image in (0.01)mm
-            int pich = (int)Math.Round((_image.Height / yDpi) * HMM_PER_INCH);
+            //int pich = (int)Math.Round((_image.Height / yDpi) * HMM_PER_INCH);
+            int pich = (int)Math.Round(_image.Height * HMM_PER_INCH / yDpi);
 
             // Calculate the target width of the image in twips
-            int picwgoal = (int)Math.Round((_image.Width / xDpi) * TWIPS_PER_INCH);
+            //int picwgoal = (int)Math.Round((_image.Width / xDpi) * TWIPS_PER_INCH);
+            int picwgoal = (int)Math.Round(_image.Width * TWIPS_PER_INCH / xDpi);
 
             // Calculate the target height of the image in twips
-            int pichgoal = (int)Math.Round((_image.Height / yDpi) * TWIPS_PER_INCH);
+            //int pichgoal = (int)Math.Round((_image.Height / yDpi) * TWIPS_PER_INCH);
+            int pichgoal = (int)Math.Round(_image.Height * TWIPS_PER_INCH / yDpi);
 
             // Append values to RTF string
             _rtf.Append(@"{\pict\wmetafile8");

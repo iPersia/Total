@@ -28,13 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.richTextBoxEx1 = new Nzl.Controls.RichTextBoxEx();
             this.SuspendLayout();
+            // 
+            // richTextBoxEx1
+            // 
+            this.richTextBoxEx1.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.richTextBoxEx1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxEx1.HiglightColor = Nzl.Controls.RtfColor.White;
+            this.richTextBoxEx1.Location = new System.Drawing.Point(0, 0);
+            this.richTextBoxEx1.Name = "richTextBoxEx1";
+            this.richTextBoxEx1.Size = new System.Drawing.Size(467, 437);
+            this.richTextBoxEx1.TabIndex = 0;
+            this.richTextBoxEx1.Text = "";
+            this.richTextBoxEx1.TextColor = Nzl.Controls.RtfColor.Black;
             // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(467, 437);
+            this.Controls.Add(this.richTextBoxEx1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "TestForm";
             this.ShowIcon = false;
@@ -45,5 +59,7 @@
         }
 
         #endregion
+
+        private Nzl.Controls.RichTextBoxEx richTextBoxEx1;
     }
 }

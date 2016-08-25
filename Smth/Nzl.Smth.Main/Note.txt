@@ -28,3 +28,5 @@
 09、新邮件主屏隐藏问题。（已解决）
 
 10、Boards需要加入Recycling.（已解决）
+
+11、Thread中，若某个图片下载失败，导致构建ThreadControl时出现索引越界异常。
