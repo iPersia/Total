@@ -173,8 +173,7 @@
                 {
                     this.linklblReply.Visible = true;
                     this.linklblReply.Links.Clear();
-                    this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, thread.ReplyUrl);
-                    this.linklblReply.Tag = thread;
+                    this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, thread.ReplyUrl);                    
                 }
 
                 ///Mail url
@@ -184,7 +183,6 @@
                     this.linklblMail.Visible = true;
                     this.linklblMail.Links.Clear();
                     this.linklblMail.Links.Add(0, this.linklblMail.Text.Length, thread.MailUrl);
-                    this.linklblMail.Tag = thread;
                 }
 
                 ///Transfer url
@@ -203,7 +201,6 @@
                     this.linklblEdit.Visible = true;
                     this.linklblEdit.Links.Clear();
                     this.linklblEdit.Links.Add(0, this.linklblEdit.Text.Length, thread.EditUrl);
-                    this.linklblEdit.Tag = thread;
                 }
 
                 ///Delete url
@@ -308,7 +305,9 @@
         {
             if (this.OnReplyLinkClicked != null)
             {
+                (sender as LinkLabel).Tag = this.Data;
                 this.OnReplyLinkClicked(sender, e);
+                (sender as LinkLabel).Tag = null;
             }
         }
 
@@ -321,7 +320,9 @@
         {
             if (this.OnMailLinkClicked != null)
             {
+                (sender as LinkLabel).Tag = this.Data;
                 this.OnMailLinkClicked(sender, e);
+                (sender as LinkLabel).Tag = null;
             }
         }
 
@@ -347,7 +348,9 @@
         {
             if (this.OnEditLinkClicked != null)
             {
+                (sender as LinkLabel).Tag = this.Data;
                 this.OnEditLinkClicked(sender, e);
+                (sender as LinkLabel).Tag = null;
             }
         }
 

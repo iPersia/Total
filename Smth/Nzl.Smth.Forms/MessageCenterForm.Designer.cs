@@ -48,6 +48,7 @@
             this.txtMsg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtMsg.HiglightColor = Nzl.Controls.RtfColor.White;
             this.txtMsg.Location = new System.Drawing.Point(0, 0);
+            this.txtMsg.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtMsg.Name = "txtMsg";
             this.txtMsg.ReadOnly = true;
             this.txtMsg.Size = new System.Drawing.Size(782, 318);
@@ -90,6 +91,7 @@
             this.txtCache.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtCache.HiglightColor = Nzl.Controls.RtfColor.White;
             this.txtCache.Location = new System.Drawing.Point(0, 0);
+            this.txtCache.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtCache.Name = "txtCache";
             this.txtCache.ReadOnly = true;
             this.txtCache.Size = new System.Drawing.Size(782, 238);

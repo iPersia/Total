@@ -59,6 +59,11 @@
         private static string staticTrashBaseUrl = @"http://m.newsmth.net/mail/deleted";
 
         /// <summary>
+        /// The base url of smth.
+        /// </summary>
+        private static string staticAttachmentBaseUrl = @"http://att.newsmth.net/nForum"; 
+
+        /// <summary>
         /// The interval to update the section tops in SectionTopControl.
         /// </summary>
         private static int staticSectionTopsUpdatingInterval = 5 *60 * 1000;
@@ -91,6 +96,17 @@
                 return staticBaseUrl;
             }   
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string AttachmentBaseUrl
+        {
+            get
+            {
+                return staticAttachmentBaseUrl;
+            }
+        }        
 
         /// <summary>
         /// 
@@ -145,7 +161,7 @@
             {
                 return staticTrashBaseUrl;
             }
-        }
+        }        
 
         /// <summary>
         /// 

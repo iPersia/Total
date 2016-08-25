@@ -87,7 +87,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public BaseContainer()
+        public BaseControlContainer()
             : base()
         {
             this.IsRecycled = false;
@@ -249,7 +249,10 @@
                     if (this.InvokeRequired)
                     {
                         System.Threading.Thread.Sleep(0);
-                        this.Invoke(new InitializeContainerCallback(InitializeContainer), new object[] { info.IsAppend });
+                        ///this.Invoke(new InitializeContainerCallback(InitializeContainer), new object[] { info.IsAppend });
+                        this.Invoke(new MethodInvoker(delegate () {
+                            this.InitializeContainer(info.IsAppend);
+                        }));
                         System.Threading.Thread.Sleep(0);
                     }
                 }
@@ -271,7 +274,10 @@
                     if (this.InvokeRequired)
                     {
                         System.Threading.Thread.Sleep(0);
-                        this.Invoke(new UpdateViewCallback<TBaseControl>(AddControl), new object[] { ctl });
+                        ///this.Invoke(new UpdateViewCallback<TBaseControl>(AddControl), new object[] { ctl });
+                        this.Invoke(new MethodInvoker(delegate () {
+                            this.AddControl(ctl);
+                        }));
                         System.Threading.Thread.Sleep(0);
                     }
                 }
@@ -637,9 +643,11 @@
                         System.Diagnostics.Debug.WriteLine("BaseContainer - GetControl - GetRecycledControl failed, type is " + typeof(TBaseControl).ToString());
 #endif
                         System.Threading.Thread.Sleep(0);
-                        object obj = this.Invoke(new CreateControlCallback<TBaseControl>(CreateBaseControl));
+                        ///object obj = this.Invoke(new CreateControlCallback<TBaseControl>(CreateBaseControl));
+                        this.Invoke(new MethodInvoker(delegate () {
+                            ctl = this.CreateBaseControl();
+                        }));
                         System.Threading.Thread.Sleep(0);
-                        ctl = obj as TBaseControl;
                     }
 
                     if (ctl != null && data != null)
@@ -649,7 +657,10 @@
                             if (this.InvokeRequired)
                             {
                                 System.Threading.Thread.Sleep(0);
-                                this.Invoke(new InitializeControlCallback<TBaseControl, TBaseData>(InitializeControl), new object[] { ctl, data });
+                                ///this.Invoke(new InitializeControlCallback<TBaseControl, TBaseData>(InitializeControl), new object[] { ctl, data });
+                                this.Invoke(new MethodInvoker(delegate () {
+                                    this.InitializeControl(ctl, data);
+                                }));
                                 System.Threading.Thread.Sleep(0);
                             }
                         }
@@ -873,7 +884,10 @@
                         if (this.InvokeRequired)
                         {
                             System.Threading.Thread.Sleep(0);
-                            this.Invoke(new PageLoadedCallback(PageLoaded), new object[] { info });
+                            ///this.Invoke(new PageLoadedCallback(PageLoaded), new object[] { info });
+                            this.Invoke(new MethodInvoker(delegate () {
+                                this.PageLoaded(info);
+                            }));
                             System.Threading.Thread.Sleep(0);
                         }
                     }

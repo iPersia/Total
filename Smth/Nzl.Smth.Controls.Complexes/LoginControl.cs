@@ -107,7 +107,7 @@
         /// <param name="e"></param>
         private void Instance_OnLoginStatusChanged(object sender, LogStatusEventArgs e)
         {
-            SetLogStatus(e.IsLogin);
+            this.SetLogStatus(e.IsLogin);
         }
 
         /// <summary>
@@ -120,7 +120,10 @@
                 if (this.InvokeRequired)
                 {
                     System.Threading.Thread.Sleep(0);
-                    this.Invoke(new OnLogStatusChangedCallBack(SetLogStatus), new object[] { flag });
+                    //this.Invoke(new OnLogStatusChangedCallBack(SetLogStatus), new object[] { flag });
+                    this.Invoke(new MethodInvoker(delegate () {
+                        this.SetLogStatus(flag);
+                    }));
                     System.Threading.Thread.Sleep(0);
                 }
                 else
@@ -146,7 +149,6 @@
         {
             if (string.IsNullOrEmpty(this.txtUserID.Text) == false && string.IsNullOrEmpty(this.txtPassword.Text) == false)
             {
-                this.Enabled = false;
                 WebPageFactory.RemoveCookie(Configuration.BaseUrl);
                 LogIn(this.txtUserID.Text, this.txtPassword.Text);
             }
@@ -159,7 +161,6 @@
         /// <param name="e"></param>
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            this.Enabled = false;
             WebPageFactory.RemoveCookie(Configuration.BaseUrl);
             LogOut();
         }
@@ -176,7 +177,8 @@
         private void LogIn(string userID, string password)
         {
             PageLoader pl = new PageLoader(Configuration.LoginUrl, @"id=" + userID + "&passwd=" + password + "&save=on");
-            pl.PageLoaded += new EventHandler(LoginPageLoader_PageLoaded);
+            pl.PageLoaded += LoginPageLoader_PageLoaded;
+            pl.PageFailed += PageLoader_PageFailed;
             PageDispatcher.Instance.Add(pl);
             this.SetControlEnabled(false);
         }
@@ -199,12 +201,46 @@
                         if (this.InvokeRequired)
                         {
                             System.Threading.Thread.Sleep(0);
-                            this.Invoke(new LogPageLoadedCallback(LoginPageLoaded), new object[] { html });
+                            ///this.Invoke(new LogPageLoadedCallback(LoginPageLoaded), new object[] { html });
+                            this.Invoke(new MethodInvoker(delegate () {
+                                this.LoginPageLoaded(html);
+                            }));
                             System.Threading.Thread.Sleep(0);
                         }
                     }
                 }
+                else
+                {
+                    this.SetControlEnabled(true);
+                    this.SetLogStatus(LogStatus.Instance.IsLogin);
+                }
             }            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PageLoader_PageFailed(object sender, EventArgs e)
+        {
+            if (this.IsHandleCreated)
+            {
+                if (this.InvokeRequired)
+                {
+                    System.Threading.Thread.Sleep(0);
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
+                        this.PageLoader_PageFailed(sender, e);
+                    }));
+                    System.Threading.Thread.Sleep(0);
+                }
+                else
+                {
+                    this.SetControlEnabled(true);
+                    this.SetLogStatus(LogStatus.Instance.IsLogin);
+                }
+            }
         }
 
         /// <summary>
@@ -295,6 +331,7 @@
             }
 
             this.SetControlEnabled(true);
+            this.SetLogStatus(LogStatus.Instance.IsLogin);
         }
         #endregion
 
@@ -305,7 +342,8 @@
         private void LogOut()
         {
             PageLoader pl = new PageLoader(Configuration.LogoutUrl, "");
-            pl.PageLoaded += new EventHandler(LogoutPageLoader_PageLoaded);
+            pl.PageLoaded += LogoutPageLoader_PageLoaded;
+            pl.PageFailed += PageLoader_PageFailed;
             PageDispatcher.Instance.Add(pl);
             this.SetControlEnabled(false);
         }
@@ -329,10 +367,18 @@
                         if (this.InvokeRequired)
                         {
                             System.Threading.Thread.Sleep(0);
-                            this.Invoke(new LogPageLoadedCallback(LogoutPageLoaded), new object[] { html });
+                            ///this.Invoke(new LogPageLoadedCallback(LogoutPageLoaded), new object[] { html });
+                            this.Invoke(new MethodInvoker(delegate () {
+                                this.LogoutPageLoaded(html);
+                            }));
                             System.Threading.Thread.Sleep(0);
                         }
                     }
+                }
+                else
+                {
+                    this.SetControlEnabled(true);
+                    this.SetLogStatus(LogStatus.Instance.IsLogin);
                 }
             }
         }
@@ -420,6 +466,7 @@
             }
 
             this.SetControlEnabled(true);
+            this.SetLogStatus(LogStatus.Instance.IsLogin);
         }
         #endregion        
 
@@ -429,13 +476,24 @@
         /// <param name="flag"></param>
         private void SetControlEnabled(bool flag)
         {
-            if (this.InvokeRequired)
+            if (this.IsHandleCreated)
             {
-                this.Invoke(new SetControlEnabledCallback(SetControlEnabled), new object[] { flag });
-            }
-            else
-            {
-                this.Enabled = flag;
+                if (this.InvokeRequired)
+                {
+                    System.Threading.Thread.Sleep(0);
+                    this.Invoke(new MethodInvoker(delegate () {
+                        this.SetControlEnabled(flag);
+                    }));
+                    System.Threading.Thread.Sleep(0);
+                }
+                else
+                {
+                    this.txtUserID.Enabled = flag;
+                    this.txtPassword.Enabled = flag;
+                    this.ckbAutoLogon.Enabled = flag;
+                    this.btnLogon.Enabled = flag;
+                    this.btnLogout.Enabled = flag;
+                }
             }
         }
         #endregion

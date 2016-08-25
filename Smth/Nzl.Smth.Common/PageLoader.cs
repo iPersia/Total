@@ -29,6 +29,11 @@
         /// 
         /// </summary>
         public EventHandler PageLoaded;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public EventHandler PageFailed;
         #endregion
 
         #region variable
@@ -130,6 +135,11 @@
 #if (DEBUG)
                 MessageQueue.Enqueue(MessageFactory.CreateMessage("Page loader", "Executing PageLoader.Excute('" + this._url + "') failed!"));
 #endif
+
+                if (this.PageFailed != null)
+                {
+                    this.PageFailed(this, new EventArgs());
+                }
 
                 return false;
             }

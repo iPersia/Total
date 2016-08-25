@@ -45,6 +45,9 @@
             TabbedBrowserForm.Instance.SetParent(this);
             TabbedBrowserForm.Instance.Show();
             TabbedBrowserForm.Instance.Focus();
+
+            ///
+            PageDispatcher.Instance.Synchronous = false;
         }
         #endregion
 

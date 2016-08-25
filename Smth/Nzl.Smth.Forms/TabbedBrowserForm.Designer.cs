@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TabbedBrowserForm));
-            this.tcTopics = new Nzl.Controls.TabControlEx();
+            //this.tcTopics = new Nzl.Controls.TabControlEx();
+            this.tcTopics = new System.Windows.Forms.TabControl();
             this.scBrowser = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.linklblUserID = new System.Windows.Forms.LinkLabel();
@@ -231,8 +232,8 @@
 
         #endregion
 
-        //private System.Windows.Forms.TabControl tcTopics;
-        private Nzl.Controls.TabControlEx tcTopics;
+        private System.Windows.Forms.TabControl tcTopics;
+        //private Nzl.Controls.TabControlEx tcTopics;
         private System.Windows.Forms.SplitContainer scBrowser;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnSettings;
