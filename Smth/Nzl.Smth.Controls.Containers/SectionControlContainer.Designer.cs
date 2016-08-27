@@ -84,6 +84,7 @@
             // 
             // panelUp
             // 
+            this.panelUp.BackColor = System.Drawing.SystemColors.Window;
             this.panelUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelUp.Controls.Add(this.btnRefresh);
             this.panelUp.Controls.Add(this.linklblSectionName);

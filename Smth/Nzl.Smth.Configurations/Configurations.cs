@@ -76,7 +76,7 @@
         /// <summary>
         /// The interval to load the SectionTopControls.
         /// </summary>
-        private static int staticNewMailUpdatingInterval = 60 * 1000;
+        private static int staticNewMailCheckingInterval = 60 * 1000;
 
         /// <summary>
         /// The count of sections.
@@ -188,11 +188,11 @@
         /// <summary>
         /// 
         /// </summary>
-        public static int NewMailUpdatingInterval
+        public static int NewMailCheckingInterval
         {
             get
             {
-                return staticNewMailUpdatingInterval;
+                return staticNewMailCheckingInterval;
             }
         }
 
@@ -247,9 +247,9 @@
         /// <param name="value"></param>
         public static void SetNewMailUpdatingInterval(int value)
         {
-            if (value != staticNewMailUpdatingInterval)
+            if (value != staticNewMailCheckingInterval)
             {
-                staticNewMailUpdatingInterval = value;
+                staticNewMailCheckingInterval = value;
                 if (OnNewMailUpdatingIntervalChanged != null)
                 {
                     OnNewMailUpdatingIntervalChanged(typeof(Configuration), new EventArgs());

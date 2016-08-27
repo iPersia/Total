@@ -28,7 +28,7 @@ namespace Nzl.Smth.Controls.Containers
     /// The topic form.
     /// </summary>
 #if (DESIGNMODE)
-    public partial class TopicBrowserControl : UserControl
+    public partial class ThreadControlContainer : UserControl
 #else
     public partial class ThreadControlContainer : BaseControlContainer<ThreadControl, Thread>
 #endif

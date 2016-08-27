@@ -129,6 +129,12 @@
     <Compile Include="Top10sForm.Designer.cs">
       <DependentUpon>Top10sForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabbedBrowserSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabbedBrowserSettingsForm.Designer.cs">
+      <DependentUpon>TabbedBrowserSettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TopicBrowserSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Top10sForm.resx">
       <DependentUpon>Top10sForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabbedBrowserSettingsForm.resx">
+      <DependentUpon>TabbedBrowserSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TopicBrowserSettingsForm.resx">
       <DependentUpon>TopicBrowserSettingsForm.cs</DependentUpon>

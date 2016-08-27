@@ -82,6 +82,7 @@
             // 
             // panelUp
             // 
+            this.panelUp.BackColor = System.Drawing.SystemColors.Window;
             this.panelUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelUp.Controls.Add(this.btnRefresh);
             this.panelUp.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -100,12 +101,12 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // FavorControl
+            // BoardControlContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.scContainer);
-            this.Name = "FavorControl";
+            this.Name = "BoardControlContainer";
             this.Size = new System.Drawing.Size(350, 480);
             this.panelContainer.ResumeLayout(false);
             this.scContainer.Panel1.ResumeLayout(false);

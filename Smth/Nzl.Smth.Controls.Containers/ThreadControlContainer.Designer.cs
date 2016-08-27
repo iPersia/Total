@@ -30,7 +30,7 @@
         {
             this.panel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelDown = new System.Windows.Forms.Panel();
             this.txtGoTo2 = new System.Windows.Forms.TextBox();
             this.btnGo2 = new System.Windows.Forms.Button();
             this.lblPage2 = new System.Windows.Forms.Label();
@@ -42,7 +42,7 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.btnOpenInBrowser = new System.Windows.Forms.Button();
             this.scContainer = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelUp = new System.Windows.Forms.Panel();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.linklblBoard = new System.Windows.Forms.LinkLabel();
             this.linklblReply = new System.Windows.Forms.LinkLabel();
@@ -55,7 +55,7 @@
             this.btnNext1 = new System.Windows.Forms.Button();
             this.btnPrev1 = new System.Windows.Forms.Button();
             this.panel.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panelDown.SuspendLayout();
             this.panelContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
@@ -65,7 +65,7 @@
             this.scContainer.Panel1.SuspendLayout();
             this.scContainer.Panel2.SuspendLayout();
             this.scContainer.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelUp.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel
@@ -90,20 +90,21 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Loading...";
             // 
-            // panel2
+            // panelDown
             // 
-            this.panel2.Controls.Add(this.txtGoTo2);
-            this.panel2.Controls.Add(this.btnGo2);
-            this.panel2.Controls.Add(this.lblPage2);
-            this.panel2.Controls.Add(this.btnLast2);
-            this.panel2.Controls.Add(this.btnFirst2);
-            this.panel2.Controls.Add(this.btnNext2);
-            this.panel2.Controls.Add(this.btnPrev2);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(850, 25);
-            this.panel2.TabIndex = 0;
+            this.panelDown.BackColor = System.Drawing.SystemColors.Window;
+            this.panelDown.Controls.Add(this.txtGoTo2);
+            this.panelDown.Controls.Add(this.btnGo2);
+            this.panelDown.Controls.Add(this.lblPage2);
+            this.panelDown.Controls.Add(this.btnLast2);
+            this.panelDown.Controls.Add(this.btnFirst2);
+            this.panelDown.Controls.Add(this.btnNext2);
+            this.panelDown.Controls.Add(this.btnPrev2);
+            this.panelDown.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDown.Location = new System.Drawing.Point(0, 0);
+            this.panelDown.Name = "panelDown";
+            this.panelDown.Size = new System.Drawing.Size(850, 25);
+            this.panelDown.TabIndex = 0;
             // 
             // txtGoTo2
             // 
@@ -191,6 +192,7 @@
             // 
             // panelContainer
             // 
+            this.panelContainer.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelContainer.Controls.Add(this.panel);
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -214,7 +216,7 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.panel2);
+            this.splitContainer2.Panel2.Controls.Add(this.panelDown);
             this.splitContainer2.Size = new System.Drawing.Size(850, 627);
             this.splitContainer2.SplitterDistance = 601;
             this.splitContainer2.SplitterWidth = 1;
@@ -245,7 +247,7 @@
             // 
             // scContainer.Panel1
             // 
-            this.scContainer.Panel1.Controls.Add(this.panel1);
+            this.scContainer.Panel1.Controls.Add(this.panelUp);
             // 
             // scContainer.Panel2
             // 
@@ -256,25 +258,26 @@
             this.scContainer.TabIndex = 2;
             this.scContainer.TabStop = false;
             // 
-            // panel1
+            // panelUp
             // 
-            this.panel1.Controls.Add(this.btnRefresh);
-            this.panel1.Controls.Add(this.linklblBoard);
-            this.panel1.Controls.Add(this.linklblReply);
-            this.panel1.Controls.Add(this.btnSettings);
-            this.panel1.Controls.Add(this.btnOpenInBrowser);
-            this.panel1.Controls.Add(this.btnGo1);
-            this.panel1.Controls.Add(this.txtGoTo1);
-            this.panel1.Controls.Add(this.lblPage1);
-            this.panel1.Controls.Add(this.btnLast1);
-            this.panel1.Controls.Add(this.btnFirst1);
-            this.panel1.Controls.Add(this.btnNext1);
-            this.panel1.Controls.Add(this.btnPrev1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(850, 25);
-            this.panel1.TabIndex = 0;
+            this.panelUp.BackColor = System.Drawing.SystemColors.Window;
+            this.panelUp.Controls.Add(this.btnRefresh);
+            this.panelUp.Controls.Add(this.linklblBoard);
+            this.panelUp.Controls.Add(this.linklblReply);
+            this.panelUp.Controls.Add(this.btnSettings);
+            this.panelUp.Controls.Add(this.btnOpenInBrowser);
+            this.panelUp.Controls.Add(this.btnGo1);
+            this.panelUp.Controls.Add(this.txtGoTo1);
+            this.panelUp.Controls.Add(this.lblPage1);
+            this.panelUp.Controls.Add(this.btnLast1);
+            this.panelUp.Controls.Add(this.btnFirst1);
+            this.panelUp.Controls.Add(this.btnNext1);
+            this.panelUp.Controls.Add(this.btnPrev1);
+            this.panelUp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelUp.Location = new System.Drawing.Point(0, 0);
+            this.panelUp.Name = "panelUp";
+            this.panelUp.Size = new System.Drawing.Size(850, 25);
+            this.panelUp.TabIndex = 0;
             // 
             // btnRefresh
             // 
@@ -418,8 +421,8 @@
             this.Size = new System.Drawing.Size(850, 653);
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.panelDown.ResumeLayout(false);
+            this.panelDown.PerformLayout();
             this.panelContainer.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -429,8 +432,8 @@
             this.scContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).EndInit();
             this.scContainer.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelUp.ResumeLayout(false);
+            this.panelUp.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -438,7 +441,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panel;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelDown;
         private System.Windows.Forms.TextBox txtGoTo2;
         private System.Windows.Forms.Button btnGo2;
         private System.Windows.Forms.Label lblPage2;
@@ -450,7 +453,7 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Button btnOpenInBrowser;
         private System.Windows.Forms.SplitContainer scContainer;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelUp;
         private System.Windows.Forms.Button btnGo1;
         private System.Windows.Forms.TextBox txtGoTo1;
         private System.Windows.Forms.Label lblPage1;

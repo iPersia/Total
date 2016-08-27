@@ -838,7 +838,8 @@
         /// <param name="e"></param>
         private void btnSettings_Click(object sender, EventArgs e)
         {
-
+            TabbedBrowserSettingsForm form = new TabbedBrowserSettingsForm();
+            ShowFormAsDialog(form);
         }
 
         /// <summary>
@@ -981,7 +982,7 @@
             this._newMailUpdateTimer.Stop();
             if (LogStatus.Instance.IsLogin)
             {
-                this._newMailUpdateTimer.Interval = Configuration.NewMailUpdatingInterval;
+                this._newMailUpdateTimer.Interval = Configuration.NewMailCheckingInterval;
                 this._newMailUpdateTimer.Stop();
             }
         }
@@ -1028,7 +1029,7 @@
                         this._newMailUpdateTimer.Stop();
                         if (flag)
                         {
-                            this._newMailUpdateTimer.Interval = Configuration.NewMailUpdatingInterval;
+                            this._newMailUpdateTimer.Interval = Configuration.NewMailCheckingInterval;
                             this._newMailUpdateTimer.Start();
                         }
                     }

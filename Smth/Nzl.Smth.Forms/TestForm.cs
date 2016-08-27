@@ -28,9 +28,21 @@
         {
             base.OnShown(e);
             System.Drawing.Image image = System.Drawing.Image.FromFile("D:/26b57b720341669a.jpg");
-            //this.richTextBoxEx1.InsertImage(image);
-            Clipboard.SetData(DataFormats.Bitmap, image);
-            this.richTextBoxEx1.Paste();
+            ///System.Drawing.Image image = System.Drawing.Image.FromFile("D:/stream.gif"); ///
+
+            string rtfCode = null;
+            {
+                //rtfCode = Nzl.Smth.Utils.RtfUtil.GetRtfCode(image);                
+            }
+
+            {
+                this.richTextBoxEx1.Clear();
+                Clipboard.SetData(DataFormats.Bitmap, image);
+                this.richTextBoxEx1.Paste();
+                rtfCode = this.richTextBoxEx1.Rtf;
+            }
+
+            this.richTextBoxEx1.InsertLink(rtfCode, @"http://m.newsmth.net", this.richTextBoxEx1.Text.Length);
         }
     }
 }

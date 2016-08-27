@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.richTextBoxEx1 = new Nzl.Controls.RichTextBoxEx();
+            ///this.richTextBoxEx1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // richTextBoxEx1
@@ -37,6 +38,7 @@
             this.richTextBoxEx1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBoxEx1.HiglightColor = Nzl.Controls.RtfColor.White;
             this.richTextBoxEx1.Location = new System.Drawing.Point(0, 0);
+            this.richTextBoxEx1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.richTextBoxEx1.Name = "richTextBoxEx1";
             this.richTextBoxEx1.Size = new System.Drawing.Size(467, 437);
             this.richTextBoxEx1.TabIndex = 0;
@@ -61,5 +63,6 @@
         #endregion
 
         private Nzl.Controls.RichTextBoxEx richTextBoxEx1;
+        ///private System.Windows.Forms.RichTextBox richTextBoxEx1;
     }
 }

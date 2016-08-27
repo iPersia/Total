@@ -21,28 +21,28 @@
             return rtfValue = rtfValue.Substring(0, rtfValue.LastIndexOf(@"\par"));
         }
 
-        /////// <summary>
-        /////// 
-        /////// </summary>
-        /////// <param name="info"></param>
-        /////// <returns></returns>
-        ////public static string GetRtfCode(System.Drawing.Image image)
-        ////{
-        ////    RichTextBoxEx txtBox = new RichTextBoxEx(); //Controls.RichTextBoxEx txtBox = new Controls.RichTextBoxEx();
-        ////    txtBox.Clear();
-        ////    txtBox.InsertImage(image);
-        ////    string rtfValue = txtBox.Rtf;
-        ////    string startStr = @"\viewkind4\uc1\pard\lang2052";
-        ////    rtfValue = rtfValue.Substring(rtfValue.IndexOf(startStr) + startStr.Length);
-        ////    return rtfValue = rtfValue.Substring(0, rtfValue.LastIndexOf(@"\par"));
-        ////}
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
         public static string GetRtfCode(System.Drawing.Image image)
+        {
+            Nzl.Controls.RichTextBoxEx txtBox = new Nzl.Controls.RichTextBoxEx(); //Controls.RichTextBoxEx txtBox = new Controls.RichTextBoxEx();
+            txtBox.Clear();
+            txtBox.InsertImage(image);
+            string rtfValue = txtBox.Rtf;
+            string startStr = @"\viewkind4\uc1\pard\lang2052";
+            rtfValue = rtfValue.Substring(rtfValue.IndexOf(startStr) + startStr.Length);
+            return rtfValue = rtfValue.Substring(0, rtfValue.LastIndexOf(@"\par"));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static string GetRtfCodeNew(System.Drawing.Image image)
         {
             if (image == null)
                 throw new System.Exception("Image is null!");             
@@ -55,14 +55,19 @@
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.Append("{");
 
-            sb.Append("\\pict");
-            sb.Append("\\jpegblip");
-            sb.Append("\\picscalex100");
-            sb.Append("\\picscaley100");
-            sb.Append("\\picwgoal" + System.Convert.ToString(image.Size.Width * 15));
-            sb.Append("\\pichgoal" + System.Convert.ToString(image.Size.Height * 15));
+            ///sb.Append(@"{\rtf\ansi\ansicpg936{\fonttbl}{\colortbl;}\viewkind1");
+
+            sb.Append(@"\pict");
+            sb.Append(@"\jpegblip");
+            sb.Append(@"\picscalex100");
+            sb.Append(@"\picscaley100");
+            sb.Append(@"\picwgoal" + System.Convert.ToString(image.Size.Width * 15));
+            sb.Append(@"\pichgoal" + System.Convert.ToString(image.Size.Height * 15));
             sb.Append(GetImageData(bs));
             sb.Append("}");
+
+            ///sb.Append("}");
+
             return sb.ToString();
         }
 
@@ -84,7 +89,6 @@
                 if ((iCount % 32) == 0)
                 {
                     sb.Append(System.Environment.NewLine);
-                    sb.Append(staticStrIndentString);
                 }
                 else if ((iCount % 8) == 0)
                 {
