@@ -207,17 +207,11 @@ namespace Nzl.Smth.Controls.Containers
             LogStatus.Instance.OnLoginStatusChanged += LogStatus_OnLoginStatusChanged;
             this.Text = "Topic";
             {
-                this.btnFirst1.Click += new System.EventHandler(this.btnFirst_Click);
-                this.btnPrev1.Click += new System.EventHandler(this.btnPrev_Click);
-                this.btnNext1.Click += new System.EventHandler(this.btnNext_Click);
-                this.btnLast1.Click += new System.EventHandler(this.btnLast_Click);
-                this.btnGo1.Click += new System.EventHandler(this.btnGo_Click);
-
-                this.btnFirst2.Click += new System.EventHandler(this.btnFirst_Click);
-                this.btnPrev2.Click += new System.EventHandler(this.btnPrev_Click);
-                this.btnNext2.Click += new System.EventHandler(this.btnNext_Click);
-                this.btnLast2.Click += new System.EventHandler(this.btnLast_Click);
-                this.btnGo2.Click += new System.EventHandler(this.btnGo_Click);
+                this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
+                this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+                this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+                this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
+                this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
 
                 this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
                 this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
@@ -266,8 +260,7 @@ namespace Nzl.Smth.Controls.Containers
             if (info.Status == PageStatus.Normal)
             {
                 this.UpdateInfor(info.WebPage);
-                this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
-                this.lblPage2.Text = this.lblPage1.Text;
+                this.lblPage.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
                 this._resultUrlInfo = info;
 
 
@@ -439,26 +432,20 @@ namespace Nzl.Smth.Controls.Containers
 
             this.panel.Enabled = flag;
 
-            this.btnFirst1.Enabled = flag;
-            this.btnGo1.Enabled = flag;
-            this.btnLast1.Enabled = flag;
-            this.btnNext1.Enabled = flag;
-            this.btnPrev1.Enabled = flag;
-            this.txtGoTo1.Enabled = flag;
-
-            this.btnFirst2.Enabled = flag;
-            this.btnGo2.Enabled = flag;
-            this.btnLast2.Enabled = flag;
-            this.btnNext2.Enabled = flag;
-            this.btnPrev2.Enabled = flag;
-            this.txtGoTo2.Enabled = flag;
+            this.btnFirst.Enabled = flag;
+            this.btnGo.Enabled = flag;
+            this.btnLast.Enabled = flag;
+            this.btnNext.Enabled = flag;
+            this.btnPrev.Enabled = flag;
+            this.txtGoTo.Enabled = flag;
+            this.btnSettings.Enabled = flag;
 
             //this.btnRefresh.Enabled = flag;
         }
 
         protected override void UpdateProgress(int proc)
         {
-            this.btnFirst1.Text = (proc * 11111).ToString();
+            this.btnFirst.Text = (proc * 11111).ToString();
         }
 
         /// <summary>
@@ -711,21 +698,10 @@ namespace Nzl.Smth.Controls.Containers
             {
                 Button btn = sender as Button;
                 int pageIndex = Int32.MaxValue;
-                if (btn.Name == "btnGo1")
+                if (string.IsNullOrEmpty(this.txtGoTo.Text) == false)
                 {
-                    if (string.IsNullOrEmpty(this.txtGoTo1.Text) == false)
-                    {
-                        pageIndex = System.Convert.ToInt32(this.txtGoTo1.Text);
-                    }
+                    pageIndex = System.Convert.ToInt32(this.txtGoTo.Text);
                 }
-                else
-                {
-                    if (string.IsNullOrEmpty(this.txtGoTo2.Text) == false)
-                    {
-                        pageIndex = System.Convert.ToInt32(this.txtGoTo2.Text);
-                    }
-                }
-
 
                 if (this._settingBrowserType == BrowserType.FirstReply)
                 {
@@ -737,7 +713,6 @@ namespace Nzl.Smth.Controls.Containers
                 }
 
                 this.FetchPage();
-                this.txtGoTo1.Text = this.txtGoTo2.Text = "";
             }
             catch (Exception exp)
             {
