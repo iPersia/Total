@@ -47,6 +47,7 @@
             // 
             // panelContainer
             // 
+            this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelContainer.Controls.Add(this.btnLogout);
             this.panelContainer.Controls.Add(this.btnLogon);
             this.panelContainer.Controls.Add(this.txtUserID);
@@ -55,7 +56,7 @@
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(263, 232);
+            this.panelContainer.Size = new System.Drawing.Size(265, 234);
             this.panelContainer.TabIndex = 0;
             // 
             // btnLogout
@@ -108,7 +109,6 @@
             // 
             // scContainer
             // 
-            this.scContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.scContainer.IsSplitterFixed = true;
@@ -131,11 +131,13 @@
             // 
             // panelUp
             // 
+            this.panelUp.BackColor = System.Drawing.SystemColors.Window;
+            this.panelUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelUp.Controls.Add(this.lblNote);
             this.panelUp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelUp.Location = new System.Drawing.Point(0, 0);
             this.panelUp.Name = "panelUp";
-            this.panelUp.Size = new System.Drawing.Size(263, 23);
+            this.panelUp.Size = new System.Drawing.Size(265, 25);
             this.panelUp.TabIndex = 0;
             // 
             // lblNote

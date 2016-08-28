@@ -17,6 +17,8 @@
         /// </summary>
         private Form _parentForm = null;
 
+        private Nzl.Smth.Controls.Complexes.MailBoxControl _mbcMails = new Smth.Controls.Complexes.MailBoxControl();
+
         /// <summary>
         /// 
         /// </summary>
@@ -28,9 +30,24 @@
         public MailBoxForm()
         {
             InitializeComponent();
-            this.mbcMailBox.OnMailLinkClicked += MbcMailBox_OnMailLinkClicked;
-            this.mbcMailBox.OnUserLinkClicked += MbcMailBox_OnUserLinkClicked;
-            this.mbcMailBox.OnNewMailClicked += MbcMailBox_OnNewMailClicked;
+            this._mbcMails.OnMailLinkClicked += MbcMailBox_OnMailLinkClicked;
+            this._mbcMails.OnUserLinkClicked += MbcMailBox_OnUserLinkClicked;
+            this._mbcMails.OnNewMailClicked += MbcMailBox_OnNewMailClicked;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            this._mbcMails.Top = 1;
+            this._mbcMails.Left = 1;
+            this.panelContainer.Controls.Clear();
+            this.panelContainer.Controls.Add(this._mbcMails);
+            this.Size = new System.Drawing.Size(this._mbcMails.Width + 2 + this.Width - this.panelContainer.Width,
+                                                this._mbcMails.Height + 2 + this.Height - this.panelContainer.Height);
         }
 
         /// <summary>

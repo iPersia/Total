@@ -85,7 +85,6 @@
             // panelUp
             // 
             this.panelUp.BackColor = System.Drawing.SystemColors.Window;
-            this.panelUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelUp.Controls.Add(this.btnRefresh);
             this.panelUp.Controls.Add(this.linklblSectionName);
             this.panelUp.Controls.Add(this.linklblPrevious);
@@ -97,7 +96,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(120, 0);
+            this.btnRefresh.Location = new System.Drawing.Point(120, 1);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 2;
@@ -108,7 +107,7 @@
             // linklblSectionName
             // 
             this.linklblSectionName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linklblSectionName.Location = new System.Drawing.Point(186, 6);
+            this.linklblSectionName.Location = new System.Drawing.Point(188, 6);
             this.linklblSectionName.Name = "linklblSectionName";
             this.linklblSectionName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.linklblSectionName.Size = new System.Drawing.Size(120, 12);
@@ -126,12 +125,12 @@
             this.linklblPrevious.TabStop = true;
             this.linklblPrevious.Text = "Previous";
             // 
-            // SectionNavigationControl
+            // SectionControlContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.scContainer);
-            this.Name = "SectionNavigationControl";
+            this.Name = "SectionControlContainer";
             this.Size = new System.Drawing.Size(317, 506);
             this.panelContainer.ResumeLayout(false);
             this.scContainer.Panel1.ResumeLayout(false);

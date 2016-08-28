@@ -71,13 +71,13 @@
             // 
             // panelUp
             // 
+            this.panelUp.BackColor = System.Drawing.SystemColors.Window;
             this.panelUp.Controls.Add(this.lblTitle);
             this.panelUp.Controls.Add(this.linklblDelete);
             this.panelUp.Controls.Add(this.linklblID);
             this.panelUp.Controls.Add(this.linklblTransfer);
             this.panelUp.Controls.Add(this.lblDateTime);
             this.panelUp.Controls.Add(this.linklblReply);
-            this.panelUp.BackColor = System.Drawing.SystemColors.Control;
             this.panelUp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelUp.Location = new System.Drawing.Point(0, 0);
             this.panelUp.Name = "panelUp";
@@ -152,8 +152,8 @@
             // 
             // panelDown
             // 
+            this.panelDown.BackColor = System.Drawing.SystemColors.Window;
             this.panelDown.Controls.Add(this.richtxtContent);
-            this.panelDown.BackColor = System.Drawing.SystemColors.Control;
             this.panelDown.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDown.Location = new System.Drawing.Point(0, 0);
             this.panelDown.Name = "panelDown";
@@ -162,17 +162,17 @@
             // 
             // richtxtContent
             // 
-            this.richtxtContent.BackColor = System.Drawing.SystemColors.Control;
+            this.richtxtContent.BackColor = System.Drawing.SystemColors.Window;
             this.richtxtContent.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richtxtContent.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.richtxtContent.HiglightColor = Nzl.Controls.RtfColor.White;
             this.richtxtContent.Location = new System.Drawing.Point(11, 12);
             this.richtxtContent.Name = "richtxtContent";
             this.richtxtContent.Size = new System.Drawing.Size(565, 380);
-            this.richtxtContent.TextColor = Nzl.Controls.RtfColor.Black;
             this.richtxtContent.TabIndex = 12;
             this.richtxtContent.TabStop = false;
             this.richtxtContent.Text = "";
+            this.richtxtContent.TextColor = Nzl.Controls.RtfColor.Black;
             // 
             // MailDetailControl
             // 
@@ -189,6 +189,7 @@
             this.panelUp.PerformLayout();
             this.panelDown.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         #endregion

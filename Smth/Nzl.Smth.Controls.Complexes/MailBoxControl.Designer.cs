@@ -48,7 +48,6 @@
             this.Name = "MailBoxControl";
             this.Size = new System.Drawing.Size(689, 473);
             this.ResumeLayout(false);
-
         }
 
         #endregion

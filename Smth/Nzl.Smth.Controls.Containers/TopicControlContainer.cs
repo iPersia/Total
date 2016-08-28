@@ -96,9 +96,7 @@
         {
             base.WorkCompleted(info);
             this.UpdateBoardTitle(info.WebPage);
-            this.lblPage1.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
-            this.lblPage2.Text = this.lblPage1.Text;
-
+            this.lblPage.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
             if (this.GetContainer().Height < this.panelContainer.Height)
             {
                 this.SetUrlInfo(true);
@@ -176,26 +174,16 @@
         protected override void SetControlEnabled(bool flag)
         {
             base.SetControlEnabled(flag);
-            //this.scContainer.Enabled = flag;
             this.btnRefresh.Enabled = true;
 
             this.panel.Enabled = flag;
 
-            this.btnFirst1.Enabled = flag;
-            this.btnGo1.Enabled = flag;
-            this.btnLast1.Enabled = flag;
-            this.btnNext1.Enabled = flag;
-            this.btnPrev1.Enabled = flag;
-            this.txtGoTo1.Enabled = flag;
-
-            this.btnFirst2.Enabled = flag;
-            this.btnGo2.Enabled = flag;
-            this.btnLast2.Enabled = flag;
-            this.btnNext2.Enabled = flag;
-            this.btnPrev2.Enabled = flag;
-            this.txtGoTo2.Enabled = flag;
-
-            //this.btnRefresh.Enabled = flag;
+            this.btnFirst.Enabled = flag;
+            this.btnGo.Enabled = flag;
+            this.btnLast.Enabled = flag;
+            this.btnNext.Enabled = flag;
+            this.btnPrev.Enabled = flag;
+            this.txtGoTo.Enabled = flag;
         }
         #endregion
 
@@ -264,26 +252,16 @@
         {
             try
             {
-                Button btn = sender as Button;
                 int pageIndex = Int32.MaxValue;
-                if (btn.Name == "btnGo1")
+                if (string.IsNullOrEmpty(this.txtGoTo.Text) == false)
                 {
-                    if (string.IsNullOrEmpty(this.txtGoTo1.Text) == false)
-                    {
-                        pageIndex = System.Convert.ToInt32(this.txtGoTo1.Text);
-                    }
+                    pageIndex = System.Convert.ToInt32(this.txtGoTo.Text);
                 }
-                else
-                {
-                    if (string.IsNullOrEmpty(this.txtGoTo2.Text) == false)
-                    {
-                        pageIndex = System.Convert.ToInt32(this.txtGoTo2.Text);
-                    }
-                }
+         
 
                 this.SetUrlInfo(pageIndex, false);
                 this.FetchPage();
-                this.txtGoTo1.Text = this.txtGoTo2.Text = "";
+                this.txtGoTo.Text = "";
             }
             catch (Exception exp)
             {
@@ -317,7 +295,7 @@
         {
             try
             {
-                int panelContainerHeight = this.splitContainer2.Panel1.Height; //panel容器高度
+                int panelContainerHeight = this.panelContainer.Height; //panel容器高度
 
 #if (X)
                 System.Diagnostics.Debug.WriteLine("********************---BoardBrowserControl_MouseWheel---********************");

@@ -52,6 +52,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Window;
             this.splitContainer1.Panel1.Controls.Add(this.btnSendMail);
             // 
             // splitContainer1.Panel2

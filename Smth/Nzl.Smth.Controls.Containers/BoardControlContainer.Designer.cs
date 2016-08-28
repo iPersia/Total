@@ -41,15 +41,6 @@
             this.panelUp.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel
-            // 
-            //this.panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            //this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel.Location = new System.Drawing.Point(4, 4);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(341, 100);
-            this.panel.TabIndex = 0;
-            // 
             // panelContainer
             // 
             this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -59,6 +50,13 @@
             this.panelContainer.Name = "panelContainer";
             this.panelContainer.Size = new System.Drawing.Size(350, 454);
             this.panelContainer.TabIndex = 0;
+            // 
+            // panel
+            // 
+            this.panel.Location = new System.Drawing.Point(4, 4);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(341, 100);
+            this.panel.TabIndex = 0;
             // 
             // scContainer
             // 
@@ -83,7 +81,6 @@
             // panelUp
             // 
             this.panelUp.BackColor = System.Drawing.SystemColors.Window;
-            this.panelUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelUp.Controls.Add(this.btnRefresh);
             this.panelUp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelUp.Location = new System.Drawing.Point(0, 0);
@@ -93,7 +90,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(265, 0);
+            this.btnRefresh.Location = new System.Drawing.Point(142, 1);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 0;
