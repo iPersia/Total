@@ -39,7 +39,8 @@
         /// </summary>
         public Top10sBrowserControl()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            Configuration.OnTop10sLoadingIntervalChanged += Configuration_OnTop10sLoadingIntervalChanged;
         }
 
         /// <summary>
@@ -65,6 +66,18 @@
 
             this._timerLoadingTops.Interval = Configuration.Top10sLoadingInterval;
             this._timerLoadingTops.Tick += new EventHandler(_timerLoadingTops_Tick);
+            this._timerLoadingTops.Start();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Configuration_OnTop10sLoadingIntervalChanged(object sender, EventArgs e)
+        {
+            this._timerLoadingTops.Stop();
+            this._timerLoadingTops.Interval = Configuration.Top10sLoadingInterval;
             this._timerLoadingTops.Start();
         }
 
@@ -119,6 +132,6 @@
             {
                 this.OnTopBoardLinkClicked(sender, e);
             }
-        }        
+        }
     }
 }

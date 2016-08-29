@@ -102,8 +102,8 @@
                             if (mt.Groups["BoardName"].Value != "")
                             {
                                 Board board = new Board();
-                                board.Name = mt.Groups["BoardName"].Value.ToString();
                                 board.Code = mt.Groups["BoardCode"].Value.ToString();
+                                board.Name = mt.Groups["BoardName"].Value.ToString().Replace("(" + board.Code + ")", "");
                                 list.Add(board);
                             }
                         }

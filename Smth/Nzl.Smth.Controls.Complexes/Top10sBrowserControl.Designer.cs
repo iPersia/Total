@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.tcTop10s = new System.Windows.Forms.TabControl();
+            this.panelContainer = new System.Windows.Forms.Panel();
+            this.panelContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcTop10s
@@ -40,13 +42,24 @@
             this.tcTop10s.Size = new System.Drawing.Size(685, 420);
             this.tcTop10s.TabIndex = 1;
             // 
+            // panelContainer
+            // 
+            this.panelContainer.BackColor = System.Drawing.SystemColors.Window;
+            this.panelContainer.Controls.Add(this.tcTop10s);
+            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContainer.Location = new System.Drawing.Point(0, 0);
+            this.panelContainer.Name = "panelContainer";
+            this.panelContainer.Size = new System.Drawing.Size(685, 420);
+            this.panelContainer.TabIndex = 2;
+            // 
             // Top10sBrowserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tcTop10s);
+            this.Controls.Add(this.panelContainer);
             this.Name = "Top10sBrowserControl";
             this.Size = new System.Drawing.Size(685, 420);
+            this.panelContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -54,5 +67,6 @@
         #endregion
 
         private System.Windows.Forms.TabControl tcTop10s;
+        private System.Windows.Forms.Panel panelContainer;
     }
 }
