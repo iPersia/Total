@@ -31,7 +31,7 @@
             this.panelContainer = new System.Windows.Forms.Panel();
             this.panel = new System.Windows.Forms.Panel();
             this.scContainer = new System.Windows.Forms.SplitContainer();
-            this.panelUp = new System.Windows.Forms.Panel();
+            this.panelMenu = new System.Windows.Forms.Panel();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.linklblSectionName = new System.Windows.Forms.LinkLabel();
             this.linklblPrevious = new System.Windows.Forms.LinkLabel();
@@ -40,11 +40,12 @@
             this.scContainer.Panel1.SuspendLayout();
             this.scContainer.Panel2.SuspendLayout();
             this.scContainer.SuspendLayout();
-            this.panelUp.SuspendLayout();
+            this.panelMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelContainer
             // 
+            this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelContainer.Controls.Add(this.panel);
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
@@ -54,6 +55,7 @@
             // 
             // panel
             // 
+            this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel.Location = new System.Drawing.Point(3, 3);
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(311, 100);
@@ -69,7 +71,7 @@
             // 
             // scContainer.Panel1
             // 
-            this.scContainer.Panel1.Controls.Add(this.panelUp);
+            this.scContainer.Panel1.Controls.Add(this.panelMenu);
             this.scContainer.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             // 
             // scContainer.Panel2
@@ -82,17 +84,17 @@
             this.scContainer.TabIndex = 1;
             this.scContainer.TabStop = false;
             // 
-            // panelUp
+            // panelMenu
             // 
-            this.panelUp.BackColor = System.Drawing.SystemColors.Window;
-            this.panelUp.Controls.Add(this.btnRefresh);
-            this.panelUp.Controls.Add(this.linklblSectionName);
-            this.panelUp.Controls.Add(this.linklblPrevious);
-            this.panelUp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelUp.Location = new System.Drawing.Point(0, 0);
-            this.panelUp.Name = "panelUp";
-            this.panelUp.Size = new System.Drawing.Size(317, 25);
-            this.panelUp.TabIndex = 0;
+            this.panelMenu.BackColor = System.Drawing.SystemColors.Window;
+            this.panelMenu.Controls.Add(this.btnRefresh);
+            this.panelMenu.Controls.Add(this.linklblSectionName);
+            this.panelMenu.Controls.Add(this.linklblPrevious);
+            this.panelMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMenu.Location = new System.Drawing.Point(0, 0);
+            this.panelMenu.Name = "panelMenu";
+            this.panelMenu.Size = new System.Drawing.Size(317, 25);
+            this.panelMenu.TabIndex = 0;
             // 
             // btnRefresh
             // 
@@ -137,8 +139,8 @@
             this.scContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).EndInit();
             this.scContainer.ResumeLayout(false);
-            this.panelUp.ResumeLayout(false);
-            this.panelUp.PerformLayout();
+            this.panelMenu.ResumeLayout(false);
+            this.panelMenu.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -148,7 +150,7 @@
         private System.Windows.Forms.Panel panelContainer;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.SplitContainer scContainer;
-        private System.Windows.Forms.Panel panelUp;
+        private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.LinkLabel linklblPrevious;
         private System.Windows.Forms.LinkLabel linklblSectionName;
         private System.Windows.Forms.Button btnRefresh;

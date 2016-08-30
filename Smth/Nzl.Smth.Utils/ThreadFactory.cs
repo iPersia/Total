@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Text;
     using System.Text.RegularExpressions;
+    using System.Xml;
     using Nzl.Recycling;
     using Nzl.Smth.Configurations;
     using Nzl.Smth.Datas;    
@@ -483,6 +483,35 @@
 
             return null;
         }        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        private string GetXml(string content)
+        {
+            if (string.IsNullOrEmpty(content))
+                return null;
+
+            {
+
+            }
+
+            {
+
+            }
+
+            {
+
+            }
+
+            {
+
+            }
+
+            return null;
+        }
         #endregion
     }
 }

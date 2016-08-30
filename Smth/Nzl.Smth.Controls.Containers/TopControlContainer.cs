@@ -48,10 +48,13 @@
         TopControlContainer()
         {
             InitializeComponent();
+            this.Text = "Section top topic";
             Configuration.OnSectionTopsUpdatingIntervalChanged += Configuration_OnSectionTopsUpdatingIntervalChanged;
-            this.panelContainer.Size = new Size(this.Width - 10, TopControl.ControlHeight * 10 + 12);
-            this.Height = this.panelContainer.Height + 11;
-            this.Text = "Section top topic";            
+            this.GetPanel().Size = new Size(this.Width - Configuration.BaseControlContainerLocationMargin * 2 - this.GetPanelContainerBoarderMargin(),
+                                            TopControl.ControlHeight * 10 + Configuration.BaseControlLocationMargin * 11 + this.GetControlContainerBoarderMargin());
+            this.Height = this.GetPanel().Height 
+                        + Configuration.BaseControlContainerLocationMargin * 2 
+                        + this.GetPanelContainerBoarderMargin();
         }
         
         /// <summary>
@@ -72,7 +75,7 @@
         /// <param name="ctl"></param>
         public void SetParent(Control ctl)
         {
-            this._parentControl = ctl;
+            this._parentControl = ctl;            
         }
         #endregion
 
@@ -80,8 +83,27 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            this.IsResponingMouseWheel = false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
-        protected override Panel GetContainer()
+        protected override Panel GetPanel()
+        {
+            return this.panel;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override Panel GetPanelContainer()
         {
             return this.panelContainer;
         }

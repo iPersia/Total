@@ -9,13 +9,13 @@
     using Nzl.Messaging;
     using Nzl.Recycling;
     using Nzl.Smth.Common;
-    using Nzl.Smth.Utils;
+    using Nzl.Smth.Configurations;
     using Nzl.Smth.Datas;
-    using Nzl.Smth.Logger;    
+    using Nzl.Smth.Logger;
     using Nzl.Utils;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -76,11 +76,6 @@
         /// 
         /// </summary>
         private object _isDoingWorkLocker = new object();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private int _margin = 4;
         #endregion
 
         #region Ctor
@@ -91,10 +86,25 @@
             : base()
         {
             this.IsRecycled = false;
+            Configuration.OnLocationMarginChanged += Configuration_OnLocationMarginChanged;
         }
         #endregion
 
         #region properties
+        /// <summary>
+        /// 
+        /// </summary>
+        protected bool IsResponingMouseWheel
+        {
+            set
+            {
+                this.GetPanelContainer().MouseWheel -= Container_MouseWheel;
+                if (value)
+                {
+                    this.GetPanelContainer().MouseWheel += Container_MouseWheel;
+                }
+            }
+        }
         #endregion
 
         #region public
@@ -139,16 +149,16 @@
         /// </summary>
         public virtual void Recycling()
         {
-            Panel container = this.GetContainer();
-            if (container != null)
+            Panel baseControlContainer = this.GetPanel();
+            if (baseControlContainer != null)
             {
-                foreach (Control ctl in container.Controls)
+                foreach (Control ctl in baseControlContainer.Controls)
                 {
                     this.RecylingControl(ctl as TBaseControl);
                 }
 
-                container.Controls.Clear();
-                container.Height = 100;
+                baseControlContainer.Controls.Clear();
+                baseControlContainer.Height = 100;
             }
 
             this.IsRecycled = true;
@@ -164,6 +174,31 @@
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            if (this.GetPanelContainer() == null || this.GetPanel() == null)
+            {
+                if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+                {
+                    return;
+                }
+                else
+                {
+                    throw new Exception("The panel or the panel container is null!");
+                }
+            }
+            ///BorderStyle
+            this.BorderStyle = BorderStyle.None;
+            this.GetPanelContainer().BorderStyle = BorderStyle.FixedSingle;
+            this.GetPanel().BorderStyle = BorderStyle.FixedSingle;
+
+            this.GetPanel().Location = new Point(Configuration.BaseControlContainerLocationMargin,
+                                                 Configuration.BaseControlContainerLocationMargin);
+
+            this.GetPanel().Width = this.GetPanelContainer().Width
+                                  - Configuration.BaseControlContainerLocationMargin * 2
+                                  - this.GetPanelContainerBoarderMargin();
+
+            this.IsResponingMouseWheel = true;
+            this.ShowInformationInPanel("Page loading, please wait for a moment!");
             this.SetUrlInfo(false);
             this.FetchPage();
         }
@@ -175,10 +210,12 @@
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
-            Panel container = this.GetContainer();
-            if (container != null)
+            Panel baseControlContainer = this.GetPanel();
+            if (baseControlContainer != null)
             {
-                container.Width = this.Width - 10;
+                baseControlContainer.Width = this.Width 
+                                           - Configuration.BaseControlContainerLocationMargin * 2 
+                                           - this.GetPanelContainerBoarderMargin();
             }
         }
 
@@ -189,12 +226,15 @@
         /// <param name="e"></param>
         private void BaseContainer_SizeChanged(object sender, EventArgs e)
         {
-            Panel container = this.GetContainer();
-            if (container != null)
+            Panel baseControlContainer = this.GetPanel();
+            if (baseControlContainer != null)
             {
 #if (DEBUG)
                 System.Diagnostics.Debug.WriteLine("BaseContainer - BaseContainer_SizeChanged - FetchPage");
 #endif
+                baseControlContainer.Width = this.Width
+                                           - Configuration.BaseControlContainerLocationMargin * 2
+                                           - this.GetPanelContainerBoarderMargin();
                 this.SetUrlInfo(false);
                 this.FetchPage();
             }
@@ -206,7 +246,16 @@
         /// 
         /// </summary>
         /// <param name="baseUrl"></param>
-        protected virtual Panel GetContainer()
+        protected virtual Panel GetPanel()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseUrl"></param>
+        protected virtual Panel GetPanelContainer()
         {
             return null;
         }
@@ -250,7 +299,8 @@
                     {
                         System.Threading.Thread.Sleep(0);
                         ///this.Invoke(new InitializeContainerCallback(InitializeContainer), new object[] { info.IsAppend });
-                        this.Invoke(new MethodInvoker(delegate () {
+                        this.Invoke(new MethodInvoker(delegate ()
+                        {
                             this.InitializeContainer(info.IsAppend);
                         }));
                         System.Threading.Thread.Sleep(0);
@@ -275,7 +325,8 @@
                     {
                         System.Threading.Thread.Sleep(0);
                         ///this.Invoke(new UpdateViewCallback<TBaseControl>(AddControl), new object[] { ctl });
-                        this.Invoke(new MethodInvoker(delegate () {
+                        this.Invoke(new MethodInvoker(delegate ()
+                        {
                             this.AddControl(ctl);
                         }));
                         System.Threading.Thread.Sleep(0);
@@ -289,14 +340,14 @@
         /// </summary>
         protected virtual void InitializeContainer(bool isAppend)
         {
-            Panel container = GetContainer();
-            if (container != null)
+            Panel baseControlContainer = GetPanel();
+            if (baseControlContainer != null)
             {
-                lock (container)
+                lock (baseControlContainer)
                 {
                     if (isAppend == false)
                     {
-                        foreach (Control ctl in container.Controls)
+                        foreach (Control ctl in baseControlContainer.Controls)
                         {
                             TBaseControl bc = ctl as TBaseControl;
                             if (bc != null)
@@ -305,9 +356,9 @@
                             }
                         }
 
-                        container.Location = new Point(container.Location.X, this._margin);
-                        container.Height = 3;
-                        container.Controls.Clear();
+                        baseControlContainer.Location = new Point(Configuration.BaseControlContainerLocationMargin, Configuration.BaseControlContainerLocationMargin);
+                        baseControlContainer.Height = Configuration.BaseControlLocationMargin + this.GetPanelContainerBoarderMargin();
+                        baseControlContainer.Controls.Clear();
                         GC.Collect();
                     }
                 }
@@ -346,7 +397,7 @@
         {
             if (data != null)
             {
-                RecycledQueues.AddRecycled<TBaseData>(data);                
+                RecycledQueues.AddRecycled<TBaseData>(data);
             }
         }
 
@@ -366,20 +417,20 @@
         /// <param name="ctl"></param>
         protected virtual void AddControl(TBaseControl ctl)
         {
-            Panel container = GetContainer();
-            if (container != null)
+            Panel baseControlContainer = GetPanel();
+            if (baseControlContainer != null)
             {
-                lock (container)
+                lock (baseControlContainer)
                 {
                     if (CheckAddingControl(ctl))
                     {
-                        int accumulateHeight = container.Height - 3;
-                        ctl.Top = accumulateHeight + 1;
-                        ctl.Left = 1;
-                        this.SetControl(ctl, container.Controls.Count % 2 == 0);
-                        container.Controls.Add(ctl);
-                        accumulateHeight += ctl.Height + 1;
-                        container.Height = accumulateHeight + 3;
+                        int accumulateHeight = baseControlContainer.Height - Configuration.BaseControlLocationMargin - this.GetPanelContainerBoarderMargin();
+                        ctl.Top = accumulateHeight + Configuration.BaseControlLocationMargin;
+                        ctl.Left = Configuration.BaseControlLocationMargin;
+                        this.SetControl(ctl, baseControlContainer.Controls.Count % 2 == 0);
+                        baseControlContainer.Controls.Add(ctl);
+                        accumulateHeight += ctl.Height + Configuration.BaseControlLocationMargin;
+                        baseControlContainer.Height = accumulateHeight + Configuration.BaseControlLocationMargin + this.GetPanelContainerBoarderMargin();
 #if (X)
                         System.Diagnostics.Debug.WriteLine("BaseContainer - AddControl - container.Controls.Count is " + container.Controls.Count);
 #endif
@@ -454,19 +505,7 @@
                 }
                 else
                 {
-                    Panel container = this.GetContainer();
-                    if (container != null)
-                    {
-                        container.Controls.Clear();
-                        Label lbl = new Label();
-                        lbl.AutoSize = true;
-                        lbl.Text = MiscUtil.GetEnumDescription(info.Status);
-                        container.Controls.Add(lbl);
-                        lbl.Top = 30;
-                        lbl.Left = (container.Width - lbl.Width) / 2;
-                        container.Height = 60 + lbl.Height;
-                        container.Top = 4;
-                    }
+                    ShowInformationInPanel(MiscUtil.GetEnumDescription(info.Status));
                 }
             }
         }
@@ -477,6 +516,7 @@
         /// <param name="flag"></param>
         protected virtual void SetControlEnabled(bool flag)
         {
+            this.GetPanelContainer().Enabled = flag;
         }
 
         /// <summary>
@@ -498,10 +538,13 @@
         {
             if (ctl != null)
             {
-                Panel container = this.GetContainer();
-                if (container != null)
+                Panel baseControlContainer = this.GetPanel();
+                if (baseControlContainer != null)
                 {
-                    ctl.SetWidth(container.Width - 4);
+                    int width = baseControlContainer.Width 
+                              - Configuration.BaseControlLocationMargin * 2
+                              - this.GetControlContainerBoarderMargin();
+                    ctl.SetWidth(width);
                 }
 
                 if (data != null)
@@ -510,6 +553,9 @@
                 }
 
                 ctl.Initialize(data);
+#if (DEBUG)
+                ctl.BorderStyle = BorderStyle.FixedSingle;
+#endif
             }
         }
 
@@ -536,14 +582,77 @@
         protected virtual void UpdateProgress(int proc)
         {
             ///Noting to do.
-        }        
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="disposing"></param>
-        protected virtual void DoDisposing(bool disposing)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected virtual void Container_MouseWheel(object sender, MouseEventArgs e)
         {
+            try
+            {
+                Panel panelContainer = this.GetPanelContainer();
+                Panel baseControlContainer = this.GetPanel();
+                int panelContainerHeight = panelContainer.Height; //panel容器高度
+#if (X)
+                System.Diagnostics.Debug.WriteLine("---------------------***TopicForm_MouseWheel***---------------------");
+                System.Diagnostics.Debug.WriteLine("Sender is:" + sender.GetType().ToString());
+                System.Diagnostics.Debug.WriteLine("panelContainerHeight:" + panelContainerHeight);
+#endif
+                if (this.GetPanel().Height > panelContainerHeight)
+                {
+#if (X)
+                    System.Diagnostics.Debug.WriteLine("oldYPos:" + this.panel.Location.Y);
+                    System.Diagnostics.Debug.WriteLine("Delta  :" + e.Delta);
+#endif
+                    int boardMargin = this.GetPanelContainerBoarderMargin();
+                    int maxHeight = Configuration.BaseControlContainerLocationMargin;
+                    int minHeight = panelContainerHeight
+                                  - baseControlContainer.Height 
+                                  - Configuration.BaseControlContainerLocationMargin 
+                                  - boardMargin;
+                    int newYPos = baseControlContainer.Location.Y + e.Delta;
+                    newYPos = newYPos > maxHeight ? maxHeight : newYPos;
+                    newYPos = newYPos < minHeight ? minHeight : newYPos;
+#if (X)
+                    System.Diagnostics.Debug.WriteLine("newYPos:" + newYPos);
+#endif
+                    baseControlContainer.Location = new Point(Configuration.BaseControlContainerLocationMargin, newYPos);
+                    if (newYPos == minHeight)
+                    {
+                        this.FetchPageOnMouseWheel();
+#if (X)
+                        System.Diagnostics.Debug.WriteLine("FetchNextPage - newYPos is " + newYPos);
+#endif
+                    }
+                }
+            }
+            catch (Exception exp)
+            {
+                if (Logger.Enabled)
+                {
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected virtual void FetchPageOnMouseWheel()
+        {
+            this.SetUrlInfo(true);
+            this.FetchNextPage();
+            //if (this._settingBrowserType == BrowserType.FirstReply)
+            //{
+            //    this.FetchNextPage();
+            //}
+            //else if (this._settingAutoUpdating == false)
+            //{
+            //    this.FetchPrevPage();
+            //}
         }
         #endregion
 
@@ -644,7 +753,8 @@
 #endif
                         System.Threading.Thread.Sleep(0);
                         ///object obj = this.Invoke(new CreateControlCallback<TBaseControl>(CreateBaseControl));
-                        this.Invoke(new MethodInvoker(delegate () {
+                        this.Invoke(new MethodInvoker(delegate ()
+                        {
                             ctl = this.CreateBaseControl();
                         }));
                         System.Threading.Thread.Sleep(0);
@@ -658,7 +768,8 @@
                             {
                                 System.Threading.Thread.Sleep(0);
                                 ///this.Invoke(new InitializeControlCallback<TBaseControl, TBaseData>(InitializeControl), new object[] { ctl, data });
-                                this.Invoke(new MethodInvoker(delegate () {
+                                this.Invoke(new MethodInvoker(delegate ()
+                                {
                                     this.InitializeControl(ctl, data);
                                 }));
                                 System.Threading.Thread.Sleep(0);
@@ -671,6 +782,45 @@
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        protected void ShowInformationInPanel(string text)
+        {
+            Panel baseControlContainer = this.GetPanel();
+            if (baseControlContainer != null)
+            {
+                baseControlContainer.Controls.Clear();
+                Label lbl = new Label();
+                lbl.AutoSize = true;
+                lbl.Text = text;
+                baseControlContainer.Controls.Add(lbl);
+                lbl.Top = 30;
+                lbl.Left = (baseControlContainer.Width - lbl.Width) / 2;
+                baseControlContainer.Height = 60 + lbl.Height;
+                baseControlContainer.Top = Configuration.BaseControlContainerLocationMargin;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected int GetPanelContainerBoarderMargin()
+        {
+            return this.GetPanelContainer().BorderStyle == BorderStyle.FixedSingle ? 2 : 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected int GetControlContainerBoarderMargin()
+        {
+            return this.GetPanel().BorderStyle == BorderStyle.FixedSingle ? 2 : 0;
         }
         #endregion
 
@@ -885,7 +1035,8 @@
                         {
                             System.Threading.Thread.Sleep(0);
                             ///this.Invoke(new PageLoadedCallback(PageLoaded), new object[] { info });
-                            this.Invoke(new MethodInvoker(delegate () {
+                            this.Invoke(new MethodInvoker(delegate ()
+                            {
                                 this.PageLoaded(info);
                             }));
                             System.Threading.Thread.Sleep(0);
@@ -942,6 +1093,23 @@
             {
                 this.OnWorkerCancelled(this, new MessageEventArgs(msg));
             }
+        }
+        #endregion
+
+        #region eventhandler
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Configuration_OnLocationMarginChanged(object sender, EventArgs e)
+        {
+            this.SetUrlInfo(false);
+            int width = this.GetPanelContainer().Width 
+                      - Configuration.BaseControlContainerLocationMargin * 2
+                      - this.GetPanelContainerBoarderMargin();
+            this.GetPanel().Width = width;
+            this.FetchPage();
         }
         #endregion
     }

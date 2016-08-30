@@ -37,7 +37,7 @@
         public BoardControlContainer()
         {
             InitializeComponent();
-            this.panel.MouseWheel += Panel_MouseWheel;
+            //this.panel.MouseWheel += Panel_MouseWheel;
             this.SetBaseUrl(@"http://m.newsmth.net/favor");
             this.Text = "User favourite board";
         }
@@ -51,7 +51,7 @@
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);            
-            this.btnRefresh.Left = this.panelUp.Width / 2 - this.btnRefresh.Width / 2;
+            this.btnRefresh.Left = this.panelMenu.Width / 2 - this.btnRefresh.Width / 2;
         }
 
         /// <summary>
@@ -68,9 +68,18 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override Panel GetContainer()
+        protected override Panel GetPanel()
         {
             return this.panel;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override Panel GetPanelContainer()
+        {
+            return this.panelContainer;
         }
 
         /// <summary>
@@ -109,6 +118,14 @@
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected override void FetchPageOnMouseWheel()
+        {
+            //Do nothing.
+        }
+
+        /// <summary>
         ///
         /// </summary>
         /// <param name="ctl"></param>
@@ -123,34 +140,6 @@
         #endregion
 
         #region eventhandler
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Panel_MouseWheel(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                int panelContainerHeight = this.panelContainer.Height; //panel容器高度
-                if (this.panel.Height > panelContainerHeight)
-                {
-                    int newYPos = this.panel.Location.Y + e.Delta;
-                    newYPos = newYPos > this._margin ? this._margin : newYPos;
-                    newYPos = newYPos < panelContainerHeight - this.panel.Height - this._margin
-                         ? panelContainerHeight - this.panel.Height - this._margin : newYPos;
-                    this.panel.Location = new Point(this.panel.Location.X, newYPos);
-                }
-            }
-            catch (Exception exp)
-            {
-                if (Logger.Enabled)
-                {
-                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
-                }
-            }
-        }
-
         /// <summary>
         /// 
         /// </summary>

@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel = new System.Windows.Forms.Panel();
             this.lblType = new System.Windows.Forms.Label();
             this.linklblBoard = new System.Windows.Forms.LinkLabel();
-            this.panel1.SuspendLayout();
+            this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // panel
             // 
-            this.panel1.Controls.Add(this.lblType);
-            this.panel1.Controls.Add(this.linklblBoard);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(475, 24);
-            this.panel1.TabIndex = 0;
+            this.panel.Controls.Add(this.lblType);
+            this.panel.Controls.Add(this.linklblBoard);
+            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel.Location = new System.Drawing.Point(0, 0);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(475, 24);
+            this.panel.TabIndex = 0;
             // 
             // lblType
             // 
@@ -69,18 +69,18 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel);
             this.Name = "BoardControl";
             this.Size = new System.Drawing.Size(475, 24);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panel.ResumeLayout(false);
+            this.panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.LinkLabel linklblBoard;
         private System.Windows.Forms.Label lblType;
     }

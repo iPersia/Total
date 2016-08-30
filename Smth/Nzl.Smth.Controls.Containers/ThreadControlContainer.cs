@@ -17,13 +17,7 @@ namespace Nzl.Smth.Controls.Containers
     using Nzl.Smth.Utils;
     using Nzl.Web.Util;
     using Nzl.Web.Page;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="flag"></param>
-    delegate void SetReplyVisibleCallback(bool flag);
-
+    
     /// <summary>
     /// The topic form.
     /// </summary>
@@ -121,11 +115,6 @@ namespace Nzl.Smth.Controls.Containers
         /// <summary>
         /// 
         /// </summary>
-        private int _margin = 4;
-
-        /// <summary>
-        /// 
-        /// </summary>
         private BrowserType _settingBrowserType = BrowserType.FirstReply;
 
         /// <summary>
@@ -202,7 +191,6 @@ namespace Nzl.Smth.Controls.Containers
         public ThreadControlContainer()
         {
             InitializeComponent();
-            this.panel.MouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
             this._updatingTimer.Tick += _updatingTimer_Tick;
             LogStatus.Instance.OnLoginStatusChanged += LogStatus_OnLoginStatusChanged;
             this.Text = "Topic";
@@ -274,7 +262,7 @@ namespace Nzl.Smth.Controls.Containers
                 }
 
                 ///Fetch next page when the container is not full.
-                if (this.GetContainer().Height < this.panelContainer.Height)
+                if (this.GetPanel().Height < this.panelContainer.Height)
                 {
                     if (this._settingBrowserType == BrowserType.FirstReply)
                     {
@@ -294,9 +282,18 @@ namespace Nzl.Smth.Controls.Containers
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override Panel GetContainer()
+        protected override Panel GetPanel()
         {
             return this.panel;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override Panel GetPanelContainer()
+        {
+            return this.panelContainer;
         }
 
         /// <summary>
@@ -348,7 +345,7 @@ namespace Nzl.Smth.Controls.Containers
                 ctl.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
                 ctl.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
                 ctl.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
-                ctl.OnTextBoxMouseWheel += new MouseEventHandler(TopicBrowserControl_MouseWheel);
+                //ctl.OnTextBoxMouseWheel += this.Container_MouseWheel;
             }
         }
 
@@ -369,7 +366,7 @@ namespace Nzl.Smth.Controls.Containers
                 ctl.OnMailLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
                 ctl.OnTransferLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
                 ctl.OnTextBoxLinkClicked -= ThreadControl_OnTextBoxLinkClicked;
-                ctl.OnTextBoxMouseWheel -= new MouseEventHandler(TopicBrowserControl_MouseWheel);
+                //ctl.OnTextBoxMouseWheel -= this.Container_MouseWheel;
             }
         }
 
@@ -396,7 +393,7 @@ namespace Nzl.Smth.Controls.Containers
                 this._settingAutoUpdating == false &&
                 ctl.Name != null)
             {
-                return this.GetContainer().Controls.ContainsKey(ctl.Name) == false;
+                return this.GetPanel().Controls.ContainsKey(ctl.Name) == false;
             }
 
             return base.CheckAddingControl(ctl);
@@ -446,6 +443,22 @@ namespace Nzl.Smth.Controls.Containers
         protected override void UpdateProgress(int proc)
         {
             this.btnFirst.Text = (proc * 11111).ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void FetchPageOnMouseWheel()
+        {
+            this.SetUrlInfo(true);
+            if (this._settingBrowserType == BrowserType.FirstReply)
+            {
+                this.FetchNextPage();
+            }
+            else if (this._settingAutoUpdating == false)
+            {
+                this.FetchPrevPage();
+            }
         }
 
         /// <summary>
@@ -509,61 +522,6 @@ namespace Nzl.Smth.Controls.Containers
         {
             this.SetUrlInfo(false);
             this.FetchLastPage();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TopicBrowserControl_MouseWheel(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                int panelContainerHeight = this.panelContainer.Height; //panel容器高度
-#if (X)
-                System.Diagnostics.Debug.WriteLine("---------------------***TopicForm_MouseWheel***---------------------");
-                System.Diagnostics.Debug.WriteLine("Sender is:" + sender.GetType().ToString());
-                System.Diagnostics.Debug.WriteLine("panelContainerHeight:" + panelContainerHeight);
-#endif
-                if (this.panel.Height > panelContainerHeight)
-                {
-#if (X)
-                    System.Diagnostics.Debug.WriteLine("oldYPos:" + this.panel.Location.Y);
-                    System.Diagnostics.Debug.WriteLine("Delta  :" + e.Delta);
-#endif
-                    int newYPos = this.panel.Location.Y + e.Delta;
-                    newYPos = newYPos > this._margin ? this._margin : newYPos;
-                    newYPos = newYPos < panelContainerHeight - this.panel.Height - this._margin
-                         ? panelContainerHeight - this.panel.Height - this._margin : newYPos;
-#if (X)
-                    System.Diagnostics.Debug.WriteLine("newYPos:" + newYPos);
-#endif
-                    this.panel.Location = new Point(this.panel.Location.X, newYPos);
-                    if (newYPos == panelContainerHeight - this.panel.Height - this._margin)
-                    {
-                        this.SetUrlInfo(true);
-                        if (this._settingBrowserType == BrowserType.FirstReply)
-                        {
-                            this.FetchNextPage();
-                        }
-                        else if (this._settingAutoUpdating == false)
-                        {
-                            this.FetchPrevPage();
-                        }
-#if (X)
-                        System.Diagnostics.Debug.WriteLine("FetchNextPage - newYPos is " + newYPos);
-#endif
-                    }
-                }
-            }
-            catch (Exception exp)
-            {
-                if (Logger.Enabled)
-                {
-                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
-                }
-            }
         }
 
         /// <summary>

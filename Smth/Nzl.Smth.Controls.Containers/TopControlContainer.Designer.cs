@@ -29,24 +29,35 @@
         private void InitializeComponent()
         {
             this.panelContainer = new System.Windows.Forms.Panel();
+            this.panel = new System.Windows.Forms.Panel();
+            this.panelContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelContainer
             // 
-            this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelContainer.Location = new System.Drawing.Point(4, 4);
+            this.panelContainer.Controls.Add(this.panel);
+            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(659, 445);
+            this.panelContainer.Size = new System.Drawing.Size(666, 445);
             this.panelContainer.TabIndex = 0;
             // 
-            // SectionTopsControl
+            // panel
+            // 
+            this.panel.Location = new System.Drawing.Point(3, 3);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(658, 100);
+            this.panel.TabIndex = 0;
+            // 
+            // TopControlContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Controls.Add(this.panelContainer);
-            this.Name = "SectionTopsControl";
+            this.Name = "TopControlContainer";
             this.Size = new System.Drawing.Size(666, 445);
+            this.panelContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -54,5 +65,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panelContainer;
+        private System.Windows.Forms.Panel panel;
     }
 }

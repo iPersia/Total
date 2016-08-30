@@ -65,7 +65,7 @@ namespace Nzl.Web.Pub
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 //Application.Run(new MainForm());
-                Application.Run(new MobileNewSmth.MobileNewSmthForm());
+                //Application.Run(new MobileNewSmth.MobileNewSmthForm());
             }
             catch (Exception exp)
             {

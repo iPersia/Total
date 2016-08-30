@@ -40,14 +40,25 @@
             this.cmbSectionTopUpdatingInterval = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelContainer = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cmbBaseControlLocationMargin = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cmbBaseControlContainerLocationMargin = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.gpAutoUpdating.SuspendLayout();
             this.panelContainer.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(127, 170);
+            this.btnOK.Location = new System.Drawing.Point(127, 284);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 4;
@@ -191,19 +202,148 @@
             // panelContainer
             // 
             this.panelContainer.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panelContainer.Controls.Add(this.groupBox1);
             this.panelContainer.Controls.Add(this.btnOK);
             this.panelContainer.Controls.Add(this.gpAutoUpdating);
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(332, 223);
+            this.panelContainer.Size = new System.Drawing.Size(332, 323);
             this.panelContainer.TabIndex = 6;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.cmbBaseControlLocationMargin);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.cmbBaseControlContainerLocationMargin);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 144);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(308, 128);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "UI settings";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(276, 90);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(17, 12);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "s.";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "5",
+            "10",
+            "15",
+            "30",
+            "60",
+            "120",
+            "180",
+            "300",
+            "600"});
+            this.comboBox1.Location = new System.Drawing.Point(195, 87);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(75, 20);
+            this.comboBox1.TabIndex = 11;
+            this.comboBox1.TabStop = false;
+            this.comboBox1.Visible = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(17, 90);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(161, 12);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "New mail checking interval";
+            this.label8.Visible = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(276, 60);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(17, 12);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "px";
+            // 
+            // cmbBaseControlLocationMargin
+            // 
+            this.cmbBaseControlLocationMargin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBaseControlLocationMargin.FormattingEnabled = true;
+            this.cmbBaseControlLocationMargin.Items.AddRange(new object[] {
+            "2",
+            "4",
+            "6",
+            "8",
+            "10",
+            "12"});
+            this.cmbBaseControlLocationMargin.Location = new System.Drawing.Point(195, 57);
+            this.cmbBaseControlLocationMargin.Name = "cmbBaseControlLocationMargin";
+            this.cmbBaseControlLocationMargin.Size = new System.Drawing.Size(75, 20);
+            this.cmbBaseControlLocationMargin.TabIndex = 8;
+            this.cmbBaseControlLocationMargin.TabStop = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(17, 60);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(149, 12);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "Control container margin";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(276, 31);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(17, 12);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "px";
+            // 
+            // cmbBaseControlContainerLocationMargin
+            // 
+            this.cmbBaseControlContainerLocationMargin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBaseControlContainerLocationMargin.FormattingEnabled = true;
+            this.cmbBaseControlContainerLocationMargin.Items.AddRange(new object[] {
+            "2",
+            "4",
+            "6",
+            "8",
+            "10",
+            "12"});
+            this.cmbBaseControlContainerLocationMargin.Location = new System.Drawing.Point(195, 25);
+            this.cmbBaseControlContainerLocationMargin.Name = "cmbBaseControlContainerLocationMargin";
+            this.cmbBaseControlContainerLocationMargin.Size = new System.Drawing.Size(75, 20);
+            this.cmbBaseControlContainerLocationMargin.TabIndex = 5;
+            this.cmbBaseControlContainerLocationMargin.TabStop = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(17, 31);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(137, 12);
+            this.label12.TabIndex = 4;
+            this.label12.Text = "Panel container margin";
             // 
             // TabbedBrowserSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 223);
+            this.ClientSize = new System.Drawing.Size(332, 323);
             this.Controls.Add(this.panelContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "TabbedBrowserSettingsForm";
@@ -211,6 +351,8 @@
             this.gpAutoUpdating.ResumeLayout(false);
             this.gpAutoUpdating.PerformLayout();
             this.panelContainer.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -228,5 +370,15 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cmbNewMailCheckingInterval;
         private System.Windows.Forms.Panel panelContainer;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cmbBaseControlLocationMargin;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cmbBaseControlContainerLocationMargin;
+        private System.Windows.Forms.Label label12;
     }
 }

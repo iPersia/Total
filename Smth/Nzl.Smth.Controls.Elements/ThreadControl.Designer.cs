@@ -73,7 +73,7 @@
             this.panel.AutoSize = true;
             this.panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel.BackColor = System.Drawing.SystemColors.Control;
-            this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            //this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel.Controls.Add(this.panelLine);
             this.panel.Controls.Add(this.richtxtContent);
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;

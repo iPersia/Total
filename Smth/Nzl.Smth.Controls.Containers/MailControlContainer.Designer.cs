@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.scContainer = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelMenu = new System.Windows.Forms.Panel();
             this.btnNew = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnOpenInBrower = new System.Windows.Forms.Button();
@@ -46,7 +46,7 @@
             this.scContainer.Panel1.SuspendLayout();
             this.scContainer.Panel2.SuspendLayout();
             this.scContainer.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelMenu.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +61,7 @@
             // 
             // scContainer.Panel1
             // 
-            this.scContainer.Panel1.Controls.Add(this.panel1);
+            this.scContainer.Panel1.Controls.Add(this.panelMenu);
             // 
             // scContainer.Panel2
             // 
@@ -72,24 +72,24 @@
             this.scContainer.TabIndex = 3;
             this.scContainer.TabStop = false;
             // 
-            // panel1
+            // panelMenu
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Window;
-            this.panel1.Controls.Add(this.btnNew);
-            this.panel1.Controls.Add(this.btnRefresh);
-            this.panel1.Controls.Add(this.btnOpenInBrower);
-            this.panel1.Controls.Add(this.btnGo);
-            this.panel1.Controls.Add(this.txtGoTo);
-            this.panel1.Controls.Add(this.lblPage);
-            this.panel1.Controls.Add(this.btnLast);
-            this.panel1.Controls.Add(this.btnFirst);
-            this.panel1.Controls.Add(this.btnNext);
-            this.panel1.Controls.Add(this.btnPrev);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(635, 25);
-            this.panel1.TabIndex = 0;
+            this.panelMenu.BackColor = System.Drawing.SystemColors.Window;
+            this.panelMenu.Controls.Add(this.btnNew);
+            this.panelMenu.Controls.Add(this.btnRefresh);
+            this.panelMenu.Controls.Add(this.btnOpenInBrower);
+            this.panelMenu.Controls.Add(this.btnGo);
+            this.panelMenu.Controls.Add(this.txtGoTo);
+            this.panelMenu.Controls.Add(this.lblPage);
+            this.panelMenu.Controls.Add(this.btnLast);
+            this.panelMenu.Controls.Add(this.btnFirst);
+            this.panelMenu.Controls.Add(this.btnNext);
+            this.panelMenu.Controls.Add(this.btnPrev);
+            this.panelMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMenu.Location = new System.Drawing.Point(0, 0);
+            this.panelMenu.Name = "panelMenu";
+            this.panelMenu.Size = new System.Drawing.Size(635, 25);
+            this.panelMenu.TabIndex = 0;
             // 
             // btnNew
             // 
@@ -250,8 +250,8 @@
             this.scContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).EndInit();
             this.scContainer.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelMenu.ResumeLayout(false);
+            this.panelMenu.PerformLayout();
             this.panelContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -260,7 +260,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnOpenInBrower;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.Button btnGo;
         private System.Windows.Forms.TextBox txtGoTo;
         private System.Windows.Forms.Label lblPage;

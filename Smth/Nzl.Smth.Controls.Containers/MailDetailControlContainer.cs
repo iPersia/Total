@@ -99,6 +99,16 @@ namespace Nzl.Smth.Controls.Containers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            this.IsResponingMouseWheel = false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
         protected override string GetUrl(UrlInfo<MailDetailControl, Mail> info)
@@ -127,9 +137,18 @@ namespace Nzl.Smth.Controls.Containers
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override Panel GetContainer()
+        protected override Panel GetPanel()
         {
             return this.panel;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override Panel GetPanelContainer()
+        {
+            return this.panelContainer;
         }
 
         /// <summary>

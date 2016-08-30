@@ -65,8 +65,8 @@ namespace Nzl.Web.Forms
                 ////处理非UI线程异常 
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
                                 
-                //Application.Run(new MainForm());
-                Application.Run(new MobileNewSmth.Forms.MainForm());
+                Application.Run(new MainForm());
+                //Application.Run(new MobileNewSmth.Forms.MainForm());
                 //Application.Run(MobileNewSmth.Forms.TabbedBrowserForm.Instance);
                 //Application.Run(new Tools.EncryptDecryptForm());
             }
@@ -148,7 +148,7 @@ namespace Nzl.Web.Forms
                 }
             }
 
-            MobileNewSmth.Utils.MessageQueue.Enqueue(MobileNewSmth.Utils.MessageFactory.CreateMessage(exp));
+            //MobileNewSmth.Utils.MessageQueue.Enqueue(MobileNewSmth.Utils.MessageFactory.CreateMessage(exp));
         }
 
         /// <summary> 

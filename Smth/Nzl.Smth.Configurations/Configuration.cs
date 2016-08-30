@@ -25,6 +25,11 @@
         /// 
         /// </summary>
         public static EventHandler OnNewMailUpdatingIntervalChanged;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static EventHandler OnLocationMarginChanged;
         #endregion
 
         #region variable
@@ -61,12 +66,13 @@
         /// <summary>
         /// The base url of smth.
         /// </summary>
-        private static string staticAttachmentBaseUrl = @"http://att.newsmth.net/nForum"; 
+        private static string staticAttachmentBaseUrl = @"http://att.newsmth.net/nForum";
 
+#if (DEBUG)
         /// <summary>
         /// The interval to update the section tops in SectionTopControl.
         /// </summary>
-        private static int staticSectionTopsUpdatingInterval = 5 *60 * 1000;
+        private static int staticSectionTopsUpdatingInterval = 30 * 1000;
 
         /// <summary>
         /// The interval to load the SectionTopControls.
@@ -76,16 +82,53 @@
         /// <summary>
         /// The interval to load the SectionTopControls.
         /// </summary>
-        private static int staticNewMailCheckingInterval = 60 * 1000;
+        private static int staticNewMailCheckingInterval = 30 * 1000;
+#else
+        /// <summary>
+        /// The interval to update the section tops in SectionTopControl.
+        /// </summary>
+        private static int staticSectionTopsUpdatingInterval = 5 * 60 * 1000;
 
+        /// <summary>
+        /// The interval to load the SectionTopControls.
+        /// </summary>
+        private static int staticTop10sLoadingInterval = 5 * 60 * 1000;
+
+        /// <summary>
+        /// The interval to load the SectionTopControls.
+        /// </summary>
+        private static int staticNewMailCheckingInterval = 5 * 60 * 1000;
+#endif
         /// <summary>
         /// The count of sections.
         /// </summary>
         private static int staticSectionCount = 9;
-        #endregion
+
+#if (DEBUG)
+        /// <summary>
+        /// 
+        /// </summary>
+        private static int staticBaseControlContainerLocationMargin = 8;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static int staticBaseControlLocationMargin = 6;
+#else
+                /// <summary>
+        /// 
+        /// </summary>
+        private static int baseControlContainerLocationMargin = 4;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static int baseControlLocationMargin = 2;
+#endif
+#endregion
 
 
-        #region Properties
+#region Properties
         /// <summary>
         /// 
         /// </summary>
@@ -94,7 +137,7 @@
             get
             {
                 return staticBaseUrl;
-            }   
+            }
         }
 
         /// <summary>
@@ -106,7 +149,7 @@
             {
                 return staticAttachmentBaseUrl;
             }
-        }        
+        }
 
         /// <summary>
         /// 
@@ -161,7 +204,7 @@
             {
                 return staticTrashBaseUrl;
             }
-        }        
+        }
 
         /// <summary>
         /// 
@@ -199,6 +242,28 @@
         /// <summary>
         /// 
         /// </summary>
+        public static int BaseControlContainerLocationMargin
+        {
+            get
+            {
+                return staticBaseControlContainerLocationMargin;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static int BaseControlLocationMargin
+        {
+            get
+            {
+                return staticBaseControlLocationMargin;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static int SectionCount
         {
             get
@@ -206,9 +271,9 @@
                 return staticSectionCount;
             }
         }
-        #endregion
+#endregion
 
-        #region Public methods
+#region Public methods
         /// <summary>
         /// 
         /// </summary>
@@ -222,7 +287,7 @@
                 {
                     OnSectionTopsUpdatingIntervalChanged(typeof(Configuration), new EventArgs());
                 }
-            }            
+            }
         }
 
         /// <summary>
@@ -253,6 +318,24 @@
                 if (OnNewMailUpdatingIntervalChanged != null)
                 {
                     OnNewMailUpdatingIntervalChanged(typeof(Configuration), new EventArgs());
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        public static void SetLocationMargin(int baseControlContainerLocationMargin, int baseControlLocationMargin)
+        {
+            if (baseControlLocationMargin != staticBaseControlLocationMargin ||
+                baseControlContainerLocationMargin != staticBaseControlContainerLocationMargin)
+            {
+                staticBaseControlLocationMargin = baseControlLocationMargin;
+                staticBaseControlContainerLocationMargin = baseControlContainerLocationMargin;
+                if (OnLocationMarginChanged != null)
+                {
+                    OnLocationMarginChanged(typeof(Configuration), new EventArgs());
                 }
             }
         }

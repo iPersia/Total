@@ -81,70 +81,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MobileNewSmth\Controls\BoardBrowserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\BoardBrowserControl.Designer.cs">
-      <DependentUpon>BoardBrowserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\Top10sBrowserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\Top10sBrowserControl.Designer.cs">
-      <DependentUpon>Top10sBrowserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\SectionTopsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\SectionTopsControl.Designer.cs">
-      <DependentUpon>SectionTopsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Datas\BaseItem.cs" />
-    <Compile Include="MobileNewSmth\Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\SmthForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\SmthForm.Designer.cs">
-      <DependentUpon>SmthForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\LoadingForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\LoadingForm.Designer.cs">
-      <DependentUpon>LoadingForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\TabbedBrowserForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\TabbedBrowserForm.Designer.cs">
-      <DependentUpon>TabbedBrowserForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\ThreadForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\ThreadForm.Designer.cs">
-      <DependentUpon>ThreadForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\Top10sForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\Top10sForm.Designer.cs">
-      <DependentUpon>Top10sForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Interfaces\IContainsThread.cs" />
-    <Compile Include="MobileNewSmth\Utils\MessageFactory.cs" />
-    <Compile Include="MobileNewSmth\Controls\BaseControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Datas\Message.cs" />
-    <Compile Include="MobileNewSmth\Forms\BaseForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Common\NavigatorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,131 +93,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MobileNewSmth\Controls\BoardControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\BoardControl.Designer.cs">
-      <DependentUpon>BoardControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\BoardForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\BoardForm.Designer.cs">
-      <DependentUpon>BoardForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\BrowserForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\BrowserForm.Designer.cs">
-      <DependentUpon>BrowserForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\FavorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\FavorForm.Designer.cs">
-      <DependentUpon>FavorForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\LoginForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Datas\Mail.cs" />
-    <Compile Include="MobileNewSmth\Forms\MailBoxForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\MailBoxForm.Designer.cs">
-      <DependentUpon>MailBoxForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Common\MessageForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Common\MessageForm.Designer.cs">
       <DependentUpon>MessageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MobileNewSmth\Controls\MailControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\MailControl.Designer.cs">
-      <DependentUpon>MailControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\MailDetailForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\MailDetailForm.Designer.cs">
-      <DependentUpon>MailDetailForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\MessageCenterForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\MessageCenterForm.Designer.cs">
-      <DependentUpon>MessageCenterForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Utils\MessageQueue.cs" />
-    <Compile Include="MobileNewSmth\Forms\MobileNewSmthForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\MobileNewSmthForm.Designer.cs">
-      <DependentUpon>MobileNewSmthForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\RichTextBoxEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Datas\Thread.cs" />
-    <Compile Include="MobileNewSmth\Controls\TopControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\TopControl.Designer.cs">
-      <DependentUpon>TopControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Datas\Topic.cs" />
-    <Compile Include="MobileNewSmth\Controls\TopicBrowserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\TopicBrowserControl.Designer.cs">
-      <DependentUpon>TopicBrowserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\TopicBrowserSettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\TopicBrowserSettingsForm.Designer.cs">
-      <DependentUpon>TopicBrowserSettingsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\TopicControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\TopicControl.designer.cs">
-      <DependentUpon>TopicControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\BoardNavigatorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\BoardNavigatorForm.Designer.cs">
-      <DependentUpon>BoardNavigatorForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\NewMailForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\NewMailForm.Designer.cs">
-      <DependentUpon>NewMailForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\TopicForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\TopicForm.Designer.cs">
-      <DependentUpon>TopicForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Utils\SmthUtil.cs" />
-    <Compile Include="MobileNewSmth\Datas\UrlInfo.cs" />
-    <Compile Include="MobileNewSmth\Forms\WebBrowserForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\WebBrowserForm.Designer.cs">
-      <DependentUpon>WebBrowserForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Utils\ThreadFactory.cs" />
-    <Compile Include="MobileNewSmth\Utils\TopicFactory.cs" />
     <Compile Include="ProductClawer\ProductClawerFom.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,24 +119,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MobileNewSmth\Forms\NewThreadForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\NewThreadForm.Designer.cs">
-      <DependentUpon>NewThreadForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\ThreadControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Controls\ThreadControl.Designer.cs">
-      <DependentUpon>ThreadControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\UserForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MobileNewSmth\Forms\UserForm.Designer.cs">
-      <DependentUpon>UserForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Rss\RssMonitorSettingsDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -359,84 +158,6 @@
     <EmbeddedResource Include="Common\MessageForm.resx">
       <DependentUpon>MessageForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Controls\BoardBrowserControl.resx">
-      <DependentUpon>BoardBrowserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Controls\BoardControl.resx">
-      <DependentUpon>BoardControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Controls\Top10sBrowserControl.resx">
-      <DependentUpon>Top10sBrowserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Controls\SectionTopsControl.resx">
-      <DependentUpon>SectionTopsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\BoardForm.resx">
-      <DependentUpon>BoardForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\BrowserForm.resx">
-      <DependentUpon>BrowserForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\SmthForm.resx">
-      <DependentUpon>SmthForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\FavorForm.resx">
-      <DependentUpon>FavorForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\LoadingForm.resx">
-      <DependentUpon>LoadingForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\MailBoxForm.resx">
-      <DependentUpon>MailBoxForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Controls\MailControl.resx">
-      <DependentUpon>MailControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\MailDetailForm.resx">
-      <DependentUpon>MailDetailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\MessageCenterForm.resx">
-      <DependentUpon>MessageCenterForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\MobileNewSmthForm.resx">
-      <DependentUpon>MobileNewSmthForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Controls\TopControl.resx">
-      <DependentUpon>TopControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Controls\TopicBrowserControl.resx">
-      <DependentUpon>TopicBrowserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\TabbedBrowserForm.resx">
-      <DependentUpon>TabbedBrowserForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\ThreadForm.resx">
-      <DependentUpon>ThreadForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\Top10sForm.resx">
-      <DependentUpon>Top10sForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\TopicBrowserSettingsForm.resx">
-      <DependentUpon>TopicBrowserSettingsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Controls\TopicControl.resx">
-      <DependentUpon>TopicControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\BoardNavigatorForm.resx">
-      <DependentUpon>BoardNavigatorForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\NewMailForm.resx">
-      <DependentUpon>NewMailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\TopicForm.resx">
-      <DependentUpon>TopicForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\WebBrowserForm.resx">
-      <DependentUpon>WebBrowserForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ProductClawer\ProductClawerFom.resx">
       <DependentUpon>ProductClawerFom.cs</DependentUpon>
     </EmbeddedResource>
@@ -456,15 +177,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="MobileNewSmth\Forms\NewThreadForm.resx">
-      <DependentUpon>NewThreadForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Controls\ThreadControl.resx">
-      <DependentUpon>ThreadControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MobileNewSmth\Forms\UserForm.resx">
-      <DependentUpon>UserForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Rss\RssMonitorSettingsDlg.resx">
       <DependentUpon>RssMonitorSettingsDlg.cs</DependentUpon>
     </EmbeddedResource>

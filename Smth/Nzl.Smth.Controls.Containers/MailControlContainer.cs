@@ -6,6 +6,7 @@
     using System.Drawing;
     using System.Windows.Forms;
     using Nzl.Smth.Common;
+    using Nzl.Smth.Configurations;
     using Nzl.Smth.Controls.Base;
     using Nzl.Smth.Controls.Elements;
     using Nzl.Smth.Datas;    
@@ -56,8 +57,13 @@
         {
             InitializeComponent();
             this.Text = "Mailbox";
-            this.panel.Size = new Size(this.Width - 10, MailControl.ControlHeight * 10 + 11);
-            this.Height = this.panel.Height + 7 + 32;
+            int dHeight = this.Height - this.panelContainer.Height;            
+            this.GetPanel().Size = new Size(this.Width - Configuration.BaseControlContainerLocationMargin * 2 - this.GetPanelContainerBoarderMargin(),
+                                            MailControl.ControlHeight * 10 + Configuration.BaseControlLocationMargin * 11 + this.GetControlContainerBoarderMargin());
+            this.Height = this.GetPanel().Height 
+                        + dHeight 
+                        + Configuration.BaseControlContainerLocationMargin * 2 
+                        + this.GetPanelContainerBoarderMargin();
         }
 
         /// <summary>
@@ -97,10 +103,29 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            this.IsResponingMouseWheel = false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
-        protected override Panel GetContainer()
+        protected override Panel GetPanel()
         {
             return this.panel;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override Panel GetPanelContainer()
+        {
+            return this.panelContainer;
         }
 
         /// <summary>

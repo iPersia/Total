@@ -27,6 +27,8 @@
             this.cmbNewMailCheckingInterval.Text = (Configuration.NewMailCheckingInterval / 1000).ToString();
             this.cmbSectionTopUpdatingInterval.Text = (Configuration.SectionTopsUpdatingInterval / 1000).ToString();
             this.cmbTop10sLoadingInterval.Text = (Configuration.Top10sLoadingInterval / 1000).ToString();
+            this.cmbBaseControlContainerLocationMargin.Text = Configuration.BaseControlContainerLocationMargin.ToString();
+            this.cmbBaseControlLocationMargin.Text = Configuration.BaseControlLocationMargin.ToString();
         }
 
         /// <summary>
@@ -50,6 +52,13 @@
             {
                 Configuration.SetTop10sLoadingInterval(Convert.ToInt32(this.cmbTop10sLoadingInterval.Text) * 1000);
             }
+
+            if (string.IsNullOrEmpty(this.cmbBaseControlContainerLocationMargin.Text) == false &&
+                string.IsNullOrEmpty(this.cmbBaseControlLocationMargin.Text) == false)
+            {
+                Configuration.SetLocationMargin(Convert.ToInt32(this.cmbBaseControlContainerLocationMargin.Text),
+                                                Convert.ToInt32(this.cmbBaseControlLocationMargin.Text));
+            }            
 
             this.Close();
         }

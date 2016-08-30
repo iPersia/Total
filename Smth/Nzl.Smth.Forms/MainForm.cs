@@ -47,7 +47,7 @@
             TabbedBrowserForm.Instance.Focus();
 
             ///
-            PageDispatcher.Instance.Synchronous = false;
+            //PageDispatcher.Instance.Synchronous = false;
         }
         #endregion
 

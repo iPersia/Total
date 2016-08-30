@@ -161,7 +161,7 @@
             {
                 case "SMTH":
                     {
-                        form = this.GetRegisteredForm<MobileNewSmth.Forms.MobileNewSmthForm>();                        
+                        //form = this.GetRegisteredForm<MobileNewSmth.Forms.MobileNewSmthForm>();                        
                     }
                     break;
                 case "CLAWER":

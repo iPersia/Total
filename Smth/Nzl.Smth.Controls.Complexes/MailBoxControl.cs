@@ -40,20 +40,26 @@
         {
             InitializeComponent();
 
+            int dWidth = 8;
+            int dHeight = 26;
             ///Inbox
             {
                 TabPage tp = new TabPage();
                 tp.Name = "tpInbox";
                 tp.Text = "Inbox";
+                this.tcMailBox.TabPages.Add(tp);
+
                 MailControlContainer xbc = new MailControlContainer(MailBoxType.Inbox);
+                xbc.Dock = DockStyle.Fill;
                 xbc.Url = Configuration.InboxUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
                 xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
                 xbc.OnNewMailClicked += Xbc_OnNewMailClicked;
+
+                ///Set the size firstly, then add the MailControlContainer to TabPage.
+                this.Size = new Size(xbc.Width + dWidth, xbc.Height + dHeight);
                 tp.Controls.Add(xbc);
-                this.tcMailBox.TabPages.Add(tp);
-                this.Size = new Size(xbc.Width + 8, xbc.Height + 26);
             }
 
             ///Outbox
@@ -61,14 +67,17 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpOutbox";
                 tp.Text = "Outbox";
+                this.tcMailBox.TabPages.Add(tp);
+
                 MailControlContainer xbc = new MailControlContainer(MailBoxType.Outbox);
+                xbc.Dock = DockStyle.Fill;
+                xbc.Location = new Point(0, 0);
                 xbc.Url = Configuration.OutboxUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
                 xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
                 xbc.OnNewMailClicked += Xbc_OnNewMailClicked;
-                tp.Controls.Add(xbc);
-                this.tcMailBox.TabPages.Add(tp);
+                tp.Controls.Add(xbc);                
             }
 
             ///Trash
@@ -76,14 +85,17 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpTrash";
                 tp.Text = "Trash";
+                this.tcMailBox.TabPages.Add(tp);
+
                 MailControlContainer xbc = new MailControlContainer(MailBoxType.Trash);
+                xbc.Dock = DockStyle.Fill;
+                xbc.Location = new Point(0, 0);
                 xbc.Url = Configuration.TrashUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
                 xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
                 xbc.OnNewMailClicked += Xbc_OnNewMailClicked;
-                tp.Controls.Add(xbc);
-                this.tcMailBox.TabPages.Add(tp);
+                tp.Controls.Add(xbc);                
             }
 
 
