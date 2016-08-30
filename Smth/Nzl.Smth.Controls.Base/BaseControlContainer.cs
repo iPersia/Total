@@ -19,32 +19,6 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    delegate TBaseControl CreateControlCallback<TBaseControl>();
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="ctl"></param>
-    /// <param name="item"></param>
-    delegate void InitializeControlCallback<TBaseControl, TBaseData>(TBaseControl ctl, TBaseData data);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="ctl"></param>
-    delegate void UpdateViewCallback<TBaseControl>(TBaseControl ctl);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="ctl"></param>
-    delegate void InitializeContainerCallback(bool isAppend);
-
-    /// <summary>
-    /// 
-    /// </summary>
     public class BaseControlContainer<TBaseControl, TBaseData> : UserControl, IRecycled
         where TBaseControl : BaseControl<TBaseData>, new()
         where TBaseData : BaseData
@@ -185,6 +159,7 @@
                     throw new Exception("The panel or the panel container is null!");
                 }
             }
+
             ///BorderStyle
             this.BorderStyle = BorderStyle.None;
             this.GetPanelContainer().BorderStyle = BorderStyle.FixedSingle;

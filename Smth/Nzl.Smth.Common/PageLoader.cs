@@ -15,13 +15,6 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    public delegate void PageLoadedCallback(object pageInfor);
-
-    /// <summary>
-    /// 
-    /// </summary>
     public class PageLoader : IExecute
     {
         #region event

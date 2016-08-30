@@ -16,25 +16,6 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="flag"></param>
-    /// <returns></returns>
-    delegate void SetControlEnabledCallback(bool flag);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    delegate void LogPageLoadedCallback(string html);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    delegate void OnLogStatusChangedCallBack(bool flag);
-
-    /// <summary>
-    /// 
-    /// </summary>
     public partial class LoginControl : UserControl
     {
         #region event

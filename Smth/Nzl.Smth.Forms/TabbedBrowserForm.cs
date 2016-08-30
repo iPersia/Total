@@ -21,16 +21,6 @@
     /// <summary>
     /// 
     /// </summary>
-    delegate void OnLogStatusChangedCallBack(bool flag);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    delegate void OnNewMailArrivedCallBack(object obj);
-
-    /// <summary>
-    /// 
-    /// </summary>
     public partial class TabbedBrowserForm : BaseForm
     {
         #region Singleton
@@ -999,7 +989,9 @@
                 if (this.InvokeRequired)
                 {
                     System.Threading.Thread.Sleep(0);
-                    this.Invoke(new OnLogStatusChangedCallBack(SetLogStatus), new object[] { flag });
+                    this.Invoke(new MethodInvoker(delegate() {
+                        this.SetLogStatus(flag);
+                    }));
                     System.Threading.Thread.Sleep(0);
                 }
                 else
@@ -1055,7 +1047,9 @@
                 if (this.InvokeRequired)
                 {
                     System.Threading.Thread.Sleep(0);
-                    this.Invoke(new OnNewMailArrivedCallBack(SetNewMailStatus), new object[] { obj });
+                    this.Invoke(new MethodInvoker(delegate () {
+                        this.SetNewMailStatus(obj);
+                    }));
                     System.Threading.Thread.Sleep(0);
                 }
                 else
