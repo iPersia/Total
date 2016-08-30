@@ -39,24 +39,23 @@
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(666, 445);
+            this.panelContainer.Size = new System.Drawing.Size(720, 445);
             this.panelContainer.TabIndex = 0;
             // 
             // panel
             // 
             this.panel.Location = new System.Drawing.Point(3, 3);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(658, 100);
+            this.panel.Size = new System.Drawing.Size(714, 100);
             this.panel.TabIndex = 0;
             // 
             // TopControlContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Controls.Add(this.panelContainer);
             this.Name = "TopControlContainer";
-            this.Size = new System.Drawing.Size(666, 445);
+            this.Size = new System.Drawing.Size(720, 445);
             this.panelContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 

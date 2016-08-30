@@ -66,7 +66,7 @@
             // scContainer.Panel2
             // 
             this.scContainer.Panel2.Controls.Add(this.panelContainer);
-            this.scContainer.Size = new System.Drawing.Size(800, 544);
+            this.scContainer.Size = new System.Drawing.Size(720, 544);
             this.scContainer.SplitterDistance = 25;
             this.scContainer.SplitterWidth = 1;
             this.scContainer.TabIndex = 3;
@@ -88,7 +88,7 @@
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(800, 25);
+            this.panelMenu.Size = new System.Drawing.Size(720, 25);
             this.panelMenu.TabIndex = 0;
             // 
             // btnNew
@@ -121,7 +121,7 @@
             // 
             this.btnOpenInBrower.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenInBrower.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnOpenInBrower.Location = new System.Drawing.Point(690, 1);
+            this.btnOpenInBrower.Location = new System.Drawing.Point(610, 1);
             this.btnOpenInBrower.Name = "btnOpenInBrower";
             this.btnOpenInBrower.Size = new System.Drawing.Size(32, 23);
             this.btnOpenInBrower.TabIndex = 16;
@@ -135,7 +135,7 @@
             // 
             this.btnGo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGo.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnGo.Location = new System.Drawing.Point(759, 1);
+            this.btnGo.Location = new System.Drawing.Point(679, 1);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(30, 23);
             this.btnGo.TabIndex = 10;
@@ -148,7 +148,7 @@
             // txtGoTo
             // 
             this.txtGoTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtGoTo.Location = new System.Drawing.Point(728, 1);
+            this.txtGoTo.Location = new System.Drawing.Point(648, 2);
             this.txtGoTo.Name = "txtGoTo";
             this.txtGoTo.Size = new System.Drawing.Size(25, 21);
             this.txtGoTo.TabIndex = 9;
@@ -227,7 +227,7 @@
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(800, 518);
+            this.panelContainer.Size = new System.Drawing.Size(720, 518);
             this.panelContainer.TabIndex = 1;
             // 
             // panel
@@ -236,7 +236,7 @@
             this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel.Location = new System.Drawing.Point(4, 4);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(791, 100);
+            this.panel.Size = new System.Drawing.Size(711, 100);
             this.panel.TabIndex = 0;
             // 
             // MailControlContainer
@@ -245,7 +245,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.scContainer);
             this.Name = "MailControlContainer";
-            this.Size = new System.Drawing.Size(800, 544);
+            this.Size = new System.Drawing.Size(720, 544);
             this.scContainer.Panel1.ResumeLayout(false);
             this.scContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).EndInit();
