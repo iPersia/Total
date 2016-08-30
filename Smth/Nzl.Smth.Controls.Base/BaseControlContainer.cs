@@ -273,7 +273,6 @@
                     if (this.InvokeRequired)
                     {
                         System.Threading.Thread.Sleep(0);
-                        ///this.Invoke(new InitializeContainerCallback(InitializeContainer), new object[] { info.IsAppend });
                         this.Invoke(new MethodInvoker(delegate ()
                         {
                             this.InitializeContainer(info.IsAppend);
@@ -299,7 +298,6 @@
                     if (this.InvokeRequired)
                     {
                         System.Threading.Thread.Sleep(0);
-                        ///this.Invoke(new UpdateViewCallback<TBaseControl>(AddControl), new object[] { ctl });
                         this.Invoke(new MethodInvoker(delegate ()
                         {
                             this.AddControl(ctl);
@@ -727,7 +725,6 @@
                         System.Diagnostics.Debug.WriteLine("BaseContainer - GetControl - GetRecycledControl failed, type is " + typeof(TBaseControl).ToString());
 #endif
                         System.Threading.Thread.Sleep(0);
-                        ///object obj = this.Invoke(new CreateControlCallback<TBaseControl>(CreateBaseControl));
                         this.Invoke(new MethodInvoker(delegate ()
                         {
                             ctl = this.CreateBaseControl();
@@ -742,7 +739,6 @@
                             if (this.InvokeRequired)
                             {
                                 System.Threading.Thread.Sleep(0);
-                                ///this.Invoke(new InitializeControlCallback<TBaseControl, TBaseData>(InitializeControl), new object[] { ctl, data });
                                 this.Invoke(new MethodInvoker(delegate ()
                                 {
                                     this.InitializeControl(ctl, data);
@@ -1009,7 +1005,6 @@
                         if (this.InvokeRequired)
                         {
                             System.Threading.Thread.Sleep(0);
-                            ///this.Invoke(new PageLoadedCallback(PageLoaded), new object[] { info });
                             this.Invoke(new MethodInvoker(delegate ()
                             {
                                 this.PageLoaded(info);
