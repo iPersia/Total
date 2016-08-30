@@ -345,7 +345,7 @@ namespace Nzl.Smth.Controls.Containers
                 ctl.OnMailLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
                 ctl.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
                 ctl.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
-                //ctl.OnTextBoxMouseWheel += this.Container_MouseWheel;
+                ctl.OnTextBoxMouseWheel += this.Container_MouseWheel;
             }
         }
 
@@ -366,7 +366,7 @@ namespace Nzl.Smth.Controls.Containers
                 ctl.OnMailLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnMailLinkClicked);
                 ctl.OnTransferLinkClicked -= new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
                 ctl.OnTextBoxLinkClicked -= ThreadControl_OnTextBoxLinkClicked;
-                //ctl.OnTextBoxMouseWheel -= this.Container_MouseWheel;
+                ctl.OnTextBoxMouseWheel -= this.Container_MouseWheel;
             }
         }
 
