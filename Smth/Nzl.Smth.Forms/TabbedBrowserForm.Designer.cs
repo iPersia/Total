@@ -149,7 +149,6 @@
             this.btnMail.TabIndex = 13;
             this.btnMail.Text = "Mails";
             this.btnMail.UseVisualStyleBackColor = true;
-            this.btnMail.Visible = false;
             this.btnMail.Click += new System.EventHandler(this.btnMail_Click);
             // 
             // btnFavor

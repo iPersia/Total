@@ -33,15 +33,7 @@
             this._mbcMails.OnMailLinkClicked += MbcMailBox_OnMailLinkClicked;
             this._mbcMails.OnUserLinkClicked += MbcMailBox_OnUserLinkClicked;
             this._mbcMails.OnNewMailClicked += MbcMailBox_OnNewMailClicked;
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
             this._mbcMails.Top = 1;
             this._mbcMails.Left = 1;
             this.panelContainer.Controls.Clear();

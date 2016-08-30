@@ -37,7 +37,7 @@
             this.tcMailBox.Location = new System.Drawing.Point(0, 0);
             this.tcMailBox.Name = "tcMailBox";
             this.tcMailBox.SelectedIndex = 0;
-            this.tcMailBox.Size = new System.Drawing.Size(689, 473);
+            this.tcMailBox.Size = new System.Drawing.Size(800, 473);
             this.tcMailBox.TabIndex = 0;
             // 
             // MailBoxControl
@@ -46,7 +46,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tcMailBox);
             this.Name = "MailBoxControl";
-            this.Size = new System.Drawing.Size(689, 473);
+            this.Size = new System.Drawing.Size(800, 473);
             this.ResumeLayout(false);
 
         }

@@ -30,72 +30,75 @@
         {
             this.linklblAuthor = new System.Windows.Forms.LinkLabel();
             this.lblDT = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.linklblTitle = new System.Windows.Forms.LinkLabel();
+            this.panel = new System.Windows.Forms.Panel();
             this.lblIndex = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.linklblTitle = new System.Windows.Forms.LinkLabel();
+            this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // linklblAuthor
             // 
-            this.linklblAuthor.AutoSize = true;
-            this.linklblAuthor.Location = new System.Drawing.Point(18, 25);
+            this.linklblAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklblAuthor.Location = new System.Drawing.Point(434, 15);
             this.linklblAuthor.Name = "linklblAuthor";
-            this.linklblAuthor.Size = new System.Drawing.Size(41, 12);
+            this.linklblAuthor.Size = new System.Drawing.Size(100, 14);
             this.linklblAuthor.TabIndex = 3;
             this.linklblAuthor.TabStop = true;
             this.linklblAuthor.Text = "Author";
+            this.linklblAuthor.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblDT
             // 
+            this.lblDT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDT.AutoSize = true;
-            this.lblDT.Location = new System.Drawing.Point(136, 25);
+            this.lblDT.Location = new System.Drawing.Point(542, 15);
             this.lblDT.Name = "lblDT";
-            this.lblDT.Size = new System.Drawing.Size(119, 12);
+            this.lblDT.Size = new System.Drawing.Size(140, 14);
             this.lblDT.TabIndex = 2;
             this.lblDT.Text = "2013-02-01 01:01:01";
             // 
-            // panel1
+            // panel
             // 
-            this.panel1.Controls.Add(this.lblIndex);
-            this.panel1.Controls.Add(this.linklblAuthor);
-            this.panel1.Controls.Add(this.lblDT);
-            this.panel1.Controls.Add(this.linklblTitle);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(597, 45);
-            this.panel1.TabIndex = 1;
+            this.panel.Controls.Add(this.lblIndex);
+            this.panel.Controls.Add(this.linklblAuthor);
+            this.panel.Controls.Add(this.lblDT);
+            this.panel.Controls.Add(this.linklblTitle);
+            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel.Location = new System.Drawing.Point(0, 0);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(696, 45);
+            this.panel.TabIndex = 1;
+            // 
+            // lblIndex
+            // 
+            this.lblIndex.AutoSize = true;
+            this.lblIndex.Location = new System.Drawing.Point(19, 15);
+            this.lblIndex.Name = "lblIndex";
+            this.lblIndex.Size = new System.Drawing.Size(21, 14);
+            this.lblIndex.TabIndex = 4;
+            this.lblIndex.Text = "00";
             // 
             // linklblTitle
             // 
             this.linklblTitle.AutoSize = true;
-            this.linklblTitle.Font = new System.Drawing.Font("SimSun", 9F);
-            this.linklblTitle.Location = new System.Drawing.Point(36, 6);
+            this.linklblTitle.Font = new System.Drawing.Font("宋体", 9F);
+            this.linklblTitle.Location = new System.Drawing.Point(49, 17);
             this.linklblTitle.Name = "linklblTitle";
             this.linklblTitle.Size = new System.Drawing.Size(65, 12);
             this.linklblTitle.TabIndex = 0;
             this.linklblTitle.TabStop = true;
             this.linklblTitle.Text = "Mail Title";
             // 
-            // lblIndex
-            // 
-            this.lblIndex.AutoSize = true;
-            this.lblIndex.Location = new System.Drawing.Point(18, 7);
-            this.lblIndex.Name = "lblIndex";
-            this.lblIndex.Size = new System.Drawing.Size(35, 12);
-            this.lblIndex.TabIndex = 4;
-            this.lblIndex.Text = "00 - ";
-            // 
             // MailControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel);
+            this.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "MailControl";
-            this.Size = new System.Drawing.Size(597, 45);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.Size = new System.Drawing.Size(696, 45);
+            this.panel.ResumeLayout(false);
+            this.panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -104,7 +107,7 @@
 
         private System.Windows.Forms.LinkLabel linklblAuthor;
         private System.Windows.Forms.Label lblDT;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.LinkLabel linklblTitle;
         private System.Windows.Forms.Label lblIndex;
 
