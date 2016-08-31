@@ -42,11 +42,13 @@
             this._mccContainer.OnMailDeleteLinkClicked += Mdcc_OnMailDeleteLinkClicked;
             this._mccContainer.OnMailReplyLinkClicked += Mdcc_OnMailReplyLinkClicked;
             this._mccContainer.OnMailTransferLinkClicked += Mdcc_OnMailTransferLinkClicked;
+            this._mccContainer.CreateControl();
             this._mccContainer.SetParentControl(this);
-            this._mccContainer.BorderStyle = BorderStyle.FixedSingle;
-            this.panelContainer.Controls.Add(this._mccContainer);
+            this._mccContainer.BorderStyle = BorderStyle.FixedSingle;            
             this.Size = new Size(this._mccContainer.Width + this.Width - this.panelContainer.Width + 2, 
                                  this._mccContainer.Height + this.Height - this.panelContainer.Height + 2);
+
+            this.panelContainer.Controls.Add(this._mccContainer);
         }
         #endregion
 

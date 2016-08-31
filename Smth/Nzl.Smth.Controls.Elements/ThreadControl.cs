@@ -230,8 +230,8 @@
         {
             base.SetWidth(width);
             this.Width = width;
-            this.panelLine.Width = this.Width - 10;
-            this.richtxtContent.Width = this.panelLine.Width - 8;
+            this.panelTitle.Width = this.Width - 10;
+            this.richtxtContent.Width = this.panelTitle.Width - 8;
         }
         #endregion
 

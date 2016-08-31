@@ -52,6 +52,7 @@
                 MailControlContainer xbc = new MailControlContainer(MailBoxType.Inbox);
                 xbc.Location = new Point(0, 0);
                 xbc.Url = Configuration.InboxUrl;
+                xbc.CreateControl();
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
                 xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
@@ -72,6 +73,7 @@
                 MailControlContainer xbc = new MailControlContainer(MailBoxType.Outbox);
                 xbc.Location = new Point(0, 0);
                 xbc.Url = Configuration.OutboxUrl;
+                xbc.CreateControl();
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
                 xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
@@ -89,6 +91,7 @@
                 MailControlContainer xbc = new MailControlContainer(MailBoxType.Trash);
                 xbc.Location = new Point(0, 0);
                 xbc.Url = Configuration.TrashUrl;
+                xbc.CreateControl();
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
                 xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;

@@ -128,8 +128,19 @@ namespace Nzl.Smth.Controls.Elements
         /// <param name="width"></param>
         public override void SetWidth(int width)
         {
-            this.richtxtContent.Width = width + 2 - (this.Width - this.richtxtContent.Width);
-            this.Width = width + 2;
+            this.richtxtContent.Width = width - (this.Width - this.richtxtContent.Width);
+            this.Width = width;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static int ControlHeight
+        {
+            get
+            {
+                return 480;
+            }
         }
 
         #region eventhandler

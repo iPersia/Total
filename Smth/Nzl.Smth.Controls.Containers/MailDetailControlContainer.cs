@@ -4,7 +4,9 @@ namespace Nzl.Smth.Controls.Containers
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Drawing;
     using System.Windows.Forms;
+    using Nzl.Smth.Configurations;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Controls.Base;
     using Nzl.Smth.Controls.Elements;
@@ -104,6 +106,7 @@ namespace Nzl.Smth.Controls.Containers
         {
             base.OnLoad(e);
             this.IsResponingMouseWheel = false;
+            this.InitializeSize();
         }
 
         /// <summary>
@@ -253,6 +256,27 @@ namespace Nzl.Smth.Controls.Containers
             {
                 this.OnMailDeleteLinkClicked(sender, e);
             }
+        }
+        #endregion
+
+        #region private
+        /// <summary>
+        /// 
+        /// </summary>
+        private void InitializeSize()
+        {
+            int dHeight = this.Height - this.panelContainer.Height;
+            this.GetPanel().Size = new Size(this.Width
+                                              - Configuration.BaseControlContainerLocationMargin * 2
+                                              - this.GetPanelContainerBoarderMargin(),
+                                            MailDetailControl.ControlHeight
+                                              + Configuration.BaseControlLocationMargin * 2
+                                              + this.GetControlContainerBoarderMargin());
+
+            this.Height = this.GetPanel().Height
+                        + Configuration.BaseControlContainerLocationMargin * 2
+                        + this.GetPanelContainerBoarderMargin()
+                        + dHeight;
         }
         #endregion
 #endif

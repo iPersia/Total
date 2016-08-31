@@ -31,7 +31,7 @@
             this.lblFloor = new System.Windows.Forms.Label();
             this.linklblID = new System.Windows.Forms.LinkLabel();
             this.panel = new System.Windows.Forms.Panel();
-            this.panelLine = new System.Windows.Forms.Panel();
+            this.panelTitle = new System.Windows.Forms.Panel();
             this.linklblEdit = new System.Windows.Forms.LinkLabel();
             this.linklblDelete = new System.Windows.Forms.LinkLabel();
             this.linklblTransfer = new System.Windows.Forms.LinkLabel();
@@ -42,7 +42,7 @@
             this.lblCopy = new System.Windows.Forms.LinkLabel();
             this.richtxtContent = new Nzl.Controls.RichTextBoxEx();
             this.panel.SuspendLayout();
-            this.panelLine.SuspendLayout();
+            this.panelTitle.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblFloor
@@ -73,8 +73,7 @@
             this.panel.AutoSize = true;
             this.panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel.BackColor = System.Drawing.SystemColors.Control;
-            //this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel.Controls.Add(this.panelLine);
+            this.panel.Controls.Add(this.panelTitle);
             this.panel.Controls.Add(this.richtxtContent);
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel.Location = new System.Drawing.Point(0, 0);
@@ -82,24 +81,24 @@
             this.panel.Size = new System.Drawing.Size(600, 98);
             this.panel.TabIndex = 4;
             // 
-            // panelLine
+            // panelTitle
             // 
-            this.panelLine.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.panelLine.Controls.Add(this.linklblEdit);
-            this.panelLine.Controls.Add(this.linklblDelete);
-            this.panelLine.Controls.Add(this.linklblID);
-            this.panelLine.Controls.Add(this.lblFloor);
-            this.panelLine.Controls.Add(this.linklblTransfer);
-            this.panelLine.Controls.Add(this.lblDateTime);
-            this.panelLine.Controls.Add(this.linklblMail);
-            this.panelLine.Controls.Add(this.linklblQuryType);
-            this.panelLine.Controls.Add(this.linklblReply);
-            this.panelLine.Controls.Add(this.lblCopy);
-            this.panelLine.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.panelLine.Location = new System.Drawing.Point(4, 7);
-            this.panelLine.Name = "panelLine";
-            this.panelLine.Size = new System.Drawing.Size(590, 20);
-            this.panelLine.TabIndex = 11;
+            this.panelTitle.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panelTitle.Controls.Add(this.linklblEdit);
+            this.panelTitle.Controls.Add(this.linklblDelete);
+            this.panelTitle.Controls.Add(this.linklblID);
+            this.panelTitle.Controls.Add(this.lblFloor);
+            this.panelTitle.Controls.Add(this.linklblTransfer);
+            this.panelTitle.Controls.Add(this.lblDateTime);
+            this.panelTitle.Controls.Add(this.linklblMail);
+            this.panelTitle.Controls.Add(this.linklblQuryType);
+            this.panelTitle.Controls.Add(this.linklblReply);
+            this.panelTitle.Controls.Add(this.lblCopy);
+            this.panelTitle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.panelTitle.Location = new System.Drawing.Point(4, 7);
+            this.panelTitle.Name = "panelTitle";
+            this.panelTitle.Size = new System.Drawing.Size(590, 20);
+            this.panelTitle.TabIndex = 11;
             // 
             // linklblEdit
             // 
@@ -233,8 +232,8 @@
             this.Name = "ThreadControl";
             this.Size = new System.Drawing.Size(600, 98);
             this.panel.ResumeLayout(false);
-            this.panelLine.ResumeLayout(false);
-            this.panelLine.PerformLayout();
+            this.panelTitle.ResumeLayout(false);
+            this.panelTitle.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -255,6 +254,6 @@
         private System.Windows.Forms.LinkLabel linklblTransfer;
         private System.Windows.Forms.LinkLabel linklblDelete;
         private System.Windows.Forms.LinkLabel linklblEdit;
-        private System.Windows.Forms.Panel panelLine;
+        private System.Windows.Forms.Panel panelTitle;
     }
 }

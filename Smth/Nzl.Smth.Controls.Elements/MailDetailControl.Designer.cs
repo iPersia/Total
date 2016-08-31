@@ -48,7 +48,6 @@
             // 
             // scContainer
             // 
-            this.scContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.scContainer.IsSplitterFixed = true;
@@ -63,7 +62,7 @@
             // scContainer.Panel2
             // 
             this.scContainer.Panel2.Controls.Add(this.panelDown);
-            this.scContainer.Size = new System.Drawing.Size(590, 468);
+            this.scContainer.Size = new System.Drawing.Size(600, 480);
             this.scContainer.SplitterDistance = 59;
             this.scContainer.SplitterWidth = 1;
             this.scContainer.TabIndex = 13;
@@ -81,7 +80,7 @@
             this.panelUp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelUp.Location = new System.Drawing.Point(0, 0);
             this.panelUp.Name = "panelUp";
-            this.panelUp.Size = new System.Drawing.Size(588, 57);
+            this.panelUp.Size = new System.Drawing.Size(600, 59);
             this.panelUp.TabIndex = 0;
             // 
             // lblTitle
@@ -109,7 +108,7 @@
             // 
             this.linklblID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblID.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblID.Location = new System.Drawing.Point(487, 36);
+            this.linklblID.Location = new System.Drawing.Point(499, 36);
             this.linklblID.Name = "linklblID";
             this.linklblID.Size = new System.Drawing.Size(89, 12);
             this.linklblID.TabIndex = 2;
@@ -157,7 +156,7 @@
             this.panelDown.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDown.Location = new System.Drawing.Point(0, 0);
             this.panelDown.Name = "panelDown";
-            this.panelDown.Size = new System.Drawing.Size(588, 406);
+            this.panelDown.Size = new System.Drawing.Size(600, 420);
             this.panelDown.TabIndex = 0;
             // 
             // richtxtContent
@@ -168,7 +167,7 @@
             this.richtxtContent.HiglightColor = Nzl.Controls.RtfColor.White;
             this.richtxtContent.Location = new System.Drawing.Point(11, 12);
             this.richtxtContent.Name = "richtxtContent";
-            this.richtxtContent.Size = new System.Drawing.Size(565, 380);
+            this.richtxtContent.Size = new System.Drawing.Size(578, 394);
             this.richtxtContent.TabIndex = 12;
             this.richtxtContent.TabStop = false;
             this.richtxtContent.Text = "";
@@ -180,7 +179,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.scContainer);
             this.Name = "MailDetailControl";
-            this.Size = new System.Drawing.Size(590, 468);
+            this.Size = new System.Drawing.Size(600, 480);
             this.scContainer.Panel1.ResumeLayout(false);
             this.scContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).EndInit();
