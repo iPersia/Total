@@ -9,7 +9,7 @@
     using Nzl.Smth.Configurations;
     using Nzl.Smth.Controls.Base;
     using Nzl.Smth.Controls.Elements;
-    using Nzl.Smth.Datas;    
+    using Nzl.Smth.Datas;
     using Nzl.Smth.Utils;
     using Nzl.Smth.Logger;
     using Nzl.Web.Page;
@@ -57,17 +57,6 @@
         {
             InitializeComponent();
             this.Text = "Mailbox";
-            int dHeight = this.Height - this.panelContainer.Height;            
-            this.GetPanel().Size = new Size(this.Width 
-                                              - Configuration.BaseControlContainerLocationMargin * 2 
-                                              - this.GetPanelContainerBoarderMargin(),
-                                            MailControl.ControlHeight * 10 
-                                              + Configuration.BaseControlLocationMargin * 11 
-                                              + this.GetControlContainerBoarderMargin());
-            this.Height = this.GetPanel().Height 
-                        + dHeight 
-                        + Configuration.BaseControlContainerLocationMargin * 2 
-                        + this.GetPanelContainerBoarderMargin(); 
         }
 
         /// <summary>
@@ -112,6 +101,7 @@
         {
             base.OnLoad(e);
             this.IsResponingMouseWheel = false;
+            this.InitializeSize();
         }
 
         /// <summary>
@@ -140,7 +130,7 @@
         protected override IList<Mail> GetItems(WebPage wp)
         {
             return MailFactory.CreateMails(wp);
-        }        
+        }
 
         /// <summary>
         /// 
@@ -205,7 +195,7 @@
                     ctl.ForeColor = Color.Blue;
                 }
             }
-        }        
+        }
 
         /// <summary>
         /// 
@@ -234,7 +224,7 @@
         private MailControl CreateMailControl(Mail mail)
         {
             MailControl mc = new MailControl();
-            
+
             return mc;
         }
 
@@ -382,8 +372,24 @@
         }
         #endregion
 
-        #region privates.
-
+        #region private
+        /// <summary>
+        /// 
+        /// </summary>
+        private void InitializeSize()
+        {
+            int dHeight = this.Height - this.panelContainer.Height;
+            this.GetPanel().Size = new Size(this.Width
+                                              - Configuration.BaseControlContainerLocationMargin * 2
+                                              - this.GetPanelContainerBoarderMargin(),
+                                            MailControl.ControlHeight * 10
+                                              + Configuration.BaseControlLocationMargin * 11
+                                              + this.GetControlContainerBoarderMargin());
+            this.Height = this.GetPanel().Height
+                        + dHeight
+                        + Configuration.BaseControlContainerLocationMargin * 2
+                        + this.GetPanelContainerBoarderMargin();
+        }
         #endregion
     }
 }

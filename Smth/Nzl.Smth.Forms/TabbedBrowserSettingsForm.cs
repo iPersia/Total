@@ -134,8 +134,8 @@
                 {
                     try
                     {
-                        cfg.AppSettings.Settings["SectionTopsUpdatingInterval"].Value = 
-                            Configuration.SectionTopsUpdatingInterval.ToString();
+                        cfg.AppSettings.Settings["SectionTopsUpdatingInterval"].Value =
+                            (Configuration.SectionTopsUpdatingInterval / 1000).ToString();
                     }
                     catch { }
                 }
@@ -144,8 +144,8 @@
                 {
                     try
                     {
-                        cfg.AppSettings.Settings["Top10sLoadingInterval"].Value = 
-                            Configuration.Top10sLoadingInterval.ToString();
+                        cfg.AppSettings.Settings["Top10sLoadingInterval"].Value =
+                            (Configuration.Top10sLoadingInterval / 1000).ToString();
                     }
                     catch { }
                 }
@@ -154,8 +154,8 @@
                 {
                     try
                     {
-                        cfg.AppSettings.Settings["NewMailCheckingInterval"].Value = 
-                            Configuration.NewMailCheckingInterval.ToString();
+                        cfg.AppSettings.Settings["NewMailCheckingInterval"].Value =
+                            (Configuration.NewMailCheckingInterval / 1000).ToString();
                     }
                     catch { }
                 }

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Windows.Forms;        
+    using System.Windows.Forms;
     using Nzl.Smth.Configurations;
     using Nzl.Smth.Controls.Base;
     using Nzl.Smth.Controls.Elements;
@@ -50,13 +50,8 @@
             InitializeComponent();
             this.Text = "Section top topic";
             Configuration.OnSectionTopsUpdatingIntervalChanged += Configuration_OnSectionTopsUpdatingIntervalChanged;
-            this.GetPanel().Size = new Size(this.Width - Configuration.BaseControlContainerLocationMargin * 2 - this.GetPanelContainerBoarderMargin(),
-                                            TopControl.ControlHeight * 10 + Configuration.BaseControlLocationMargin * 11 + this.GetControlContainerBoarderMargin());
-            this.Height = this.GetPanel().Height 
-                        + Configuration.BaseControlContainerLocationMargin * 2 
-                        + this.GetPanelContainerBoarderMargin();
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -75,9 +70,9 @@
         /// <param name="ctl"></param>
         public void SetParent(Control ctl)
         {
-            this._parentControl = ctl;            
+            this._parentControl = ctl;
         }
-        #endregion
+        #endregion        
 
         #region override
         /// <summary>
@@ -88,6 +83,7 @@
         {
             base.OnLoad(e);
             this.IsResponingMouseWheel = false;
+            this.InitializeSize();
         }
 
         /// <summary>
@@ -141,7 +137,7 @@
 #endif
             return list;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -240,6 +236,27 @@
                 this.OnTopBoardLinkClicked(sender, e);
                 e.Link.Visited = true;
             }
+        }
+        #endregion
+
+        #region private
+        /// <summary>
+        /// 
+        /// </summary>
+        private void InitializeSize()
+        {
+            int dHeight = this.Height - this.panelContainer.Height;
+            this.GetPanel().Size = new Size(this.Width
+                                              - Configuration.BaseControlContainerLocationMargin * 2
+                                              - this.GetPanelContainerBoarderMargin(),
+                                            TopControl.ControlHeight * 10
+                                              + Configuration.BaseControlLocationMargin * 11
+                                              + this.GetControlContainerBoarderMargin());
+
+            this.Height = this.GetPanel().Height
+                        + Configuration.BaseControlContainerLocationMargin * 2
+                        + this.GetPanelContainerBoarderMargin()
+                        + dHeight;
         }
         #endregion
     }

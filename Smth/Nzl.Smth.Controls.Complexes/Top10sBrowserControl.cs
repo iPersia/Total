@@ -54,6 +54,8 @@
             {
                 TabPage tp = new TabPage();
                 tp.Name = "tpHot";
+                this.tcTop10s.TabPages.Add(tp);
+
                 TopControlContainer tbc = new TopControlContainer("http://m.newsmth.net/hot");
                 tbc.Location = new Point(0, 0);
                 tbc.Name = "tbcHot";
@@ -61,9 +63,10 @@
                 tbc.CreateControl();
                 tbc.OnTopBoardLinkClicked += SectionTopsControl_OnTopBoardLinkClicked;
                 tbc.OnTopLinkClicked += SectionTopsControl_OnTopLinkClicked;
-                tp.Controls.Add(tbc);
-                this.tcTop10s.TabPages.Add(tp);
-                this.Size = new Size(tbc.Width + 8, tbc.Height + 26);
+
+                ///Set the size firstly, then add the MailControlContainer to TabPage.
+                this.Size = new Size(tbc.Width + 8, tbc.Height + 26 + 10 );
+                tp.Controls.Add(tbc);                
             }
 
             this._timerLoadingTops.Interval = Configuration.Top10sLoadingInterval;
