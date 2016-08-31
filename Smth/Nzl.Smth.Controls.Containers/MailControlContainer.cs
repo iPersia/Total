@@ -58,12 +58,16 @@
             InitializeComponent();
             this.Text = "Mailbox";
             int dHeight = this.Height - this.panelContainer.Height;            
-            this.GetPanel().Size = new Size(this.Width - Configuration.BaseControlContainerLocationMargin * 2 - this.GetPanelContainerBoarderMargin(),
-                                            MailControl.ControlHeight * 10 + Configuration.BaseControlLocationMargin * 11 + this.GetControlContainerBoarderMargin());
+            this.GetPanel().Size = new Size(this.Width 
+                                              - Configuration.BaseControlContainerLocationMargin * 2 
+                                              - this.GetPanelContainerBoarderMargin(),
+                                            MailControl.ControlHeight * 10 
+                                              + Configuration.BaseControlLocationMargin * 11 
+                                              + this.GetControlContainerBoarderMargin());
             this.Height = this.GetPanel().Height 
                         + dHeight 
                         + Configuration.BaseControlContainerLocationMargin * 2 
-                        + this.GetPanelContainerBoarderMargin();
+                        + this.GetPanelContainerBoarderMargin(); 
         }
 
         /// <summary>

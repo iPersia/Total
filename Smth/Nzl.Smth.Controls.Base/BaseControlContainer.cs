@@ -188,8 +188,8 @@
             Panel baseControlContainer = this.GetPanel();
             if (baseControlContainer != null)
             {
-                baseControlContainer.Width = this.Width 
-                                           - Configuration.BaseControlContainerLocationMargin * 2 
+                baseControlContainer.Width = this.Width
+                                           - Configuration.BaseControlContainerLocationMargin * 2
                                            - this.GetPanelContainerBoarderMargin();
             }
         }
@@ -514,7 +514,7 @@
                 Panel baseControlContainer = this.GetPanel();
                 if (baseControlContainer != null)
                 {
-                    int width = baseControlContainer.Width 
+                    int width = baseControlContainer.Width
                               - Configuration.BaseControlLocationMargin * 2
                               - this.GetControlContainerBoarderMargin();
                     ctl.SetWidth(width);
@@ -583,8 +583,8 @@
                     int boardMargin = this.GetPanelContainerBoarderMargin();
                     int maxHeight = Configuration.BaseControlContainerLocationMargin;
                     int minHeight = panelContainerHeight
-                                  - baseControlContainer.Height 
-                                  - Configuration.BaseControlContainerLocationMargin 
+                                  - baseControlContainer.Height
+                                  - Configuration.BaseControlContainerLocationMargin
                                   - boardMargin;
                     int newYPos = baseControlContainer.Location.Y + e.Delta;
                     newYPos = newYPos > maxHeight ? maxHeight : newYPos;
@@ -1075,10 +1075,9 @@
         protected void Configuration_OnLocationMarginChanged(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            int width = this.GetPanelContainer().Width 
-                      - Configuration.BaseControlContainerLocationMargin * 2
-                      - this.GetPanelContainerBoarderMargin();
-            this.GetPanel().Width = width;
+            this.GetPanel().Width = this.GetPanelContainer().Width
+                                  - Configuration.BaseControlContainerLocationMargin * 2
+                                  - this.GetPanelContainerBoarderMargin();
             this.FetchPage();
         }
         #endregion

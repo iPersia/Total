@@ -1,10 +1,8 @@
 ﻿namespace Nzl.Smth.Forms
 {
     using System;
-    using System.Runtime.InteropServices;
     using System.Windows.Forms;
-    using Nzl.Hook;
-    using Nzl.Smth.Common;
+    using Nzl.Smth.Configurations;
     using Nzl.Smth.Logger;
 
     public partial class MainForm : Form
@@ -38,6 +36,9 @@
             this.Hide();
             this.ShowInTaskbar = false;
             this.nfiMain.Visible = true;
+
+            ///Should excute before loading of TabbedBrowserForm.Instance.
+            TabbedBrowserSettingsForm.Instance.LoadSettings();
 
             ///Load board's infor.
             //Boards.Instance.Initilize();
@@ -154,6 +155,6 @@
             this._closeFlag = "NotifyIcon";
             this.Close();
         }
-        #endregion
+        #endregion        
     }
 }

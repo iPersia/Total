@@ -118,12 +118,12 @@
                 /// <summary>
         /// 
         /// </summary>
-        private static int baseControlContainerLocationMargin = 4;
+        private static int staticBaseControlContainerLocationMargin = 4;
 
         /// <summary>
         /// 
         /// </summary>
-        private static int baseControlLocationMargin = 2;
+        private static int staticBaseControlLocationMargin = 2;
 #endif
 #endregion
 
@@ -310,7 +310,7 @@
         /// 
         /// </summary>
         /// <param name="value"></param>
-        public static void SetNewMailUpdatingInterval(int value)
+        public static void SetNewMailCheckingInterval(int value)
         {
             if (value != staticNewMailCheckingInterval)
             {

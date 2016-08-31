@@ -50,7 +50,7 @@
                 this.tcMailBox.TabPages.Add(tp);
 
                 MailControlContainer xbc = new MailControlContainer(MailBoxType.Inbox);
-                xbc.Dock = DockStyle.Fill;
+                xbc.Location = new Point(0, 0);
                 xbc.Url = Configuration.InboxUrl;
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
@@ -70,7 +70,6 @@
                 this.tcMailBox.TabPages.Add(tp);
 
                 MailControlContainer xbc = new MailControlContainer(MailBoxType.Outbox);
-                xbc.Dock = DockStyle.Fill;
                 xbc.Location = new Point(0, 0);
                 xbc.Url = Configuration.OutboxUrl;
                 xbc.SetParent(tp);
@@ -88,7 +87,6 @@
                 this.tcMailBox.TabPages.Add(tp);
 
                 MailControlContainer xbc = new MailControlContainer(MailBoxType.Trash);
-                xbc.Dock = DockStyle.Fill;
                 xbc.Location = new Point(0, 0);
                 xbc.Url = Configuration.TrashUrl;
                 xbc.SetParent(tp);

@@ -34,6 +34,7 @@
         /// </summary>
         private int _sectionIndex = 1;
         #endregion
+
         /// <summary>
         /// 
         /// </summary>
@@ -54,6 +55,7 @@
                 TabPage tp = new TabPage();
                 tp.Name = "tpHot";
                 TopControlContainer tbc = new TopControlContainer("http://m.newsmth.net/hot");
+                tbc.Location = new Point(0, 0);
                 tbc.Name = "tbcHot";
                 tbc.SetParent(tp);
                 tbc.CreateControl();
@@ -97,6 +99,7 @@
             TabPage tp = new TabPage();
             tp.Name = "tbcHot" + this._sectionIndex;
             TopControlContainer tbc = new TopControlContainer("http://m.newsmth.net/hot/" + this._sectionIndex);
+            tbc.Location = new Point(0, 0);
             tbc.Name = "tbcHot" + this._sectionIndex++;
             tbc.SetParent(tp);
             tbc.CreateControl();

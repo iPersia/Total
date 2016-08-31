@@ -827,9 +827,8 @@
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnSettings_Click(object sender, EventArgs e)
-        {
-            TabbedBrowserSettingsForm form = new TabbedBrowserSettingsForm();
-            ShowFormAsDialog(form);
+        {            
+            ShowFormAsDialog(TabbedBrowserSettingsForm.Instance);
         }
 
         /// <summary>
