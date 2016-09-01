@@ -812,7 +812,6 @@
         {
             if (tbc != null)
             {
-                ///tbc.Recycling();
                 tbc.OnThreadDeleteLinkClicked -= ThreadControlContainer_OnThreadDeleteLinkClicked;
                 tbc.OnThreadEditLinkClicked -= ThreadControlContainer_OnThreadEditLinkClicked;
                 tbc.OnThreadMailLinkClicked -= ThreadControlContainer_OnThreadMailLinkClicked;
@@ -838,12 +837,11 @@
         {
             if (bbc != null)
             {
-                ///bbc.Recycling();
                 bbc.OnTopicLinkClicked -= TopicControlContainer_OnTopicLinkClicked;
                 bbc.OnTopicCreateIDLinkClicked -= TabbedBrowserForm_IDLinkClicked;
                 bbc.OnTopicLastIDLinkClicked -= TabbedBrowserForm_IDLinkClicked;
-                bbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
-                bbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
+                bbc.OnWorkerFailed -= TabbedBrowserForm_OnWorkerFailed;
+                bbc.OnWorkerCancelled -= TabbedBrowserFrom_OnWorkerCancelled;
                 bbc.OnBoardSettingsClicked -= TopicControlContainer_OnBoardSettingsClicked;
                 RecycledQueues.AddRecycled<TopicControlContainer>(bbc);
             }
