@@ -57,16 +57,6 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="flag"></param>
-        protected override void SetControlEnabled(bool flag)
-        {
-            base.SetControlEnabled(flag);
-            this.panel.Enabled = flag;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
         protected override Panel GetPanel()
         {

@@ -170,16 +170,6 @@
             base.WorkCompleted(info);
             this.GetInfors(info.WebPage);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="flag"></param>
-        protected override void SetControlEnabled(bool flag)
-        {
-            base.SetControlEnabled(flag);
-            this.panel.Enabled = flag;
-        }
         #endregion
 
         #region eventhandler

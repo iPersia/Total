@@ -205,15 +205,6 @@
         {
             base.SetControlEnabled(flag);
             this.btnRefresh.Enabled = true;
-
-            this.panel.Enabled = flag;
-
-            this.btnFirst.Enabled = flag;
-            this.btnGo.Enabled = flag;
-            this.btnLast.Enabled = flag;
-            this.btnNext.Enabled = flag;
-            this.btnPrev.Enabled = flag;
-            this.txtGoTo.Enabled = flag;
         }
 
         /// <summary>
