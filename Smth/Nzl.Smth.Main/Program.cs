@@ -36,8 +36,21 @@
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
                 ////应用程序的主入口点
-                Application.Run(new MainForm());
-                //Application.Run(new TestForm());
+                bool createNew;
+                using (System.Threading.Mutex mutex = new System.Threading.Mutex(true, Application.ProductName, out createNew))
+                {
+                    if (createNew)
+                    {
+                        Application.Run(new MainForm());
+                        //Application.Run(new TestForm());
+                    }
+                    else
+                    {
+                        (new MessageForm("Information", "The application is already running!")).Show();
+                        System.Threading.Thread.Sleep(1000);
+                        System.Environment.Exit(1);
+                    }
+                }
             }
             catch (Exception exp)
             {
