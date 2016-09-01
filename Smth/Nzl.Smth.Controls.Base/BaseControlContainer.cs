@@ -60,6 +60,7 @@
             : base()
         {
             this.IsRecycled = false;
+            this.Status = RecycledStatus.Using;
             Configuration.OnLocationMarginChanged += Configuration_OnLocationMarginChanged;
         }
         #endregion
@@ -109,8 +110,18 @@
         /// <summary>
         /// 
         /// </summary>
+        public RecycledStatus Status
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual void Reusing()
         {
+            this.Status = RecycledStatus.Using;
             if (this.IsRecycled)
             {
                 this.SetUrlInfo(1, false);
@@ -123,6 +134,7 @@
         /// </summary>
         public virtual void Recycling()
         {
+            this.Status = RecycledStatus.Recycling;
             Panel baseControlContainer = this.GetPanel();
             if (baseControlContainer != null)
             {

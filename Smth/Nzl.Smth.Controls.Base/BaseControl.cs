@@ -1,12 +1,13 @@
 ﻿namespace Nzl.Smth.Controls.Base
 {
     using System.Windows.Forms;
+    using Nzl.Recycling;
     using Nzl.Smth.Datas;
 
     /// <summary>
     /// 
     /// </summary>
-    public class BaseControl<TBaseData> : UserControl
+    public class BaseControl<TBaseData> : UserControl, IRecycled
         where TBaseData : BaseData
     {
         /// <summary>
@@ -43,25 +44,40 @@
             this.Width = width;
         }
 
+        #region IRecycled
         /// <summary>
-        /// 
+        /// A boolean indicated whether the object is recycled.
         /// </summary>
-        /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        public bool IsRecycled
         {
-            base.Dispose(this.CanBeDisposed);
+            get;
+            set;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        public virtual bool CanBeDisposed
+        public RecycledStatus Status
         {
-           get
-            {
-                return false;
-            }
+            get;
+            set;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void Reusing()
+        {
+            this.Status = RecycledStatus.Using;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void Recycling()
+        {
+            this.Status = RecycledStatus.Recycled;
+        }
+        #endregion
     }
 }

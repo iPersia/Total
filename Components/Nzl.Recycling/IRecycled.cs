@@ -18,6 +18,15 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        RecycledStatus Status
+        {
+            get;
+            set;
+        }
         
         /// <summary>
         /// 

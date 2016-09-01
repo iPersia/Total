@@ -1,14 +1,11 @@
 ﻿namespace Nzl.Smth.Datas
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using Nzl.Recycling;
 
     /// <summary>
     /// 
     /// </summary>
-    public class BaseData
+    public class BaseData : IRecycled
     {
         /// <summary>
         /// 
@@ -27,5 +24,41 @@
             set;
             get;
         }
+
+        #region IRecycled
+        /// <summary>
+        /// A boolean indicated whether the object is recycled.
+        /// </summary>
+        public bool IsRecycled
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public RecycledStatus Status
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        public virtual void Reusing()
+        {
+            this.Status = RecycledStatus.Using;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void Recycling()
+        {
+            this.Status = RecycledStatus.Recycled;
+        }
+        #endregion
     }
 }

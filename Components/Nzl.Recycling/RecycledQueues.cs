@@ -11,12 +11,12 @@
         /// <summary>
         /// 
         /// </summary>
-        private static Dictionary<Type, Queue<object>> _dictRecycledQueues = new Dictionary<Type, Queue<object>>();
+        private static Dictionary<Type, Queue<IRecycled>> _dictRecycledQueues = new Dictionary<Type, Queue<IRecycled>>();
 
         /// <summary>
         /// 
         /// </summary>
-        private static Queue<Object> GetQueue(Type type)
+        private static Queue<IRecycled> GetQueue(Type type)
         {
             if (type != null)
             {
@@ -27,7 +27,7 @@
                         return _dictRecycledQueues[type];
                     }
 
-                    Queue<object> queue = new Queue<object>();
+                    Queue<IRecycled> queue = new Queue<IRecycled>();
                     _dictRecycledQueues.Add(type, queue);
                     return queue;
                 }
@@ -42,7 +42,7 @@
         public static T GetRecycled<T>()
             where T : class
         {
-            Queue<object> queue = GetQueue(typeof(T));
+            Queue<IRecycled> queue = GetQueue(typeof(T));
             lock (queue)
             {
                 try
@@ -71,16 +71,18 @@
         /// <param name="t"></param>
         /// <returns></returns>
         public static void AddRecycled<T>(T obj)
-            where T : class
+            where T : class, IRecycled
         {
             if (obj != null)
             {
-                Queue<object> queue = GetQueue(typeof(T));
+                Queue<IRecycled> queue = GetQueue(typeof(T));
                 lock(queue)
                 {
                     if (queue.Contains(obj) == false)
                     {
+                        obj.Recycling();
                         queue.Enqueue(obj);
+                        obj.Status = RecycledStatus.Recycled;
                     }
                 }
 #if (DEBUG)
@@ -96,7 +98,7 @@
         public static string GetStatistics()
         {
             string msg = "Recycled object list:\n";
-            foreach (KeyValuePair<Type, Queue<object>> pair in _dictRecycledQueues)
+            foreach (KeyValuePair<Type, Queue<IRecycled>> pair in _dictRecycledQueues)
             {
                 msg += "\t" + pair.Key.ToString() + "\t" + pair.Value.Count + "\n";
             }
