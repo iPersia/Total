@@ -46,7 +46,9 @@
                     }
                     else
                     {
-                        (new MessageForm("Information", "The application is already running!")).Show();
+                        MessageForm msg = new MessageForm("Information", "The application is already running!");
+                        msg.StartPosition = FormStartPosition.CenterScreen;
+                        msg.ShowDialog();
                         System.Threading.Thread.Sleep(1000);
                         System.Environment.Exit(1);
                     }
