@@ -168,7 +168,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopicBrowserControl_OnThreadUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ThreadControlContainer_OnThreadUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -219,19 +219,19 @@
                 tbc.Name = "tbc" + url;
                 tbc.Url = url;
                 tbc.Dock = DockStyle.Fill;
-                tbc.OnThreadDeleteLinkClicked += TopicBrowserControl_OnThreadDeleteLinkClicked;
-                tbc.OnThreadEditLinkClicked += TopicBrowserControl_OnThreadEditLinkClicked;
-                tbc.OnThreadMailLinkClicked += TopicBrowserControl_OnThreadMailLinkClicked;
-                tbc.OnThreadQueryTypeLinkClicked += TopicBrowserControl_OnThreadQueryTypeLinkClicked;
-                tbc.OnThreadReplyLinkClicked += TopicBrowserControl_OnThreadReplyLinkClicked;
-                tbc.OnThreadTransferLinkClicked += TopicBrowserControl_OnThreadTransferLinkClicked;
+                tbc.OnThreadDeleteLinkClicked += ThreadControlContainer_OnThreadDeleteLinkClicked;
+                tbc.OnThreadEditLinkClicked += ThreadControlContainer_OnThreadEditLinkClicked;
+                tbc.OnThreadMailLinkClicked += ThreadControlContainer_OnThreadMailLinkClicked;
+                tbc.OnThreadQueryTypeLinkClicked += ThreadControlContainer_OnThreadQueryTypeLinkClicked;
+                tbc.OnThreadReplyLinkClicked += ThreadControlContainer_OnThreadReplyLinkClicked;
+                tbc.OnThreadTransferLinkClicked += ThreadControlContainer_OnThreadTransferLinkClicked;
                 tbc.OnThreadUserLinkClicked += TabbedBrowserForm_IDLinkClicked;
-                tbc.OnTopicReplyLinkClicked += TopicBrowserControl_OnTopicReplyLinkClicked;
-                tbc.OnThreadContentLinkClicked += TopicBrowserControl_OnThreadContentLinkClicked;
-                tbc.OnBoardLinkClicked += TopicBrowserControl_OnBoardLinkClicked;
+                tbc.OnTopicReplyLinkClicked += ThreadControlContainer_OnTopicReplyLinkClicked;
+                tbc.OnThreadContentLinkClicked += ThreadControlContainer_OnThreadContentLinkClicked;
+                tbc.OnBoardLinkClicked += ThreadControlContainer_OnBoardLinkClicked;
                 tbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
                 tbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
-                tbc.OnTopicSettingsClicked += TopicBrowserControl_OnTopicSettingsClicked;
+                tbc.OnTopicSettingsClicked += ThreadControlContainer_OnTopicSettingsClicked;
                 tp.Controls.Add(tbc);
 
                 tbc.RefreshingOnSizeChanged(true);
@@ -244,22 +244,22 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopicBrowserControl_OnTopicSettingsClicked(object sender, TopicSettingEventArgs e)
+        private void ThreadControlContainer_OnTopicSettingsClicked(object sender, TopicSettingEventArgs e)
         {
-            TopicBrowserSettingsForm form = new TopicBrowserSettingsForm();
-            form.AutoUpdating = e.AutoUpdating;
-            form.BrowserType = e.BrowserType;
-            form.UpdatingInterval = e.UpdatingInterval;
+            TopicSettingsForm form = new TopicSettingsForm();
+            form.Settings.AutoUpdating = e.AutoUpdating;
+            form.Settings.BrowserType = e.BrowserType;
+            form.Settings.UpdatingInterval = e.UpdatingInterval;
             form.StartPosition = FormStartPosition.CenterParent;
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                if (e.AutoUpdating != form.AutoUpdating ||
-                    e.BrowserType != form.BrowserType ||
-                    e.UpdatingInterval != form.UpdatingInterval)
+                if (e.AutoUpdating != form.Settings.AutoUpdating ||
+                    e.BrowserType != form.Settings.BrowserType ||
+                    e.UpdatingInterval != form.Settings.UpdatingInterval)
                 {
-                    e.AutoUpdating = form.AutoUpdating;
-                    e.BrowserType = form.BrowserType;
-                    e.UpdatingInterval = form.UpdatingInterval;
+                    e.AutoUpdating = form.Settings.AutoUpdating;
+                    e.BrowserType = form.Settings.BrowserType;
+                    e.UpdatingInterval = form.Settings.UpdatingInterval;
                     e.Tag = "Updated";
                 }
             }
@@ -270,7 +270,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopicBrowserControl_OnThreadContentLinkClicked(object sender, LinkClickedEventArgs e)
+        private void ThreadControlContainer_OnThreadContentLinkClicked(object sender, LinkClickedEventArgs e)
         {
             int index = e.LinkText.LastIndexOf("http:");
             if (index < 0)
@@ -297,7 +297,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopicBrowserControl_OnBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ThreadControlContainer_OnBoardLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -312,7 +312,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopicBrowserControl_OnTopicReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ThreadControlContainer_OnTopicReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -332,7 +332,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopicBrowserControl_OnThreadTransferLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ThreadControlContainer_OnThreadTransferLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ///throw new NotImplementedException();
         }
@@ -342,7 +342,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopicBrowserControl_OnThreadReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ThreadControlContainer_OnThreadReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -366,7 +366,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopicBrowserControl_OnThreadQueryTypeLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ThreadControlContainer_OnThreadQueryTypeLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -384,7 +384,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopicBrowserControl_OnThreadMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ThreadControlContainer_OnThreadMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -405,7 +405,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopicBrowserControl_OnThreadEditLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ThreadControlContainer_OnThreadEditLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -433,7 +433,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopicBrowserControl_OnThreadDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ThreadControlContainer_OnThreadDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -493,17 +493,44 @@
 
                 bbc.Name = "bbc" + url;
                 bbc.Url = url;
-                bbc.OnTopicLinkClicked += BoardBrowserControl_OnTopicLinkClicked;
+                bbc.OnTopicLinkClicked += TopicControlContainer_OnTopicLinkClicked;
                 bbc.OnTopicCreateIDLinkClicked += TabbedBrowserForm_IDLinkClicked;
                 bbc.OnTopicLastIDLinkClicked += TabbedBrowserForm_IDLinkClicked;
                 bbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
                 bbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
+                bbc.OnBoardSettingsClicked += TopicControlContainer_OnBoardSettingsClicked;
                 bbc.Dock = DockStyle.Fill;
                 tp.Controls.Add(bbc);
 
                 ///
                 bbc.RefreshingOnSizeChanged(true);
                 bbc.Reusing();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TopicControlContainer_OnBoardSettingsClicked(object sender, BoardSettingEventArgs e)
+        {
+            BoardSettingsForm form = new BoardSettingsForm();
+            form.Settings.IsShowTop = e.IsShowTop;
+            form.Settings.AutoUpdating = e.AutoUpdating;
+            form.Settings.UpdatingInterval = e.UpdatingInterval;
+            form.StartPosition = FormStartPosition.CenterParent;
+            if (form.ShowDialog(this) == DialogResult.OK)
+            {
+                if (e.IsShowTop != form.Settings.IsShowTop || 
+                    e.AutoUpdating != form.Settings.AutoUpdating ||                    
+                    e.UpdatingInterval != form.Settings.UpdatingInterval)
+                {
+                    e.IsShowTop = form.Settings.IsShowTop;
+                    e.AutoUpdating = form.Settings.AutoUpdating;                    
+                    e.UpdatingInterval = form.Settings.UpdatingInterval;
+                    e.Tag = "Updated";
+                }
             }
         }
 
@@ -538,7 +565,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BoardBrowserControl_OnTopicLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void TopicControlContainer_OnTopicLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -786,19 +813,19 @@
             if (tbc != null)
             {
                 tbc.Recycling();
-                tbc.OnThreadDeleteLinkClicked -= TopicBrowserControl_OnThreadDeleteLinkClicked;
-                tbc.OnThreadEditLinkClicked -= TopicBrowserControl_OnThreadEditLinkClicked;
-                tbc.OnThreadMailLinkClicked -= TopicBrowserControl_OnThreadMailLinkClicked;
-                tbc.OnThreadQueryTypeLinkClicked -= TopicBrowserControl_OnThreadQueryTypeLinkClicked;
-                tbc.OnThreadReplyLinkClicked -= TopicBrowserControl_OnThreadReplyLinkClicked;
-                tbc.OnThreadTransferLinkClicked -= TopicBrowserControl_OnThreadTransferLinkClicked;
+                tbc.OnThreadDeleteLinkClicked -= ThreadControlContainer_OnThreadDeleteLinkClicked;
+                tbc.OnThreadEditLinkClicked -= ThreadControlContainer_OnThreadEditLinkClicked;
+                tbc.OnThreadMailLinkClicked -= ThreadControlContainer_OnThreadMailLinkClicked;
+                tbc.OnThreadQueryTypeLinkClicked -= ThreadControlContainer_OnThreadQueryTypeLinkClicked;
+                tbc.OnThreadReplyLinkClicked -= ThreadControlContainer_OnThreadReplyLinkClicked;
+                tbc.OnThreadTransferLinkClicked -= ThreadControlContainer_OnThreadTransferLinkClicked;
                 tbc.OnThreadUserLinkClicked -= TabbedBrowserForm_IDLinkClicked;
-                tbc.OnTopicReplyLinkClicked -= TopicBrowserControl_OnTopicReplyLinkClicked;
-                tbc.OnThreadContentLinkClicked -= TopicBrowserControl_OnThreadContentLinkClicked;
-                tbc.OnBoardLinkClicked -= TopicBrowserControl_OnBoardLinkClicked;
+                tbc.OnTopicReplyLinkClicked -= ThreadControlContainer_OnTopicReplyLinkClicked;
+                tbc.OnThreadContentLinkClicked -= ThreadControlContainer_OnThreadContentLinkClicked;
+                tbc.OnBoardLinkClicked -= ThreadControlContainer_OnBoardLinkClicked;
                 tbc.OnWorkerFailed -= TabbedBrowserForm_OnWorkerFailed;
                 tbc.OnWorkerCancelled -= TabbedBrowserFrom_OnWorkerCancelled;
-                tbc.OnTopicSettingsClicked -= TopicBrowserControl_OnTopicSettingsClicked;
+                tbc.OnTopicSettingsClicked -= ThreadControlContainer_OnTopicSettingsClicked;
                 RecycledQueues.AddRecycled<ThreadControlContainer>(tbc);
             }
         }
@@ -812,11 +839,12 @@
             if (bbc != null)
             {
                 bbc.Recycling();
-                bbc.OnTopicLinkClicked -= BoardBrowserControl_OnTopicLinkClicked;
+                bbc.OnTopicLinkClicked -= TopicControlContainer_OnTopicLinkClicked;
                 bbc.OnTopicCreateIDLinkClicked -= TabbedBrowserForm_IDLinkClicked;
                 bbc.OnTopicLastIDLinkClicked -= TabbedBrowserForm_IDLinkClicked;
                 bbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
                 bbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
+                bbc.OnBoardSettingsClicked -= TopicControlContainer_OnBoardSettingsClicked;
                 RecycledQueues.AddRecycled<TopicControlContainer>(bbc);
             }
         }

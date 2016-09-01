@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoardSettingEventArgs.cs" />
     <Compile Include="BrowserType.cs" />
     <Compile Include="LogStatus.cs" />
     <Compile Include="LogStatusEventArgs.cs" />

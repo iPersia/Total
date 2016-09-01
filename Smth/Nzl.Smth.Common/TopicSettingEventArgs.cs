@@ -1,9 +1,6 @@
 ﻿namespace Nzl.Smth.Common
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// 
@@ -17,6 +14,7 @@
         {
             this.BrowserType = BrowserType.FirstReply;
             this.AutoUpdating = false;
+            this.UpdatingInterval = 60;
         }
 
         /// <summary>

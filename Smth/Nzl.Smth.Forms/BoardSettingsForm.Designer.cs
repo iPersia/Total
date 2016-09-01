@@ -1,6 +1,6 @@
 ﻿namespace Nzl.Smth.Forms
 {
-    partial class TopicBrowserSettingsForm
+    partial class BoardSettingsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rbLatestReply = new System.Windows.Forms.RadioButton();
-            this.rbFirstReply = new System.Windows.Forms.RadioButton();
+            this.rbShowTops = new System.Windows.Forms.RadioButton();
+            this.rbNoTops = new System.Windows.Forms.RadioButton();
             this.gpBrowseMode = new System.Windows.Forms.GroupBox();
             this.ckbAutoUpdating = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
@@ -41,31 +41,30 @@
             this.gpAutoUpdating.SuspendLayout();
             this.SuspendLayout();
             // 
-            // rbLatestReply
+            // rbShowTops
             // 
-            this.rbLatestReply.AutoSize = true;
-            this.rbLatestReply.Location = new System.Drawing.Point(17, 26);
-            this.rbLatestReply.Name = "rbLatestReply";
-            this.rbLatestReply.Size = new System.Drawing.Size(95, 16);
-            this.rbLatestReply.TabIndex = 0;
-            this.rbLatestReply.Text = "Latest Reply";
-            this.rbLatestReply.UseVisualStyleBackColor = true;
-            this.rbLatestReply.CheckedChanged += new System.EventHandler(this.rbLatestReply_CheckedChanged);
+            this.rbShowTops.AutoSize = true;
+            this.rbShowTops.Location = new System.Drawing.Point(17, 26);
+            this.rbShowTops.Name = "rbShowTops";
+            this.rbShowTops.Size = new System.Drawing.Size(77, 16);
+            this.rbShowTops.TabIndex = 0;
+            this.rbShowTops.Text = "Show tops";
+            this.rbShowTops.UseVisualStyleBackColor = true;
             // 
-            // rbFirstReply
+            // rbNoTops
             // 
-            this.rbFirstReply.AutoSize = true;
-            this.rbFirstReply.Location = new System.Drawing.Point(161, 26);
-            this.rbFirstReply.Name = "rbFirstReply";
-            this.rbFirstReply.Size = new System.Drawing.Size(89, 16);
-            this.rbFirstReply.TabIndex = 1;
-            this.rbFirstReply.Text = "First Reply";
-            this.rbFirstReply.UseVisualStyleBackColor = true;
+            this.rbNoTops.AutoSize = true;
+            this.rbNoTops.Location = new System.Drawing.Point(161, 26);
+            this.rbNoTops.Name = "rbNoTops";
+            this.rbNoTops.Size = new System.Drawing.Size(65, 16);
+            this.rbNoTops.TabIndex = 1;
+            this.rbNoTops.Text = "No tops";
+            this.rbNoTops.UseVisualStyleBackColor = true;
             // 
             // gpBrowseMode
             // 
-            this.gpBrowseMode.Controls.Add(this.rbFirstReply);
-            this.gpBrowseMode.Controls.Add(this.rbLatestReply);
+            this.gpBrowseMode.Controls.Add(this.rbNoTops);
+            this.gpBrowseMode.Controls.Add(this.rbShowTops);
             this.gpBrowseMode.Location = new System.Drawing.Point(12, 12);
             this.gpBrowseMode.Name = "gpBrowseMode";
             this.gpBrowseMode.Size = new System.Drawing.Size(277, 64);
@@ -86,7 +85,8 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(105, 240);
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnOK.Location = new System.Drawing.Point(115, 243);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 4;
@@ -146,7 +146,7 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Interval is";
             // 
-            // TopicBrowserSettingsForm
+            // BoardSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -155,7 +155,7 @@
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.gpBrowseMode);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "TopicBrowserSettingsForm";
+            this.Name = "BoardSettingsForm";
             this.Text = "Settings";
             this.gpBrowseMode.ResumeLayout(false);
             this.gpBrowseMode.PerformLayout();
@@ -167,8 +167,8 @@
 
         #endregion
 
-        private System.Windows.Forms.RadioButton rbLatestReply;
-        private System.Windows.Forms.RadioButton rbFirstReply;
+        private System.Windows.Forms.RadioButton rbShowTops;
+        private System.Windows.Forms.RadioButton rbNoTops;
         private System.Windows.Forms.GroupBox gpBrowseMode;
         private System.Windows.Forms.CheckBox ckbAutoUpdating;
         private System.Windows.Forms.Button btnOK;

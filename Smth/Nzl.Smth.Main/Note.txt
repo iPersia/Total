@@ -37,6 +37,8 @@
 			界面设置：Panel和PanelContainer的位置设置
 			板块设置：是否显示置顶
 
+    13、如果Container已经进入RecycledQueue，应该不再响应FecthPage等事件，以及停掉所有Timer等可能会更新Container的事件。
+
 经验
 
   1、不要奢望能够直接改动Dock=Fill控件的大小，只能通过改变其容器的大小来达到目的。

@@ -136,11 +136,17 @@
     <Compile Include="TabbedBrowserSettingsForm.Designer.cs">
       <DependentUpon>TabbedBrowserSettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TopicBrowserSettingsForm.cs">
+    <Compile Include="BoardSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TopicBrowserSettingsForm.Designer.cs">
-      <DependentUpon>TopicBrowserSettingsForm.cs</DependentUpon>
+    <Compile Include="BoardSettingsForm.Designer.cs">
+      <DependentUpon>BoardSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TopicSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TopicSettingsForm.Designer.cs">
+      <DependentUpon>TopicSettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TopicForm.cs">
       <SubType>Form</SubType>
@@ -207,8 +213,11 @@
     <EmbeddedResource Include="TabbedBrowserSettingsForm.resx">
       <DependentUpon>TabbedBrowserSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TopicBrowserSettingsForm.resx">
-      <DependentUpon>TopicBrowserSettingsForm.cs</DependentUpon>
+    <EmbeddedResource Include="BoardSettingsForm.resx">
+      <DependentUpon>BoardSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TopicSettingsForm.resx">
+      <DependentUpon>TopicSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TopicForm.resx">
       <DependentUpon>TopicForm.cs</DependentUpon>

@@ -125,10 +125,15 @@
         /// </summary>
         private static int staticBaseControlLocationMargin = 2;
 #endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static bool staticPageDispatcherSynchronous = false;
 #endregion
 
 
-#region Properties
+        #region Properties
         /// <summary>
         /// 
         /// </summary>
@@ -271,9 +276,20 @@
                 return staticSectionCount;
             }
         }
-#endregion
 
-#region Public methods
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool PageDispatcherSynchronous
+        {
+            get
+            {
+                return staticPageDispatcherSynchronous;
+            }
+        }
+        #endregion
+
+        #region Public methods
         /// <summary>
         /// 
         /// </summary>

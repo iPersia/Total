@@ -33,13 +33,23 @@
         /// 
         /// </summary>
         public event LinkLabelLinkClickedEventHandler OnTopicLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler<BoardSettingEventArgs> OnBoardSettingsClicked;
         #endregion
 
         #region Variable
         /// <summary>
         /// 
         /// </summary>
-        private int _margin = 4;
+        private BoardSettingEventArgs _Settings = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Timer _updatingTimer = new Timer();
         #endregion
 
         #region Ctor.
@@ -49,6 +59,8 @@
         public TopicControlContainer()
         {
             InitializeComponent();
+            this._updatingTimer.Tick += _updatingTimer_Tick;
+            this._Settings = new BoardSettingEventArgs();
         }
         #endregion
 
@@ -75,14 +87,25 @@
         protected override IList<Topic> GetItems(WebPage wp)
         {
             IList<Topic> topics = TopicFactory.CreateTopics(wp);
-            //foreach (Topic topic in topics)
-            //{
-            //    if (topic.Mode == TopicMode.Normal ||
-            //        topic.Mode == TopicMode.Magic)
-            //    {
-            //        topics.Add(topic);
-            //    }
-            //}
+            if (this._Settings.IsShowTop == false)
+            {
+                IList<Topic> tps = new List<Topic>();
+                foreach (Topic topic in topics)
+                {
+                    if (topic.Mode == TopicMode.Normal ||
+                        topic.Mode == TopicMode.Magic)
+                    {
+                        tps.Add(topic);
+                    }
+                    else
+                    {
+                        this.RecyclingItem(topic);
+                    }
+                }
+
+                topics.Clear();
+                return tps;
+            }
 
             return topics;
         }
@@ -193,9 +216,31 @@
             this.btnPrev.Enabled = flag;
             this.txtGoTo.Enabled = flag;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override void Recycling()
+        {
+            base.Recycling();
+
+            this._Settings = new BoardSettingEventArgs();
+            this._updatingTimer.Stop();
+        }
         #endregion
 
         #region event handler.
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void _updatingTimer_Tick(object sender, EventArgs e)
+        {
+            this.SetUrlInfo(false);
+            this.FetchPage();
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -289,6 +334,30 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            if (this.OnBoardSettingsClicked != null)
+            {
+                BoardSettingEventArgs bsEventArgs = new BoardSettingEventArgs();
+                bsEventArgs.IsShowTop = this._Settings.IsShowTop;
+                bsEventArgs.AutoUpdating = this._Settings.AutoUpdating;
+                bsEventArgs.UpdatingInterval = this._Settings.UpdatingInterval;
+                this.OnBoardSettingsClicked(sender, bsEventArgs);
+                if (bsEventArgs.Tag != null && bsEventArgs.Tag.ToString() == "Updated")
+                {
+                    this._Settings.IsShowTop = bsEventArgs.IsShowTop;
+                    this._Settings.AutoUpdating = bsEventArgs.AutoUpdating;
+                    this._Settings.UpdatingInterval = bsEventArgs.UpdatingInterval;
+                    ApplyBoardSetting();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOpenInBrower_Click(object sender, EventArgs e)
         {
             CommonUtil.OpenUrl(this.GetCurrentUrl());
@@ -358,7 +427,26 @@
             {
                 this.Text = SmthUtil.GetBoard(wp);
             }
-        }        
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ApplyBoardSetting()
+        {
+            this._updatingTimer.Stop();
+            if (this._Settings.AutoUpdating)
+            {
+                this._updatingTimer.Interval = this._Settings.UpdatingInterval * 1000;
+                this._updatingTimer.Start();
+            }
+
+            this.SetUrlInfo(false);
+            this.FetchPage();
+        }
         #endregion
     }
 }

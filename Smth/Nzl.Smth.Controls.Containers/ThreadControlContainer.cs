@@ -12,7 +12,6 @@ namespace Nzl.Smth.Controls.Containers
     using Nzl.Smth.Controls.Base;
     using Nzl.Smth.Controls.Elements;
     using Nzl.Smth.Datas;
-    using Nzl.Smth.Interfaces;
     using Nzl.Smth.Logger;
     using Nzl.Smth.Utils;
     using Nzl.Web.Util;
@@ -115,17 +114,7 @@ namespace Nzl.Smth.Controls.Containers
         /// <summary>
         /// 
         /// </summary>
-        private BrowserType _settingBrowserType = BrowserType.FirstReply;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private bool _settingAutoUpdating = false;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private int _settingUpdatingInterval = 60;
+        private TopicSettingEventArgs _Settings = null;
 
         /// <summary>
         /// 
@@ -207,6 +196,9 @@ namespace Nzl.Smth.Controls.Containers
                 this.linklblReply.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblReply_LinkClicked);
                 this.linklblBoard.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblBoard_LinkClicked);
             }
+
+            ///Initialize settings.
+            this._Settings = new TopicSettingEventArgs();
         }
 
         /// <summary>
@@ -264,7 +256,7 @@ namespace Nzl.Smth.Controls.Containers
                 ///Fetch next page when the container is not full.
                 if (this.GetPanel().Height < this.panelContainer.Height)
                 {
-                    if (this._settingBrowserType == BrowserType.FirstReply)
+                    if (this._Settings.BrowserType == BrowserType.FirstReply)
                     {
                         this.SetUrlInfo(true);
                         this.FetchNextPage();
@@ -304,7 +296,7 @@ namespace Nzl.Smth.Controls.Containers
         protected override IList<Thread> GetItems(WebPage wp)
         {
             IList<Thread> threads = ThreadFactory.CreateThreads(wp);
-            if (this._settingBrowserType == BrowserType.LastReply)
+            if (this._Settings.BrowserType == BrowserType.LastReply)
             {
                 IList<Thread> reversedThreads = new List<Thread>();
                 if (threads != null)
@@ -389,8 +381,8 @@ namespace Nzl.Smth.Controls.Containers
         /// <returns></returns>
         protected override bool CheckAddingControl(ThreadControl ctl)
         {
-            if (this._settingBrowserType == BrowserType.LastReply &&
-                this._settingAutoUpdating == false &&
+            if (this._Settings.BrowserType == BrowserType.LastReply &&
+                this._Settings.AutoUpdating == false &&
                 ctl.Name != null)
             {
                 return this.GetPanel().Controls.ContainsKey(ctl.Name) == false;
@@ -451,11 +443,11 @@ namespace Nzl.Smth.Controls.Containers
         protected override void FetchPageOnMouseWheel()
         {
             this.SetUrlInfo(true);
-            if (this._settingBrowserType == BrowserType.FirstReply)
+            if (this._Settings.BrowserType == BrowserType.FirstReply)
             {
                 this.FetchNextPage();
             }
-            else if (this._settingAutoUpdating == false)
+            else if (this._Settings.AutoUpdating == false)
             {
                 this.FetchPrevPage();
             }
@@ -477,9 +469,7 @@ namespace Nzl.Smth.Controls.Containers
             }
 
             ///Initialize the settings.
-            this._settingBrowserType = BrowserType.FirstReply;
-            this._settingAutoUpdating = false;
-            this._settingUpdatingInterval = 60;
+            this._Settings = new TopicSettingEventArgs();
             this._updatingTimer.Stop();
             this._topic = null;
             this._topicUrl = null;
@@ -531,16 +521,7 @@ namespace Nzl.Smth.Controls.Containers
         /// <param name="e"></param>
         private void btnFirst_Click(object sender, EventArgs e)
         {
-            this.SetUrlInfo(false);
-            if (this._settingBrowserType == BrowserType.FirstReply)
-            {
-                this.SetUrlInfo(1, false);
-                this.FetchPage();
-            }
-            else
-            {
-                this.FetchLastPage();
-            }
+
         }
 
         /// <summary>
@@ -551,7 +532,7 @@ namespace Nzl.Smth.Controls.Containers
         private void btnPrev_Click(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            if (this._settingBrowserType == BrowserType.LastReply)
+            if (this._Settings.BrowserType == BrowserType.LastReply)
             {
                 this.FetchNextPage();
             }
@@ -569,7 +550,7 @@ namespace Nzl.Smth.Controls.Containers
         private void btnNext_Click(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            if (this._settingBrowserType == BrowserType.FirstReply)
+            if (this._Settings.BrowserType == BrowserType.FirstReply)
             {
                 this.FetchNextPage();
             }
@@ -587,7 +568,7 @@ namespace Nzl.Smth.Controls.Containers
         private void btnLast_Click(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            if (this._settingBrowserType == BrowserType.LastReply)
+            if (this._Settings.BrowserType == BrowserType.LastReply)
             {
                 this.SetUrlInfo(1, false);
                 this.FetchPage();
@@ -608,35 +589,38 @@ namespace Nzl.Smth.Controls.Containers
             if (this.OnTopicSettingsClicked != null)
             {
                 TopicSettingEventArgs tsEventArgs = new TopicSettingEventArgs();
-                tsEventArgs.AutoUpdating = this._settingAutoUpdating;
-                tsEventArgs.BrowserType = this._settingBrowserType;
-                tsEventArgs.UpdatingInterval = this._settingUpdatingInterval;
+                tsEventArgs.AutoUpdating = this._Settings.AutoUpdating;
+                tsEventArgs.BrowserType = this._Settings.BrowserType;
+                tsEventArgs.UpdatingInterval = this._Settings.UpdatingInterval;
                 this.OnTopicSettingsClicked(sender, tsEventArgs);
                 if (tsEventArgs.Tag != null && tsEventArgs.Tag.ToString() == "Updated")
                 {
-                    this._settingAutoUpdating = tsEventArgs.AutoUpdating;
-                    this._settingBrowserType = tsEventArgs.BrowserType;
-                    this._settingUpdatingInterval = tsEventArgs.UpdatingInterval;
+                    this._Settings.AutoUpdating = tsEventArgs.AutoUpdating;
+                    this._Settings.BrowserType = tsEventArgs.BrowserType;
+                    this._Settings.UpdatingInterval = tsEventArgs.UpdatingInterval;
                     ApplyTopicSetting();
                 }
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ApplyTopicSetting()
         {
-            if (this._settingBrowserType == BrowserType.FirstReply)
+            if (this._Settings.BrowserType == BrowserType.FirstReply)
             {
                 this._updatingTimer.Stop();
                 this.SetUrlInfo(1, false);
                 this.FetchPage();
             }
 
-            if (this._settingBrowserType == BrowserType.LastReply)
+            if (this._Settings.BrowserType == BrowserType.LastReply)
             {
                 this._updatingTimer.Stop();
-                if (this._settingAutoUpdating)
+                if (this._Settings.AutoUpdating)
                 {
-                    this._updatingTimer.Interval = this._settingUpdatingInterval * 1000;
+                    this._updatingTimer.Interval = this._Settings.UpdatingInterval * 1000;
                     this._updatingTimer.Start();
                 }
 
@@ -661,7 +645,7 @@ namespace Nzl.Smth.Controls.Containers
                     pageIndex = System.Convert.ToInt32(this.txtGoTo.Text);
                 }
 
-                if (this._settingBrowserType == BrowserType.FirstReply)
+                if (this._Settings.BrowserType == BrowserType.FirstReply)
                 {
                     this.SetUrlInfo(pageIndex, false);
                 }
@@ -895,7 +879,7 @@ namespace Nzl.Smth.Controls.Containers
             }
 
             this._subject = this._topic;//CommonUtil.GetMatch(@"<input type=\Whidden\W name=\Wsubject\W value=\W(?'subject'Re[0-9A-Z,%,~,-]+)\W\s/>", html, 1);
-            this._postUrl = CommonUtil.GetMatch(@"<form action=\W(?'post'/article/[\w, %2E, %5F]+/post/\d+)\W method=\Wpost\W>", wp.Html, 1);
+            this._postUrl = CommonUtil.GetMatch(@"<form action=\W(?'post'/article/[\w, %2E, %5F, \.]+/post/\d+)\W method=\Wpost\W>", wp.Html, 1);
             this.linklblReply.Visible = false;
             if (string.IsNullOrEmpty(this._postUrl) == false)
             {

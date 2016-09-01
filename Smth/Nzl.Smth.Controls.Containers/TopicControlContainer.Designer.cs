@@ -41,6 +41,7 @@
             this.btnPrev = new System.Windows.Forms.Button();
             this.panelContainer = new System.Windows.Forms.Panel();
             this.panel = new System.Windows.Forms.Panel();
+            this.btnSettings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).BeginInit();
             this.scContainer.Panel1.SuspendLayout();
             this.scContainer.Panel2.SuspendLayout();
@@ -65,7 +66,7 @@
             // scContainer.Panel2
             // 
             this.scContainer.Panel2.Controls.Add(this.panelContainer);
-            this.scContainer.Size = new System.Drawing.Size(635, 544);
+            this.scContainer.Size = new System.Drawing.Size(806, 544);
             this.scContainer.SplitterDistance = 25;
             this.scContainer.SplitterWidth = 1;
             this.scContainer.TabIndex = 3;
@@ -74,6 +75,7 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.SystemColors.Window;
+            this.panelMenu.Controls.Add(this.btnSettings);
             this.panelMenu.Controls.Add(this.btnRefresh);
             this.panelMenu.Controls.Add(this.btnOpenInBrower);
             this.panelMenu.Controls.Add(this.btnGo);
@@ -86,7 +88,7 @@
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(635, 25);
+            this.panelMenu.Size = new System.Drawing.Size(806, 25);
             this.panelMenu.TabIndex = 0;
             // 
             // btnRefresh
@@ -106,7 +108,7 @@
             // 
             this.btnOpenInBrower.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenInBrower.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnOpenInBrower.Location = new System.Drawing.Point(479, 1);
+            this.btnOpenInBrower.Location = new System.Drawing.Point(650, 1);
             this.btnOpenInBrower.Name = "btnOpenInBrower";
             this.btnOpenInBrower.Size = new System.Drawing.Size(75, 23);
             this.btnOpenInBrower.TabIndex = 16;
@@ -120,7 +122,7 @@
             // 
             this.btnGo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGo.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnGo.Location = new System.Drawing.Point(594, 1);
+            this.btnGo.Location = new System.Drawing.Point(765, 1);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(30, 23);
             this.btnGo.TabIndex = 10;
@@ -133,7 +135,7 @@
             // txtGoTo
             // 
             this.txtGoTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtGoTo.Location = new System.Drawing.Point(563, 2);
+            this.txtGoTo.Location = new System.Drawing.Point(734, 2);
             this.txtGoTo.Name = "txtGoTo";
             this.txtGoTo.Size = new System.Drawing.Size(25, 21);
             this.txtGoTo.TabIndex = 9;
@@ -212,7 +214,7 @@
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(635, 518);
+            this.panelContainer.Size = new System.Drawing.Size(806, 518);
             this.panelContainer.TabIndex = 1;
             // 
             // panel
@@ -221,8 +223,22 @@
             this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel.Location = new System.Drawing.Point(4, 4);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(626, 100);
+            this.panel.Size = new System.Drawing.Size(797, 100);
             this.panel.TabIndex = 0;
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSettings.Location = new System.Drawing.Point(569, 1);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(75, 23);
+            this.btnSettings.TabIndex = 12;
+            this.btnSettings.TabStop = false;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseCompatibleTextRendering = true;
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // TopicControlContainer
             // 
@@ -230,7 +246,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.scContainer);
             this.Name = "TopicControlContainer";
-            this.Size = new System.Drawing.Size(635, 544);
+            this.Size = new System.Drawing.Size(806, 544);
             this.scContainer.Panel1.ResumeLayout(false);
             this.scContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).EndInit();
@@ -257,5 +273,6 @@
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.Panel panelContainer;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnSettings;
     }
 }

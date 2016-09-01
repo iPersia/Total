@@ -39,7 +39,7 @@
             this.tcTop10s.Location = new System.Drawing.Point(0, 0);
             this.tcTop10s.Name = "tcTop10s";
             this.tcTop10s.SelectedIndex = 0;
-            this.tcTop10s.Size = new System.Drawing.Size(685, 420);
+            this.tcTop10s.Size = new System.Drawing.Size(683, 418);
             this.tcTop10s.TabIndex = 1;
             // 
             // panelContainer
@@ -49,16 +49,17 @@
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(685, 420);
+            this.panelContainer.Size = new System.Drawing.Size(683, 418);
             this.panelContainer.TabIndex = 2;
             // 
             // Top10sBrowserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.panelContainer);
             this.Name = "Top10sBrowserControl";
-            this.Size = new System.Drawing.Size(685, 420);
+            this.Size = new System.Drawing.Size(683, 418);
             this.panelContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
