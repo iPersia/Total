@@ -508,7 +508,16 @@ namespace Nzl.Smth.Controls.Containers
         /// <param name="e"></param>
         private void btnFirst_Click(object sender, EventArgs e)
         {
-
+            this.SetUrlInfo(false);
+            if (this._Settings.BrowserType == BrowserType.FirstReply)
+            {
+                this.SetUrlInfo(1, false);
+                this.FetchPage();
+            }
+            else
+            {
+                this.FetchLastPage();
+            }
         }
 
         /// <summary>
