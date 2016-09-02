@@ -80,6 +80,7 @@
                 {
                     if (queue.Contains(obj) == false)
                     {
+                        obj.Status = RecycledStatus.Recycling;
                         obj.Recycling();
                         queue.Enqueue(obj);
                         obj.Status = RecycledStatus.Recycled;

@@ -45,11 +45,6 @@
         /// 
         /// </summary>
         private System.ComponentModel.BackgroundWorker bwFetchPage;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private object _isDoingWorkLocker = new object();
         #endregion
 
         #region Ctor
@@ -59,6 +54,7 @@
         public BaseControlContainer()
             : base()
         {
+            this.IsFetchingPage = false;
             this.IsRecycled = false;
             this.Status = RecycledStatus.Using;
             Configuration.OnLocationMarginChanged += Configuration_OnLocationMarginChanged;
@@ -79,6 +75,15 @@
                     this.GetPanelContainer().MouseWheel += Container_MouseWheel;
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected bool IsFetchingPage
+        {
+            get;
+            private set;
         }
         #endregion
 
@@ -134,17 +139,19 @@
         /// </summary>
         public virtual void Recycling()
         {
-            this.Status = RecycledStatus.Recycling;
-            Panel baseControlContainer = this.GetPanel();
-            if (baseControlContainer != null)
+            if (this.IsFetchingPage == false)
             {
-                foreach (Control ctl in baseControlContainer.Controls)
+                Panel baseControlContainer = this.GetPanel();
+                if (baseControlContainer != null)
                 {
-                    this.RecylingControl(ctl as TBaseControl);
-                }
+                    foreach (Control ctl in baseControlContainer.Controls)
+                    {
+                        this.RecylingControl(ctl as TBaseControl);
+                    }
 
-                baseControlContainer.Controls.Clear();
-                baseControlContainer.Height = 100;
+                    baseControlContainer.Controls.Clear();
+                    baseControlContainer.Height = 100;
+                }
             }
 
             this.IsRecycled = true;
@@ -814,33 +821,30 @@
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void bwFetchPage_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BackgroundWorker bw = sender as BackgroundWorker;
-            lock (this._isDoingWorkLocker)
+        {            
+            try
             {
-                try
+                BackgroundWorker bw = sender as BackgroundWorker;
+                UrlInfo<TBaseControl, TBaseData> urlInfo = e.Argument as UrlInfo<TBaseControl, TBaseData>;
+                if (CheckPage(urlInfo.WebPage, urlInfo))
                 {
-                    UrlInfo<TBaseControl, TBaseData> urlInfo = e.Argument as UrlInfo<TBaseControl, TBaseData>;
-                    if (CheckPage(urlInfo.WebPage, urlInfo))
-                    {
-                        e.Result = urlInfo;
-                        DoWorkBase(e);
-                    }
-
-                    MessageQueue.Enqueue(MessageFactory.CreateMessage(this.Text == null ? this.GetType().ToString() : this.Text,
-                                                                      Nzl.Utils.MiscUtil.GetEnumDescription(urlInfo.Status) + " The page is '" + this.GetUrl(urlInfo) + "'!"));
                     e.Result = urlInfo;
+                    DoWorkBase(e);
                 }
-                catch (Exception exp)
-                {
-                    if (Logger.Enabled)
-                    {
-                        Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
-                    }
 
-                    (e.Argument as UrlInfo<TBaseControl, TBaseData>).Status = PageStatus.UnKnown;
-                    MessageQueue.Enqueue(MessageFactory.CreateMessage(exp));
+                MessageQueue.Enqueue(MessageFactory.CreateMessage(this.Text == null ? this.GetType().ToString() : this.Text,
+                                                                    Nzl.Utils.MiscUtil.GetEnumDescription(urlInfo.Status) + " The page is '" + this.GetUrl(urlInfo) + "'!"));
+                e.Result = urlInfo;
+            }
+            catch (Exception exp)
+            {
+                if (Logger.Enabled)
+                {
+                    Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
+
+                (e.Argument as UrlInfo<TBaseControl, TBaseData>).Status = PageStatus.UnKnown;
+                MessageQueue.Enqueue(MessageFactory.CreateMessage(exp));
             }
         }
 
@@ -895,6 +899,7 @@
                     WorkCompletedBase(e);
                 }
 
+                this.IsFetchingPage = false;
                 this.SetControlEnabled(true);
             }
             catch (Exception exp)
@@ -981,20 +986,29 @@
         /// </summary>
         protected bool FetchPage(UrlInfo<TBaseControl, TBaseData> urlInfo)
         {
-            if (urlInfo.Index > 0 && urlInfo.Index <= urlInfo.Total && string.IsNullOrEmpty(urlInfo.BaseUrl) == false)
+            lock (this)
             {
-                PageLoader pl = new PageLoader(this.GetUrl(urlInfo));
-                pl.Tag = urlInfo;
-                pl.PageLoaded += new EventHandler(PageLoader_PageLoaded);
-                PageDispatcher.Instance.Add(pl);
+                if (urlInfo.Index > 0 &&
+                    urlInfo.Index <= urlInfo.Total &&
+                    string.IsNullOrEmpty(urlInfo.BaseUrl) == false &&
+                    this.IsFetchingPage == false &&
+                    this.Status == RecycledStatus.Using)
+                {
+                    PageLoader pl = new PageLoader(this.GetUrl(urlInfo));
+                    pl.Tag = urlInfo;
+                    pl.PageLoaded += new EventHandler(PageLoader_PageLoaded);
+                    pl.PageFailed += new EventHandler(PageLoader_PageFailed);
+                    PageDispatcher.Instance.Add(pl);
 #if (DEBUG)
-                Nzl.Web.Util.CommonUtil.ShowMessage(this, "BaseContainer - FetchPage(UrlInfo's index is equal to " + urlInfo.Index + ")!");
+                    Nzl.Web.Util.CommonUtil.ShowMessage(this, "BaseContainer - FetchPage(UrlInfo's index is equal to " + urlInfo.Index + ")!");
 #endif
-                SetControlEnabled(false);
-                return true;
-            }
+                    this.IsFetchingPage = true;
+                    SetControlEnabled(false);
+                    return true;
+                }
 
-            return false;
+                return false;
+            }
         }
 
         /// <summary>
@@ -1025,6 +1039,25 @@
                         }
                     }
                 }
+                else
+                {
+                    this.IsFetchingPage = false;
+                    SetControlEnabled(true);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PageLoader_PageFailed(object sender, EventArgs e)
+        {
+            lock(this)
+            {
+                this.IsFetchingPage = false;
+                SetControlEnabled(true);
             }
         }
 
