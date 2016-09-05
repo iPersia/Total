@@ -664,28 +664,7 @@ namespace Nzl.Smth.Controls.Containers
 #endif
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnReply_Click(object sender, EventArgs e)
-        {
-            if (this.OnTopicReplyLinkClicked != null)
-            {
-                LinkLabel.Link link = new LinkLabel.Link();
-                link.Description = this._postUrl;
-                LinkLabelLinkClickedEventArgs exe = new LinkLabelLinkClickedEventArgs(link);
-                this.OnTopicReplyLinkClicked(sender, exe);
-                if (exe.Link.Tag != null && exe.Link.Tag.ToString() == "Success")
-                {
-                    this.SetUrlInfo(false);
-                    this.FetchLastPage();
-                }
-            }
-        }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -707,14 +686,53 @@ namespace Nzl.Smth.Controls.Containers
             if (this.OnTopicReplyLinkClicked != null)
             {
                 this.OnTopicReplyLinkClicked(sender, e);
-                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Success")
+                if (e.Link.Tag != null)
                 {
+                    string postString = e.Link.Tag.ToString();
                     e.Link.Tag = null;
+                    if (string.IsNullOrEmpty(postString) == false)
+                    {
+                        PageLoader pl = new PageLoader(this._postUrl, postString);
+                        pl.PageLoaded += ThreadReply_PageLoaded;
+                        pl.PageFailed += ThreadReply_PageFailed;
+                        PageDispatcher.Instance.Add(pl);
+                    }
+                }
+
+                e.Link.Tag = null;
+            }
+        }
+
+        #region ThreadReply - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadReply_PageLoaded(object sender, EventArgs e)
+        {
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                string html = pl.GetResult() as string;
+                string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
+                if (result != null && result.Contains("成功"))
+                {
                     this.SetUrlInfo(false);
                     this.FetchLastPage();
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadReply_PageFailed(object sender, EventArgs e)
+        {
+        }
+        #endregion
 
         /// <summary>
         /// 
@@ -765,6 +783,19 @@ namespace Nzl.Smth.Controls.Containers
             if (this.OnThreadReplyLinkClicked != null)
             {
                 this.OnThreadReplyLinkClicked(sender, e);
+                if (e.Link.Tag != null)
+                {
+                    string postString = e.Link.Tag.ToString();                    
+                    if (string.IsNullOrEmpty(postString) == false)
+                    {
+                        PageLoader pl = new PageLoader(e.Link.LinkData.ToString(), postString);
+                        pl.PageLoaded += ThreadReply_PageLoaded;
+                        pl.PageFailed += ThreadReply_PageFailed;
+                        PageDispatcher.Instance.Add(pl);
+                    }
+                }
+
+                e.Link.Tag = null;
             }
         }
 
@@ -778,8 +809,52 @@ namespace Nzl.Smth.Controls.Containers
             if (this.OnThreadMailLinkClicked != null)
             {
                 this.OnThreadMailLinkClicked(sender, e);
+                if (e.Link.Tag != null)
+                {
+                    string postString = e.Link.Tag as string;
+                    if (string.IsNullOrEmpty(postString) == false)
+                    {
+                        PageLoader pl = new PageLoader(Configuration.SendMailUrl, postString);
+                        pl.PageLoaded += ThreadMail_PageLoaded;
+                        pl.PageFailed += ThreadMail_PageFailed;
+                        PageDispatcher.Instance.Add(pl);
+                    }                    
+                }
+
+                e.Link.Tag = null;
             }
         }
+
+        #region ThreadMail - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadMail_PageLoaded(object sender, EventArgs e)
+        {
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                string html = pl.GetResult() as string;
+                string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
+                if (result != null && result.Contains("成功"))
+                {
+                    //this.SetUrlInfo(false);
+                    //this.FetchLastPage();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadMail_PageFailed(object sender, EventArgs e)
+        {
+        }
+        #endregion
 
         /// <summary>
         /// 
@@ -804,14 +879,53 @@ namespace Nzl.Smth.Controls.Containers
             if (this.OnThreadEditLinkClicked != null)
             {
                 this.OnThreadEditLinkClicked(sender, e);
-                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Success")
+                if (e.Link.Tag != null)
                 {
-                    e.Link.Tag = null;
-                    this.SetUrlInfo(false);
-                    this.FetchLastPage();
+                    string postString = e.Link.Tag.ToString();                    
+                    if (string.IsNullOrEmpty(postString) == false)
+                    {
+                        PageLoader pl = new PageLoader(e.Link.LinkData.ToString(), postString);
+                        pl.PageLoaded += ThreadEdit_PageLoaded;
+                        pl.PageFailed += ThreadEdit_PageFailed;
+                        PageDispatcher.Instance.Add(pl);
+                    }
+                }
+
+                e.Link.Tag = null;
+            }
+        }
+
+        #region ThreadEdit - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadEdit_PageLoaded(object sender, EventArgs e)
+        {
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                string html = pl.GetResult() as string;
+                string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
+                if (result != null && result.Contains("成功"))
+                {
+                    this.ShowInformation("Edit completed!");
+                   // this.SetUrlInfo(false);
+                    //this.FetchLastPage();
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadEdit_PageFailed(object sender, EventArgs e)
+        {
+        }
+        #endregion
 
         /// <summary>
         /// 
@@ -823,14 +937,51 @@ namespace Nzl.Smth.Controls.Containers
             if (this.OnThreadDeleteLinkClicked != null)
             {
                 this.OnThreadDeleteLinkClicked(sender, e);
-                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Success")
+                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Yes")
+                {                    
+                    PageLoader pl = new PageLoader(e.Link.LinkData.ToString());
+                    pl.PageLoaded += ThreadDelete_PageLoaded;
+                    pl.PageFailed += THreadDelete_PageFailed;
+                    PageDispatcher.Instance.Add(pl);
+                }
+
+                e.Link.Tag = null;
+            }
+        }
+
+        #region ThreadDelete - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadDelete_PageLoaded(object sender, EventArgs e)
+        {
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                WebPage wp = pl.GetResult() as WebPage;
+                if (wp != null && wp.IsGood)
                 {
-                    e.Link.Tag = null;
-                    this.SetUrlInfo(false);
-                    this.FetchPage();
+                    string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", wp.Html, "Result");
+                    if (result != null && result.Contains("成功"))
+                    {
+                        this.SetUrlInfo(false);
+                        this.FetchPage();
+                    }
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void THreadDelete_PageFailed(object sender, EventArgs e)
+        {
+        }
+        #endregion
 
         /// <summary>
         /// 

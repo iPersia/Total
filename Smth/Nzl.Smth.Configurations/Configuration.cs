@@ -68,6 +68,11 @@
         /// </summary>
         private static string staticAttachmentBaseUrl = @"http://att.newsmth.net/nForum";
 
+        /// <summary>
+        /// The base url of smth.
+        /// </summary>
+        private static string staticSendMailUrl = @"http://m.newsmth.net/mail/send";
+
 #if (DEBUG)
         /// <summary>
         /// The interval to update the section tops in SectionTopControl.
@@ -210,6 +215,17 @@
                 return staticTrashBaseUrl;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string SendMailUrl
+        {
+            get
+            {
+                return staticSendMailUrl;
+            }
+        }        
 
         /// <summary>
         /// 

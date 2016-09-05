@@ -161,7 +161,25 @@
             LoginForm.Instance.OnLoginFailed += LoginForm_OnLoginFailed;
             LoginForm.Instance.OnLogoutFailed += LoginForm_OnLogoutFailed;
             this._entryAssemblyTitle = this.GetEntryAssemblyTitle();
+
+#if (DEBUG)
+            ////Just for testing.
+            {
+                
+            }
+#endif
         }
+
+#if (X)
+        ////Just for testing.
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            this.TopicReply_PageLoaded(this, new EventArgs());
+        }
+#endif
+
 
         /// <summary>
         /// 
@@ -317,15 +335,15 @@
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
-                NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, e.Link.LinkData.ToString(), "Re: " + this.tcTopics.SelectedTab.ToolTipText);
+                NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, 
+                                                             "Re: " + this.tcTopics.SelectedTab.ToolTipText);
                 threadForm.StartPosition = FormStartPosition.CenterParent;
                 if (DialogResult.OK == threadForm.ShowDialog(this))
                 {
-                    e.Link.Tag = "Success";
-                    e.Link.Visited = true;
+                    e.Link.Tag = threadForm.GetPostString();
                 }
             }
-        }
+        }        
 
         /// <summary>
         /// 
@@ -350,12 +368,14 @@
                 Thread thread = linkLabel.Tag as Thread;
                 if (thread != null)
                 {
-                    NewThreadForm newThreadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText, thread.ReplyUrl, "Re: " + this.tcTopics.SelectedTab.ToolTipText, SmthUtil.GetReplyContent(thread), true);
-                    newThreadForm.StartPosition = FormStartPosition.CenterParent;
-                    if (DialogResult.OK == newThreadForm.ShowDialog(this))
+                    NewThreadForm threadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText, 
+                                                                    "Re: " + this.tcTopics.SelectedTab.ToolTipText, 
+                                                                    SmthUtil.GetReplyContent(thread), 
+                                                                    true);
+                    threadForm.StartPosition = FormStartPosition.CenterParent;
+                    if (DialogResult.OK == threadForm.ShowDialog(this))
                     {
-                        e.Link.Tag = "Success";
-                        e.Link.Visited = true;
+                        e.Link.Tag = threadForm.GetPostString();
                     }
                 }
             }
@@ -392,10 +412,15 @@
                 Thread thread = linkLabel.Tag as Thread;
                 if (thread != null)
                 {
-                    NewMailForm newMailForm = new NewMailForm(thread.User, "Re: " + this.tcTopics.SelectedTab.ToolTipText, SmthUtil.GetReplyContent(thread));
-                    newMailForm.StartPosition = FormStartPosition.CenterParent;
-                    newMailForm.ShowDialog(this);
-                    e.Link.Visited = true;
+                    NewMailForm mailForm = new NewMailForm(thread.User, 
+                                                           "Re: " + this.tcTopics.SelectedTab.ToolTipText, 
+                                                           SmthUtil.GetReplyContent(thread));
+                    mailForm.StartPosition = FormStartPosition.CenterParent;
+                    if (mailForm.ShowDialog(this) == DialogResult.OK)
+                    {
+                        e.Link.Tag = mailForm.GetPostString();
+                        e.Link.Visited = true;
+                    }
                 }
             }
         }
@@ -417,11 +442,14 @@
                     string content = regex.Replace(thread.Tag.ToString(), "");
                     content = CommonUtil.ReplaceSpecialChars(content);
                     content = SmthUtil.TrimUrls(content);
-                    NewThreadForm newThreadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText, thread.EditUrl, "Re: " + this.tcTopics.SelectedTab.ToolTipText, content, false);
-                    newThreadForm.StartPosition = FormStartPosition.CenterParent;
-                    if (DialogResult.OK == newThreadForm.ShowDialog(this))
+                    NewThreadForm threadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText, 
+                                                                    "Re: " + this.tcTopics.SelectedTab.ToolTipText, 
+                                                                    content, 
+                                                                    false);
+                    threadForm.StartPosition = FormStartPosition.CenterParent;
+                    if (DialogResult.OK == threadForm.ShowDialog(this))
                     {
-                        e.Link.Tag = "Success";
+                        e.Link.Tag = threadForm.GetPostString();
                         e.Link.Visited = true;
                     }
                 }
@@ -443,13 +471,8 @@
                 DialogResult dlgResult = confirmForm.ShowDialog(this);
                 if (dlgResult == DialogResult.OK)
                 {
-                    WebPage page = WebPageFactory.CreateWebPage(e.Link.LinkData.ToString());
-                    string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", page.Html, "Result");
-                    if (result != null && result.Contains("成功"))
-                    {
-                        e.Link.Tag = "Success";
-                        e.Link.Visited = true;
-                    }
+                    e.Link.Tag = "Yes";
+                    e.Link.Visited = true;                 
                 }
             }
         }

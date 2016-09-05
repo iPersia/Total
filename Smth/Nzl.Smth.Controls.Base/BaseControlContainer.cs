@@ -783,7 +783,6 @@
             Panel baseControlContainer = this.GetPanel();
             if (baseControlContainer != null)
             {
-                baseControlContainer.Controls.Clear();
                 Label lbl = new Label();
                 lbl.AutoSize = true;
                 lbl.Text = text;
@@ -792,6 +791,35 @@
                 lbl.Left = (baseControlContainer.Width - lbl.Width) / 2;
                 baseControlContainer.Height = 60 + lbl.Height;
                 baseControlContainer.Top = Configuration.BaseControlContainerLocationMargin;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        protected void ShowInformation(string text)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(delegate () {
+                    this.ShowInformation(text);
+                }));
+            }
+            else
+            { 
+                Panel panelContainer = this.GetPanelContainer();
+                if (panelContainer != null)
+                {
+                    Label lbl = new Label();
+                    lbl.AutoSize = true;
+                    lbl.Text = text;
+                    lbl.Top = 100; //panelContainer.Height - 100;
+                    lbl.Left = 100; //(panelContainer.Width - lbl.Width) / 2;
+                    lbl.BringToFront();
+                    panelContainer.Controls.Add(lbl);
+                    lbl.Enabled = false;
+                }
             }
         }
 

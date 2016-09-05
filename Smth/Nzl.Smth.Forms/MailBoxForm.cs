@@ -100,12 +100,20 @@
         /// <param name="e"></param>
         private void MbcMailBox_OnNewMailClicked(object sender, EventArgs e)
         {
-            NewMailForm form = new NewMailForm();
-            form.StartPosition = FormStartPosition.CenterParent;
-            this.HideWhenDeactivate = false;
-            form.ShowDialog(this._parentForm);
-            this.Focus();
-            this.HideWhenDeactivate = true;
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                NewMailForm form = new NewMailForm();
+                form.StartPosition = FormStartPosition.CenterParent;
+                this.HideWhenDeactivate = false;
+                if (form.ShowDialog(this._parentForm) == DialogResult.OK)
+                {
+                    btn.Tag = form.GetPostString();
+                }
+
+                this.Focus();
+                this.HideWhenDeactivate = true;
+            }
         }
 
         /// <summary>

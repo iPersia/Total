@@ -13,11 +13,6 @@
     public partial class NewMailForm : BaseForm
     {
         /// <summary>
-        /// 
-        /// </summary>
-        private string _postUrl = "http://m.newsmth.net/mail/send";
-
-        /// <summary>
         /// Ctor.
         /// </summary>
         public NewMailForm()
@@ -59,6 +54,23 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public string GetPostString()
+        {
+            string postData = "id=" + this.txtSendTo.Text
+                + "&title=" + this.txtTitle.Text
+                + "&content=" + this.richtxtContent.Text;
+            if (this.ckbBackup.Checked)
+            {
+                postData += "&backup=on";
+            }
+
+            return postData;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnSend_Click(object sender, EventArgs e)
@@ -91,35 +103,7 @@
                     return;
                 }
 
-                string postData = "id=" + this.txtSendTo.Text
-                                + "&title=" + this.txtTitle.Text
-                                + "&content=" + this.richtxtContent.Text;
-                if (this.ckbBackup.Checked)
-                {
-                    postData += "&backup=on";
-                }
-
-                string result = WebPageFactory.Post(this._postUrl, postData);
-                if (result != null)
-                {
-                    result = CommonUtil.GetMatch(@"<div class=\Wsp hl f\W>(?'Result'\w+)</div>", result, "Result");
-                }
-                else
-                {
-                    result = "邮件发送失败！";                    
-                }
-
-                MessageForm msgForm2 = new MessageForm(result);
-                msgForm2.StartPosition = FormStartPosition.CenterParent;
-                msgForm2.ShowDialog(this);
-                
-                if (result.Contains("成功"))
-                {
-                    this.DialogResult = DialogResult.Yes;
-                    this.Close();
-                }
-
-                SetCtrlsEnabled(true);
+                this.Close();
             }
             catch (Exception exp)
             {

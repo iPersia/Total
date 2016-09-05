@@ -70,6 +70,7 @@
             // 
             // btnSend
             // 
+            this.btnSend.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSend.Location = new System.Drawing.Point(187, 360);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(100, 23);
@@ -142,8 +143,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Name = "NewMailForm";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.Text = "New Mail";
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
