@@ -508,7 +508,17 @@
         /// <param name="flag"></param>
         protected virtual void SetControlEnabled(bool flag)
         {
-            this.GetPanelContainer().Enabled = flag;
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(delegate ()
+                {
+                    this.SetControlEnabled(flag);
+                }));
+            }
+            else
+            {
+                this.GetPanelContainer().Enabled = flag;
+            }
         }
 
         /// <summary>
@@ -802,24 +812,57 @@
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new MethodInvoker(delegate () {
+                this.Invoke(new MethodInvoker(delegate ()
+                {
                     this.ShowInformation(text);
                 }));
             }
             else
-            { 
+            {
                 Panel panelContainer = this.GetPanelContainer();
                 if (panelContainer != null)
                 {
                     Label lbl = new Label();
                     lbl.AutoSize = true;
                     lbl.Text = text;
-                    lbl.Top = 100; //panelContainer.Height - 100;
-                    lbl.Left = 100; //(panelContainer.Width - lbl.Width) / 2;
+                    lbl.Top = panelContainer.Height - 100;
+                    lbl.Left = (panelContainer.Width - lbl.Width) / 2;
                     lbl.BringToFront();
+                    Control ctl = panelContainer.Controls[0];
+                    panelContainer.Controls.Clear();
                     panelContainer.Controls.Add(lbl);
+                    panelContainer.Controls.Add(ctl);
                     lbl.Enabled = false;
                 }
+
+                ///Clear timer
+                Timer showTextTimer = new Timer();
+                showTextTimer.Tick += ShowTextTimer_Tick;
+                showTextTimer.Interval += 3000;
+                showTextTimer.Start();                
+            }
+        }
+
+        private void ShowTextTimer_Tick(object sender, EventArgs e)
+        {
+            Timer timer = sender as Timer;
+            if (timer != null)
+            {
+                timer.Stop();
+                Panel panelContainer = this.GetPanelContainer();
+                if (panelContainer != null)
+                {
+                    int count = panelContainer.Controls.Count;
+                    for (int i=0; i < count; i++)
+                    {
+                        Label lbl = panelContainer.Controls[i] as Label;
+                        if (lbl != null)
+                        {
+                            panelContainer.Controls.RemoveAt(i);
+                            count--;
+                        }
+                    }
+                }                
             }
         }
 
@@ -849,7 +892,7 @@
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void bwFetchPage_DoWork(object sender, DoWorkEventArgs e)
-        {            
+        {
             try
             {
                 BackgroundWorker bw = sender as BackgroundWorker;
@@ -1082,7 +1125,7 @@
         /// <param name="e"></param>
         private void PageLoader_PageFailed(object sender, EventArgs e)
         {
-            lock(this)
+            lock (this)
             {
                 this.IsFetchingPage = false;
                 SetControlEnabled(true);

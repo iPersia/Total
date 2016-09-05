@@ -903,6 +903,7 @@ namespace Nzl.Smth.Controls.Containers
         /// <param name="e"></param>
         private void ThreadEdit_PageLoaded(object sender, EventArgs e)
         {
+
             PageLoader pl = sender as PageLoader;
             if (pl != null)
             {
@@ -910,8 +911,8 @@ namespace Nzl.Smth.Controls.Containers
                 string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
                 if (result != null && result.Contains("成功"))
                 {
-                    this.ShowInformation("Edit completed!");
-                   // this.SetUrlInfo(false);
+                    this.ShowInformation("ThreadEdit_PageLoaded show text in label!");
+                    //this.SetUrlInfo(false);
                     //this.FetchLastPage();
                 }
             }
