@@ -971,9 +971,12 @@
         /// <param name="e"></param>
         private void _newMailUpdateTimer_Tick(object sender, EventArgs e)
         {
-            PageLoader pl = new PageLoader(Configuration.InboxUrl);
-            pl.PageLoaded += NewMailUpdating_PageLoaded;
-            PageDispatcher.Instance.Add(pl);
+            if (LogStatus.Instance.IsLogin)
+            {
+                PageLoader pl = new PageLoader(Configuration.InboxUrl);
+                pl.PageLoaded += NewMailUpdating_PageLoaded;
+                PageDispatcher.Instance.Add(pl);
+            }
         }
 
         /// <summary>

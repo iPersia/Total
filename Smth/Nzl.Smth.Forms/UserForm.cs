@@ -158,10 +158,10 @@
             newMailForm.StartPosition = FormStartPosition.CenterParent;
             if (newMailForm.ShowDialog(this) == DialogResult.OK)
             {
-                PageLoader pl = new PageLoader(Configuration.SendMailUrl, newMailForm.GetPostString());
-                pl.PageLoaded += NewMail_PageLoaded;
-                pl.PageFailed += NewMail_PageFailed;
-                PageDispatcher.Instance.Add(pl);
+                PostLoader pl = new PostLoader(Configuration.SendMailUrl, newMailForm.GetPostString());
+                pl.Succeeded += NewMail_Succeeded;
+                pl.Failed += NewMail_Failed;
+                pl.Start();
             }
         }
 
@@ -171,16 +171,21 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NewMail_PageLoaded(object sender, EventArgs e)
+        private void NewMail_Succeeded(object sender, EventArgs e)
         {
-            PageLoader pl = sender as PageLoader;
-            if (pl != null)
+            if (this.InvokeRequired)
             {
-                string html = pl.GetResult() as string;
-                string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
-                if (result != null && result.Contains("成功"))
+                this.Invoke(new MethodInvoker(delegate () {
+                    this.NewMail_Succeeded(sender, e);
+                }));
+            }
+            else
+            {
+                if (this.Visible)
                 {
-
+                    MessageForm form = new MessageForm("Information", "Sending mail is completed!");
+                    form.StartPosition = FormStartPosition.CenterParent;
+                    form.ShowDialog(this);
                 }
             }
         }
@@ -190,8 +195,24 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NewMail_PageFailed(object sender, EventArgs e)
+        private void NewMail_Failed(object sender, EventArgs e)
         {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(delegate ()
+                {
+                    this.NewMail_Failed(sender, e);
+                }));
+            }
+            else
+            {
+                if (this.Visible)
+                {
+                    MessageForm form = new MessageForm("Information", "Sending mail failed!");
+                    form.StartPosition = FormStartPosition.CenterParent;
+                    form.ShowDialog(this);
+                }
+            }
         }
         #endregion
     }

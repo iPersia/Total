@@ -257,19 +257,19 @@
                     ///Deleting mail.
                     if (infor.Contains("ConfirmToDelete"))
                     {
-                        PageLoader pl = new PageLoader(infor.Replace("ConfirmToDelete", ""));
-                        pl.PageLoaded += MailDelete_PageLoaded;
-                        pl.PageFailed += MailDelete_PageFailed;
-                        PageDispatcher.Instance.Add(pl);
+                        PostLoader pl = new PostLoader(infor.Replace("ConfirmToDelete", ""));
+                        pl.Succeeded += MailDelete_Succeeded;
+                        pl.Failed += MailDelete_Failed;
+                        pl.Start();
                     }
 
                     ///Replying mail.
                     if (infor.Contains("ReplyMail"))
-                    {                        
-                        PageLoader pl = new PageLoader(Configuration.SendMailUrl, infor.Replace("ReplyMail", ""));
-                        pl.PageLoaded += MailReply_PageLoaded;
-                        pl.PageFailed += MailReply_PageFailed;
-                        PageDispatcher.Instance.Add(pl);
+                    {
+                        PostLoader pl = new PostLoader(Configuration.SendMailUrl, infor.Replace("ReplyMail", ""));
+                        pl.Succeeded += MailReply_Succeeded;
+                        pl.Failed += MailReply_Failed;
+                        pl.Start();
                     }
                 }
 
@@ -283,18 +283,9 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MailReply_PageLoaded(object sender, EventArgs e)
+        private void MailReply_Succeeded(object sender, EventArgs e)
         {
-            PageLoader pl = sender as PageLoader;
-            if (pl != null)
-            {
-                string html = pl.GetResult() as string;
-                string result = Nzl.Web.Util.CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
-                if (result != null && result.Contains("成功"))
-                {
-                    this.ShowInformation("Replying the mail is completed!");
-                }
-            }
+            this.ShowInformation("Replying the mail is completed!");   
         }
 
         /// <summary>
@@ -302,8 +293,9 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MailReply_PageFailed(object sender, EventArgs e)
+        private void MailReply_Failed(object sender, EventArgs e)
         {
+            this.ShowInformation("Replying the mail failed!");
         }
         #endregion
 
@@ -313,23 +305,11 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MailDelete_PageLoaded(object sender, EventArgs e)
+        private void MailDelete_Succeeded(object sender, EventArgs e)
         {
-            PageLoader pl = sender as PageLoader;
-            if (pl != null)
-            {
-                WebPage wp = pl.GetResult() as WebPage;
-                if (wp != null && wp.IsGood)
-                {
-                    string result = Nzl.Web.Util.CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", wp.Html, "Result");
-                    if (result != null && result.Contains("成功"))
-                    {
-                        this.ShowInformation("Deleting the mail is completed!");
-                        this.SetUrlInfo(false);
-                        this.FetchPage();
-                    }
-                }
-            }
+            this.ShowInformation("Deleting the mail is completed!");
+            this.SetUrlInfo(false);
+            this.FetchPage();      
         }
 
         /// <summary>
@@ -337,8 +317,9 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MailDelete_PageFailed(object sender, EventArgs e)
+        private void MailDelete_Failed(object sender, EventArgs e)
         {
+            this.ShowInformation("Deleting the mail failed!");
         }
         #endregion
 
@@ -457,10 +438,10 @@
                     string postString = btn.Tag as string;
                     if (string.IsNullOrEmpty(postString) == false)
                     {
-                        PageLoader pl = new PageLoader(Configuration.SendMailUrl, postString);
-                        pl.PageLoaded += NewMail_PageLoaded;
-                        pl.PageFailed += NewMail_PageFailed;
-                        PageDispatcher.Instance.Add(pl);
+                        PostLoader pl = new PostLoader(Configuration.SendMailUrl, postString);
+                        pl.Succeeded += NewMail_Succeeded;
+                        pl.Failed += NewMail_Failed;
+                        pl.Start();
                     }
                 }
             }
@@ -472,19 +453,11 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NewMail_PageLoaded(object sender, EventArgs e)
+        private void NewMail_Succeeded(object sender, EventArgs e)
         {
-            PageLoader pl = sender as PageLoader;
-            if (pl != null)
-            {
-                string html = pl.GetResult() as string;
-                string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
-                if (result != null && result.Contains("成功"))
-                {
-                    this.SetUrlInfo(false);
-                    this.FetchPage();
-                }
-            }
+            this.ShowInformation("Sending mail is completed!");
+            this.SetUrlInfo(false);
+            this.FetchPage();
         }
 
         /// <summary>
@@ -492,8 +465,9 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NewMail_PageFailed(object sender, EventArgs e)
+        private void NewMail_Failed(object sender, EventArgs e)
         {
+            this.ShowInformation("Sending mail failed!");
         }
         #endregion
         #endregion

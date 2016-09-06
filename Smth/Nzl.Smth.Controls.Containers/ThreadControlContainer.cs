@@ -702,10 +702,10 @@ namespace Nzl.Smth.Controls.Containers
                     e.Link.Tag = null;
                     if (string.IsNullOrEmpty(postString) == false)
                     {
-                        PageLoader pl = new PageLoader(this._postUrl, postString);
-                        pl.PageLoaded += ThreadReply_PageLoaded;
-                        pl.PageFailed += ThreadReply_PageFailed;
-                        PageDispatcher.Instance.Add(pl);
+                        PostLoader pl = new PostLoader(this._postUrl, postString);
+                        pl.Succeeded += ThreadReply_Succeeded;
+                        pl.Failed += ThreadReply_Failed;
+                        pl.Start();
                     }
                 }
 
@@ -719,20 +719,11 @@ namespace Nzl.Smth.Controls.Containers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ThreadReply_PageLoaded(object sender, EventArgs e)
+        private void ThreadReply_Succeeded(object sender, EventArgs e)
         {
-            PageLoader pl = sender as PageLoader;
-            if (pl != null)
-            {
-                string html = pl.GetResult() as string;
-                string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
-                if (result != null && result.Contains("成功"))
-                {
-                    this.ShowInformation("Replying the thread is completed, the page will be refreshed!");
-                    this.SetUrlInfo(false);
-                    this.FetchLastPage();
-                }
-            }
+            this.ShowInformation("Replying the thread is completed, the page will be refreshed!");
+            this.SetUrlInfo(false);
+            this.FetchLastPage();
         }
 
         /// <summary>
@@ -740,8 +731,9 @@ namespace Nzl.Smth.Controls.Containers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ThreadReply_PageFailed(object sender, EventArgs e)
+        private void ThreadReply_Failed(object sender, EventArgs e)
         {
+            this.ShowInformation("Replying the thread failed!");
         }
         #endregion
 
@@ -799,10 +791,10 @@ namespace Nzl.Smth.Controls.Containers
                     string postString = e.Link.Tag.ToString();                    
                     if (string.IsNullOrEmpty(postString) == false)
                     {
-                        PageLoader pl = new PageLoader(e.Link.LinkData.ToString(), postString);
-                        pl.PageLoaded += ThreadReply_PageLoaded;
-                        pl.PageFailed += ThreadReply_PageFailed;
-                        PageDispatcher.Instance.Add(pl);
+                        PostLoader pl = new PostLoader(e.Link.LinkData.ToString(), postString);
+                        pl.Succeeded += ThreadReply_Succeeded;
+                        pl.Failed += ThreadReply_Failed;
+                        pl.Start();
                     }
                 }
 
@@ -825,10 +817,10 @@ namespace Nzl.Smth.Controls.Containers
                     string postString = e.Link.Tag as string;
                     if (string.IsNullOrEmpty(postString) == false)
                     {
-                        PageLoader pl = new PageLoader(Configuration.SendMailUrl, postString);
-                        pl.PageLoaded += ThreadMail_PageLoaded;
-                        pl.PageFailed += ThreadMail_PageFailed;
-                        PageDispatcher.Instance.Add(pl);
+                        PostLoader pl = new PostLoader(Configuration.SendMailUrl, postString);
+                        pl.Succeeded += ThreadMail_Succeeded;
+                        pl.Failed += ThreadMail_Failed;
+                        pl.Start();
                     }                    
                 }
 
@@ -842,18 +834,9 @@ namespace Nzl.Smth.Controls.Containers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ThreadMail_PageLoaded(object sender, EventArgs e)
+        private void ThreadMail_Succeeded(object sender, EventArgs e)
         {
-            PageLoader pl = sender as PageLoader;
-            if (pl != null)
-            {
-                string html = pl.GetResult() as string;
-                string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
-                if (result != null && result.Contains("成功"))
-                {
-                    this.ShowInformation("Sending mail is completed!");
-                }
-            }
+            this.ShowInformation("Sending mail is completed!");          
         }
 
         /// <summary>
@@ -861,8 +844,9 @@ namespace Nzl.Smth.Controls.Containers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ThreadMail_PageFailed(object sender, EventArgs e)
+        private void ThreadMail_Failed(object sender, EventArgs e)
         {
+            this.ShowInformation("Sending mail failed!");
         }
         #endregion
 
@@ -894,10 +878,10 @@ namespace Nzl.Smth.Controls.Containers
                     string postString = e.Link.Tag.ToString();                    
                     if (string.IsNullOrEmpty(postString) == false)
                     {
-                        PageLoader pl = new PageLoader(e.Link.LinkData.ToString(), postString);
-                        pl.PageLoaded += ThreadEdit_PageLoaded;
-                        pl.PageFailed += ThreadEdit_PageFailed;
-                        PageDispatcher.Instance.Add(pl);
+                        PostLoader pl = new PostLoader(e.Link.LinkData.ToString(), postString);
+                        pl.Succeeded += ThreadEdit_Succeeded;
+                        pl.Failed += ThreadEdit_Failed;
+                        pl.Start();
                     }
                 }
 
@@ -911,21 +895,11 @@ namespace Nzl.Smth.Controls.Containers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ThreadEdit_PageLoaded(object sender, EventArgs e)
+        private void ThreadEdit_Succeeded(object sender, EventArgs e)
         {
-
-            PageLoader pl = sender as PageLoader;
-            if (pl != null)
-            {
-                string html = pl.GetResult() as string;
-                string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
-                if (result != null && result.Contains("成功"))
-                {
-                    this.ShowInformation("Editting the thread is completed, the page will be refreshed!");
-                    this.SetUrlInfo(false);
-                    this.FetchLastPage();
-                }
-            }
+            this.ShowInformation("Editting the thread is completed, the page will be refreshed!");
+            this.SetUrlInfo(false);
+            this.FetchLastPage(); 
         }
 
         /// <summary>
@@ -933,8 +907,9 @@ namespace Nzl.Smth.Controls.Containers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ThreadEdit_PageFailed(object sender, EventArgs e)
+        private void ThreadEdit_Failed(object sender, EventArgs e)
         {
+            this.ShowInformation("Editting the thread failed!");
         }
         #endregion
 
@@ -949,11 +924,11 @@ namespace Nzl.Smth.Controls.Containers
             {
                 this.OnThreadDeleteLinkClicked(sender, e);
                 if (e.Link.Tag != null && e.Link.Tag.ToString() == "Yes")
-                {                    
-                    PageLoader pl = new PageLoader(e.Link.LinkData.ToString());
-                    pl.PageLoaded += ThreadDelete_PageLoaded;
-                    pl.PageFailed += THreadDelete_PageFailed;
-                    PageDispatcher.Instance.Add(pl);
+                {
+                    PostLoader pl = new PostLoader(e.Link.LinkData.ToString());
+                    pl.Succeeded += ThreadDelete_Succeeded;
+                    pl.Failed += ThreadDelete_Failed;
+                    pl.Start();
                 }
 
                 e.Link.Tag = null;
@@ -966,23 +941,11 @@ namespace Nzl.Smth.Controls.Containers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ThreadDelete_PageLoaded(object sender, EventArgs e)
+        private void ThreadDelete_Succeeded(object sender, EventArgs e)
         {
-            PageLoader pl = sender as PageLoader;
-            if (pl != null)
-            {
-                WebPage wp = pl.GetResult() as WebPage;
-                if (wp != null && wp.IsGood)
-                {
-                    string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", wp.Html, "Result");
-                    if (result != null && result.Contains("成功"))
-                    {
-                        this.ShowInformation("Deleting the thread is completed, the page will be refreshed!");
-                        this.SetUrlInfo(false);
-                        this.FetchPage();
-                    }
-                }
-            }
+            this.ShowInformation("Deleting the thread is completed, the page will be refreshed!");
+            this.SetUrlInfo(false);
+            this.FetchPage();     
         }
 
         /// <summary>
@@ -990,8 +953,9 @@ namespace Nzl.Smth.Controls.Containers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void THreadDelete_PageFailed(object sender, EventArgs e)
+        private void ThreadDelete_Failed(object sender, EventArgs e)
         {
+            this.ShowInformation("Deleting the thread failed!");
         }
         #endregion
 

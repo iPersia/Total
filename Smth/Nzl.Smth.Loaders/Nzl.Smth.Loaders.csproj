@@ -42,7 +42,7 @@
     <Compile Include="BoardNode.cs" />
     <Compile Include="Boards.cs" />
     <Compile Include="LogStatus.cs" />
-    <Compile Include="MailSender.cs" />
+    <Compile Include="PostLoader.cs" />
     <Compile Include="MailStatus.cs" />
     <Compile Include="PageDispatcher.cs" />
     <Compile Include="PageLoader.cs" />
