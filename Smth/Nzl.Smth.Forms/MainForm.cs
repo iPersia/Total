@@ -2,7 +2,7 @@
 {
     using System;
     using System.Windows.Forms;
-    using Nzl.Smth.Configurations;
+    using Nzl.Smth.Configs;
     using Nzl.Smth.Logger;
 
     public partial class MainForm : Form

@@ -142,7 +142,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Recycling", "Components
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Repository", "Components\Nzl.Repository\Nzl.Repository.csproj", "{34E73DFF-0B1D-4820-9DF9-F9EFE29E23AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Configurations", "Smth\Nzl.Smth.Configurations\Nzl.Smth.Configurations.csproj", "{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Configs", "Smth\Nzl.Smth.Configurations\Nzl.Smth.Configs.csproj", "{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Messaging", "Components\Nzl.Messaging\Nzl.Messaging.csproj", "{A91BD567-B912-4F7A-A9B7-84D914923D53}"
 EndProject

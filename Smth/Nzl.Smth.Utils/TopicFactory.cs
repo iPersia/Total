@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using Nzl.Recycling;
-    using Nzl.Smth.Configurations;
+    using Nzl.Smth.Configs;
     using Nzl.Smth.Datas;
     using Nzl.Web.Page;
     using Nzl.Web.Util;

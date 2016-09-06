@@ -5,7 +5,7 @@
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
     using Nzl.Smth;
-    using Nzl.Smth.Configurations;
+    using Nzl.Smth.Configs;
     using Nzl.Smth.Loaders;
     using Nzl.Smth.Logger;
     using Nzl.Web.Util;

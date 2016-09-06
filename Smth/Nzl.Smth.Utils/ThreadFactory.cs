@@ -6,7 +6,7 @@
     using System.Text.RegularExpressions;
     using System.Xml;
     using Nzl.Recycling;
-    using Nzl.Smth.Configurations;
+    using Nzl.Smth.Configs;
     using Nzl.Smth.Datas;    
     using Nzl.Smth.Interfaces;
     using Nzl.Smth.Logger;

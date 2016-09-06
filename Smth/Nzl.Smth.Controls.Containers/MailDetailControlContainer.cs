@@ -7,7 +7,7 @@ namespace Nzl.Smth.Controls.Containers
     using System.Drawing;
     using System.Windows.Forms;
     using Nzl.Smth;
-    using Nzl.Smth.Configurations;
+    using Nzl.Smth.Configs;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Controls.Base;
     using Nzl.Smth.Controls.Elements;

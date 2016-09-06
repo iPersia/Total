@@ -9,7 +9,7 @@
     using Nzl.Messaging;
     using Nzl.Recycling;
     using Nzl.Smth;
-    using Nzl.Smth.Configurations;
+    using Nzl.Smth.Configs;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Loaders;
     using Nzl.Smth.Logger;

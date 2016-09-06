@@ -97,9 +97,9 @@
       <Project>{e22371cb-bcae-41e5-82b3-2b696c7e05d1}</Project>
       <Name>Nzl.Smth</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nzl.Smth.Configurations\Nzl.Smth.Configurations.csproj">
+    <ProjectReference Include="..\Nzl.Smth.Configurations\Nzl.Smth.Configs.csproj">
       <Project>{7a3921a8-a2e3-4ffb-84c8-9bb605772ebd}</Project>
-      <Name>Nzl.Smth.Configurations</Name>
+      <Name>Nzl.Smth.Configs</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nzl.Smth.Controls.Containers\Nzl.Smth.Controls.Containers.csproj">
       <Project>{3466c961-acdb-4f03-bb1d-10fad9fb88f1}</Project>

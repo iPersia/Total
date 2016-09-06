@@ -1,4 +1,4 @@
-﻿namespace Nzl.Smth.Configurations
+﻿namespace Nzl.Smth.Configs
 {
     using System;
     using System.Collections.Generic;

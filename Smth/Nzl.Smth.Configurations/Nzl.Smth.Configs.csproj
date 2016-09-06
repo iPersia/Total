@@ -7,8 +7,8 @@
     <ProjectGuid>{7A3921A8-A2E3-4FFB-84C8-9BB605772EBD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nzl.Smth.Configurations</RootNamespace>
-    <AssemblyName>Nzl.Smth.Configurations</AssemblyName>
+    <RootNamespace>Nzl.Smth.Configs</RootNamespace>
+    <AssemblyName>Nzl.Smth.Configs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

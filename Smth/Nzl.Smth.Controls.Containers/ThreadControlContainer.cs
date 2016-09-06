@@ -8,7 +8,7 @@ namespace Nzl.Smth.Controls.Containers
     using System.Windows.Forms;
     using Nzl.Recycling;
     using Nzl.Smth;
-    using Nzl.Smth.Configurations;
+    using Nzl.Smth.Configs;
     using Nzl.Smth.Controls.Base;
     using Nzl.Smth.Controls.Elements;
     using Nzl.Smth.Datas;

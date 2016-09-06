@@ -10,7 +10,7 @@
     using Nzl.Recycling;
     using Nzl.Web.Page;
     using Nzl.Smth;
-    using Nzl.Smth.Configurations;
+    using Nzl.Smth.Configs;
     using Nzl.Smth.Controls.Complexes;
     using Nzl.Smth.Controls.Containers;
     using Nzl.Smth.Datas;

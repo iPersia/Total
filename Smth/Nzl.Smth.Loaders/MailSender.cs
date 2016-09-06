@@ -2,7 +2,7 @@
 {
     using System;
     using Nzl.Smth;
-    using Nzl.Smth.Configurations;
+    using Nzl.Smth.Configs;
     using Nzl.Web.Util;
 
     /// <summary>
