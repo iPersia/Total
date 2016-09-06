@@ -25,7 +25,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private MailDetailControlContainer _mccContainer = null;
+        private MailDetailControlContainer _mccContainer = new MailDetailControlContainer();
         #endregion
 
         #region Ctor
@@ -35,20 +35,20 @@
         public MailDetailForm()
         {
             InitializeComponent();
-            this._mccContainer = new MailDetailControlContainer();
             this._mccContainer.Left = 1;
             this._mccContainer.Top = 1;
             this._mccContainer.OnMailAuthorLinkClicked += Mdcc_OnMailAuthorLinkClicked;
             this._mccContainer.OnMailDeleteLinkClicked += Mdcc_OnMailDeleteLinkClicked;
             this._mccContainer.OnMailReplyLinkClicked += Mdcc_OnMailReplyLinkClicked;
-            this._mccContainer.OnMailTransferLinkClicked += Mdcc_OnMailTransferLinkClicked;
+            this._mccContainer.OnMailTransferLinkClicked += Mdcc_OnMailTransferLinkClicked;            
+            this._mccContainer.BorderStyle = BorderStyle.FixedSingle;
+            this.Size = new Size(this._mccContainer.Width + this.Width - this.panelContainer.Width + 2,
+                                 this._mccContainer.Height + this.Height - this.panelContainer.Height + 2);
+            this.panelContainer.Controls.Add(this._mccContainer);
+
+            ///First loading.
             this._mccContainer.CreateControl();
             this._mccContainer.SetParentControl(this);
-            this._mccContainer.BorderStyle = BorderStyle.FixedSingle;            
-            this.Size = new Size(this._mccContainer.Width + this.Width - this.panelContainer.Width + 2, 
-                                 this._mccContainer.Height + this.Height - this.panelContainer.Height + 2);
-
-            this.panelContainer.Controls.Add(this._mccContainer);
         }
         #endregion
 
@@ -91,13 +91,16 @@
                     string content = GetReplyContent(mail.Title, mail.Content);
                     NewMailForm newMailForm = new NewMailForm(mail.Author, mail.Title, content);
                     newMailForm.StartPosition = FormStartPosition.CenterParent;
-                    if (newMailForm.ShowDialog(this) == DialogResult.Yes)
+                    this.Tag = null;
+                    if (newMailForm.ShowDialog(this) == DialogResult.OK)
                     {
+                        this.Tag = "ReplyMail" + newMailForm.GetPostString();
                         e.Link.Visited = true;
+                        this.Close();
                     }
                 }
             }
-        }        
+        }
 
         /// <summary>
         /// 
@@ -111,11 +114,13 @@
             {
                 if (string.IsNullOrEmpty(e.Link.LinkData.ToString()) == false)
                 {
-                    WebPage page = WebPageFactory.CreateWebPage(e.Link.LinkData.ToString());
-                    string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", page.Html, "Result");
-                    if (result != null && result.Contains("成功"))
+                    MessageForm form = new MessageForm("Confirm", "Do you want to delete this mail?");
+                    form.StartPosition = FormStartPosition.CenterParent;
+                    this.Tag = null;
+                    if (form.ShowDialog(this) == DialogResult.OK)
                     {
-                        this.DialogResult = System.Windows.Forms.DialogResult.Yes;
+                        this.Tag = "ConfirmToDelete" + e.Link.LinkData.ToString();
+                        e.Link.Visited = true;
                         this.Close();
                     }
                 }

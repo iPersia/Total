@@ -415,7 +415,16 @@ namespace Nzl.Smth.Controls.Containers
         /// <param name="flag"></param>
         protected override void SetControlEnabled(bool flag)
         {
-            base.SetControlEnabled(flag);          
+            base.SetControlEnabled(flag);
+
+            this.btnFirst.Enabled = flag;
+            this.btnPrev.Enabled = flag;
+            this.btnNext.Enabled = flag;
+            this.btnLast.Enabled = flag;
+            this.btnGo.Enabled = flag;
+            this.btnSettings.Enabled = flag;
+            this.txtGoTo.Enabled = flag;
+
             this.btnRefresh.Enabled = true;
         }
 
@@ -718,6 +727,7 @@ namespace Nzl.Smth.Controls.Containers
                 string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
                 if (result != null && result.Contains("成功"))
                 {
+                    this.ShowInformation("Replying the thread is completed, the page will be refreshed!");
                     this.SetUrlInfo(false);
                     this.FetchLastPage();
                 }
@@ -840,8 +850,7 @@ namespace Nzl.Smth.Controls.Containers
                 string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
                 if (result != null && result.Contains("成功"))
                 {
-                    //this.SetUrlInfo(false);
-                    //this.FetchLastPage();
+                    this.ShowInformation("Sending mail is completed!");
                 }
             }
         }
@@ -911,9 +920,9 @@ namespace Nzl.Smth.Controls.Containers
                 string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
                 if (result != null && result.Contains("成功"))
                 {
-                    this.ShowInformation("ThreadEdit_PageLoaded show text in label!");
-                    //this.SetUrlInfo(false);
-                    //this.FetchLastPage();
+                    this.ShowInformation("Editting the thread is completed, the page will be refreshed!");
+                    this.SetUrlInfo(false);
+                    this.FetchLastPage();
                 }
             }
         }
@@ -967,6 +976,7 @@ namespace Nzl.Smth.Controls.Containers
                     string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", wp.Html, "Result");
                     if (result != null && result.Contains("成功"))
                     {
+                        this.ShowInformation("Deleting the thread is completed, the page will be refreshed!");
                         this.SetUrlInfo(false);
                         this.FetchPage();
                     }

@@ -109,6 +109,7 @@
             if (mtColleton != null && mtColleton.Count > 0)
             {
                 mail.Author = mtColleton[0].Groups["Author"].Value.ToString();
+                mail.DateTime = mtColleton[0].Groups["DateTime"].Value.ToString();
                 if (mtColleton[0].Groups["ReplyUrl"].Value != null && string.IsNullOrEmpty(mtColleton[0].Groups["ReplyUrl"].Value) == false)
                 {
                     mail.ReplyUrl = Configuration.BaseUrl + mtColleton[0].Groups["ReplyUrl"].Value.ToString();

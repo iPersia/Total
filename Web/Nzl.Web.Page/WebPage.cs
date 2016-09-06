@@ -427,43 +427,53 @@
         /// <returns></returns>
         private static string SendDataByPost(string Url, string postDataStr, ref CookieContainer cookie)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
-            if (cookie.Count == 0)
+            try
             {
-                request.CookieContainer = new CookieContainer();
-                cookie = request.CookieContainer;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
+                if (cookie.Count == 0)
+                {
+                    request.CookieContainer = new CookieContainer();
+                    cookie = request.CookieContainer;
+                }
+                else
+                {
+                    request.CookieContainer = cookie;
+                }
+
+                byte[] bytes = Encoding.GetEncoding("utf-8").GetBytes(postDataStr);
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentLength = bytes.Length;
+                Stream myRequestStream = request.GetRequestStream();
+                myRequestStream.Write(bytes, 0, bytes.Length);
+                myRequestStream.Close();
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                foreach (Cookie ck in response.Cookies)
+                {
+                    cookie.Add(ck);
+                }
+
+                lock (WebPage.webcookies)
+                {
+                    WebPage.webcookies[new Uri(Url).Host] = cookie;
+                }
+
+                Stream myResponseStream = response.GetResponseStream();
+                StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
+                string retString = myStreamReader.ReadToEnd();
+                myStreamReader.Close();
+                myResponseStream.Close();
+
+                return retString;
             }
-            else
+            catch (Exception e)
             {
-                request.CookieContainer = cookie;
+#if (DEBUG)
+                CommonUtil.ShowMessage(typeof(WebPage), e.Message + "\n" + Url + "\n" + postDataStr);
+#endif
+                return null;
             }
-
-            byte[] bytes = Encoding.GetEncoding("utf-8").GetBytes(postDataStr);
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = bytes.Length;            
-            Stream myRequestStream = request.GetRequestStream();
-            myRequestStream.Write(bytes, 0, bytes.Length);
-            myRequestStream.Close();
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            foreach (Cookie ck in response.Cookies)
-            {
-                cookie.Add(ck);
-            }
-
-            lock (WebPage.webcookies)
-            {
-                WebPage.webcookies[new Uri(Url).Host] = cookie;
-            }
-
-            Stream myResponseStream = response.GetResponseStream();
-            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
-            string retString = myStreamReader.ReadToEnd();
-            myStreamReader.Close();
-            myResponseStream.Close();
-
-            return retString;
         }
         #endregion
 

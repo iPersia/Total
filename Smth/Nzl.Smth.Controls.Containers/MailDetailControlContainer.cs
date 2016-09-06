@@ -64,8 +64,11 @@ namespace Nzl.Smth.Controls.Containers
         /// </summary>
         public MailDetailControlContainer()
         {
-            InitializeComponent();
+            InitializeComponent();            
             this.Text = "Mail Detail";
+            this.panel.BorderStyle = BorderStyle.FixedSingle;
+            this.panelContainer.BorderStyle = BorderStyle.FixedSingle;
+            this.InitializeSize();
         }
 
         /// <summary>
@@ -107,7 +110,9 @@ namespace Nzl.Smth.Controls.Containers
         {
             base.OnLoad(e);
             this.IsResponingMouseWheel = false;
-            this.InitializeSize();
+
+            ///base.OnLoad changed the board style.
+            //this.InitializeSize();
         }
 
         /// <summary>
@@ -243,52 +248,8 @@ namespace Nzl.Smth.Controls.Containers
             if (this.OnMailReplyLinkClicked != null)
             {
                 this.OnMailReplyLinkClicked(sender, e);
-                if (e.Link.Tag != null)
-                {
-                    string postString = e.Link.Tag as string;
-                    if (string.IsNullOrEmpty(postString) == false)
-                    {
-                        PageLoader pl = new PageLoader(Configuration.SendMailUrl, postString);
-                        pl.PageLoaded += ThreadMail_PageLoaded;
-                        pl.PageFailed += ThreadMail_PageFailed;
-                        PageDispatcher.Instance.Add(pl);
-                    }
-                }
-
-                e.Link.Tag = null;
             }
         }
-
-        #region ThreadMail - PageLoaded & PageFailed
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ThreadMail_PageLoaded(object sender, EventArgs e)
-        {
-            PageLoader pl = sender as PageLoader;
-            if (pl != null)
-            {
-                string html = pl.GetResult() as string;
-                string result = Nzl.Web.Util.CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
-                if (result != null && result.Contains("成功"))
-                {
-                    //this.SetUrlInfo(false);
-                    //this.FetchLastPage();
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ThreadMail_PageFailed(object sender, EventArgs e)
-        {
-        }
-        #endregion
 
         /// <summary>
         /// 

@@ -65,8 +65,8 @@
                 tbc.OnTopLinkClicked += SectionTopsControl_OnTopLinkClicked;
 
                 ///Set the size firstly, then add the MailControlContainer to TabPage.
-                this.Size = new Size(tbc.Width + 8, tbc.Height + 26 );
-                tp.Controls.Add(tbc);                
+                this.Size = new Size(tbc.Width + 10, tbc.Height + 28);
+                tp.Controls.Add(tbc);
             }
 
             this._timerLoadingTops.Interval = Configuration.Top10sLoadingInterval;

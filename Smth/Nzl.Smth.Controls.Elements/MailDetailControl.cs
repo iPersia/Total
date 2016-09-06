@@ -67,6 +67,7 @@ namespace Nzl.Smth.Controls.Elements
                 {
                     this.lblTitle.Text = mail.Title;
                     this.linklblID.Text = mail.Author;
+                    this.lblDateTime.Text = mail.DateTime;
 
                     ///Delete url.
                     this.linklblDelete.Visible = false;

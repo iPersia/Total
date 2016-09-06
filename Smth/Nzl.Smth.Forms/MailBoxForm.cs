@@ -17,6 +17,9 @@
         /// </summary>
         private Form _parentForm = null;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private Nzl.Smth.Controls.Complexes.MailBoxControl _mbcMails = new Smth.Controls.Complexes.MailBoxControl();
 
         /// <summary>
@@ -83,11 +86,10 @@
                 this._mailDetailForm.StartPosition = FormStartPosition.CenterParent;
                 this._mailDetailForm.Url = e.Link.LinkData.ToString();
                 this.HideWhenDeactivate = false;
-                if (this._mailDetailForm.ShowDialog(this._parentForm) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    e.Link.Tag = "Success";
-                }
-
+                this._mailDetailForm.ShowDialog(this._parentForm);
+                e.Link.Tag = this._mailDetailForm.Tag;
+                this._mailDetailForm.Tag = null;
+                e.Link.Visited = true;
                 this.Focus();
                 this.HideWhenDeactivate = true;
             }

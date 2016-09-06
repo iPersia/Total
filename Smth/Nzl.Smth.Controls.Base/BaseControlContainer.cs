@@ -45,6 +45,11 @@
         /// 
         /// </summary>
         private System.ComponentModel.BackgroundWorker bwFetchPage;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Label _lblMessage = new Label();
         #endregion
 
         #region Ctor
@@ -54,7 +59,7 @@
         public BaseControlContainer()
             : base()
         {
-            this.IsFetchingPage = false;
+            this.IsWorking = false;
             this.IsRecycled = false;
             this.Status = RecycledStatus.Using;
             Configuration.OnLocationMarginChanged += Configuration_OnLocationMarginChanged;
@@ -80,7 +85,7 @@
         /// <summary>
         /// 
         /// </summary>
-        protected bool IsFetchingPage
+        protected bool IsWorking
         {
             get;
             private set;
@@ -139,7 +144,7 @@
         /// </summary>
         public virtual void Recycling()
         {
-            if (this.IsFetchingPage == false)
+            if (this.IsWorking == false)
             {
                 Panel baseControlContainer = this.GetPanel();
                 if (baseControlContainer != null)
@@ -179,20 +184,32 @@
                 }
             }
 
-            ///BorderStyle
+            ///Set BorderStyle.
             this.BorderStyle = BorderStyle.None;
             this.GetPanelContainer().BorderStyle = BorderStyle.FixedSingle;
             this.GetPanel().BorderStyle = BorderStyle.FixedSingle;
 
+            ///Set location.
             this.GetPanel().Location = new Point(Configuration.BaseControlContainerLocationMargin,
                                                  Configuration.BaseControlContainerLocationMargin);
 
+            ///Set width.
             this.GetPanel().Width = this.GetPanelContainer().Width
                                   - Configuration.BaseControlContainerLocationMargin * 2
                                   - this.GetPanelContainerBoarderMargin();
 
-            this.IsResponingMouseWheel = true;
-            this.ShowInformationInPanel("Page loading, please wait for a moment!");
+            ///Add message label.
+            this._lblMessage.BackColor = Color.Transparent;
+            this._lblMessage.ForeColor = Color.OrangeRed;
+            this._lblMessage.Hide();
+            this.GetPanelContainer().Controls.Remove(this.GetPanel());
+            this.GetPanelContainer().Controls.Add(this._lblMessage);
+            this.GetPanelContainer().Controls.Add(this.GetPanel());
+
+            ///Response to mouse wheeling.
+            this.IsResponingMouseWheel = true;            
+
+            ///Fetch first page.
             this.SetUrlInfo(false);
             this.FetchPage();
         }
@@ -494,10 +511,13 @@
                 if (info.Status == PageStatus.Normal)
                 {
                     LogStatus.Instance.UpdateStatus(info.WebPage);
+#if (DEBUG)
+                    this.ShowInformation("Work is completed!");
+#endif
                 }
                 else
                 {
-                    ShowInformationInPanel(MiscUtil.GetEnumDescription(info.Status));
+                    ShowInformation(MiscUtil.GetEnumDescription(info.Status));
                 }
             }
         }
@@ -517,7 +537,7 @@
             }
             else
             {
-                this.GetPanelContainer().Enabled = flag;
+                this.GetPanelContainer().Enabled = flag;                
             }
         }
 
@@ -788,7 +808,7 @@
         /// 
         /// </summary>
         /// <param name="text"></param>
-        protected void ShowInformationInPanel(string text)
+        private void ShowInformationInPanel(string text)
         {
             Panel baseControlContainer = this.GetPanel();
             if (baseControlContainer != null)
@@ -822,23 +842,18 @@
                 Panel panelContainer = this.GetPanelContainer();
                 if (panelContainer != null)
                 {
-                    Label lbl = new Label();
-                    lbl.AutoSize = true;
-                    lbl.Text = text;
-                    lbl.Top = panelContainer.Height - 100;
-                    lbl.Left = (panelContainer.Width - lbl.Width) / 2;
-                    lbl.BringToFront();
-                    Control ctl = panelContainer.Controls[0];
-                    panelContainer.Controls.Clear();
-                    panelContainer.Controls.Add(lbl);
-                    panelContainer.Controls.Add(ctl);
-                    lbl.Enabled = false;
+                    this._lblMessage.Hide();
+                    this._lblMessage.AutoSize = true;
+                    this._lblMessage.Text = text;
+                    this._lblMessage.Top = panelContainer.Height * 8 / 10;
+                    this._lblMessage.Left = (panelContainer.Width - this._lblMessage.Width) / 2;
+                    this._lblMessage.Show();
                 }
 
                 ///Clear timer
                 Timer showTextTimer = new Timer();
                 showTextTimer.Tick += ShowTextTimer_Tick;
-                showTextTimer.Interval += 3000;
+                showTextTimer.Interval += 1000;
                 showTextTimer.Start();                
             }
         }
@@ -849,20 +864,7 @@
             if (timer != null)
             {
                 timer.Stop();
-                Panel panelContainer = this.GetPanelContainer();
-                if (panelContainer != null)
-                {
-                    int count = panelContainer.Controls.Count;
-                    for (int i=0; i < count; i++)
-                    {
-                        Label lbl = panelContainer.Controls[i] as Label;
-                        if (lbl != null)
-                        {
-                            panelContainer.Controls.RemoveAt(i);
-                            count--;
-                        }
-                    }
-                }                
+                this._lblMessage.Hide();
             }
         }
 
@@ -970,7 +972,7 @@
                     WorkCompletedBase(e);
                 }
 
-                this.IsFetchingPage = false;
+                this.IsWorking = false;
                 this.SetControlEnabled(true);
             }
             catch (Exception exp)
@@ -1062,9 +1064,10 @@
                 if (urlInfo.Index > 0 &&
                     urlInfo.Index <= urlInfo.Total &&
                     string.IsNullOrEmpty(urlInfo.BaseUrl) == false &&
-                    this.IsFetchingPage == false &&
+                    this.IsWorking == false &&
                     this.Status == RecycledStatus.Using)
                 {
+                    this.IsWorking = true;
                     PageLoader pl = new PageLoader(this.GetUrl(urlInfo));
                     pl.Tag = urlInfo;
                     pl.PageLoaded += new EventHandler(PageLoader_PageLoaded);
@@ -1073,7 +1076,10 @@
 #if (DEBUG)
                     Nzl.Web.Util.CommonUtil.ShowMessage(this, "BaseContainer - FetchPage(UrlInfo's index is equal to " + urlInfo.Index + ")!");
 #endif
-                    this.IsFetchingPage = true;
+
+#if (DEBUG)
+                    this.ShowInformation("Starting getting page!");
+#endif
                     SetControlEnabled(false);
                     return true;
                 }
@@ -1112,7 +1118,8 @@
                 }
                 else
                 {
-                    this.IsFetchingPage = false;
+                    this.ShowInformation("The page getted is bad!");
+                    this.IsWorking = false;
                     SetControlEnabled(true);
                 }
             }
@@ -1127,7 +1134,7 @@
         {
             lock (this)
             {
-                this.IsFetchingPage = false;
+                this.IsWorking = false;
                 SetControlEnabled(true);
             }
         }
@@ -1166,6 +1173,7 @@
             if (this.OnWorkerFailed != null)
             {
                 this.OnWorkerFailed(this, new MessageEventArgs(msg));
+                ShowInformation("Loading failed!");
             }
         }
 
@@ -1178,6 +1186,7 @@
             if (this.OnWorkerCancelled != null)
             {
                 this.OnWorkerCancelled(this, new MessageEventArgs(msg));
+                ShowInformation("Loading cancelled!");
             }
         }
         #endregion

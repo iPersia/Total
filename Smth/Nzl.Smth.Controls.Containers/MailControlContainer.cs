@@ -204,6 +204,14 @@
         protected override void SetControlEnabled(bool flag)
         {
             base.SetControlEnabled(flag);
+
+            this.btnFirst.Enabled = flag;
+            this.btnPrev.Enabled = flag;
+            this.btnNext.Enabled = flag;
+            this.btnLast.Enabled = flag;
+            this.btnGo.Enabled = flag;
+            this.txtGoTo.Enabled = flag;
+
             this.btnRefresh.Enabled = true;
         }
 
@@ -242,14 +250,97 @@
             if (this.OnMailLinkClicked != null)
             {
                 this.OnMailLinkClicked(sender, e);
-                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Success")
+                if (e.Link.Tag != null)
                 {
-                    e.Link.Tag = null;
-                    this.SetUrlInfo(false);
-                    this.FetchPage();
+                    string infor = e.Link.Tag.ToString();
+                    ///Deleting mail.
+                    if (infor.Contains("ConfirmToDelete"))
+                    {
+                        PageLoader pl = new PageLoader(infor.Replace("ConfirmToDelete", ""));
+                        pl.PageLoaded += MailDelete_PageLoaded;
+                        pl.PageFailed += MailDelete_PageFailed;
+                        PageDispatcher.Instance.Add(pl);
+                    }
+
+                    ///Replying mail.
+                    if (infor.Contains("ReplyMail"))
+                    {                        
+                        PageLoader pl = new PageLoader(Configuration.SendMailUrl, infor.Replace("ReplyMail", ""));
+                        pl.PageLoaded += MailReply_PageLoaded;
+                        pl.PageFailed += MailReply_PageFailed;
+                        PageDispatcher.Instance.Add(pl);
+                    }
+                }
+
+                e.Link.Tag = null;
+            }
+        }
+
+        #region MailReply - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MailReply_PageLoaded(object sender, EventArgs e)
+        {
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                string html = pl.GetResult() as string;
+                string result = Nzl.Web.Util.CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
+                if (result != null && result.Contains("成功"))
+                {
+                    this.ShowInformation("Replying the mail is completed!");
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MailReply_PageFailed(object sender, EventArgs e)
+        {
+        }
+        #endregion
+
+        #region MailDelete - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MailDelete_PageLoaded(object sender, EventArgs e)
+        {
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                WebPage wp = pl.GetResult() as WebPage;
+                if (wp != null && wp.IsGood)
+                {
+                    string result = Nzl.Web.Util.CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", wp.Html, "Result");
+                    if (result != null && result.Contains("成功"))
+                    {
+                        this.ShowInformation("Deleting the mail is completed!");
+                        this.SetUrlInfo(false);
+                        this.FetchPage();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MailDelete_PageFailed(object sender, EventArgs e)
+        {
+        }
+        #endregion
+
         #endregion
 
         #region event handler.

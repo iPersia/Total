@@ -151,7 +151,7 @@
             // 
             // panelDown
             // 
-            this.panelDown.BackColor = System.Drawing.SystemColors.Window;
+            this.panelDown.BackColor = System.Drawing.SystemColors.Control;
             this.panelDown.Controls.Add(this.richtxtContent);
             this.panelDown.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDown.Location = new System.Drawing.Point(0, 0);
@@ -161,7 +161,7 @@
             // 
             // richtxtContent
             // 
-            this.richtxtContent.BackColor = System.Drawing.SystemColors.Window;
+            this.richtxtContent.BackColor = System.Drawing.SystemColors.Control;
             this.richtxtContent.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richtxtContent.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.richtxtContent.HiglightColor = Nzl.Controls.RtfColor.White;

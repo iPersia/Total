@@ -205,6 +205,15 @@
         protected override void SetControlEnabled(bool flag)
         {
             base.SetControlEnabled(flag);
+
+            this.btnFirst.Enabled = flag;
+            this.btnPrev.Enabled = flag;
+            this.btnNext.Enabled = flag;
+            this.btnLast.Enabled = flag;
+            this.btnGo.Enabled = flag;
+            this.btnSettings.Enabled = flag;
+            this.txtGoTo.Enabled = flag;
+
             this.btnRefresh.Enabled = true;
         }
 
