@@ -1,52 +1,55 @@
-﻿using System;
-
-/// <summary>
-/// 
-/// </summary>
-public class BoardSettingEventArgs : EventArgs
+﻿namespace Nzl.Smth
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public BoardSettingEventArgs()
-    {
-        this.IsShowTop = true;
-        this.AutoUpdating = false;
-        this.UpdatingInterval = 60;
-    }
+    using System;
 
     /// <summary>
     /// 
     /// </summary>
-    public bool IsShowTop
+    public class BoardSettingEventArgs : EventArgs
     {
-        get;
-        set;
-    }
+        /// <summary>
+        /// 
+        /// </summary>
+        public BoardSettingEventArgs()
+        {
+            this.IsShowTop = true;
+            this.AutoUpdating = false;
+            this.UpdatingInterval = 60;
+        }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public bool AutoUpdating
-    {
-        get;
-        set;
-    }
-    /// <summary>
-    /// 
-    /// </summary>
-    public int UpdatingInterval
-    {
-        get;
-        set;
-    }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsShowTop
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public object Tag
-    {
-        get;
-        set;
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool AutoUpdating
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int UpdatingInterval
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object Tag
+        {
+            get;
+            set;
+        }
     }
 }

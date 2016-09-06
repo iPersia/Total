@@ -4,6 +4,9 @@
     using System.Drawing;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
+    using Nzl.Smth;
+    using Nzl.Smth.Configurations;
+    using Nzl.Smth.Loaders;
     using Nzl.Smth.Logger;
     using Nzl.Web.Util;
     using Nzl.Web.Page;
@@ -153,7 +156,43 @@
         {
             NewMailForm newMailForm = new NewMailForm(this._userID);
             newMailForm.StartPosition = FormStartPosition.CenterParent;
-            newMailForm.ShowDialog(this);
+            if (newMailForm.ShowDialog(this) == DialogResult.OK)
+            {
+                PageLoader pl = new PageLoader(Configuration.SendMailUrl, newMailForm.GetPostString());
+                pl.PageLoaded += NewMail_PageLoaded;
+                pl.PageFailed += NewMail_PageFailed;
+                PageDispatcher.Instance.Add(pl);
+            }
         }
+
+        #region NewMail - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NewMail_PageLoaded(object sender, EventArgs e)
+        {
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                string html = pl.GetResult() as string;
+                string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
+                if (result != null && result.Contains("成功"))
+                {
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NewMail_PageFailed(object sender, EventArgs e)
+        {
+        }
+        #endregion
     }
 }

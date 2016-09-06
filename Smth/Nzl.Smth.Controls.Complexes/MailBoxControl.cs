@@ -3,7 +3,7 @@
     using System;
     using System.Drawing;
     using System.Windows.Forms;
-    using Nzl.Smth.Common;
+    using Nzl.Smth;
     using Nzl.Smth.Configurations;
     using Nzl.Smth.Controls.Containers;
 

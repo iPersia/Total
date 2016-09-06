@@ -83,9 +83,9 @@
       <Project>{6cba8f35-e6f4-4a6d-876f-38ea9de4649a}</Project>
       <Name>Nzl.Web.Util</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nzl.Smth.Common\Nzl.Smth.Common.csproj">
+    <ProjectReference Include="..\Nzl.Smth.Common\Nzl.Smth.csproj">
       <Project>{e22371cb-bcae-41e5-82b3-2b696c7e05d1}</Project>
-      <Name>Nzl.Smth.Common</Name>
+      <Name>Nzl.Smth</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nzl.Smth.Configurations\Nzl.Smth.Configurations.csproj">
       <Project>{7a3921a8-a2e3-4ffb-84c8-9bb605772ebd}</Project>
@@ -94,6 +94,10 @@
     <ProjectReference Include="..\Nzl.Smth.Datas\Nzl.Smth.Datas.csproj">
       <Project>{bbc9010b-cb89-4f7e-b418-5b653e5eb005}</Project>
       <Name>Nzl.Smth.Datas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Loaders\Nzl.Smth.Loaders.csproj">
+      <Project>{091bca06-33fb-4785-8169-81cc64deab80}</Project>
+      <Name>Nzl.Smth.Loaders</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nzl.Smth.Logger\Nzl.Smth.Logger.csproj">
       <Project>{55e4f995-1273-44e1-aea1-52fed6442660}</Project>

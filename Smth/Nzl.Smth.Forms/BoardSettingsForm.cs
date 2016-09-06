@@ -2,7 +2,7 @@
 {
     using System;
     using System.Windows.Forms;
-    using Nzl.Smth.Common;
+    using Nzl.Smth;
 
     /// <summary>
     /// 

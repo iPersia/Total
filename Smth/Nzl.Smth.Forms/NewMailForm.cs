@@ -4,7 +4,7 @@
     using System.Windows.Forms;
     using Nzl.Web.Util;
     using Nzl.Web.Page;
-    using Nzl.Smth.Common;
+    using Nzl.Smth;
     using Nzl.Smth.Logger;
 
     /// <summary>

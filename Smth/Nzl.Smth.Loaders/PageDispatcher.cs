@@ -1,4 +1,4 @@
-﻿namespace Nzl.Smth.Common
+﻿namespace Nzl.Smth.Loaders
 {
     using System;
     using System.Runtime.Remoting.Messaging;

@@ -48,7 +48,7 @@
 	       VIM系列
 		      R 刷新
 
-    15、Container如果正在FetchPage，则不应该被回收。
+    15、Container如果正在FetchPage，则不应该被回收。（已完成）
 	
 	   原因是可能有些被创建的控件（临时变量）还没来得及被添加到View中，这些控件将继续往前被用于添加到Panel中。
 	   在新控件被加入到Panel时，若正好在回收，则会出现一些异常情况。
@@ -68,6 +68,8 @@
     18、板块上应添加新帖功能。
 
 	19、邮件详情窗口，首次加载，竟然不FecthPage，原因是没有OnLoad。(比较诡异，已基本解决)
+
+	    目前解决办法：调整了CreateControl的位置，以及MailDetailControlContainer中InitializeSize的位置。
 
 	20、查询客户，发送邮件。
 

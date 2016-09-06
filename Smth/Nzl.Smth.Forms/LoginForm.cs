@@ -1,7 +1,7 @@
 ﻿namespace Nzl.Smth.Forms
 {
     using System;
-    using Nzl.Smth.Common;
+    using Nzl.Smth;
     using Nzl.Smth.Controls.Complexes;
 
     /// <summary>

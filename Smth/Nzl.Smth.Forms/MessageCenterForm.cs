@@ -4,7 +4,7 @@
     using System.ComponentModel;
     using System.Windows.Forms;
     using Nzl.Messaging;
-    using Nzl.Smth.Common;
+    using Nzl.Smth.Loaders;
     using Nzl.Smth.Logger;
 
     /// <summary>

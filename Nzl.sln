@@ -124,7 +124,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Controls.Elements"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Forms", "Smth\Nzl.Smth.Forms\Nzl.Smth.Forms.csproj", "{25147225-1AEF-41DB-B5F3-A3EF07B7A862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Common", "Smth\Nzl.Smth.Common\Nzl.Smth.Common.csproj", "{E22371CB-BCAE-41E5-82B3-2B696C7E05D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth", "Smth\Nzl.Smth.Common\Nzl.Smth.csproj", "{E22371CB-BCAE-41E5-82B3-2B696C7E05D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Controls.Containers", "Smth\Nzl.Smth.Controls.Containers\Nzl.Smth.Controls.Containers.csproj", "{3466C961-ACDB-4F03-BB1D-10FAD9FB88F1}"
 EndProject
@@ -151,6 +151,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Controls.Base", "Smth\Nzl.Smth.Controls.Base\Nzl.Smth.Controls.Base.csproj", "{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Rtf", "Components\Nzl.RTF\Nzl.Rtf.csproj", "{D35F9B37-CF93-48AE-9A1A-3A99930F04FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzl.Smth.Loaders", "Smth\Nzl.Smth.Loaders\Nzl.Smth.Loaders.csproj", "{091BCA06-33FB-4785-8169-81CC64DEAB80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -779,6 +781,18 @@ Global
 		{D35F9B37-CF93-48AE-9A1A-3A99930F04FB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D35F9B37-CF93-48AE-9A1A-3A99930F04FB}.Release|x86.ActiveCfg = Release|Any CPU
 		{D35F9B37-CF93-48AE-9A1A-3A99930F04FB}.Release|x86.Build.0 = Release|Any CPU
+		{091BCA06-33FB-4785-8169-81CC64DEAB80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{091BCA06-33FB-4785-8169-81CC64DEAB80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{091BCA06-33FB-4785-8169-81CC64DEAB80}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{091BCA06-33FB-4785-8169-81CC64DEAB80}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{091BCA06-33FB-4785-8169-81CC64DEAB80}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{091BCA06-33FB-4785-8169-81CC64DEAB80}.Debug|x86.Build.0 = Debug|Any CPU
+		{091BCA06-33FB-4785-8169-81CC64DEAB80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{091BCA06-33FB-4785-8169-81CC64DEAB80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{091BCA06-33FB-4785-8169-81CC64DEAB80}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{091BCA06-33FB-4785-8169-81CC64DEAB80}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{091BCA06-33FB-4785-8169-81CC64DEAB80}.Release|x86.ActiveCfg = Release|Any CPU
+		{091BCA06-33FB-4785-8169-81CC64DEAB80}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -842,5 +856,6 @@ Global
 		{0386C5F4-D40E-4FB3-BCFF-CAE90693E049} = {21988C76-462B-47A7-80C6-4FFCA16BEA0E}
 		{08B0D4DE-D38A-466D-8AFC-E436BB30E4A6} = {21988C76-462B-47A7-80C6-4FFCA16BEA0E}
 		{D35F9B37-CF93-48AE-9A1A-3A99930F04FB} = {362DE052-0617-4DB4-AECD-1AA8DD42A90D}
+		{091BCA06-33FB-4785-8169-81CC64DEAB80} = {21988C76-462B-47A7-80C6-4FFCA16BEA0E}
 	EndGlobalSection
 EndGlobal

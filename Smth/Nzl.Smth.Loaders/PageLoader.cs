@@ -1,16 +1,10 @@
-﻿namespace Nzl.Smth.Common
+﻿namespace Nzl.Smth.Loaders
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Text;
     using Nzl.Dispatcher;
     using Nzl.Messaging;
-    using Nzl.Smth.Datas;
     using Nzl.Smth.Logger;
     using Nzl.Web.Page;
-    using Nzl.Smth.Utils;
 
     /// <summary>
     /// 
