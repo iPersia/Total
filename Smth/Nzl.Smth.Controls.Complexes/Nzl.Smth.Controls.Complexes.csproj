@@ -47,6 +47,12 @@
     <Compile Include="LoginControl.Designer.cs">
       <DependentUpon>LoginControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReferControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReferControl.Designer.cs">
+      <DependentUpon>ReferControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MailBoxControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -64,6 +70,9 @@
   <ItemGroup>
     <EmbeddedResource Include="LoginControl.resx">
       <DependentUpon>LoginControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReferControl.resx">
+      <DependentUpon>ReferControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MailBoxControl.resx">
       <DependentUpon>MailBoxControl.cs</DependentUpon>

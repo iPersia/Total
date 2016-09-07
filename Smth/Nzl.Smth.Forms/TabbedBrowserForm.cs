@@ -792,6 +792,17 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void btnRefer_Click(object sender, EventArgs e)
+        {
+            ReferForm.Instance.SetParent(this);
+            ShowFormOnCenterParent(ReferForm.Instance);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnMessge_Click(object sender, EventArgs e)
         {
             ShowFormOnCenterParent(MessageCenterForm.Instance);
@@ -879,19 +890,6 @@
         private void btnSettings_Click(object sender, EventArgs e)
         {            
             ShowFormAsDialog(TabbedBrowserSettingsForm.Instance);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnHome_Click(object sender, EventArgs e)
-        {
-            if (this._parentForm != null)
-            {
-                this._parentForm.Focus();
-            }
         }
 
         /// <summary>
@@ -1080,6 +1078,7 @@
 
                     this.btnFavor.Visible = flag;
                     this.btnMail.Visible = flag;
+                    this.btnRefer.Visible = flag;
                 }
             }
         }
@@ -1211,6 +1210,6 @@
             }
             return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
         }
-        #endregion        
+        #endregion
     }
 }

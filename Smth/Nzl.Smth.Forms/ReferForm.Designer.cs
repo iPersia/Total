@@ -1,6 +1,6 @@
 ﻿namespace Nzl.Smth.Forms
 {
-    partial class MailBoxForm
+    partial class ReferForm
     {
         /// <summary>
         /// Required designer variable.
@@ -39,15 +39,15 @@
             this.panelContainer.Size = new System.Drawing.Size(597, 468);
             this.panelContainer.TabIndex = 0;
             // 
-            // MailBoxForm
+            // ReferForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(597, 468);
             this.Controls.Add(this.panelContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "MailBoxForm";
-            this.Text = "Mails";
+            this.Name = "ReferForm";
+            this.Text = "Refers";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MailBoxForm_FormClosing);
             this.ResumeLayout(false);
 

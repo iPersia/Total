@@ -41,9 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="At.cs" />
+    <Compile Include="Reply.cs" />
     <Compile Include="BaseData.cs" />
     <Compile Include="Board.cs" />
-    <Compile Include="Favor.cs" />
     <Compile Include="Mail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Section.cs" />

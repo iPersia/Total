@@ -1,6 +1,6 @@
 ﻿namespace Nzl.Smth.Controls.Containers
 {
-    partial class MailControlContainer
+    partial class AtControlContainer
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,7 +30,6 @@
         {
             this.scContainer = new System.Windows.Forms.SplitContainer();
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.btnNew = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnOpenInBrower = new System.Windows.Forms.Button();
             this.btnGo = new System.Windows.Forms.Button();
@@ -75,7 +74,6 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.SystemColors.Window;
-            this.panelMenu.Controls.Add(this.btnNew);
             this.panelMenu.Controls.Add(this.btnRefresh);
             this.panelMenu.Controls.Add(this.btnOpenInBrower);
             this.panelMenu.Controls.Add(this.btnGo);
@@ -91,23 +89,10 @@
             this.panelMenu.Size = new System.Drawing.Size(720, 25);
             this.panelMenu.TabIndex = 0;
             // 
-            // btnNew
-            // 
-            this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnNew.Location = new System.Drawing.Point(274, 1);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(56, 23);
-            this.btnNew.TabIndex = 20;
-            this.btnNew.TabStop = false;
-            this.btnNew.Text = "New";
-            this.btnNew.UseCompatibleTextRendering = true;
-            this.btnNew.UseVisualStyleBackColor = true;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
-            // 
             // btnRefresh
             // 
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRefresh.Location = new System.Drawing.Point(335, 1);
+            this.btnRefresh.Location = new System.Drawing.Point(273, 1);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(56, 23);
             this.btnRefresh.TabIndex = 19;
@@ -171,7 +156,7 @@
             // btnLast
             // 
             this.btnLast.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnLast.Location = new System.Drawing.Point(223, 1);
+            this.btnLast.Location = new System.Drawing.Point(224, 1);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(45, 23);
             this.btnLast.TabIndex = 7;
@@ -239,12 +224,12 @@
             this.panel.Size = new System.Drawing.Size(711, 100);
             this.panel.TabIndex = 0;
             // 
-            // MailControlContainer
+            // AtControlContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.scContainer);
-            this.Name = "MailControlContainer";
+            this.Name = "AtControlContainer";
             this.Size = new System.Drawing.Size(720, 544);
             this.scContainer.Panel1.ResumeLayout(false);
             this.scContainer.Panel2.ResumeLayout(false);
@@ -272,6 +257,5 @@
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.Panel panelContainer;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.Button btnNew;
     }
 }

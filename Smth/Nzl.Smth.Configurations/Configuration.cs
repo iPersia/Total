@@ -73,6 +73,15 @@
         /// </summary>
         private static string staticSendMailUrl = @"http://m.newsmth.net/mail/send";
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private static string staticReferUrl = @"http://m.newsmth.net/refer/reply";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static string staticAtUrl = @"http://m.newsmth.net/refer/at";
 #if (DEBUG)
         /// <summary>
         /// The interval to update the section tops in SectionTopControl.
@@ -225,7 +234,29 @@
             {
                 return staticSendMailUrl;
             }
-        }        
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string ReferUrl
+        {
+            get
+            {
+                return staticReferUrl;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string AtUrl
+        {
+            get
+            {
+                return staticAtUrl;
+            }
+        }
 
         /// <summary>
         /// 

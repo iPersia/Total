@@ -32,6 +32,7 @@
             this.tcTopics = new System.Windows.Forms.TabControl();
             this.scBrowser = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRefer = new System.Windows.Forms.Button();
             this.linklblUserID = new System.Windows.Forms.LinkLabel();
             this.btnMessge = new System.Windows.Forms.Button();
             this.btnLoadTop = new System.Windows.Forms.Button();
@@ -85,6 +86,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.panel1.Controls.Add(this.btnRefer);
             this.panel1.Controls.Add(this.linklblUserID);
             this.panel1.Controls.Add(this.btnMessge);
             this.panel1.Controls.Add(this.btnLoadTop);
@@ -99,6 +101,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1008, 30);
             this.panel1.TabIndex = 0;
+            // 
+            // btnRefer
+            // 
+            this.btnRefer.Location = new System.Drawing.Point(624, 4);
+            this.btnRefer.Name = "btnRefer";
+            this.btnRefer.Size = new System.Drawing.Size(75, 23);
+            this.btnRefer.TabIndex = 16;
+            this.btnRefer.Text = "Refers";
+            this.btnRefer.UseVisualStyleBackColor = true;
+            this.btnRefer.Visible = false;
+            this.btnRefer.Click += new System.EventHandler(this.btnRefer_Click);
             // 
             // linklblUserID
             // 
@@ -143,7 +156,7 @@
             // 
             // btnMail
             // 
-            this.btnMail.Location = new System.Drawing.Point(460, 4);
+            this.btnMail.Location = new System.Drawing.Point(543, 4);
             this.btnMail.Name = "btnMail";
             this.btnMail.Size = new System.Drawing.Size(75, 23);
             this.btnMail.TabIndex = 13;
@@ -154,7 +167,7 @@
             // 
             // btnFavor
             // 
-            this.btnFavor.Location = new System.Drawing.Point(540, 4);
+            this.btnFavor.Location = new System.Drawing.Point(462, 4);
             this.btnFavor.Name = "btnFavor";
             this.btnFavor.Size = new System.Drawing.Size(75, 23);
             this.btnFavor.TabIndex = 12;
@@ -246,5 +259,6 @@
         private System.Windows.Forms.Button btnFavor;
         private System.Windows.Forms.Button btnBoardNavi;
         private System.Windows.Forms.LinkLabel linklblUserID;
+        private System.Windows.Forms.Button btnRefer;
     }
 }

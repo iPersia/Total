@@ -47,6 +47,18 @@
     <Compile Include="BoardControl.Designer.cs">
       <DependentUpon>BoardControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="AtControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AtControl.Designer.cs">
+      <DependentUpon>AtControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReplyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReplyControl.Designer.cs">
+      <DependentUpon>ReplyControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MailControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -88,6 +100,12 @@
   <ItemGroup>
     <EmbeddedResource Include="BoardControl.resx">
       <DependentUpon>BoardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AtControl.resx">
+      <DependentUpon>AtControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReplyControl.resx">
+      <DependentUpon>ReplyControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MailControl.resx">
       <DependentUpon>MailControl.cs</DependentUpon>

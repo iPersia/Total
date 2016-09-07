@@ -20,13 +20,13 @@
     /// <summary>
     /// Class.
     /// </summary>
-    public partial class MailControlContainer : BaseControlContainer<MailControl, Mail>
+    public partial class ReplyControlContainer : BaseControlContainer<ReplyControl, Reply>
     {
         #region Event
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnMailLinkClicked;
+        public event LinkLabelLinkClickedEventHandler OnReplyLinkClicked;
 
         /// <summary>
         /// 
@@ -36,14 +36,10 @@
         /// <summary>
         /// 
         /// </summary>
-        public event EventHandler OnNewMailClicked;
+        public event LinkLabelLinkClickedEventHandler OnDeleteLinkClicked;
         #endregion
 
         #region Variable
-        /// <summary>
-        /// 
-        /// </summary>
-        private MailBoxType _mailBoxType = MailBoxType.Inbox;
         /// <summary>
         /// 
         /// </summary>
@@ -54,19 +50,11 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        MailControlContainer()
+        public ReplyControlContainer()
         {
             InitializeComponent();
-            this.Text = "Mail Container";
-        }
-
-        /// <summary>
-        /// Ctor.
-        /// </summary>
-        public MailControlContainer(MailBoxType type)
-            : this()
-        {
-            this._mailBoxType = type;
+            this.SetBaseUrl(Configuration.ReferUrl);
+            this.Text = "Reply Container";
         }
 
         /// <summary>
@@ -79,32 +67,7 @@
         }
         #endregion
 
-        #region Properties
-        /// <summary>
-        /// 
-        /// </summary>
-        [Browsable(true)]
-        public string Url
-        {
-            set
-            {
-                this.SetBaseUrl(value);
-            }
-        }
-        #endregion
-
         #region override
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            this.IsResponingMouseWheel = false;
-            this.InitializeSize();
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -128,9 +91,9 @@
         /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
-        protected override IList<Mail> GetItems(WebPage wp)
+        protected override IList<Reply> GetItems(WebPage wp)
         {
-            return MailFactory.CreateMails(wp);
+            return ReplyFactory.CreateReplies(wp);
         }
 
         /// <summary>
@@ -138,14 +101,15 @@
         /// </summary>
         /// <param name="ctl"></param>
         /// <param name="item"></param>
-        protected override void InitializeControl(MailControl ctl, Mail item)
+        protected override void InitializeControl(ReplyControl ctl, Reply item)
         {
             base.InitializeControl(ctl, item);
             if (ctl != null && item != null)
             {
-                ctl.Name = "mc" + item.Url;
-                ctl.OnMailLinkClicked += Tc_OnMailLinkClicked;
-                ctl.OnUserLinkClicked += Tc_OnUserLinkClicked;
+                ctl.Name = "rf" + item.Url;
+                ctl.OnReplyLinkClicked += ReplyControl_OnReplyLinkClicked;
+                ctl.OnUserLinkClicked += ReplyControl_OnUserLinkClicked;
+                ctl.OnDeleteLinkClicked += ReplyControl_OnDeleteLinkClicked;
             }
         }
 
@@ -153,13 +117,14 @@
         ///
         /// </summary>
         /// <param name="ctl"></param>
-        protected override void RecylingControl(MailControl ctl)
+        protected override void RecylingControl(ReplyControl ctl)
         {
             base.RecylingControl(ctl);
             if (ctl != null)
             {
-                ctl.OnMailLinkClicked -= Tc_OnMailLinkClicked;
-                ctl.OnUserLinkClicked -= Tc_OnUserLinkClicked;
+                ctl.OnReplyLinkClicked -= ReplyControl_OnReplyLinkClicked;
+                ctl.OnUserLinkClicked -= ReplyControl_OnUserLinkClicked;
+                ctl.OnDeleteLinkClicked -= ReplyControl_OnDeleteLinkClicked;
             }
         }
 
@@ -167,14 +132,10 @@
         /// 
         /// </summary>
         /// <param name="state"></param>
-        protected override void WorkCompleted(UrlInfo<MailControl, Mail> info)
+        protected override void WorkCompleted(UrlInfo<ReplyControl, Reply> info)
         {
             base.WorkCompleted(info);
             this.lblPage.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
-            if (this._mailBoxType == MailBoxType.Inbox)
-            {
-                MailStatus.Instance.UpdateStatus(info.WebPage);
-            }
         }
 
         /// <summary>
@@ -182,7 +143,7 @@
         /// </summary>
         /// <param name="ctl"></param>
         /// <param name="oeFlag"></param>
-        protected override void SetControl(MailControl ctl, bool oeFlag)
+        protected override void SetControl(ReplyControl ctl, bool oeFlag)
         {
             base.SetControl(ctl, oeFlag);
             if (ctl.Data != null)
@@ -233,7 +194,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tc_OnUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ReplyControl_OnUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (this.OnUserLinkClicked != null)
             {
@@ -246,83 +207,26 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tc_OnMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ReplyControl_OnReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnMailLinkClicked != null)
+            if (this.OnReplyLinkClicked != null)
             {
-                this.OnMailLinkClicked(sender, e);
-                if (e.Link.Tag != null)
-                {
-                    string infor = e.Link.Tag.ToString();
-                    ///Deleting mail.
-                    if (infor.Contains("ConfirmToDelete"))
-                    {
-                        PostLoader pl = new PostLoader(infor.Replace("ConfirmToDelete", ""));
-                        pl.Succeeded += MailDelete_Succeeded;
-                        pl.Failed += MailDelete_Failed;
-                        pl.Start();
-                    }
-
-                    ///Replying mail.
-                    if (infor.Contains("ReplyMail"))
-                    {
-                        PostLoader pl = new PostLoader(Configuration.SendMailUrl, infor.Replace("ReplyMail", ""));
-                        pl.Succeeded += MailReply_Succeeded;
-                        pl.Failed += MailReply_Failed;
-                        pl.Start();
-                    }
-                }
-
-                e.Link.Tag = null;
+                this.OnReplyLinkClicked(sender, e);
             }
         }
 
-        #region MailReply - PageLoaded & PageFailed
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MailReply_Succeeded(object sender, EventArgs e)
+        private void ReplyControl_OnDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.ShowInformation("Replying the mail is completed!");   
+            if (this.OnDeleteLinkClicked != null)
+            {
+                this.OnDeleteLinkClicked(sender, e);
+            }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MailReply_Failed(object sender, EventArgs e)
-        {
-            this.ShowInformation("Replying the mail failed!");
-        }
-        #endregion
-
-        #region MailDelete - PageLoaded & PageFailed
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MailDelete_Succeeded(object sender, EventArgs e)
-        {
-            this.ShowInformation("Deleting the mail is completed!");
-            this.SetUrlInfo(false);
-            this.FetchPage();      
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MailDelete_Failed(object sender, EventArgs e)
-        {
-            this.ShowInformation("Deleting the mail failed!");
-        }
-        #endregion
-
         #endregion
 
         #region event handler.
@@ -420,75 +324,6 @@
         private void btnOpenInBrower_Click(object sender, EventArgs e)
         {
             CommonUtil.OpenUrl(this.GetCurrentUrl());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnNew_Click(object sender, EventArgs e)
-        {
-            if (this.OnNewMailClicked != null)
-            {
-                this.OnNewMailClicked(sender, e);
-                Button btn = sender as Button;
-                if (btn != null && btn.Tag != null)
-                {
-                    string postString = btn.Tag as string;
-                    if (string.IsNullOrEmpty(postString) == false)
-                    {
-                        PostLoader pl = new PostLoader(Configuration.SendMailUrl, postString);
-                        pl.Succeeded += NewMail_Succeeded;
-                        pl.Failed += NewMail_Failed;
-                        pl.Start();
-                    }
-                }
-            }
-        }
-
-        #region NewMail - PageLoaded & PageFailed
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void NewMail_Succeeded(object sender, EventArgs e)
-        {
-            this.ShowInformation("Sending mail is completed!");
-            this.SetUrlInfo(false);
-            this.FetchPage();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void NewMail_Failed(object sender, EventArgs e)
-        {
-            this.ShowInformation("Sending mail failed!");
-        }
-        #endregion
-        #endregion
-
-        #region private
-        /// <summary>
-        /// 
-        /// </summary>
-        private void InitializeSize()
-        {
-            int dHeight = this.Height - this.panelContainer.Height;
-            this.GetPanel().Size = new Size(this.Width
-                                              - Configuration.BaseControlContainerLocationMargin * 2
-                                              - this.GetPanelContainerBoarderMargin(),
-                                            MailControl.ControlHeight * 10
-                                              + Configuration.BaseControlLocationMargin * 11
-                                              + this.GetControlContainerBoarderMargin());
-            this.Height = this.GetPanel().Height
-                        + dHeight
-                        + Configuration.BaseControlContainerLocationMargin * 2
-                        + this.GetPanelContainerBoarderMargin();
         }
         #endregion
     }

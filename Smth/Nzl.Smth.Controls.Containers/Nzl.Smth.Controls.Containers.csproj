@@ -41,6 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AtControlContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AtControlContainer.Designer.cs">
+      <DependentUpon>AtControlContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReplyControlContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReplyControlContainer.Designer.cs">
+      <DependentUpon>ReplyControlContainer.cs</DependentUpon>
+    </Compile>
     <Compile Include="TopicControlContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -86,6 +98,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AtControlContainer.resx">
+      <DependentUpon>AtControlContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReplyControlContainer.resx">
+      <DependentUpon>ReplyControlContainer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TopicControlContainer.resx">
       <DependentUpon>TopicControlContainer.cs</DependentUpon>
     </EmbeddedResource>
