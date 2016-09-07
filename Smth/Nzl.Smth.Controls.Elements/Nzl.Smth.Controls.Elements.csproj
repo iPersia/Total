@@ -78,6 +78,12 @@
     <Compile Include="SectionControl.Designer.cs">
       <DependentUpon>SectionControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReferDetailControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReferDetailControl.Designer.cs">
+      <DependentUpon>ReferDetailControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ThreadControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SectionControl.resx">
       <DependentUpon>SectionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReferDetailControl.resx">
+      <DependentUpon>ReferDetailControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ThreadControl.resx">
       <DependentUpon>ThreadControl.cs</DependentUpon>

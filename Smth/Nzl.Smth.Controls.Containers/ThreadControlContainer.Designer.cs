@@ -172,7 +172,7 @@
             this.btnSettings.Size = new System.Drawing.Size(75, 23);
             this.btnSettings.TabIndex = 11;
             this.btnSettings.TabStop = false;
-            this.btnSettings.Text = "Settings";
+            this.btnSettings.Text = "Setting";
             this.btnSettings.UseCompatibleTextRendering = true;
             this.btnSettings.UseVisualStyleBackColor = true;
             // 

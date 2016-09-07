@@ -192,6 +192,64 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public static Thread CreateThread(string content)
+        {
+            if (string.IsNullOrEmpty(content) == false)
+            {
+                Thread thread = RecycledQueues.GetRecycled<Thread>();
+                if (thread == null)
+                {
+                    thread = new Thread();
+                }
+                content = GetThreadContent(content);
+                thread.Content = content;
+                thread.Tag = thread.Content;
+                IList<string> imageUrlList = GetImageUrls(ref content);
+                if (imageUrlList.Count > 0)
+                {
+                    IList<Image> imageList = new List<Image>();
+                    foreach (string imageUrl in imageUrlList)
+                    {
+                        Image image = CommonUtil.GetWebImage(imageUrl);
+                        if (image != null)
+                        {
+                            image.Tag = imageUrl.Replace("/middle", "")
+                                      + ThreadFactory.TokenPrefix
+                                      + ThreadFactory.ImageToken
+                                      + ThreadFactory.TokenSuffix
+                                      + RtfUtil.GetRtfCode(image);
+                            imageList.Add(image);
+                        }
+                    }
+
+                    thread.ImageList = imageList;
+                }
+
+                IList<string> iconUrlList = GetIconUrls(ref content);
+                if (iconUrlList.Count > 0)
+                {
+                    IList<Image> iconList = new List<Image>();
+                    foreach (string iconUrl in iconUrlList)
+                    {
+                        iconList.Add(CommonUtil.GetWebImage(iconUrl));
+                    }
+
+                    thread.IconList = iconList;
+                }
+
+                thread.AnchorList = GetAnchorUrls(ref content);
+                thread.Content = content;
+                return thread;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
         private static IList<Thread> CreateThreads(WebPage page, IContainsThread iContainThread)

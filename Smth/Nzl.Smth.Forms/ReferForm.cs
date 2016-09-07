@@ -25,7 +25,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private MailDetailForm _mailDetailForm = new MailDetailForm();
+        //private ReferDetailForm _referDetailForm = new ReferDetailForm();
 
         /// <summary>
         /// 
@@ -82,13 +82,21 @@
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
-                this._mailDetailForm.StartPosition = FormStartPosition.CenterParent;
-                this._mailDetailForm.Url = e.Link.LinkData.ToString();
+                //this._mailDetailForm.StartPosition = FormStartPosition.CenterParent;
+                //this._mailDetailForm.Url = e.Link.LinkData.ToString();
+                //this.HideWhenDeactivate = false;
+                //this._mailDetailForm.ShowDialog(this._parentForm);
+                //e.Link.Tag = this._mailDetailForm.Tag;                
+                //e.Link.Visited = true;
+                //this._mailDetailForm.Tag = null;
+                //this.Focus();
+                //this.HideWhenDeactivate = true;
+
+                ReferDetailForm form = new ReferDetailForm(e.Link.LinkData.ToString());
+                form.StartPosition = FormStartPosition.CenterParent;
                 this.HideWhenDeactivate = false;
-                this._mailDetailForm.ShowDialog(this._parentForm);
-                e.Link.Tag = this._mailDetailForm.Tag;                
+                form.ShowDialog(this._parentForm);
                 e.Link.Visited = true;
-                this._mailDetailForm.Tag = null;
                 this.Focus();
                 this.HideWhenDeactivate = true;
             }
