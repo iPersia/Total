@@ -69,7 +69,7 @@
             base.OnLoad(e);            
             this.txtUserID.Left = this.panelContainer.Width / 2 - this.txtUserID.Width / 2;
             this.txtPassword.Left = this.panelContainer.Width / 2 - this.txtPassword.Width / 2;
-            this.ckbAutoLogon.Left = this.panelContainer.Width / 2 - this.ckbAutoLogon.Width / 2;
+            this.ckbSave.Left = this.panelContainer.Width / 2 - this.ckbSave.Width / 2;
             this.btnLogon.Left = this.panelContainer.Width / 2 - this.btnLogon.Width / 2;
             this.btnLogout.Left = this.panelUp.Width / 2 - this.btnLogout.Width / 2;
             this.lblNote.Left = this.panelUp.Width / 2 - this.lblNote.Width / 2;            
@@ -114,7 +114,7 @@
                     {
                         this.txtUserID.Enabled = !flag;
                         this.txtPassword.Enabled = !flag;
-                        this.ckbAutoLogon.Enabled = !flag;
+                        this.ckbSave.Enabled = !flag;
                         this.btnLogon.Enabled = !flag;
                         this.btnLogout.Enabled = flag;
                     }
@@ -250,7 +250,7 @@
                 LogStatus.Instance.UpdateStatus(html);
                 if (LogStatus.Instance.IsLogin)
                 {
-                    if (this.ckbAutoLogon.Checked)
+                    if (this.ckbSave.Checked)
                     {
                         SerializeUserInfor();
                     }
@@ -472,7 +472,7 @@
                 {
                     this.txtUserID.Enabled = flag;
                     this.txtPassword.Enabled = flag;
-                    this.ckbAutoLogon.Enabled = flag;
+                    this.ckbSave.Enabled = flag;
                     this.btnLogon.Enabled = flag;
                     this.btnLogout.Enabled = flag;
                 }

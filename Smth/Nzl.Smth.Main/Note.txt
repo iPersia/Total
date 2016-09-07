@@ -71,11 +71,11 @@
 
 	    目前解决办法：调整了CreateControl的位置，以及MailDetailControlContainer中InitializeSize的位置。
 
-	20、查询客户，发送邮件。
+	20、查询客户，发送邮件。（已完成）
 
 	21、查询板块功能，收藏板块功能。
 
-	22、
+	22、@开发
 
 经验
 

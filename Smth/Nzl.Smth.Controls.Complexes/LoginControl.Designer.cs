@@ -32,7 +32,7 @@
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnLogon = new System.Windows.Forms.Button();
             this.txtUserID = new System.Windows.Forms.TextBox();
-            this.ckbAutoLogon = new System.Windows.Forms.CheckBox();
+            this.ckbSave = new System.Windows.Forms.CheckBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.scContainer = new System.Windows.Forms.SplitContainer();
             this.panelUp = new System.Windows.Forms.Panel();
@@ -51,7 +51,7 @@
             this.panelContainer.Controls.Add(this.btnLogout);
             this.panelContainer.Controls.Add(this.btnLogon);
             this.panelContainer.Controls.Add(this.txtUserID);
-            this.panelContainer.Controls.Add(this.ckbAutoLogon);
+            this.panelContainer.Controls.Add(this.ckbSave);
             this.panelContainer.Controls.Add(this.txtPassword);
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
@@ -87,17 +87,17 @@
             this.txtUserID.Size = new System.Drawing.Size(128, 21);
             this.txtUserID.TabIndex = 8;
             // 
-            // ckbAutoLogon
+            // ckbSave
             // 
-            this.ckbAutoLogon.AutoSize = true;
-            this.ckbAutoLogon.Checked = true;
-            this.ckbAutoLogon.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbAutoLogon.Location = new System.Drawing.Point(93, 109);
-            this.ckbAutoLogon.Name = "ckbAutoLogon";
-            this.ckbAutoLogon.Size = new System.Drawing.Size(84, 16);
-            this.ckbAutoLogon.TabIndex = 10;
-            this.ckbAutoLogon.Text = "Auto logon";
-            this.ckbAutoLogon.UseVisualStyleBackColor = true;
+            this.ckbSave.AutoSize = true;
+            this.ckbSave.Checked = true;
+            this.ckbSave.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckbSave.Location = new System.Drawing.Point(102, 109);
+            this.ckbSave.Name = "ckbSave";
+            this.ckbSave.Size = new System.Drawing.Size(48, 16);
+            this.ckbSave.TabIndex = 10;
+            this.ckbSave.Text = "Save";
+            this.ckbSave.UseVisualStyleBackColor = true;
             // 
             // txtPassword
             // 
@@ -176,7 +176,7 @@
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button btnLogon;
         private System.Windows.Forms.TextBox txtUserID;
-        private System.Windows.Forms.CheckBox ckbAutoLogon;
+        private System.Windows.Forms.CheckBox ckbSave;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label lblNote;
     }

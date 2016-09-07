@@ -30,6 +30,7 @@
         {
             this.scContainer = new System.Windows.Forms.SplitContainer();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.btnSettings = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnOpenInBrower = new System.Windows.Forms.Button();
             this.btnGo = new System.Windows.Forms.Button();
@@ -41,7 +42,7 @@
             this.btnPrev = new System.Windows.Forms.Button();
             this.panelContainer = new System.Windows.Forms.Panel();
             this.panel = new System.Windows.Forms.Panel();
-            this.btnSettings = new System.Windows.Forms.Button();
+            this.btnNew = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).BeginInit();
             this.scContainer.Panel1.SuspendLayout();
             this.scContainer.Panel2.SuspendLayout();
@@ -75,6 +76,7 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.SystemColors.Window;
+            this.panelMenu.Controls.Add(this.btnNew);
             this.panelMenu.Controls.Add(this.btnSettings);
             this.panelMenu.Controls.Add(this.btnRefresh);
             this.panelMenu.Controls.Add(this.btnOpenInBrower);
@@ -90,6 +92,20 @@
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(806, 25);
             this.panelMenu.TabIndex = 0;
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSettings.Location = new System.Drawing.Point(607, 1);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(75, 23);
+            this.btnSettings.TabIndex = 12;
+            this.btnSettings.TabStop = false;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseCompatibleTextRendering = true;
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // btnRefresh
             // 
@@ -108,9 +124,9 @@
             // 
             this.btnOpenInBrower.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenInBrower.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnOpenInBrower.Location = new System.Drawing.Point(650, 1);
+            this.btnOpenInBrower.Location = new System.Drawing.Point(687, 1);
             this.btnOpenInBrower.Name = "btnOpenInBrower";
-            this.btnOpenInBrower.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenInBrower.Size = new System.Drawing.Size(40, 23);
             this.btnOpenInBrower.TabIndex = 16;
             this.btnOpenInBrower.TabStop = false;
             this.btnOpenInBrower.Text = "OiB";
@@ -226,19 +242,19 @@
             this.panel.Size = new System.Drawing.Size(797, 100);
             this.panel.TabIndex = 0;
             // 
-            // btnSettings
+            // btnNew
             // 
-            this.btnSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnSettings.Location = new System.Drawing.Point(569, 1);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(75, 23);
-            this.btnSettings.TabIndex = 12;
-            this.btnSettings.TabStop = false;
-            this.btnSettings.Text = "Settings";
-            this.btnSettings.UseCompatibleTextRendering = true;
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            this.btnNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnNew.Location = new System.Drawing.Point(542, 1);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(60, 23);
+            this.btnNew.TabIndex = 20;
+            this.btnNew.TabStop = false;
+            this.btnNew.Text = "New";
+            this.btnNew.UseCompatibleTextRendering = true;
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // TopicControlContainer
             // 
@@ -274,5 +290,6 @@
         private System.Windows.Forms.Panel panelContainer;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.Button btnNew;
     }
 }

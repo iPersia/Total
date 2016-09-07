@@ -334,6 +334,16 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSettings_Click(object sender, EventArgs e)
         {
             if (this.OnBoardSettingsClicked != null)
