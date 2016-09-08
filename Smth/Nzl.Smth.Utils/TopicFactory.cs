@@ -51,7 +51,16 @@
                         int endPos = html.IndexOf(@"</li>");
                         string content = html.Substring(startPos, endPos + @"</li>".Length - startPos);
                         html = html.Substring(endPos + @"</li>".Length);
-                        Topic topic = CreateTopic(content);
+                        Topic topic = null;
+                        if (target.Contains("/single/"))
+                        {
+                            topic = CreateNormalTopic(content);
+                        }
+                        else
+                        {
+                            topic = CreateSubjectTopic(content);
+                        }
+
                         if (topic != null)
                         {
 #if (DEBUG)
@@ -72,10 +81,10 @@
         /// 
         /// </summary>
         /// <param name="content"></param>
-        private static Topic CreateTopic(string content)
+        private static Topic CreateSubjectTopic(string content)
         {
             string pattern = @"(<li>|<li class=\Whla\W>)<div><a href=\W"
-                           + @"(?'TopicUrl'/article/(?'Board'[\w, %2E, %5F]+)(?'SingleMode'/single)?/(?'Index'\d+)(?'SingleIndex'/\d+)?)\W(| "
+                           + @"(?'TopicUrl'/article/(?'Board'[\w, %2E, %5F]+)/(?'Index'\d+))\W(| "
                            + @"(class=\W(?'Mode'\w+)\W))>"
                            + @"(?'Title'[\w, \W]+)</a>\("
                            + @"(?'Replies'\d+)\)</div><div>"
@@ -94,7 +103,7 @@
             content = content.Replace("&nbsp;", " ");
             topic.Uri = Configuration.BaseUrl + CommonUtil.GetMatch(pattern, content, "TopicUrl");
             topic.Board = CommonUtil.GetMatch(pattern, content, "Board");
-            topic.Index = CommonUtil.GetMatch(pattern, content, "Index");            
+            topic.Index = CommonUtil.GetMatch(pattern, content, "Index");
             topic.Title = CommonUtil.ReplaceSpecialChars(CommonUtil.GetMatch(pattern, content, "Title"));
             topic.Replies = System.Convert.ToInt32(CommonUtil.GetMatch(pattern, content, "Replies"));
             topic.CreateDateTime = CommonUtil.GetMatch(pattern, content, "CreateDateTime");
@@ -115,6 +124,65 @@
                 topic.Mode = TopicMode.Normal;
             }
 
+            topic.Type = TopicType.Subject;
+            return topic;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="content"></param>
+        private static Topic CreateNormalTopic(string content)
+        {
+            string pattern = @"(<li>|<li class=\Whla\W>)<div><a href=\W"
+                           + @"(?'TopicUrl'/article/"
+                           + @"(?'Board'[\w, %2E, %5F]+)/single/"
+                           + @"(?'Index'\d+)/\d+)\W(| (class=\W"
+                           + @"(?'Mode'\w+)\W))>"
+                           + @"(?'Title'[\w, \W]+)</a></div><div>"
+                           + @"(?'DateTime'[^<]+)<a href=\W/user/query/\w+\.?\W>"
+                           + @"(?'CreateID'\w+)\.?</a></div></li>";
+
+            //Topic topic = new Topic();
+            Topic topic = RecycledQueues.GetRecycled<Topic>();
+            if (topic == null)
+            {
+                topic = new Topic();
+            }
+
+            content = content.Replace("&nbsp;", " ");
+            topic.Uri = Configuration.BaseUrl + CommonUtil.GetMatch(pattern, content, "TopicUrl");
+            topic.Board = CommonUtil.GetMatch(pattern, content, "Board");
+            topic.Index = CommonUtil.GetMatch(pattern, content, "Index");
+            topic.Title = CommonUtil.ReplaceSpecialChars(CommonUtil.GetMatch(pattern, content, "Title"));
+            topic.CreateDateTime = CommonUtil.GetMatch(pattern, content, "DateTime");
+            topic.CreateID = CommonUtil.GetMatch(pattern, content, "CreateID");
+            topic.LastThreadDateTime = null;
+            topic.LastThreadID = null;
+            string mode = CommonUtil.GetMatch(pattern, content, "Mode");
+            if (mode == "top")
+            {
+                topic.Mode = TopicMode.Top;
+            }
+            else if (mode == "m")
+            {
+                topic.Mode = TopicMode.Magic;
+            }
+            else
+            {
+                topic.Mode = TopicMode.Normal;
+            }
+
+            if (string.IsNullOrEmpty(CommonUtil.GetMatch(pattern, content, "SingleMode")) == false)
+            {
+                topic.Type = TopicType.Normal;
+            }
+            else
+            {
+                topic.Type = TopicType.Subject;
+            }
+
+            topic.Type = TopicType.Normal;
             return topic;
         }
 

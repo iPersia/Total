@@ -15,7 +15,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnBoardClicked;
+        public event LinkLabelLinkClickedEventHandler OnReferClicked;
 
         /// <summary>
         /// 
@@ -47,16 +47,6 @@
             
             this.panelContainer.Controls.Clear();
             this.panelContainer.Controls.Add(this._rcRefers);
-
-            this._postForm.OnBoardClicked += PostForm_OnBoardClicked;
-        }
-
-        private void PostForm_OnBoardClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (this.OnBoardClicked != null)
-            {
-                this.OnBoardClicked(sender, e);
-            }
         }
 
         /// <summary>
@@ -94,27 +84,32 @@
         /// <param name="e"></param>
         private void ReferControl_OnReferLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
+            if (this.OnReferClicked != null)
             {
-                //this._mailDetailForm.StartPosition = FormStartPosition.CenterParent;
-                //this._mailDetailForm.Url = e.Link.LinkData.ToString();
-                //this.HideWhenDeactivate = false;
-                //this._mailDetailForm.ShowDialog(this._parentForm);
-                //e.Link.Tag = this._mailDetailForm.Tag;                
-                //e.Link.Visited = true;
-                //this._mailDetailForm.Tag = null;
-                //this.Focus();
-                //this.HideWhenDeactivate = true;
-
-                this._postForm.Url = e.Link.LinkData.ToString();
-                this._postForm.StartPosition = FormStartPosition.CenterParent;
-                this.HideWhenDeactivate = false;
-                this._postForm.ShowDialog(this._parentForm);
-                e.Link.Visited = true;
-                this.Focus();
-                this.HideWhenDeactivate = true;
+                this.OnReferClicked(sender, e);
             }
+
+            //LinkLabel linkLabel = sender as LinkLabel;
+            //if (linkLabel != null)
+            //{
+            //    //this._mailDetailForm.StartPosition = FormStartPosition.CenterParent;
+            //    //this._mailDetailForm.Url = e.Link.LinkData.ToString();
+            //    //this.HideWhenDeactivate = false;
+            //    //this._mailDetailForm.ShowDialog(this._parentForm);
+            //    //e.Link.Tag = this._mailDetailForm.Tag;                
+            //    //e.Link.Visited = true;
+            //    //this._mailDetailForm.Tag = null;
+            //    //this.Focus();
+            //    //this.HideWhenDeactivate = true;
+
+            //    this._postForm.Url = e.Link.LinkData.ToString();
+            //    this._postForm.StartPosition = FormStartPosition.CenterParent;
+            //    this.HideWhenDeactivate = false;
+            //    this._postForm.ShowDialog(this._parentForm);
+            //    e.Link.Visited = true;
+            //    this.Focus();
+            //    this.HideWhenDeactivate = true;
+            //}
         }
         
         /// <summary>

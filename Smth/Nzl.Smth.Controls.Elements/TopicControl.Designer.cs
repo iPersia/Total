@@ -100,13 +100,13 @@
             // lblCreateDT
             // 
             this.lblCreateDT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCreateDT.AutoSize = true;
             this.lblCreateDT.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblCreateDT.Location = new System.Drawing.Point(208, 11);
             this.lblCreateDT.Name = "lblCreateDT";
-            this.lblCreateDT.Size = new System.Drawing.Size(80, 12);
+            this.lblCreateDT.Size = new System.Drawing.Size(77, 14);
             this.lblCreateDT.TabIndex = 1;
             this.lblCreateDT.Text = "2013-01-01";
-            this.lblCreateDT.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // linklblTopic
             // 

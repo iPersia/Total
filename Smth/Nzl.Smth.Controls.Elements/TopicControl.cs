@@ -45,13 +45,30 @@
             base.Initialize(topic);
             if (topic != null)
             {
-                this.InitializeLinkLabel(this.linklblTopic, CommonUtil.ReplaceSpecialChars(topic.Title), topic.Uri);
-                this.InitializeLabel(this.lblReplies, "（" + topic.Replies + "）");
-                this.lblReplies.Left = this.linklblTopic.Left + this.linklblTopic.Width + 1;
-                this.InitializeLabel(this.lblCreateDT, topic.CreateDateTime);
-                this.InitializeLabel(this.lblLastDT, topic.LastThreadDateTime);
-                this.InitializeLinkLabel(this.linklblCreateID, topic.CreateID, topic.CreateID);
-                this.InitializeLinkLabel(this.linklblLastID, topic.LastThreadID, topic.LastThreadID);
+                
+                if (topic.Type == TopicType.Normal)
+                {
+                    this.lblReplies.Visible = false;
+                    this.linklblCreateID.Visible = false;
+                    this.lblLastDT.Visible = false;
+
+                    this.InitializeLabel(this.lblCreateDT, topic.CreateDateTime.Replace(" ", "      "));
+                    this.InitializeLinkLabel(this.linklblTopic, CommonUtil.ReplaceSpecialChars(topic.Title), topic.Uri);
+                    this.InitializeLinkLabel(this.linklblLastID, topic.CreateID, topic.CreateID);
+                }
+                else
+                {
+                    this.lblReplies.Visible = true;
+                    this.linklblCreateID.Visible = true;
+                    this.lblLastDT.Visible = true;
+
+                    this.InitializeLinkLabel(this.linklblTopic, CommonUtil.ReplaceSpecialChars(topic.Title), topic.Uri);
+                    this.InitializeLabel(this.lblReplies, "（" + topic.Replies + "）");
+                    this.lblReplies.Left = this.linklblTopic.Left + this.linklblTopic.Width + 1;
+                    this.InitializeLabel(this.lblCreateDT, topic.CreateDateTime);
+                    this.InitializeLinkLabel(this.linklblCreateID, topic.CreateID, topic.CreateID);
+                    this.InitializeLinkLabel(this.linklblLastID, topic.LastThreadID, topic.LastThreadID);
+                }                
             }
         }
 

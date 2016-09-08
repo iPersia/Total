@@ -161,7 +161,7 @@
             FavorForm.Instance.OnFavorBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
             LoginForm.Instance.OnLoginFailed += LoginForm_OnLoginFailed;
             LoginForm.Instance.OnLogoutFailed += LoginForm_OnLogoutFailed;
-            ReferForm.Instance.OnBoardClicked += ReferFormInstance_OnBoardClicked;
+            ReferForm.Instance.OnReferClicked += Instance_OnReferClicked;
             this._entryAssemblyTitle = this.GetEntryAssemblyTitle();
 
 #if (DEBUG)
@@ -177,10 +177,14 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ReferFormInstance_OnBoardClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Instance_OnReferClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.AddBoard(e.Link.LinkData.ToString(), e.Link.Name);
-        }
+            LinkLabel linklbl = sender as LinkLabel;
+            if (linklbl != null)
+            {
+                this.AddPost(e.Link.LinkData.ToString(), linklbl.Text);
+            }
+        }        
 
 #if (X)
         ////Just for testing.
@@ -605,10 +609,213 @@
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
-                this.AddTopic(e.Link.LinkData.ToString(), linkLabel.Text);
+                string url = e.Link.LinkData.ToString();
+                if (url.Contains("/single/"))
+                {
+                    this.AddPost(url, linkLabel.Text);
+                }
+                else
+                {
+                    this.AddTopic(url, linkLabel.Text);
+                }
                 e.Link.Visited = true;
             }
         }
+        #endregion
+
+        #region Post
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="title"></param>
+        public void AddPost(string url, string title)
+        {
+            this.Text = title;
+            string key = "tp" + url;
+            ///Exsits
+            {
+                TabPage tp = GetTabPage(url);
+                if (tp != null)
+                {
+                    this.tcTopics.SelectedTab = tp;
+                    return;
+                }
+            }
+
+            ///NOT Exsits
+            {
+                TabPage tp = new TabPage();
+                tp.Name = "tp" + url; ;
+                tp.Text = "[ " + title + " ]";
+                tp.ToolTipText = tp.Text;
+                this.tcTopics.TabPages.Add(tp);
+                this.tcTopics.SelectedTab = tp;
+
+                //BoardBrowserControl bbc = new BoardBrowserControl(url);
+                PostControlContainer pcc = RecycledQueues.GetRecycled<PostControlContainer>();
+                if (pcc == null)
+                {
+                    pcc = new PostControlContainer();
+                }
+
+                pcc.Name = "pcc" + url;
+                pcc.Url = url;
+                pcc.OnBoardClicked += PostControlContainer_OnBoardClicked;
+                pcc.OnContentLinkClicked += PostControlContainer_OnContentLinkClicked;
+                pcc.OnDeleteClicked += PostControlContainer_OnDeleteClicked;
+                pcc.OnEditClicked += PostControlContainer_OnEditClicked;
+                pcc.OnExpandClicked += PostControlContainer_OnExpandClicked;
+                pcc.OnMailClicked += PostControlContainer_OnMailClicked;
+                pcc.OnNewClicked += PostControlContainer_OnNewClicked;
+                pcc.OnReplyClicked += PostControlContainer_OnReplyClicked;
+                pcc.OnSubjectExpandClicked += PostControlContainer_OnSubjectExpandClicked;
+                pcc.OnTransferClicked += PostControlContainer_OnTransferClicked;
+                pcc.OnUserClicked += PostControlContainer_OnUserClicked;
+                pcc.OnWorkerCancelled += PostControlContainer_OnWorkerCancelled;
+                pcc.OnWorkerFailed += PostControlContainer_OnWorkerFailed;
+                pcc.Dock = DockStyle.Fill;
+                tp.Controls.Add(pcc);
+
+                ///
+                pcc.RefreshingOnSizeChanged(true);
+                pcc.Reusing();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnWorkerFailed(object sender, MessageEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnWorkerCancelled(object sender, MessageEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnUserClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnTransferClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnSubjectExpandClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnReplyClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnNewClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnMailClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnExpandClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnEditClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnDeleteClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnContentLinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostControlContainer_OnBoardClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linklbl = sender as LinkLabel;
+            if (linklbl != null)
+            {
+                this.AddBoard(e.Link.LinkData.ToString(), linklbl.Text);
+            }
+        }        
         #endregion
 
         #region TabPages
@@ -689,6 +896,7 @@
             {
                 Recycling(ctl as ThreadControlContainer);
                 Recycling(ctl as TopicControlContainer);
+                Recycling(ctl as PostControlContainer);
             }
 
             tp.Controls.Clear();
@@ -890,6 +1098,31 @@
                 bbc.OnWorkerCancelled -= TabbedBrowserFrom_OnWorkerCancelled;
                 bbc.OnBoardSettingsClicked -= TopicControlContainer_OnBoardSettingsClicked;
                 RecycledQueues.AddRecycled<TopicControlContainer>(bbc);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tbc"></param>
+        private void Recycling(PostControlContainer pcc)
+        {
+            if (pcc != null)
+            {
+                pcc.OnBoardClicked += PostControlContainer_OnBoardClicked;
+                pcc.OnContentLinkClicked += PostControlContainer_OnContentLinkClicked;
+                pcc.OnDeleteClicked += PostControlContainer_OnDeleteClicked;
+                pcc.OnEditClicked += PostControlContainer_OnEditClicked;
+                pcc.OnExpandClicked += PostControlContainer_OnExpandClicked;
+                pcc.OnMailClicked += PostControlContainer_OnMailClicked;
+                pcc.OnNewClicked += PostControlContainer_OnNewClicked;
+                pcc.OnReplyClicked += PostControlContainer_OnReplyClicked;
+                pcc.OnSubjectExpandClicked += PostControlContainer_OnSubjectExpandClicked;
+                pcc.OnTransferClicked += PostControlContainer_OnTransferClicked;
+                pcc.OnUserClicked += PostControlContainer_OnUserClicked;
+                pcc.OnWorkerCancelled += PostControlContainer_OnWorkerCancelled;
+                pcc.OnWorkerFailed += PostControlContainer_OnWorkerFailed;
+                RecycledQueues.AddRecycled<PostControlContainer>(pcc);
             }
         }
 
