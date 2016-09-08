@@ -11,6 +11,11 @@
         /// </summary>
         public static readonly ReferForm Instance = new ReferForm();
         #endregion
+            
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnBoardClicked;
 
         /// <summary>
         /// 
@@ -25,7 +30,7 @@
         /// <summary>
         /// 
         /// </summary>
-        //private ReferDetailForm _referDetailForm = new ReferDetailForm();
+        private PostForm _postForm = new PostForm();
 
         /// <summary>
         /// 
@@ -42,6 +47,16 @@
             
             this.panelContainer.Controls.Clear();
             this.panelContainer.Controls.Add(this._rcRefers);
+
+            this._postForm.OnBoardClicked += PostForm_OnBoardClicked;
+        }
+
+        private void PostForm_OnBoardClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnBoardClicked != null)
+            {
+                this.OnBoardClicked(sender, e);
+            }
         }
 
         /// <summary>
@@ -92,10 +107,10 @@
                 //this.Focus();
                 //this.HideWhenDeactivate = true;
 
-                ReferDetailForm form = new ReferDetailForm(e.Link.LinkData.ToString());
-                form.StartPosition = FormStartPosition.CenterParent;
+                this._postForm.Url = e.Link.LinkData.ToString();
+                this._postForm.StartPosition = FormStartPosition.CenterParent;
                 this.HideWhenDeactivate = false;
-                form.ShowDialog(this._parentForm);
+                this._postForm.ShowDialog(this._parentForm);
                 e.Link.Visited = true;
                 this.Focus();
                 this.HideWhenDeactivate = true;

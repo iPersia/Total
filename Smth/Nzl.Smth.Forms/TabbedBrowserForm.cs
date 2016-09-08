@@ -161,6 +161,7 @@
             FavorForm.Instance.OnFavorBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
             LoginForm.Instance.OnLoginFailed += LoginForm_OnLoginFailed;
             LoginForm.Instance.OnLogoutFailed += LoginForm_OnLogoutFailed;
+            ReferForm.Instance.OnBoardClicked += ReferFormInstance_OnBoardClicked;
             this._entryAssemblyTitle = this.GetEntryAssemblyTitle();
 
 #if (DEBUG)
@@ -169,6 +170,16 @@
                 
             }
 #endif
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReferFormInstance_OnBoardClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.AddBoard(e.Link.LinkData.ToString(), e.Link.Name);
         }
 
 #if (X)

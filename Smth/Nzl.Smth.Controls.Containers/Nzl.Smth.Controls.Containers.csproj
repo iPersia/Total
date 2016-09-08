@@ -47,11 +47,11 @@
     <Compile Include="AtControlContainer.Designer.cs">
       <DependentUpon>AtControlContainer.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReferDetailControlContainer.cs">
+    <Compile Include="PostControlContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ReferDetailControlContainer.Designer.cs">
-      <DependentUpon>ReferDetailControlContainer.cs</DependentUpon>
+    <Compile Include="PostControlContainer.Designer.cs">
+      <DependentUpon>PostControlContainer.cs</DependentUpon>
     </Compile>
     <Compile Include="ReplyControlContainer.cs">
       <SubType>UserControl</SubType>
@@ -107,8 +107,8 @@
     <EmbeddedResource Include="AtControlContainer.resx">
       <DependentUpon>AtControlContainer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReferDetailControlContainer.resx">
-      <DependentUpon>ReferDetailControlContainer.cs</DependentUpon>
+    <EmbeddedResource Include="PostControlContainer.resx">
+      <DependentUpon>PostControlContainer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReplyControlContainer.resx">
       <DependentUpon>ReplyControlContainer.cs</DependentUpon>

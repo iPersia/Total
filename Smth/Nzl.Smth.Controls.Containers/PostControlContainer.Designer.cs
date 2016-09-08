@@ -1,6 +1,6 @@
 ﻿namespace Nzl.Smth.Controls.Containers
 {
-    partial class ReferDetailControlContainer
+    partial class PostControlContainer
     {
         /// <summary> 
         /// 必需的设计器变量。

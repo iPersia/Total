@@ -37,7 +37,7 @@
         {
             if (page != null && page.IsGood)
             {
-                IList<string> targetList = CommonUtil.GetMatchList(@"(<li>|<li class=\Whla\W>)<div><a href=\W/article/[\w, %2E, %5F, \., _]+/\d+\W(| class=\W\w+\W)>", page.Html);
+                IList<string> targetList = CommonUtil.GetMatchList(@"(<li>|<li class=\Whla\W>)<div><a href=\W/article/[\w, %2E, %5F, \., _]+(?'SingleMode'/single)?/(?'Index'\d+)(?'SingleIndex'/\d+)?\W(| class=\W\w+\W)>", page.Html);
                 if (targetList != null && targetList.Count > 0)
                 {
                     string html = page.Html;
@@ -75,7 +75,7 @@
         private static Topic CreateTopic(string content)
         {
             string pattern = @"(<li>|<li class=\Whla\W>)<div><a href=\W"
-                           + @"(?'TopicUrl'/article/(?'Board'[\w, %2E, %5F]+)/(?'Index'\d+))\W(| "
+                           + @"(?'TopicUrl'/article/(?'Board'[\w, %2E, %5F]+)(?'SingleMode'/single)?/(?'Index'\d+)(?'SingleIndex'/\d+)?)\W(| "
                            + @"(class=\W(?'Mode'\w+)\W))>"
                            + @"(?'Title'[\w, \W]+)</a>\("
                            + @"(?'Replies'\d+)\)</div><div>"

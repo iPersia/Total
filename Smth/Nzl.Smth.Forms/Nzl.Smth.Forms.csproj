@@ -63,11 +63,11 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReferDetailForm.cs">
+    <Compile Include="PostForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReferDetailForm.Designer.cs">
-      <DependentUpon>ReferDetailForm.cs</DependentUpon>
+    <Compile Include="PostForm.Designer.cs">
+      <DependentUpon>PostForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ReferForm.cs">
       <SubType>Form</SubType>
@@ -189,8 +189,8 @@
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReferDetailForm.resx">
-      <DependentUpon>ReferDetailForm.cs</DependentUpon>
+    <EmbeddedResource Include="PostForm.resx">
+      <DependentUpon>PostForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReferForm.resx">
       <DependentUpon>ReferForm.cs</DependentUpon>

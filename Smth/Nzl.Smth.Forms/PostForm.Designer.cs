@@ -1,6 +1,6 @@
 ﻿namespace Nzl.Smth.Forms
 {
-    partial class ReferDetailForm
+    partial class PostForm
     {
         /// <summary>
         /// Required designer variable.
@@ -46,7 +46,11 @@
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panelContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ReferDetailForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "Refer detail";
             this.ResumeLayout(false);
 

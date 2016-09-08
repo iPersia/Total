@@ -44,7 +44,7 @@
     <Compile Include="AtFactory.cs" />
     <Compile Include="MailFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReferFactory.cs" />
+    <Compile Include="PostFactory.cs" />
     <Compile Include="ReplyFactory.cs" />
     <Compile Include="RtfUtil.cs" />
     <Compile Include="SectionUtil.cs" />

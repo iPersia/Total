@@ -1,6 +1,6 @@
 ﻿namespace Nzl.Smth.Controls.Elements
 {
-    partial class ReferDetailControl
+    partial class PostControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -57,7 +57,6 @@
             // linklblID
             // 
             this.linklblID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linklblID.AutoSize = true;
             this.linklblID.Font = new System.Drawing.Font("新宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linklblID.Location = new System.Drawing.Point(501, 29);
             this.linklblID.Name = "linklblID";

@@ -11,18 +11,18 @@
     /// <summary>
     /// 
     /// </summary>
-    public static class ReferFactory
+    public static class PostFactory
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
-        public static IList<Refer> CreateRefers(WebPage wp)
+        public static IList<Post> CreatePosts(WebPage wp)
         {
             if (wp != null && wp.IsGood)
             {
-                return CreateRefers(wp.Html);
+                return CreatePosts(wp.Html);
             }
 
             return null;
@@ -32,7 +32,7 @@
         /// 
         /// </summary>
         /// <param name="html"></param>
-        private static IList<Refer> CreateRefers(string html)
+        private static IList<Post> CreatePosts(string html)
         {
             string pattern = @"<div class=\Wsec nav\W>(<a href=\W"
                            + @"(?'NewUrl'/article/[\w,%2E,%5F,\.,_]+/post\?s=\d+)\W>发表</a>\|)?<a href=\W"
@@ -40,7 +40,8 @@
                            + @"(?'HostUrl'/article/[\w,%2E,%5F,\.,_]+/single/\d+)\W>楼主</a>\|<a href=\W"
                            + @"(?'SubjectExpandUrl'/article/[\w,%2E,%5F,\.,_]+/\d+)\W>同主题展开</a>(\|<a href=\W"
                            + @"(?'SourceUrl'/article/[\w,%2E,%5F,\.,_]+/single/\d+)\W>溯源</a>)?\|<a href=\W"
-                           + @"(?'BoardUrl'/board/[\w,%2E,%5F,\.,_]+/\d+)\W>返回</a></div><div class=\Wsec nav\W><a href=\W"
+                           + @"(?'BoardUrl'/board/"
+                           + @"(?'Board'[\w,%2E,%5F,\.,_]+)/\d+)\W>返回</a></div><div class=\Wsec nav\W><a href=\W"
                            + @"(?'LastUrl'/article/[\w,%2E,%5F,\.,_]+/single/\d+)\W>上一篇</a>\|<a href=\W"
                            + @"(?'NextUrl'/article/[\w,%2E,%5F,\.,_]+/single/\d+)\W>下一篇</a>(\|<a href=\W"
                            + @"(?'SubjectLastUrl'/article/[\w,%2E,%5F,\.,_]+/single/\d+)\W>同主题上篇</a>)?(\|<a href=\W"
@@ -58,19 +59,20 @@
             MatchCollection mtMailCollection = Nzl.Web.Util.CommonUtil.GetMatchCollection(pattern, html);
             if (mtMailCollection != null)
             {
-                IList<Refer> referList = new List<Refer>();
+                IList<Post> referList = new List<Post>();
                 foreach (Match mt in mtMailCollection)
                 {
-                    Refer refer = RecycledQueues.GetRecycled<Refer>();
+                    Post refer = RecycledQueues.GetRecycled<Post>();
                     if (refer == null)
                     {
-                        refer = new Refer();
+                        refer = new Post();
                     }
                     
                     refer.Author = mt.Groups["Author"].Value.ToString();
                     refer.Content = mt.Groups["Content"].Value.ToString();
                     refer.DateTime = mt.Groups["DateTime"].Value.ToString();
-                    refer.Subject = mt.Groups["Subject"].Value.ToString();
+                    refer.Subject = CommonUtil.ReplaceSpecialChars(mt.Groups["Subject"].Value.ToString());
+                    refer.Board = mt.Groups["Board"].Value.ToString();
                     if (mt.Groups["NewUrl"].Value != null &&
                         string.IsNullOrEmpty(mt.Groups["NewUrl"].Value.ToString()) == false)
                     {

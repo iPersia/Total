@@ -134,7 +134,19 @@
             set;
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
         public TopicMode Mode
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TopicType Type
         {
             get;
             set;
@@ -151,5 +163,15 @@
         Top,
 
         Magic
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum TopicType
+    {
+        Normal,
+
+        Subject
     }
 }

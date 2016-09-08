@@ -3,12 +3,12 @@
     /// <summary>
     /// 
     /// </summary>
-    public class Refer : BaseData
+    public class Post : BaseData
     {
         /// <summary>
         /// 
         /// </summary>
-        public Refer()
+        public Post()
         {
         }
 
@@ -187,6 +187,15 @@
         /// 
         /// </summary>
         public Thread Data
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Board
         {
             get;
             set;

@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="At.cs" />
-    <Compile Include="Refer.cs" />
+    <Compile Include="Post.cs" />
     <Compile Include="Reply.cs" />
     <Compile Include="BaseData.cs" />
     <Compile Include="Board.cs" />

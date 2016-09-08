@@ -12,7 +12,7 @@
     /// <summary>
     /// Thread control.
     /// </summary>
-    public partial class ReferDetailControl : BaseControl<Refer>
+    public partial class PostControl : BaseControl<Post>
     {
         #region events.
         /// <summary>
@@ -110,7 +110,7 @@
         /// <summary>
         /// Ctor.
         /// </summary>
-        public ReferDetailControl()
+        public PostControl()
         {
             InitializeComponent();
 
@@ -159,7 +159,7 @@
         /// 
         /// </summary>
         /// <param name="thread"></param>
-        public override void Initialize(Refer refer)
+        public override void Initialize(Post refer)
         {
             base.Initialize(refer);
             if (refer != null)
@@ -175,6 +175,9 @@
                 ///ID
                 this.linklblID.Text = refer.Author;
 
+                ///Board
+                this.linklblBoard.Text = refer.Board;
+                
                 ///Urls
                 this.InitializeLinkLabel(this.linklblBoard, refer.BoardUrl);
                 this.InitializeLinkLabel(this.linklblDelete, refer.DeleteUrl);
@@ -199,20 +202,6 @@
                 this.Height = this.richtxtContent.Height + 100;
                 this.richtxtContent.ReadOnly = true;
                 this.richtxtContent.ShortcutsEnabled = false;
-            }
-        }
-
-        private void InitializeLinkLabel(LinkLabel lbl, string url)
-        {
-            if (lbl != null)
-            {
-                lbl.Visible = false;
-                lbl.Links.Clear();
-                if (string.IsNullOrEmpty(url) == false)
-                {
-                    lbl.Visible = true;
-                    lbl.Links.Add(0, lbl.Text.Length, url);
-                }
             }
         }
 

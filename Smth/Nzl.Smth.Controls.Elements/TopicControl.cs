@@ -45,19 +45,13 @@
             base.Initialize(topic);
             if (topic != null)
             {
-                this.linklblTopic.Text = CommonUtil.ReplaceSpecialChars(topic.Title);
-                this.lblReplies.Text = "（" + topic.Replies + "）";
+                this.InitializeLinkLabel(this.linklblTopic, CommonUtil.ReplaceSpecialChars(topic.Title), topic.Uri);
+                this.InitializeLabel(this.lblReplies, "（" + topic.Replies + "）");
                 this.lblReplies.Left = this.linklblTopic.Left + this.linklblTopic.Width + 1;
-                this.linklblTopic.Links.Clear();
-                this.linklblTopic.Links.Add(0, topic.Title.Length, topic.Uri);
-                this.lblCreateDT.Text = topic.CreateDateTime;
-                this.lblLastDT.Text = topic.LastThreadDateTime;
-                this.linklblCreateID.Text = topic.CreateID;
-                this.linklblCreateID.Links.Clear();
-                this.linklblCreateID.Links.Add(0, topic.CreateID.Length, topic.CreateID);
-                this.linklblLastID.Text = topic.LastThreadID;
-                this.linklblLastID.Links.Clear();
-                this.linklblLastID.Links.Add(0, topic.LastThreadID.Length, topic.LastThreadID);
+                this.InitializeLabel(this.lblCreateDT, topic.CreateDateTime);
+                this.InitializeLabel(this.lblLastDT, topic.LastThreadDateTime);
+                this.InitializeLinkLabel(this.linklblCreateID, topic.CreateID, topic.CreateID);
+                this.InitializeLinkLabel(this.linklblLastID, topic.LastThreadID, topic.LastThreadID);
             }
         }
 

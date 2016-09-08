@@ -28,29 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelSubject = new System.Windows.Forms.Panel();
             this.lblReplies = new System.Windows.Forms.Label();
             this.linklblLastID = new System.Windows.Forms.LinkLabel();
             this.linklblCreateID = new System.Windows.Forms.LinkLabel();
             this.lblLastDT = new System.Windows.Forms.Label();
             this.lblCreateDT = new System.Windows.Forms.Label();
             this.linklblTopic = new System.Windows.Forms.LinkLabel();
-            this.panel1.SuspendLayout();
+            this.panelSubject.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // panelSubject
             // 
-            this.panel1.Controls.Add(this.lblReplies);
-            this.panel1.Controls.Add(this.linklblLastID);
-            this.panel1.Controls.Add(this.linklblCreateID);
-            this.panel1.Controls.Add(this.lblLastDT);
-            this.panel1.Controls.Add(this.lblCreateDT);
-            this.panel1.Controls.Add(this.linklblTopic);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(599, 36);
-            this.panel1.TabIndex = 0;
+            this.panelSubject.Controls.Add(this.lblReplies);
+            this.panelSubject.Controls.Add(this.linklblLastID);
+            this.panelSubject.Controls.Add(this.linklblCreateID);
+            this.panelSubject.Controls.Add(this.lblLastDT);
+            this.panelSubject.Controls.Add(this.lblCreateDT);
+            this.panelSubject.Controls.Add(this.linklblTopic);
+            this.panelSubject.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelSubject.Location = new System.Drawing.Point(0, 0);
+            this.panelSubject.Name = "panelSubject";
+            this.panelSubject.Size = new System.Drawing.Size(599, 36);
+            this.panelSubject.TabIndex = 0;
             // 
             // lblReplies
             // 
@@ -70,6 +70,7 @@
             this.linklblLastID.Name = "linklblLastID";
             this.linklblLastID.Size = new System.Drawing.Size(100, 14);
             this.linklblLastID.TabIndex = 4;
+            this.linklblLastID.TabStop = true;
             this.linklblLastID.Text = "LastID";
             this.linklblLastID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -81,6 +82,7 @@
             this.linklblCreateID.Name = "linklblCreateID";
             this.linklblCreateID.Size = new System.Drawing.Size(100, 14);
             this.linklblCreateID.TabIndex = 3;
+            this.linklblCreateID.TabStop = true;
             this.linklblCreateID.Text = "ZZZZZZZZZZZZZ";
             this.linklblCreateID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -114,6 +116,7 @@
             this.linklblTopic.Name = "linklblTopic";
             this.linklblTopic.Size = new System.Drawing.Size(42, 14);
             this.linklblTopic.TabIndex = 0;
+            this.linklblTopic.TabStop = true;
             this.linklblTopic.Text = "Topic";
             this.linklblTopic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -121,18 +124,18 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelSubject);
             this.Name = "TopicControl";
             this.Size = new System.Drawing.Size(599, 36);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelSubject.ResumeLayout(false);
+            this.panelSubject.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelSubject;
         private System.Windows.Forms.LinkLabel linklblTopic;
         private System.Windows.Forms.Label lblCreateDT;
         private System.Windows.Forms.LinkLabel linklblLastID;
