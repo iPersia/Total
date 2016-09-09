@@ -144,7 +144,12 @@
         /// 
         /// </summary>
         private static bool staticPageDispatcherSynchronous = false;
-#endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static int staticTitleWordCount = 6;
+        #endregion
 
 
         #region Properties
@@ -334,6 +339,17 @@
                 return staticPageDispatcherSynchronous;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static int TitleWordCount
+        {
+            get
+            {
+                return staticTitleWordCount;
+            }
+        }        
         #endregion
 
         #region Public methods

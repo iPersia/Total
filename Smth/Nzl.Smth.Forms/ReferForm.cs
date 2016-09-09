@@ -30,11 +30,6 @@
         /// <summary>
         /// 
         /// </summary>
-        private PostForm _postForm = new PostForm();
-
-        /// <summary>
-        /// 
-        /// </summary>
         public ReferForm()
         {
             InitializeComponent();

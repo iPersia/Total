@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using Nzl.Recycling;
+    using Nzl.Smth;
     using Nzl.Smth.Configs;
     using Nzl.Smth.Datas;
     using Nzl.Web.Page;
@@ -113,18 +114,18 @@
             string mode = CommonUtil.GetMatch(pattern, content, "Mode");
             if (mode == "top")
             {
-                topic.Mode = TopicMode.Top;
+                topic.Mode = TopicStatus.Top;
             }
             else if (mode == "m")
             {
-                topic.Mode = TopicMode.Magic;
+                topic.Mode = TopicStatus.Magic;
             }
             else
             {
-                topic.Mode = TopicMode.Normal;
+                topic.Mode = TopicStatus.Normal;
             }
 
-            topic.Type = TopicType.Subject;
+            topic.Type = TopicBrowserType.Subject;
             return topic;
         }
 
@@ -162,27 +163,27 @@
             string mode = CommonUtil.GetMatch(pattern, content, "Mode");
             if (mode == "top")
             {
-                topic.Mode = TopicMode.Top;
+                topic.Mode = TopicStatus.Top;
             }
             else if (mode == "m")
             {
-                topic.Mode = TopicMode.Magic;
+                topic.Mode = TopicStatus.Magic;
             }
             else
             {
-                topic.Mode = TopicMode.Normal;
+                topic.Mode = TopicStatus.Normal;
             }
 
             if (string.IsNullOrEmpty(CommonUtil.GetMatch(pattern, content, "SingleMode")) == false)
             {
-                topic.Type = TopicType.Normal;
+                topic.Type = TopicBrowserType.Classic;
             }
             else
             {
-                topic.Type = TopicType.Subject;
+                topic.Type = TopicBrowserType.Subject;
             }
 
-            topic.Type = TopicType.Normal;
+            topic.Type = TopicBrowserType.Classic;
             return topic;
         }
 

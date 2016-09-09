@@ -63,6 +63,10 @@
       <Project>{58bc70f0-3ff6-4095-87ac-08a4b7c00f58}</Project>
       <Name>Nzl.Web.Page</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Nzl.Smth.Common\Nzl.Smth.csproj">
+      <Project>{e22371cb-bcae-41e5-82b3-2b696c7e05d1}</Project>
+      <Name>Nzl.Smth</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

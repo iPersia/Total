@@ -179,7 +179,7 @@
                 this.linklblBoard.Text = refer.Board;
                 
                 ///Urls
-                this.InitializeLinkLabel(this.linklblBoard, refer.BoardUrl);
+                this.InitializeLinkLabel(this.linklblBoard, refer.Board);
                 this.InitializeLinkLabel(this.linklblDelete, refer.DeleteUrl);
                 this.InitializeLinkLabel(this.linklblEdit, refer.EditUrl);
                 this.InitializeLinkLabel(this.linklblExpand, refer.ExpandUrl);

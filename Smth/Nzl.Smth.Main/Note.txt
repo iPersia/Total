@@ -86,6 +86,10 @@
 			文摘区
 			保留区
 
+    25、BaseControlContainer.IsWorking=true时，不做回收。如果一直处于Working状态，重复利用时，将导致不能FetchPage。（基本解决）
+
+	    Finally中加入IsWorking=false的处理。
+
 经验
 
   1、不要奢望能够直接改动Dock=Fill控件的大小，只能通过改变其容器的大小来达到目的。

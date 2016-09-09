@@ -49,6 +49,8 @@
             base.OnLoad(e);
             this.rbShowTops.Checked = this._boardSetting.IsShowTop;
             this.rbNoTops.Checked = !this._boardSetting.IsShowTop;
+            this.rbSubject.Checked = this._boardSetting.BrowserType == TopicBrowserType.Subject;
+            this.rbClassic.Checked = this._boardSetting.BrowserType == TopicBrowserType.Classic;
             this.ckbAutoUpdating.Checked = this._boardSetting.AutoUpdating;
             this.cmbInterval.Text = this._boardSetting.UpdatingInterval.ToString();
         }
@@ -64,6 +66,7 @@
         {
             this._boardSetting.IsShowTop = this.rbShowTops.Checked;
             this._boardSetting.AutoUpdating = this.ckbAutoUpdating.Checked;
+            this._boardSetting.BrowserType = this.rbSubject.Checked ? TopicBrowserType.Subject : TopicBrowserType.Classic;
             this._boardSetting.UpdatingInterval = Convert.ToInt32(this.cmbInterval.Text);
             this.Close();
         }        

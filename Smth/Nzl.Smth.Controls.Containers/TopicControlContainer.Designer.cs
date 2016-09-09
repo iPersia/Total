@@ -124,7 +124,7 @@
             // btnRefresh
             // 
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRefresh.Location = new System.Drawing.Point(273, 1);
+            this.btnRefresh.Location = new System.Drawing.Point(322, 1);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(56, 23);
             this.btnRefresh.TabIndex = 19;
@@ -174,21 +174,18 @@
             // 
             // lblPage
             // 
-            this.lblPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPage.AutoSize = true;
-            this.lblPage.Location = new System.Drawing.Point(116, 7);
+            this.lblPage.Location = new System.Drawing.Point(123, 7);
             this.lblPage.Name = "lblPage";
-            this.lblPage.Size = new System.Drawing.Size(47, 12);
+            this.lblPage.Size = new System.Drawing.Size(83, 12);
             this.lblPage.TabIndex = 8;
-            this.lblPage.Text = "001/100";
+            this.lblPage.Text = "999999/999999";
             this.lblPage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnLast
             // 
             this.btnLast.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnLast.Location = new System.Drawing.Point(223, 1);
+            this.btnLast.Location = new System.Drawing.Point(272, 1);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(45, 23);
             this.btnLast.TabIndex = 7;
@@ -214,7 +211,7 @@
             // btnNext
             // 
             this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnNext.Location = new System.Drawing.Point(173, 1);
+            this.btnNext.Location = new System.Drawing.Point(222, 1);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(45, 23);
             this.btnNext.TabIndex = 3;

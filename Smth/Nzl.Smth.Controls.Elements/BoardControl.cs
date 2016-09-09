@@ -36,7 +36,7 @@
                 this.linklblBoard.LinkClicked -= new LinkLabelLinkClickedEventHandler(linklblBorS_LinkClicked);
                 this.linklblBoard.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblBorS_LinkClicked);
                 this.linklblBoard.Text = board.Name;
-                LinkLabel.Link link = new LinkLabel.Link(0, this.linklblBoard.Text.Length, SmthUtil.GetBoardUrl(board.Code));
+                LinkLabel.Link link = new LinkLabel.Link(0, this.linklblBoard.Text.Length, board.Code);
                 link.Tag = "Board";
                 this.linklblBoard.Links.Clear();
                 this.linklblBoard.Links.Add(link);

@@ -12,7 +12,7 @@
         /// </summary>
         public TopicSettingEventArgs()
         {
-            this.BrowserType = BrowserType.FirstReply;
+            this.BrowserType = ThreadBrowserType.FirstReply;
             this.AutoUpdating = false;
             this.UpdatingInterval = 60;
         }
@@ -20,7 +20,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public BrowserType BrowserType
+        public ThreadBrowserType BrowserType
         {
             get;
             set;

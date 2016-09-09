@@ -28,9 +28,19 @@
         /// </summary>
         /// <param name="boardCode"></param>
         /// <returns></returns>
-        public static string GetBoardUrl(string boardCode)
+        public static string GetSubjectBoardUrl(string boardCode)
         {
             return @"http://m.newsmth.net/board/" + boardCode;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="boardCode"></param>
+        /// <returns></returns>
+        public static string GetClassicBoardUrl(string boardCode)
+        {
+            return @"http://m.newsmth.net/board/" + boardCode + "/0";
         }
 
         /// <summary>

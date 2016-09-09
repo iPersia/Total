@@ -37,6 +37,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnPostLinkClicked; 
+
+        /// <summary>
+        /// 
+        /// </summary>
         public event EventHandler<BoardSettingEventArgs> OnBoardSettingsClicked;
         #endregion
 
@@ -50,6 +55,11 @@
         /// 
         /// </summary>
         private Timer _updatingTimer = new Timer();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private string _boardCode = null;
         #endregion
 
         #region Ctor.
@@ -69,11 +79,33 @@
         /// 
         /// </summary>
         [Browsable(true)]
-        public string Url
+        public string Board
         {
             set
             {
-                this.SetBaseUrl(value);
+                this._boardCode = value;
+                this.SetUrl();
+            }
+
+            get
+            {
+                return this._boardCode;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TopicBrowserType BrowserType
+        {
+            get
+            {
+                return this._Settings.BrowserType;
+            }
+
+            set
+            {
+                this._Settings.BrowserType = value;
             }
         }
         #endregion
@@ -92,8 +124,8 @@
                 IList<Topic> tps = new List<Topic>();
                 foreach (Topic topic in topics)
                 {
-                    if (topic.Mode == TopicMode.Normal ||
-                        topic.Mode == TopicMode.Magic)
+                    if (topic.Mode == TopicStatus.Normal ||
+                        topic.Mode == TopicStatus.Magic)
                     {
                         tps.Add(topic);
                     }
@@ -118,7 +150,7 @@
         {
             base.WorkCompleted(info);
             this.UpdateBoardTitle(info.WebPage);
-            this.lblPage.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
+            this.lblPage.Text = info.Index.ToString().PadLeft(6, '0') + "/" + info.Total.ToString().PadLeft(6, '0');
             if (this.GetPanel().Height < this.panelContainer.Height)
             {
                 this.SetUrlInfo(true);
@@ -136,12 +168,12 @@
             base.SetControl(ctl, oeFlag);
             if (ctl.Data != null)
             {
-                if (ctl.Data.Mode == TopicMode.Top)
+                if (ctl.Data.Mode == TopicStatus.Top)
                 {
                     ctl.ForeColor = Color.Red;
                 }
 
-                if (ctl.Data.Mode == TopicMode.Magic)
+                if (ctl.Data.Mode == TopicStatus.Magic)
                 {
                     ctl.ForeColor = Color.FromArgb(255, 128, 128);
                 }
@@ -177,9 +209,10 @@
             if (ctl != null && item != null)
             {
                 ctl.Name = "tc" + item.ID;
-                ctl.OnTopicLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnTopicLinkClicked);
-                ctl.OnCreateIDLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnCreateIDLinkClicked);
-                ctl.OnLastIDLinkClicked += new LinkLabelLinkClickedEventHandler(TopicControl_OnLastIDLinkClicked);
+                ctl.OnTopicLinkClicked += TopicControl_OnTopicLinkClicked;
+                ctl.OnPostLinkClicked += TopicControl_OnPostLinkClicked;
+                ctl.OnCreateIDLinkClicked += TopicControl_OnCreateIDLinkClicked;
+                ctl.OnLastIDLinkClicked +=TopicControl_OnLastIDLinkClicked;
             }
         }
 
@@ -192,9 +225,10 @@
             base.RecylingControl(ctl);
             if (ctl != null)
             {
-                ctl.OnTopicLinkClicked -= new LinkLabelLinkClickedEventHandler(TopicControl_OnTopicLinkClicked);
-                ctl.OnCreateIDLinkClicked -= new LinkLabelLinkClickedEventHandler(TopicControl_OnCreateIDLinkClicked);
-                ctl.OnLastIDLinkClicked -= new LinkLabelLinkClickedEventHandler(TopicControl_OnLastIDLinkClicked);
+                ctl.OnTopicLinkClicked -= TopicControl_OnTopicLinkClicked;
+                ctl.OnPostLinkClicked -= TopicControl_OnPostLinkClicked;
+                ctl.OnCreateIDLinkClicked -= TopicControl_OnCreateIDLinkClicked;
+                ctl.OnLastIDLinkClicked -= TopicControl_OnLastIDLinkClicked;
             }
         }
 
@@ -351,12 +385,14 @@
                 BoardSettingEventArgs bsEventArgs = new BoardSettingEventArgs();
                 bsEventArgs.IsShowTop = this._Settings.IsShowTop;
                 bsEventArgs.AutoUpdating = this._Settings.AutoUpdating;
+                bsEventArgs.BrowserType = this._Settings.BrowserType;
                 bsEventArgs.UpdatingInterval = this._Settings.UpdatingInterval;
                 this.OnBoardSettingsClicked(sender, bsEventArgs);
                 if (bsEventArgs.Tag != null && bsEventArgs.Tag.ToString() == "Updated")
                 {
                     this._Settings.IsShowTop = bsEventArgs.IsShowTop;
                     this._Settings.AutoUpdating = bsEventArgs.AutoUpdating;
+                    this._Settings.BrowserType = bsEventArgs.BrowserType;
                     this._Settings.UpdatingInterval = bsEventArgs.UpdatingInterval;
                     ApplyBoardSetting();
                 }
@@ -371,7 +407,24 @@
         private void btnOpenInBrower_Click(object sender, EventArgs e)
         {
             CommonUtil.OpenUrl(this.GetCurrentUrl());
-        }        
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TopicControl_OnPostLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                if (this.OnPostLinkClicked != null)
+                {
+                    this.OnPostLinkClicked(sender, e);
+                }
+            }
+        }
 
         /// <summary>
         /// 
@@ -388,7 +441,6 @@
                     this.OnTopicLinkClicked(sender, e);
                 }
             }
-
         }
 
         /// <summary>
@@ -430,6 +482,20 @@
         /// <summary>
         /// 
         /// </summary>
+        private void SetUrl()
+        {
+            if (this._Settings.BrowserType == TopicBrowserType.Classic)
+            {
+                this.SetBaseUrl(SmthUtil.GetClassicBoardUrl(this._boardCode));
+            }
+            else
+            {
+                this.SetBaseUrl(SmthUtil.GetSubjectBoardUrl(this._boardCode));
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="wp"></param>
         private void UpdateBoardTitle(WebPage wp)
         {
@@ -454,6 +520,7 @@
                 this._updatingTimer.Start();
             }
 
+            this.SetUrl();
             this.SetUrlInfo(false);
             this.FetchPage();
         }

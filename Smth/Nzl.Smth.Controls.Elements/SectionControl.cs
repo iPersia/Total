@@ -33,14 +33,14 @@
                 LinkLabel.Link link = null;
                 if (section.IsBoard)
                 {
-                    link = new LinkLabel.Link(0, this.linklblSection.Text.Length, SmthUtil.GetBoardUrl(section.Code));
+                    link = new LinkLabel.Link(0, this.linklblSection.Text.Length, section.Code);
                     this.lblType.ForeColor = System.Drawing.Color.Black;
                     this.lblType.Text = "版面";
                     this.Tag = "Board";
                 }
                 else
                 {
-                    link = new LinkLabel.Link(0, this.linklblSection.Text.Length, SmthUtil.GetSectionUrl(section.Code));
+                    link = new LinkLabel.Link(0, this.linklblSection.Text.Length, section.Code);
                     this.lblType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
                     this.lblType.Text = "目录";
                     this.Tag = "Section";

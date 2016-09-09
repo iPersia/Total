@@ -3,16 +3,16 @@
     /// <summary>
     /// 
     /// </summary>
-    public enum BrowserType
+    public enum TopicBrowserType
     {
         /// <summary>
         /// 
         /// </summary>
-        LastReply = 0,
+        Classic,
 
         /// <summary>
         /// 
         /// </summary>
-        FirstReply = 1
+        Subject
     }
 }

@@ -42,14 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardSettingEventArgs.cs" />
-    <Compile Include="BrowserType.cs" />
+    <Compile Include="ThreadBrowserType.cs" />
     <Compile Include="LogStatusEventArgs.cs" />
     <Compile Include="MailBoxType.cs" />
     <Compile Include="MailStatusEventArgs.cs" />
     <Compile Include="MessageEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskCompletedEventArgs.cs" />
+    <Compile Include="TopicStatus.cs" />
     <Compile Include="TopicSettingEventArgs.cs" />
+    <Compile Include="TopicBrowserType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

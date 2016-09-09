@@ -973,7 +973,6 @@
                     WorkCompletedBase(e);
                 }
 
-                this.IsWorking = false;
                 this.SetControlEnabled(true);
             }
             catch (Exception exp)
@@ -982,6 +981,10 @@
                 {
                     Logger.Instance.Error(exp.Message + "\n" + exp.StackTrace);
                 }
+            }
+            finally
+            {
+                this.IsWorking = false;
             }
         }
 
@@ -1096,32 +1099,35 @@
         /// <param name="e"></param>
         private void PageLoader_PageLoaded(object sender, EventArgs e)
         {
-            PageLoader pl = sender as PageLoader;
-            if (pl != null)
+            lock (this)
             {
-                WebPage wp = pl.GetResult() as WebPage;
-                if (wp != null && wp.IsGood)
+                PageLoader pl = sender as PageLoader;
+                if (pl != null)
                 {
-                    UrlInfo<TBaseControl, TBaseData> info = pl.Tag as UrlInfo<TBaseControl, TBaseData>;
-                    info.WebPage = wp;
-                    if (this.IsHandleCreated)
+                    WebPage wp = pl.GetResult() as WebPage;
+                    if (wp != null && wp.IsGood)
                     {
-                        if (this.InvokeRequired)
+                        UrlInfo<TBaseControl, TBaseData> info = pl.Tag as UrlInfo<TBaseControl, TBaseData>;
+                        info.WebPage = wp;
+                        if (this.IsHandleCreated)
                         {
-                            System.Threading.Thread.Sleep(0);
-                            this.Invoke(new MethodInvoker(delegate ()
+                            if (this.InvokeRequired)
                             {
-                                this.PageLoaded(info);
-                            }));
-                            System.Threading.Thread.Sleep(0);
+                                System.Threading.Thread.Sleep(0);
+                                this.Invoke(new MethodInvoker(delegate ()
+                                {
+                                    this.PageLoaded(info);
+                                }));
+                                System.Threading.Thread.Sleep(0);
+                            }
                         }
                     }
-                }
-                else
-                {
-                    this.ShowInformation("The page getted is bad!");
-                    this.IsWorking = false;
-                    SetControlEnabled(true);
+                    else
+                    {
+                        this.ShowInformation("The page getted is bad!");
+                        this.IsWorking = false;
+                        SetControlEnabled(true);
+                    }
                 }
             }
         }

@@ -47,8 +47,8 @@
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            this.rbLatestReply.Checked = this._topicSetting.BrowserType == BrowserType.LastReply;
-            this.rbFirstReply.Checked = this._topicSetting.BrowserType == BrowserType.FirstReply;
+            this.rbLatestReply.Checked = this._topicSetting.BrowserType == ThreadBrowserType.LastReply;
+            this.rbFirstReply.Checked = this._topicSetting.BrowserType == ThreadBrowserType.FirstReply;
             this.ckbAutoUpdating.Checked = this._topicSetting.AutoUpdating;
             this.cmbInterval.Text = this._topicSetting.UpdatingInterval.ToString();
         }
@@ -63,7 +63,7 @@
         private void btnOK_Click(object sender, EventArgs e)
         {
             this._topicSetting.AutoUpdating = this.ckbAutoUpdating.Checked;
-            this._topicSetting.BrowserType = this.rbLatestReply.Checked ? BrowserType.LastReply : BrowserType.FirstReply;
+            this._topicSetting.BrowserType = this.rbLatestReply.Checked ? ThreadBrowserType.LastReply : ThreadBrowserType.FirstReply;
             this._topicSetting.UpdatingInterval = Convert.ToInt32(this.cmbInterval.Text);
             this.Close();
         }

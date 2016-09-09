@@ -46,6 +46,8 @@
             this.ClientSize = new System.Drawing.Size(597, 468);
             this.Controls.Add(this.panelContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ReferForm";
             this.Text = "Refers";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MailBoxForm_FormClosing);

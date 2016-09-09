@@ -14,6 +14,7 @@
         {
             this.IsShowTop = true;
             this.AutoUpdating = false;
+            this.BrowserType = TopicBrowserType.Subject;
             this.UpdatingInterval = 60;
         }
 
@@ -26,6 +27,15 @@
             set;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public TopicBrowserType BrowserType
+        {
+            get;
+            set;
+        }
+        
         /// <summary>
         /// 
         /// </summary>

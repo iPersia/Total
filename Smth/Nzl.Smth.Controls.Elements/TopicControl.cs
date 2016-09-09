@@ -13,6 +13,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnPostLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public event LinkLabelLinkClickedEventHandler OnTopicLinkClicked;
 
         /// <summary>
@@ -46,7 +51,7 @@
             if (topic != null)
             {
                 
-                if (topic.Type == TopicType.Normal)
+                if (topic.Type == TopicBrowserType.Classic)
                 {
                     this.lblReplies.Visible = false;
                     this.linklblCreateID.Visible = false;
@@ -91,9 +96,19 @@
         /// <param name="e"></param>
         private void linklblTopic_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.OnTopicLinkClicked != null)
+            if (this.Data.Type == TopicBrowserType.Classic)
             {
-                OnTopicLinkClicked(sender, e);
+                if (this.OnPostLinkClicked != null)
+                {
+                    this.OnPostLinkClicked(sender, e);
+                }
+            }
+            else
+            {
+                if (this.OnTopicLinkClicked != null)
+                {
+                    this.OnTopicLinkClicked(sender, e);
+                }
             }
         }
 
@@ -106,7 +121,7 @@
         {
             if (this.OnCreateIDLinkClicked != null)
             {
-                OnCreateIDLinkClicked(sender, e);
+                this.OnCreateIDLinkClicked(sender, e);
             }
         }
 
@@ -119,7 +134,7 @@
         {
             if (this.OnLastIDLinkClicked != null)
             {
-                OnLastIDLinkClicked(sender, e);
+               this. OnLastIDLinkClicked(sender, e);
             }
         }
         #endregion

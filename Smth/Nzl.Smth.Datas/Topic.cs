@@ -1,6 +1,6 @@
 ﻿namespace Nzl.Smth.Datas
 {
-    using System;
+    using Nzl.Smth;
 
     /// <summary>
     /// The topic class.
@@ -137,7 +137,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public TopicMode Mode
+        public TopicStatus Mode
         {
             get;
             set;
@@ -146,32 +146,10 @@
         /// <summary>
         /// 
         /// </summary>
-        public TopicType Type
+        public TopicBrowserType Type
         {
             get;
             set;
         }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum TopicMode
-    {
-        Normal,
-
-        Top,
-
-        Magic
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum TopicType
-    {
-        Normal,
-
-        Subject
     }
 }

@@ -257,7 +257,7 @@ namespace Nzl.Smth.Controls.Containers
                 ///Fetch next page when the container is not full.
                 if (this.GetPanel().Height < this.panelContainer.Height)
                 {
-                    if (this._Settings.BrowserType == BrowserType.FirstReply)
+                    if (this._Settings.BrowserType == ThreadBrowserType.FirstReply)
                     {
                         this.SetUrlInfo(true);
                         this.FetchNextPage();
@@ -297,7 +297,7 @@ namespace Nzl.Smth.Controls.Containers
         protected override IList<Thread> GetItems(WebPage wp)
         {
             IList<Thread> threads = ThreadFactory.CreateThreads(wp);
-            if (this._Settings.BrowserType == BrowserType.LastReply)
+            if (this._Settings.BrowserType == ThreadBrowserType.LastReply)
             {
                 IList<Thread> reversedThreads = new List<Thread>();
                 if (threads != null)
@@ -382,7 +382,7 @@ namespace Nzl.Smth.Controls.Containers
         /// <returns></returns>
         protected override bool CheckAddingControl(ThreadControl ctl)
         {
-            if (this._Settings.BrowserType == BrowserType.LastReply &&
+            if (this._Settings.BrowserType == ThreadBrowserType.LastReply &&
                 this._Settings.AutoUpdating == false &&
                 ctl.Name != null)
             {
@@ -440,7 +440,7 @@ namespace Nzl.Smth.Controls.Containers
         protected override void FetchPageOnMouseWheel()
         {
             this.SetUrlInfo(true);
-            if (this._Settings.BrowserType == BrowserType.FirstReply)
+            if (this._Settings.BrowserType == ThreadBrowserType.FirstReply)
             {
                 this.FetchNextPage();
             }
@@ -519,7 +519,7 @@ namespace Nzl.Smth.Controls.Containers
         private void btnFirst_Click(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            if (this._Settings.BrowserType == BrowserType.FirstReply)
+            if (this._Settings.BrowserType == ThreadBrowserType.FirstReply)
             {
                 this.SetUrlInfo(1, false);
                 this.FetchPage();
@@ -538,7 +538,7 @@ namespace Nzl.Smth.Controls.Containers
         private void btnPrev_Click(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            if (this._Settings.BrowserType == BrowserType.LastReply)
+            if (this._Settings.BrowserType == ThreadBrowserType.LastReply)
             {
                 this.FetchNextPage();
             }
@@ -556,7 +556,7 @@ namespace Nzl.Smth.Controls.Containers
         private void btnNext_Click(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            if (this._Settings.BrowserType == BrowserType.FirstReply)
+            if (this._Settings.BrowserType == ThreadBrowserType.FirstReply)
             {
                 this.FetchNextPage();
             }
@@ -574,7 +574,7 @@ namespace Nzl.Smth.Controls.Containers
         private void btnLast_Click(object sender, EventArgs e)
         {
             this.SetUrlInfo(false);
-            if (this._Settings.BrowserType == BrowserType.LastReply)
+            if (this._Settings.BrowserType == ThreadBrowserType.LastReply)
             {
                 this.SetUrlInfo(1, false);
                 this.FetchPage();
@@ -614,14 +614,14 @@ namespace Nzl.Smth.Controls.Containers
         /// </summary>
         private void ApplyTopicSetting()
         {
-            if (this._Settings.BrowserType == BrowserType.FirstReply)
+            if (this._Settings.BrowserType == ThreadBrowserType.FirstReply)
             {
                 this._updatingTimer.Stop();
                 this.SetUrlInfo(1, false);
                 this.FetchPage();
             }
 
-            if (this._Settings.BrowserType == BrowserType.LastReply)
+            if (this._Settings.BrowserType == ThreadBrowserType.LastReply)
             {
                 this._updatingTimer.Stop();
                 if (this._Settings.AutoUpdating)
@@ -651,7 +651,7 @@ namespace Nzl.Smth.Controls.Containers
                     pageIndex = System.Convert.ToInt32(this.txtGoTo.Text);
                 }
 
-                if (this._Settings.BrowserType == BrowserType.FirstReply)
+                if (this._Settings.BrowserType == ThreadBrowserType.FirstReply)
                 {
                     this.SetUrlInfo(pageIndex, false);
                 }

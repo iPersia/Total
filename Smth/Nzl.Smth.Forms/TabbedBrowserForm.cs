@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
     using System.Reflection;
@@ -75,8 +76,8 @@
         TabbedBrowserForm()
         {
             InitializeComponent();
-            LogStatus.Instance.OnLoginStatusChanged += Instance_OnLoginStatusChanged;
-            MailStatus.Instance.OnNewMaiArrived += Instance_OnNewMaiArrived;
+            LogStatus.Instance.OnLoginStatusChanged += LogStatusInstance_OnLoginStatusChanged;
+            MailStatus.Instance.OnNewMaiArrived += MailStatusInstance_OnNewMaiArrived;
             Configuration.OnNewMailUpdatingIntervalChanged += Configuration_OnNewMailUpdatingIntervalChanged;
             this._newMailUpdateTimer.Tick += _newMailUpdateTimer_Tick;
             this._uahKey.KeyUp += new EventHandler<KeyExEventArgs>(Global_KeyUp);
@@ -157,17 +158,16 @@
             base.OnLoad(e);
             Top10sForm.Instance.OnTopLinkClicked += Top10sForm_OnTopLinkClicked;
             Top10sForm.Instance.OnTopBoardLinkClicked += Top10sForm_OnTopBoardLinkClicked;
-            BoardNavigatorForm.Instance.OnBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
-            FavorForm.Instance.OnFavorBoardLinkLableClicked += Form_OnBoardLinkLableClicked;
+            BoardNavigatorForm.Instance.OnBoardLinkLableClicked += FavorForm_OnBoardLinkLableClicked;
+            FavorForm.Instance.OnFavorBoardLinkLableClicked += FavorForm_OnBoardLinkLableClicked;
             LoginForm.Instance.OnLoginFailed += LoginForm_OnLoginFailed;
             LoginForm.Instance.OnLogoutFailed += LoginForm_OnLogoutFailed;
-            ReferForm.Instance.OnReferClicked += Instance_OnReferClicked;
             this._entryAssemblyTitle = this.GetEntryAssemblyTitle();
 
 #if (DEBUG)
             ////Just for testing.
             {
-                
+
             }
 #endif
         }
@@ -177,14 +177,14 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Instance_OnReferClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ReferFormInstance_OnReferClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linklbl = sender as LinkLabel;
             if (linklbl != null)
             {
                 this.AddPost(e.Link.LinkData.ToString(), linklbl.Text);
             }
-        }        
+        }
 
 #if (X)
         ////Just for testing.
@@ -238,7 +238,8 @@
             {
                 TabPage tp = new TabPage();
                 tp.Name = key;
-                tp.Text = subject == null ? "Unknown" : subject.Length > 10 ? subject.Substring(0, 10) + ".." : "" + subject;
+                //tp.Text = subject == null ? "Unknown" : subject.Length > 10 ? subject.Substring(0, 10) + ".." : "" + subject;
+                tp.Text = this.GetFormattedTitle(subject);
                 tp.ToolTipText = subject;
                 this.tcTopics.TabPages.Add(tp);
                 this.tcTopics.SelectedTab = tp;
@@ -336,7 +337,7 @@
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
-                this.AddBoard(e.Link.LinkData.ToString(), linkLabel.Text);
+                this.AddBoard(e.Link.LinkData.ToString(), TopicBrowserType.Subject, linkLabel.Text);
                 e.Link.Visited = true;
             }
         }
@@ -351,7 +352,7 @@
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
-                NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text, 
+                NewThreadForm threadForm = new NewThreadForm("回复 - " + this.Text,
                                                              "Re: " + this.tcTopics.SelectedTab.ToolTipText);
                 threadForm.StartPosition = FormStartPosition.CenterParent;
                 if (DialogResult.OK == threadForm.ShowDialog(this))
@@ -359,7 +360,7 @@
                     e.Link.Tag = threadForm.GetPostString();
                 }
             }
-        }        
+        }
 
         /// <summary>
         /// 
@@ -384,9 +385,9 @@
                 Thread thread = linkLabel.Tag as Thread;
                 if (thread != null)
                 {
-                    NewThreadForm threadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText, 
-                                                                    "Re: " + this.tcTopics.SelectedTab.ToolTipText, 
-                                                                    SmthUtil.GetReplyContent(thread), 
+                    NewThreadForm threadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText,
+                                                                    "Re: " + this.tcTopics.SelectedTab.ToolTipText,
+                                                                    SmthUtil.GetReplyContent(thread),
                                                                     true);
                     threadForm.StartPosition = FormStartPosition.CenterParent;
                     if (DialogResult.OK == threadForm.ShowDialog(this))
@@ -428,8 +429,8 @@
                 Thread thread = linkLabel.Tag as Thread;
                 if (thread != null)
                 {
-                    NewMailForm mailForm = new NewMailForm(thread.User, 
-                                                           "Re: " + this.tcTopics.SelectedTab.ToolTipText, 
+                    NewMailForm mailForm = new NewMailForm(thread.User,
+                                                           "Re: " + this.tcTopics.SelectedTab.ToolTipText,
                                                            SmthUtil.GetReplyContent(thread));
                     mailForm.StartPosition = FormStartPosition.CenterParent;
                     if (mailForm.ShowDialog(this) == DialogResult.OK)
@@ -458,9 +459,9 @@
                     string content = regex.Replace(thread.Tag.ToString(), "");
                     content = CommonUtil.ReplaceSpecialChars(content);
                     content = SmthUtil.TrimUrls(content);
-                    NewThreadForm threadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText, 
-                                                                    "Re: " + this.tcTopics.SelectedTab.ToolTipText, 
-                                                                    content, 
+                    NewThreadForm threadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText,
+                                                                    "Re: " + this.tcTopics.SelectedTab.ToolTipText,
+                                                                    content,
                                                                     false);
                     threadForm.StartPosition = FormStartPosition.CenterParent;
                     if (DialogResult.OK == threadForm.ShowDialog(this))
@@ -488,7 +489,7 @@
                 if (dlgResult == DialogResult.OK)
                 {
                     e.Link.Tag = "Yes";
-                    e.Link.Visited = true;                 
+                    e.Link.Visited = true;
                 }
             }
         }
@@ -500,13 +501,13 @@
         /// </summary>
         /// <param name="url"></param>
         /// <param name="title"></param>
-        public void AddBoard(string url, string title)
+        public void AddBoard(string boardCode, TopicBrowserType browserType, string title)
         {
             this.Text = title;
-            string key = "tp" + url;
+            string key = "tp" + boardCode;
             ///Exsits
             {
-                TabPage tp = GetTabPage(url);
+                TabPage tp = GetTabPage(boardCode);
                 if (tp != null)
                 {
                     this.tcTopics.SelectedTab = tp;
@@ -517,22 +518,23 @@
             ///NOT Exsits
             {
                 TabPage tp = new TabPage();
-                tp.Name = "tp" + url; ;
+                tp.Name = "tp" + boardCode;
                 tp.Text = "[ " + title + " ]";
                 tp.ToolTipText = tp.Text;
                 this.tcTopics.TabPages.Add(tp);
                 this.tcTopics.SelectedTab = tp;
 
-                //BoardBrowserControl bbc = new BoardBrowserControl(url);
                 TopicControlContainer bbc = RecycledQueues.GetRecycled<TopicControlContainer>();
                 if (bbc == null)
                 {
                     bbc = new TopicControlContainer();
                 }
 
-                bbc.Name = "bbc" + url;
-                bbc.Url = url;
+                bbc.Name = "bbc" + boardCode;
+                bbc.Board = boardCode;
+                bbc.BrowserType = browserType;
                 bbc.OnTopicLinkClicked += TopicControlContainer_OnTopicLinkClicked;
+                bbc.OnPostLinkClicked += TopicControlContainer_OnPostLinkClicked;
                 bbc.OnTopicCreateIDLinkClicked += TabbedBrowserForm_IDLinkClicked;
                 bbc.OnTopicLastIDLinkClicked += TabbedBrowserForm_IDLinkClicked;
                 bbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
@@ -557,16 +559,19 @@
             BoardSettingsForm form = new BoardSettingsForm();
             form.Settings.IsShowTop = e.IsShowTop;
             form.Settings.AutoUpdating = e.AutoUpdating;
+            form.Settings.BrowserType = e.BrowserType;
             form.Settings.UpdatingInterval = e.UpdatingInterval;
             form.StartPosition = FormStartPosition.CenterParent;
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                if (e.IsShowTop != form.Settings.IsShowTop || 
-                    e.AutoUpdating != form.Settings.AutoUpdating ||                    
+                if (e.IsShowTop != form.Settings.IsShowTop ||
+                    e.AutoUpdating != form.Settings.AutoUpdating ||
+                    e.BrowserType != form.Settings.BrowserType ||
                     e.UpdatingInterval != form.Settings.UpdatingInterval)
                 {
                     e.IsShowTop = form.Settings.IsShowTop;
-                    e.AutoUpdating = form.Settings.AutoUpdating;                    
+                    e.AutoUpdating = form.Settings.AutoUpdating;
+                    e.BrowserType = form.Settings.BrowserType;
                     e.UpdatingInterval = form.Settings.UpdatingInterval;
                     e.Tag = "Updated";
                 }
@@ -604,20 +609,27 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void TopicControlContainer_OnPostLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                this.AddPost(e.Link.LinkData.ToString(), linkLabel.Text);
+                e.Link.Visited = true;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TopicControlContainer_OnTopicLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
-                string url = e.Link.LinkData.ToString();
-                if (url.Contains("/single/"))
-                {
-                    this.AddPost(url, linkLabel.Text);
-                }
-                else
-                {
-                    this.AddTopic(url, linkLabel.Text);
-                }
+                this.AddTopic(e.Link.LinkData.ToString(), linkLabel.Text);
                 e.Link.Visited = true;
             }
         }
@@ -647,7 +659,8 @@
             {
                 TabPage tp = new TabPage();
                 tp.Name = "tp" + url; ;
-                tp.Text = "[ " + title + " ]";
+                //tp.Text = title == null ? "Unknown" : title.Length > 10 ? title.Substring(0, 10) + ".." : "" + title;
+                tp.Text = this.GetFormattedTitle(title);
                 tp.ToolTipText = tp.Text;
                 this.tcTopics.TabPages.Add(tp);
                 this.tcTopics.SelectedTab = tp;
@@ -813,9 +826,9 @@
             LinkLabel linklbl = sender as LinkLabel;
             if (linklbl != null)
             {
-                this.AddBoard(e.Link.LinkData.ToString(), linklbl.Text);
+                this.AddBoard(e.Link.LinkData.ToString(), TopicBrowserType.Classic, linklbl.Text);
             }
-        }        
+        }
         #endregion
 
         #region TabPages
@@ -986,12 +999,12 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Form_OnBoardLinkLableClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void FavorForm_OnBoardLinkLableClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
             {
-                TabbedBrowserForm.Instance.AddBoard(e.Link.LinkData.ToString(), linkLabel.Text);
+                TabbedBrowserForm.Instance.AddBoard(e.Link.LinkData.ToString(), TopicBrowserType.Subject, linkLabel.Text);
             }
         }
 
@@ -1013,6 +1026,8 @@
         /// <param name="e"></param>
         private void btnRefer_Click(object sender, EventArgs e)
         {
+            ReferForm.Instance.OnReferClicked -= ReferFormInstance_OnReferClicked;
+            ReferForm.Instance.OnReferClicked += ReferFormInstance_OnReferClicked;
             ReferForm.Instance.SetParent(this);
             ShowFormOnCenterParent(ReferForm.Instance);
         }
@@ -1092,6 +1107,7 @@
             if (bbc != null)
             {
                 bbc.OnTopicLinkClicked -= TopicControlContainer_OnTopicLinkClicked;
+                bbc.OnPostLinkClicked -= TopicControlContainer_OnPostLinkClicked;
                 bbc.OnTopicCreateIDLinkClicked -= TabbedBrowserForm_IDLinkClicked;
                 bbc.OnTopicLastIDLinkClicked -= TabbedBrowserForm_IDLinkClicked;
                 bbc.OnWorkerFailed -= TabbedBrowserForm_OnWorkerFailed;
@@ -1132,7 +1148,7 @@
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnSettings_Click(object sender, EventArgs e)
-        {            
+        {
             ShowFormAsDialog(TabbedBrowserSettingsForm.Instance);
         }
 
@@ -1156,7 +1172,7 @@
             LinkLabel linklbl = sender as LinkLabel;
             if (linklbl != null)
             {
-                this.AddBoard(@"http://m.newsmth.net/board/" + e.Link.LinkData.ToString(), linklbl.Text);
+                this.AddBoard(e.Link.LinkData.ToString(), TopicBrowserType.Subject, linklbl.Text);
             }
         }
 
@@ -1241,7 +1257,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Instance_OnNewMaiArrived(object sender, MailStatusEventArgs e)
+        private void MailStatusInstance_OnNewMaiArrived(object sender, MailStatusEventArgs e)
         {
             this.SetNewMailStatus(e.NewCount);
         }
@@ -1251,7 +1267,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Instance_OnLoginStatusChanged(object sender, LogStatusEventArgs e)
+        private void LogStatusInstance_OnLoginStatusChanged(object sender, LogStatusEventArgs e)
         {
             SetLogStatus(e.IsLogin);
         }
@@ -1283,7 +1299,8 @@
                 if (this.InvokeRequired)
                 {
                     System.Threading.Thread.Sleep(0);
-                    this.Invoke(new MethodInvoker(delegate() {
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
                         this.SetLogStatus(flag);
                     }));
                     System.Threading.Thread.Sleep(0);
@@ -1342,7 +1359,8 @@
                 if (this.InvokeRequired)
                 {
                     System.Threading.Thread.Sleep(0);
-                    this.Invoke(new MethodInvoker(delegate () {
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
                         this.SetNewMailStatus(obj);
                     }));
                     System.Threading.Thread.Sleep(0);
@@ -1453,6 +1471,46 @@
                 }
             }
             return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        private string GetFormattedTitle(string title)
+        {
+            string srcTitle = title;
+            string suffix = "...";
+            using (Graphics graphics = CreateGraphics())
+            {
+                SizeF sizeF = graphics.MeasureString(title, new Font("宋体", 9));
+                SizeF sizeWord = graphics.MeasureString("N", new Font("宋体", 9));
+                SizeF sizeSuffix = graphics.MeasureString(suffix, new Font("宋体", 9));
+                float targetWidth = sizeWord.Width * Configuration.TitleWordCount * 2;
+                if (sizeF.Width > targetWidth)
+                {
+                    while (sizeF.Width > targetWidth - sizeSuffix.Width)
+                    {
+                        title = title.Substring(0, title.Length - 1);
+                        sizeF = graphics.MeasureString(title, new Font("宋体", 9));
+                    }
+
+                    title += suffix;
+                }
+                else
+                {
+                    while (sizeF.Width < targetWidth)
+                    {
+                        title = title + ".";
+                        sizeF = graphics.MeasureString(title, new Font("宋体", 9));
+                    }
+
+                    title = srcTitle + title.Replace(srcTitle, "").Replace(".", " ");
+                }
+            }
+
+            return title;
         }
         #endregion
     }

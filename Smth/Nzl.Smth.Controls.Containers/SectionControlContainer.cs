@@ -194,7 +194,7 @@
         /// <param name="e"></param>
         private void Sc_OnLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.SetBaseUrl(e.Link.LinkData.ToString());
+            this.SetBaseUrl(SmthUtil.GetSectionUrl(e.Link.LinkData.ToString()));
             this.SetUrlInfo(false);            
             this.FetchPage();
         }
