@@ -438,7 +438,7 @@
                     int iconCounter = 0;
                     int imageCounter = 0;
                     int anchorCounter = 0;
-                    if (thread.ImageList != null || thread.IconList != null || thread.AnchorList != null)
+                    if (thread.ImageUrls != null || thread.IconUrls != null || thread.Anchors != null)
                     {
                         foreach (Match mt in mtCollection)
                         {
@@ -460,25 +460,48 @@
                             //Image
                             if (mt.Groups["Type"].Value.ToString() == ThreadFactory.ImageToken)
                             {
-                                string data = thread.ImageList[imageCounter++].Tag.ToString();
-                                int indexOfUrl = data.IndexOf(token);
-                                string url = data.Substring(0, indexOfUrl);
+                                string url = thread.ImageUrls[imageCounter++];
+#if (DEBUG)
                                 System.Diagnostics.Debug.WriteLine(url);
-                                string rtfCode = data.Substring(indexOfUrl + token.Length);
-                                this.richtxtContent.InsertLink(rtfCode, url, this.richtxtContent.Text.Length);                                
+#endif
+                                if (thread.Images.ContainsKey(url))
+                                {
+                                    string data = thread.Images[url].Tag.ToString();
+                                    this.richtxtContent.InsertLink(data, url, this.richtxtContent.Text.Length);
+                                }
+                                else
+                                {
+                                    this.richtxtContent.InsertLink(RtfUtil.GetRtfCode("图片下载失败"), 
+                                                                   url,
+                                                                   this.richtxtContent.Text.Length);
+                                }
+                                                               
                             }
 
                             //Icon
                             if (mt.Groups["Type"].Value.ToString() == ThreadFactory.IconToken)
                             {
-                                this.richtxtContent.InsertImage(thread.IconList[iconCounter++]);
+                                string url = thread.IconUrls[iconCounter++];
+#if (DEBUG)
+                                System.Diagnostics.Debug.WriteLine(url);
+#endif
+                                if (thread.Images.ContainsKey(url))
+                                {
+                                    this.richtxtContent.InsertImage(thread.Icons[url]);
+                                }
+                                else
+                                {
+                                    this.richtxtContent.InsertLink(RtfUtil.GetRtfCode("图片下载失败"), 
+                                                                   url,
+                                                                   this.richtxtContent.Text.Length);
+                                }
                             }
 
                             //Anchor
                             if (mt.Groups["Type"].Value.ToString() == ThreadFactory.AnchorToken)
                             {
-                                this.richtxtContent.InsertLink(RtfUtil.GetRtfCode(thread.AnchorList[anchorCounter].Text),
-                                                               thread.AnchorList[anchorCounter++].Url,
+                                this.richtxtContent.InsertLink(RtfUtil.GetRtfCode(thread.Anchors[anchorCounter].Text),
+                                                               thread.Anchors[anchorCounter++].Url,
                                                                this.richtxtContent.Text.Length);
                             }
                         }
@@ -541,187 +564,7 @@
                     }
                 }
             }
-        }
-
-        #region For test.
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="richTextBox"></param>
-        /// <param name="thread"></param>
-        private void AddText(Thread thread)
-        {
-            if (thread != null)
-            {
-                string content = CommonUtil.ReplaceSpecialChars(thread.Content);
-                {
-                    string tokenPattern = ThreadFactory.TokenPrefix + ThreadFactory.AnchorToken + ThreadFactory.TokenSuffix;
-                    MatchCollection mtCollection = CommonUtil.GetMatchCollection(tokenPattern, thread.Content);
-                    int anchorCounter = 0;
-                    if (thread.ImageList != null || thread.IconList != null || thread.AnchorList != null)
-                    {
-                        foreach (Match mt in mtCollection)
-                        {
-                            string token = mt.Groups[0].Value.ToString();
-                            int pos = content.IndexOf(token);
-                            string tempContent = content.Substring(0, pos);
-                            {
-                                //去除HTTP标签
-                                tempContent = new Regex(@"(?m)<script[^>]*>(\w|\W)*?</script[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(tempContent, "");
-                                tempContent = new Regex(@"(?m)<style[^>]*>(\w|\W)*?</style[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(tempContent, "");
-                                tempContent = new Regex(@"(?m)<select[^>]*>(\w|\W)*?</select[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(tempContent, "");
-                                Regex objReg = new System.Text.RegularExpressions.Regex("(<[.^>]+?>)|&nbsp;", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-                                tempContent = objReg.Replace(tempContent, "");
-                            }
-
-                            this.richtxtContent.AppendText(tempContent);
-                            content = content.Substring(pos + token.Length);
-
-                            this.richtxtContent.InsertLink(RtfUtil.GetRtfCode(thread.AnchorList[anchorCounter].Text),
-                                                           thread.AnchorList[anchorCounter++].Url,
-                                                           this.richtxtContent.Text.Length);
-                            //System.Diagnostics.Debug.WriteLine(RichTextBoxHelper.ToRtfCode(thread.AnchorList[anchorCounter - 1].Text));
-                        }
-                    }
-
-                    this.richtxtContent.AppendText(content);
-
-                    ///Colored the replied thread content.
-                    {
-                        string text = this.richtxtContent.Text;
-                        string replayPattern = @"【 在 [a-zA-z][a-zA-Z0-9]{1,11} (\((.+)?\) )?的大作中提到: 】[^\r^\n]*[\r\n]+(\:.*[\r\n]*)*";
-                        MatchCollection mc = CommonUtil.GetMatchCollection(replayPattern, text);
-                        if (mc != null && mc.Count > 0)
-                        {
-                            foreach (Match mt in mc)
-                            {
-                                string from = mt.Groups[0].Value;
-                                int index = this.richtxtContent.Text.IndexOf(from);
-                                if (index >= 0)
-                                {
-                                    this.richtxtContent.Select(index, from.Length);
-                                    this.richtxtContent.SelectionColor = Color.FromArgb(96, 96, 96);
-                                    this.richtxtContent.SelectionFont = new Font(this.richtxtContent.Font.FontFamily, 9, FontStyle.Regular);
-                                    this.richtxtContent.DeselectAll();
-                                }
-                            }
-                        }
-                    }
-
-                    ///Colored the From IP.
-                    {
-                        string text = this.richtxtContent.Text;
-                        string ipPattern = @"--[\r\n]+(修改:[a-zA-z][a-zA-Z0-9]{1,11} FROM (\d+\.){3}(\*|\d+)[\r\n]+)?FROM (\d+\.){3}(\*|\d+)";
-                        MatchCollection mc = CommonUtil.GetMatchCollection(ipPattern, text);
-                        if (mc != null && mc.Count > 0)
-                        {
-                            string from = mc[mc.Count - 1].Groups[0].Value;
-                            int index = this.richtxtContent.Text.LastIndexOf(from);
-                            if (index >= 0)
-                            {
-                                this.richtxtContent.Select(index, from.Length);
-                                this.richtxtContent.SelectionColor = Color.FromArgb(160, 160, 160);
-                                this.richtxtContent.SelectionFont = new Font(this.richtxtContent.Font.FontFamily, 9, FontStyle.Regular);
-                                this.richtxtContent.DeselectAll();
-                            }
-                        }
-                    }
-
-                    ///Colored the reply tail.
-                    {
-                        string text = this.richtxtContent.Text;
-                        string repleyContent = SmthUtil.GetReplyText();
-                        int index = text.IndexOf(repleyContent);
-                        if (index >= 0)
-                        {
-                            this.richtxtContent.Select(index, repleyContent.Length);
-                            this.richtxtContent.SelectionFont = new Font(this.richtxtContent.SelectionFont.FontFamily, 9, FontStyle.Regular);
-                            this.richtxtContent.DeselectAll();
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="richTextBox"></param>
-        /// <param name="thread"></param>
-        private void AddImages(Thread thread)
-        {
-            if (thread != null && thread.ImageList != null)
-            {
-                foreach (Image image in thread.ImageList)
-                {
-                    this.AddImage(image);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="richTextBox"></param>
-        /// <param name="thread"></param>
-        private void AddImage(Image image)
-        {
-            if (image != null)
-            {
-                int searchStartPosition = 0;// this.richtxtContent.SelectionStart;
-                string token = ThreadFactory.TokenPrefix + ThreadFactory.ImageToken + ThreadFactory.TokenSuffix;
-                int indexOfText = this.richtxtContent.Find(token, searchStartPosition, RichTextBoxFinds.None);
-                if (indexOfText > 0)
-                {
-                    this.richtxtContent.Select(indexOfText, token.Length);
-                    this.richtxtContent.SelectedText = "";//.Replace(token, "");
-                    string data = image.Tag.ToString();
-                    int indexOfUrl = data.IndexOf(token);
-                    string url = data.Substring(0, indexOfUrl);
-                    System.Diagnostics.Debug.WriteLine(url);
-                    string rtfCode = data.Substring(indexOfUrl + token.Length);
-                    this.richtxtContent.InsertLink(rtfCode, url, indexOfText);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="richTextBox"></param>
-        /// <param name="thread"></param>
-        private void AddIcons(Thread thread)
-        {
-            if (thread != null && thread.IconList != null)
-            {
-                foreach (Image icon in thread.IconList)
-                {
-                    this.AddIcon(icon);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="icon"></param>
-        private void AddIcon(Image icon)
-        {
-            if (icon != null)
-            {
-                int searchStartPosition = 0;// this.richtxtContent.SelectionStart;
-                string token = ThreadFactory.TokenPrefix + ThreadFactory.IconToken + ThreadFactory.TokenSuffix;
-                int indexOfText = this.richtxtContent.Find(token, searchStartPosition, RichTextBoxFinds.None);
-                if (indexOfText > 0)
-                {
-                    this.richtxtContent.Select(indexOfText, token.Length);
-                    this.richtxtContent.SelectedText = "";//.Replace(token, "");
-                    this.richtxtContent.InsertImage(icon);
-                }
-            }
-        }
-        #endregion
-
+        }        
         #endregion
     }
 }

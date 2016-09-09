@@ -96,18 +96,18 @@
         /// <param name="e"></param>
         private void linklblTopic_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.Data.Type == TopicBrowserType.Classic)
-            {
-                if (this.OnPostLinkClicked != null)
-                {
-                    this.OnPostLinkClicked(sender, e);
-                }
-            }
-            else
+            if (this.Data.Type == TopicBrowserType.Subject)
             {
                 if (this.OnTopicLinkClicked != null)
                 {
                     this.OnTopicLinkClicked(sender, e);
+                }
+            }
+            else
+            {                
+                if (this.OnPostLinkClicked != null)
+                {
+                    this.OnPostLinkClicked(sender, e);
                 }
             }
         }

@@ -484,14 +484,7 @@
         /// </summary>
         private void SetUrl()
         {
-            if (this._Settings.BrowserType == TopicBrowserType.Classic)
-            {
-                this.SetBaseUrl(SmthUtil.GetClassicBoardUrl(this._boardCode));
-            }
-            else
-            {
-                this.SetBaseUrl(SmthUtil.GetSubjectBoardUrl(this._boardCode));
-            }
+            this.SetBaseUrl(SmthUtil.GetBoardUrl(this._boardCode, this._Settings.BrowserType));
         }
         /// <summary>
         /// 

@@ -51,6 +51,8 @@
             this.rbNoTops.Checked = !this._boardSetting.IsShowTop;
             this.rbSubject.Checked = this._boardSetting.BrowserType == TopicBrowserType.Subject;
             this.rbClassic.Checked = this._boardSetting.BrowserType == TopicBrowserType.Classic;
+            this.rbDigest.Checked = this._boardSetting.BrowserType == TopicBrowserType.Digest;
+            this.rbReserved.Checked = this._boardSetting.BrowserType == TopicBrowserType.Reserved;
             this.ckbAutoUpdating.Checked = this._boardSetting.AutoUpdating;
             this.cmbInterval.Text = this._boardSetting.UpdatingInterval.ToString();
         }
@@ -66,8 +68,24 @@
         {
             this._boardSetting.IsShowTop = this.rbShowTops.Checked;
             this._boardSetting.AutoUpdating = this.ckbAutoUpdating.Checked;
-            this._boardSetting.BrowserType = this.rbSubject.Checked ? TopicBrowserType.Subject : TopicBrowserType.Classic;
             this._boardSetting.UpdatingInterval = Convert.ToInt32(this.cmbInterval.Text);
+            if (this.rbClassic.Checked)
+            {
+                this._boardSetting.BrowserType = TopicBrowserType.Classic;
+            }
+            else if (this.rbDigest.Checked)
+            {
+                this._boardSetting.BrowserType = TopicBrowserType.Digest;
+            }
+            else if (this.rbReserved.Checked)
+            {
+                this._boardSetting.BrowserType = TopicBrowserType.Reserved;
+            }
+            else if (this.rbSubject.Checked)
+            {
+                this._boardSetting.BrowserType = TopicBrowserType.Subject;
+            }
+
             this.Close();
         }        
         #endregion

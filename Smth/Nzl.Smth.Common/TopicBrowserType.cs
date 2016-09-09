@@ -13,6 +13,16 @@
         /// <summary>
         /// 
         /// </summary>
-        Subject
+        Subject,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Digest,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Reserved
     }
 }

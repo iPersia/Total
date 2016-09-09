@@ -19,39 +19,12 @@
         /// </summary>
         public Thread()
         {
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Thread(Thread thread)
-            : this()
-        {
-            if (thread != null)
-            {
-                this.Content = thread.Content;
-                this.DateTime = thread.DateTime;
-                this.Floor = thread.Floor;
-                this.ID = thread.ID;
-                this.User = thread.User;
-                this.Url = thread.Url;
-                this.ReplyUrl = thread.ReplyUrl;
-                this.MailUrl = thread.MailUrl;
-                this.TransferUrl = thread.TransferUrl;
-                this.QueryType = thread.QueryType;
-                this.QueryUrl = thread.QueryUrl;
-                this.EditUrl = thread.EditUrl;
-                this.DeleteUrl = thread.DeleteUrl;
-                this.ImageList = thread.ImageList;                
-                this.Tag = thread.Tag;
-            }
-        }
+        }        
 
         /// <summary>
         /// 
         /// </summary>
-        public IList<Image> ImageList
+        public IList<string> ImageUrls
         {
             get;
             set;
@@ -60,7 +33,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public IList<Image> IconList
+        public IList<string> IconUrls
         {
             get;
             set;
@@ -69,7 +42,25 @@
         /// <summary>
         /// 
         /// </summary>
-        public IList<Anchor> AnchorList
+        public Dictionary<string, Image> Images
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Dictionary<string, Image> Icons
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IList<Anchor> Anchors
         {
             get;
             set;
@@ -92,7 +83,7 @@
             get;
             set;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -174,7 +165,7 @@
             set;
         }
 
-        
+
 
         /// <summary>
         /// This indicates the thread content whose html has been trimed！
@@ -193,7 +184,7 @@
             get;
             set;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>

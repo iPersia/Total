@@ -28,19 +28,34 @@
         /// </summary>
         /// <param name="boardCode"></param>
         /// <returns></returns>
-        public static string GetSubjectBoardUrl(string boardCode)
+        public static string GetBoardUrl(string boardCode)
         {
-            return @"http://m.newsmth.net/board/" + boardCode;
+            return GetBoardUrl(boardCode, TopicBrowserType.Subject);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="boardCode"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
-        public static string GetClassicBoardUrl(string boardCode)
+        public static string GetBoardUrl(string boardCode, TopicBrowserType type)
         {
-            return @"http://m.newsmth.net/board/" + boardCode + "/0";
+            switch (type)
+            {
+                case TopicBrowserType.Classic:
+                    return @"http://m.newsmth.net/board/" + boardCode + "/0";
+                case TopicBrowserType.Digest:
+                    return @"http://m.newsmth.net/board/" + boardCode + "/1";
+                case TopicBrowserType.Subject:
+                    return @"http://m.newsmth.net/board/" + boardCode + "/2";
+                case TopicBrowserType.Reserved:
+                    return @"http://m.newsmth.net/board/" + boardCode + "/3";
+                default:
+                    return @"http://m.newsmth.net/board/" + boardCode;
+            }
+
+            return @"http://m.newsmth.net/board/" + boardCode;
         }
 
         /// <summary>

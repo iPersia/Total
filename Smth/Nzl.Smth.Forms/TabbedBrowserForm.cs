@@ -202,7 +202,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ThreadControlContainer_OnThreadUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void UserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
             if (linkLabel != null)
@@ -260,9 +260,9 @@
                 tbc.OnThreadQueryTypeLinkClicked += ThreadControlContainer_OnThreadQueryTypeLinkClicked;
                 tbc.OnThreadReplyLinkClicked += ThreadControlContainer_OnThreadReplyLinkClicked;
                 tbc.OnThreadTransferLinkClicked += ThreadControlContainer_OnThreadTransferLinkClicked;
-                tbc.OnThreadUserLinkClicked += TabbedBrowserForm_IDLinkClicked;
+                tbc.OnThreadUserLinkClicked += UserLinkClicked;
                 tbc.OnTopicReplyLinkClicked += ThreadControlContainer_OnTopicReplyLinkClicked;
-                tbc.OnThreadContentLinkClicked += ThreadControlContainer_OnThreadContentLinkClicked;
+                tbc.OnThreadContentLinkClicked += RichTextBoxContentLinkClicked;
                 tbc.OnBoardLinkClicked += ThreadControlContainer_OnBoardLinkClicked;
                 tbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
                 tbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
@@ -305,7 +305,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ThreadControlContainer_OnThreadContentLinkClicked(object sender, LinkClickedEventArgs e)
+        private void RichTextBoxContentLinkClicked(object sender, LinkClickedEventArgs e)
         {
             int index = e.LinkText.LastIndexOf("http:");
             if (index < 0)
@@ -535,8 +535,8 @@
                 bbc.BrowserType = browserType;
                 bbc.OnTopicLinkClicked += TopicControlContainer_OnTopicLinkClicked;
                 bbc.OnPostLinkClicked += TopicControlContainer_OnPostLinkClicked;
-                bbc.OnTopicCreateIDLinkClicked += TabbedBrowserForm_IDLinkClicked;
-                bbc.OnTopicLastIDLinkClicked += TabbedBrowserForm_IDLinkClicked;
+                bbc.OnTopicCreateIDLinkClicked += UserLinkClicked;
+                bbc.OnTopicLastIDLinkClicked += UserLinkClicked;
                 bbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
                 bbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
                 bbc.OnBoardSettingsClicked += TopicControlContainer_OnBoardSettingsClicked;
@@ -675,7 +675,7 @@
                 pcc.Name = "pcc" + url;
                 pcc.Url = url;
                 pcc.OnBoardClicked += PostControlContainer_OnBoardClicked;
-                pcc.OnContentLinkClicked += PostControlContainer_OnContentLinkClicked;
+                pcc.OnContentLinkClicked += RichTextBoxContentLinkClicked;
                 pcc.OnDeleteClicked += PostControlContainer_OnDeleteClicked;
                 pcc.OnEditClicked += PostControlContainer_OnEditClicked;
                 pcc.OnExpandClicked += PostControlContainer_OnExpandClicked;
@@ -684,7 +684,7 @@
                 pcc.OnReplyClicked += PostControlContainer_OnReplyClicked;
                 pcc.OnSubjectExpandClicked += PostControlContainer_OnSubjectExpandClicked;
                 pcc.OnTransferClicked += PostControlContainer_OnTransferClicked;
-                pcc.OnUserClicked += PostControlContainer_OnUserClicked;
+                pcc.OnUserClicked += UserLinkClicked;
                 pcc.OnWorkerCancelled += PostControlContainer_OnWorkerCancelled;
                 pcc.OnWorkerFailed += PostControlContainer_OnWorkerFailed;
                 pcc.Dock = DockStyle.Fill;
@@ -952,23 +952,6 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TabbedBrowserForm_IDLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                UserForm userForm = new UserForm(e.Link.LinkData.ToString());
-                userForm.StartPosition = FormStartPosition.CenterParent;
-                userForm.ShowDialog(this);
-                e.Link.Visited = true;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnLogIn_Click(object sender, EventArgs e)
         {
             ShowFormOnCenterParent(LoginForm.Instance);
@@ -1087,9 +1070,9 @@
                 tbc.OnThreadQueryTypeLinkClicked -= ThreadControlContainer_OnThreadQueryTypeLinkClicked;
                 tbc.OnThreadReplyLinkClicked -= ThreadControlContainer_OnThreadReplyLinkClicked;
                 tbc.OnThreadTransferLinkClicked -= ThreadControlContainer_OnThreadTransferLinkClicked;
-                tbc.OnThreadUserLinkClicked -= TabbedBrowserForm_IDLinkClicked;
+                tbc.OnThreadUserLinkClicked -= UserLinkClicked;
                 tbc.OnTopicReplyLinkClicked -= ThreadControlContainer_OnTopicReplyLinkClicked;
-                tbc.OnThreadContentLinkClicked -= ThreadControlContainer_OnThreadContentLinkClicked;
+                tbc.OnThreadContentLinkClicked -= RichTextBoxContentLinkClicked;
                 tbc.OnBoardLinkClicked -= ThreadControlContainer_OnBoardLinkClicked;
                 tbc.OnWorkerFailed -= TabbedBrowserForm_OnWorkerFailed;
                 tbc.OnWorkerCancelled -= TabbedBrowserFrom_OnWorkerCancelled;
@@ -1108,8 +1091,8 @@
             {
                 bbc.OnTopicLinkClicked -= TopicControlContainer_OnTopicLinkClicked;
                 bbc.OnPostLinkClicked -= TopicControlContainer_OnPostLinkClicked;
-                bbc.OnTopicCreateIDLinkClicked -= TabbedBrowserForm_IDLinkClicked;
-                bbc.OnTopicLastIDLinkClicked -= TabbedBrowserForm_IDLinkClicked;
+                bbc.OnTopicCreateIDLinkClicked -= UserLinkClicked;
+                bbc.OnTopicLastIDLinkClicked -= UserLinkClicked;
                 bbc.OnWorkerFailed -= TabbedBrowserForm_OnWorkerFailed;
                 bbc.OnWorkerCancelled -= TabbedBrowserFrom_OnWorkerCancelled;
                 bbc.OnBoardSettingsClicked -= TopicControlContainer_OnBoardSettingsClicked;
@@ -1125,19 +1108,19 @@
         {
             if (pcc != null)
             {
-                pcc.OnBoardClicked += PostControlContainer_OnBoardClicked;
-                pcc.OnContentLinkClicked += PostControlContainer_OnContentLinkClicked;
-                pcc.OnDeleteClicked += PostControlContainer_OnDeleteClicked;
-                pcc.OnEditClicked += PostControlContainer_OnEditClicked;
-                pcc.OnExpandClicked += PostControlContainer_OnExpandClicked;
-                pcc.OnMailClicked += PostControlContainer_OnMailClicked;
-                pcc.OnNewClicked += PostControlContainer_OnNewClicked;
-                pcc.OnReplyClicked += PostControlContainer_OnReplyClicked;
-                pcc.OnSubjectExpandClicked += PostControlContainer_OnSubjectExpandClicked;
-                pcc.OnTransferClicked += PostControlContainer_OnTransferClicked;
-                pcc.OnUserClicked += PostControlContainer_OnUserClicked;
-                pcc.OnWorkerCancelled += PostControlContainer_OnWorkerCancelled;
-                pcc.OnWorkerFailed += PostControlContainer_OnWorkerFailed;
+                pcc.OnBoardClicked -= PostControlContainer_OnBoardClicked;
+                pcc.OnContentLinkClicked -= RichTextBoxContentLinkClicked;
+                pcc.OnDeleteClicked -= PostControlContainer_OnDeleteClicked;
+                pcc.OnEditClicked -= PostControlContainer_OnEditClicked;
+                pcc.OnExpandClicked -= PostControlContainer_OnExpandClicked;
+                pcc.OnMailClicked -= PostControlContainer_OnMailClicked;
+                pcc.OnNewClicked -= PostControlContainer_OnNewClicked;
+                pcc.OnReplyClicked -= PostControlContainer_OnReplyClicked;
+                pcc.OnSubjectExpandClicked -= PostControlContainer_OnSubjectExpandClicked;
+                pcc.OnTransferClicked -= PostControlContainer_OnTransferClicked;
+                pcc.OnUserClicked -= UserLinkClicked;
+                pcc.OnWorkerCancelled -= PostControlContainer_OnWorkerCancelled;
+                pcc.OnWorkerFailed -= PostControlContainer_OnWorkerFailed;
                 RecycledQueues.AddRecycled<PostControlContainer>(pcc);
             }
         }
@@ -1318,8 +1301,8 @@
                             this.linklblUserID.Text = welcomeStr + LogStatus.Instance.UserID + "!";
                             this.linklblUserID.Links.Clear();
                             this.linklblUserID.Links.Add(welcomeStr.Length, LogStatus.Instance.UserID.Length, LogStatus.Instance.UserID);
-                            this.linklblUserID.LinkClicked -= new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
-                            this.linklblUserID.LinkClicked += new LinkLabelLinkClickedEventHandler(TabbedBrowserForm_IDLinkClicked);
+                            this.linklblUserID.LinkClicked -= new LinkLabelLinkClickedEventHandler(UserLinkClicked);
+                            this.linklblUserID.LinkClicked += new LinkLabelLinkClickedEventHandler(UserLinkClicked);
                             this.btnLogon.Text = "Log Out";
                         }
                         else

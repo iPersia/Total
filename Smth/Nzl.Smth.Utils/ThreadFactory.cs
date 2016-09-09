@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Text.RegularExpressions;
-    using System.Xml;
     using Nzl.Recycling;
     using Nzl.Smth.Configs;
     using Nzl.Smth.Datas;    
@@ -136,40 +135,48 @@
                                 thread.Content = GetThreadContent(divstr);
                                 thread.Tag = thread.Content;
                                 string content = thread.Content;
-                                IList<string> imageUrlList = GetImageUrls(ref content);
-                                if (imageUrlList.Count > 0)
+                                IList<string> imageUrls = GetImageUrls(ref content);
+                                if (imageUrls.Count > 0)
                                 {
-                                    IList<Image> imageList = new List<Image>();
-                                    foreach (string imageUrl in imageUrlList)
+                                    Dictionary<string, Image> images = new Dictionary<string, Image>();
+                                    foreach (string imageUrl in imageUrls)
                                     {
-                                        Image image = CommonUtil.GetWebImage(imageUrl);
-                                        if (image != null)
+                                        if (images.ContainsKey(imageUrl) == false)
                                         {
-                                            image.Tag = imageUrl.Replace("/middle", "")
-                                                      + ThreadFactory.TokenPrefix
-                                                      + ThreadFactory.ImageToken
-                                                      + ThreadFactory.TokenSuffix
-                                                      + RtfUtil.GetRtfCode(image);
-                                            imageList.Add(image);
+                                            Image image = CommonUtil.GetWebImage(imageUrl);
+                                            if (image != null)
+                                            {
+                                                image.Tag = RtfUtil.GetRtfCode(image);
+                                                images.Add(imageUrl, image);
+                                            }
+                                        }                                    
+                                    }
+
+                                    thread.ImageUrls = imageUrls;
+                                    thread.Images = images;
+                                }
+
+                                IList<string> iconUrls = GetIconUrls(ref content);
+                                if (iconUrls.Count > 0)
+                                {
+                                    Dictionary<string, Image> icons = new Dictionary<string, Image>();
+                                    foreach (string iconUrl in iconUrls)
+                                    {
+                                        if (icons.ContainsKey(iconUrl) == false)
+                                        {
+                                            Image image = CommonUtil.GetWebImage(iconUrl);
+                                            if (image != null)
+                                            {
+                                                icons.Add(iconUrl, image);
+                                            }
                                         }
                                     }
 
-                                    thread.ImageList = imageList;
+                                    thread.IconUrls = iconUrls;
+                                    thread.Icons = icons;
                                 }
 
-                                IList<string> iconUrlList = GetIconUrls(ref content);
-                                if (iconUrlList.Count > 0)
-                                {
-                                    IList<Image> iconList = new List<Image>();
-                                    foreach (string iconUrl in iconUrlList)
-                                    {
-                                        iconList.Add(CommonUtil.GetWebImage(iconUrl));
-                                    }
-
-                                    thread.IconList = iconList;
-                                }
-
-                                thread.AnchorList = GetAnchorUrls(ref content);
+                                thread.Anchors = GetAnchorUrls(ref content);
                                 thread.Content = content;
                             }
                         }
@@ -206,40 +213,48 @@
                 content = GetThreadContent(content);
                 thread.Content = content;
                 thread.Tag = thread.Content;
-                IList<string> imageUrlList = GetImageUrls(ref content);
-                if (imageUrlList.Count > 0)
+                IList<string> imageUrls = GetImageUrls(ref content);
+                if (imageUrls.Count > 0)
                 {
-                    IList<Image> imageList = new List<Image>();
-                    foreach (string imageUrl in imageUrlList)
+                    Dictionary<string, Image> images = new Dictionary<string, Image>();
+                    foreach (string imageUrl in imageUrls)
                     {
-                        Image image = CommonUtil.GetWebImage(imageUrl);
-                        if (image != null)
+                        if (images.ContainsKey(imageUrl) == false)
                         {
-                            image.Tag = imageUrl.Replace("/middle", "")
-                                      + ThreadFactory.TokenPrefix
-                                      + ThreadFactory.ImageToken
-                                      + ThreadFactory.TokenSuffix
-                                      + RtfUtil.GetRtfCode(image);
-                            imageList.Add(image);
+                            Image image = CommonUtil.GetWebImage(imageUrl);
+                            if (image != null)
+                            {
+                                image.Tag = RtfUtil.GetRtfCode(image);
+                                images.Add(imageUrl, image);
+                            }
                         }
                     }
 
-                    thread.ImageList = imageList;
+                    thread.ImageUrls = imageUrls;
+                    thread.Images = images;
                 }
 
-                IList<string> iconUrlList = GetIconUrls(ref content);
-                if (iconUrlList.Count > 0)
+                IList<string> iconUrls = GetIconUrls(ref content);
+                if (iconUrls.Count > 0)
                 {
-                    IList<Image> iconList = new List<Image>();
-                    foreach (string iconUrl in iconUrlList)
+                    Dictionary<string, Image> icons = new Dictionary<string, Image>();
+                    foreach (string iconUrl in iconUrls)
                     {
-                        iconList.Add(CommonUtil.GetWebImage(iconUrl));
+                        if (icons.ContainsKey(iconUrl) == false)
+                        {
+                            Image image = CommonUtil.GetWebImage(iconUrl);
+                            if (image != null)
+                            {
+                                icons.Add(iconUrl, image);
+                            }
+                        }
                     }
 
-                    thread.IconList = iconList;
+                    thread.IconUrls = iconUrls;
+                    thread.Icons = icons;
                 }
 
-                thread.AnchorList = GetAnchorUrls(ref content);
+                thread.Anchors = GetAnchorUrls(ref content);
                 thread.Content = content;
                 return thread;
             }
@@ -247,6 +262,7 @@
             return null;
         }
 
+        /*
         /// <summary>
         /// 
         /// </summary>
@@ -350,6 +366,7 @@
                 return null;
             }
         }
+        */
         #endregion
 
         #region Privates

@@ -43,7 +43,7 @@
                            + @"(?'BoardUrl'/board/"
                            + @"(?'Board'[\w,%2E,%5F,\.,_]+)/\d+)\W>返回</a></div><div class=\Wsec nav\W>(<a href=\W"
                            + @"(?'LastUrl'/article/[\w,%2E,%5F,\.,_]+/single/\d+)\W>上一篇</a>)?(\|)?(<a href=\W"
-                           + @"(?'NextUrl'/article/[\w,%2E,%5F,\.,_]+/single/\d+)\W>下一篇</a>)?\|(<a href=\W"
+                           + @"(?'NextUrl'/article/[\w,%2E,%5F,\.,_]+/single/\d+)\W>下一篇</a>)?(\|)?(<a href=\W"
                            + @"(?'SubjectLastUrl'/article/[\w,%2E,%5F,\.,_]+/single/\d+)\W>同主题上篇</a>)?(\|)?(<a href=\W"
                            + @"(?'SubjectNextUrl'/article/[\w,%2E,%5F,\.,_]+/single/\d+)\W>同主题下篇</a>)?</div><ul class=\Wlist sec\W><li class=\Wf\W>"
                            + @"(?'Subject'[^<]*)</li><li><div class=\Wnav hl\W><div><a href=\W/user/query/"

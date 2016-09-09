@@ -50,11 +50,20 @@
         /// <param name="e"></param>
         private void _updatingTimer_Tick(object sender, EventArgs e)
         {
-            this.txtCache.Clear();
-            this.txtCache.AppendText("PageDispatcher queue count is "
-                                   + PageDispatcher.Instance.Count
-                                   + "\n"
-                                   + Nzl.Recycling.RecycledQueues.GetStatistics());            
+            if (this.Visible)
+            {
+                this.txtCache.Clear();
+#if (DEBUG)
+                this.txtCache.AppendText("PageDispatcher queue count is "
+                                       + PageDispatcher.Instance.Count
+                                       + "\n"
+                                       + Nzl.Recycling.RecycledQueues.GetStatistics());
+#else
+                this.txtCache.AppendText("The number of page which will be fetched in queue is "
+                                       + PageDispatcher.Instance.Count 
+                                       + "!");
+#endif
+            }
         }
 
         /// <summary>

@@ -40,6 +40,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbClassic = new System.Windows.Forms.RadioButton();
             this.rbSubject = new System.Windows.Forms.RadioButton();
+            this.rbDigest = new System.Windows.Forms.RadioButton();
+            this.rbReserved = new System.Windows.Forms.RadioButton();
             this.gpBrowseMode.SuspendLayout();
             this.gpAutoUpdating.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -90,7 +92,7 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(115, 300);
+            this.btnOK.Location = new System.Drawing.Point(115, 313);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 4;
@@ -105,7 +107,7 @@
             this.gpAutoUpdating.Controls.Add(this.cmbInterval);
             this.gpAutoUpdating.Controls.Add(this.label1);
             this.gpAutoUpdating.Controls.Add(this.ckbAutoUpdating);
-            this.gpAutoUpdating.Location = new System.Drawing.Point(12, 152);
+            this.gpAutoUpdating.Location = new System.Drawing.Point(12, 174);
             this.gpAutoUpdating.Name = "gpAutoUpdating";
             this.gpAutoUpdating.Size = new System.Drawing.Size(277, 120);
             this.gpAutoUpdating.TabIndex = 5;
@@ -152,11 +154,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rbReserved);
+            this.groupBox1.Controls.Add(this.rbDigest);
             this.groupBox1.Controls.Add(this.rbClassic);
             this.groupBox1.Controls.Add(this.rbSubject);
             this.groupBox1.Location = new System.Drawing.Point(12, 82);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(277, 64);
+            this.groupBox1.Size = new System.Drawing.Size(277, 86);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Topic type";
@@ -181,11 +185,31 @@
             this.rbSubject.Text = "Subject";
             this.rbSubject.UseVisualStyleBackColor = true;
             // 
+            // rbDigest
+            // 
+            this.rbDigest.AutoSize = true;
+            this.rbDigest.Location = new System.Drawing.Point(17, 56);
+            this.rbDigest.Name = "rbDigest";
+            this.rbDigest.Size = new System.Drawing.Size(59, 16);
+            this.rbDigest.TabIndex = 2;
+            this.rbDigest.Text = "Digest";
+            this.rbDigest.UseVisualStyleBackColor = true;
+            // 
+            // rbReserved
+            // 
+            this.rbReserved.AutoSize = true;
+            this.rbReserved.Location = new System.Drawing.Point(161, 55);
+            this.rbReserved.Name = "rbReserved";
+            this.rbReserved.Size = new System.Drawing.Size(71, 16);
+            this.rbReserved.TabIndex = 3;
+            this.rbReserved.Text = "Reserved";
+            this.rbReserved.UseVisualStyleBackColor = true;
+            // 
             // BoardSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(301, 343);
+            this.ClientSize = new System.Drawing.Size(301, 357);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gpAutoUpdating);
             this.Controls.Add(this.btnOK);
@@ -217,5 +241,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbClassic;
         private System.Windows.Forms.RadioButton rbSubject;
+        private System.Windows.Forms.RadioButton rbReserved;
+        private System.Windows.Forms.RadioButton rbDigest;
     }
 }

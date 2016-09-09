@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// 
@@ -99,9 +100,21 @@
         public static string GetStatistics()
         {
             string msg = "Recycled object list:\n";
+            List<string> list = new List<string>();
             foreach (KeyValuePair<Type, Queue<IRecycled>> pair in _dictRecycledQueues)
             {
-                msg += "\t" + pair.Key.ToString() + "\t" + pair.Value.Count + "\n";
+                list.Add("\t" + pair.Key.ToString() + "\t" + pair.Value.Count + "\n");
+                //msg += "\t" + pair.Key.ToString() + "\t" + pair.Value.Count + "\n";
+            }
+
+            //IEnumerable<string> sortedWords = list.ToArray().OrderBy(x => x);
+            var sortedWords = from s in list.ToArray()
+                              orderby s ascending
+                              select s;
+
+            foreach (string s in sortedWords)
+            {
+                msg += s;
             }
 
             return msg.TrimEnd('\n');
