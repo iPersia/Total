@@ -21,6 +21,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnDeleteLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
 
         /// <summary>
@@ -56,6 +61,7 @@
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
                 xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
+                xbc.OnDeleteLinkClicked += Xbc_OnDeleteLinkClicked;
                 xbc.OnNewMailClicked += Xbc_OnNewMailClicked;
 
                 ///Set the size firstly, then add the MailControlContainer to TabPage.
@@ -77,6 +83,7 @@
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
                 xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
+                xbc.OnDeleteLinkClicked += Xbc_OnDeleteLinkClicked;
                 xbc.OnNewMailClicked += Xbc_OnNewMailClicked;
                 tp.Controls.Add(xbc);                
             }
@@ -95,6 +102,7 @@
                 xbc.SetParent(tp);
                 xbc.OnMailLinkClicked += Xbc_OnMailLinkClicked;
                 xbc.OnUserLinkClicked += Xbc_OnUserLinkClicked;
+                xbc.OnDeleteLinkClicked += Xbc_OnDeleteLinkClicked;
                 xbc.OnNewMailClicked += Xbc_OnNewMailClicked;
                 tp.Controls.Add(xbc);                
             }
@@ -143,6 +151,19 @@
             if (this.OnNewMailClicked != null)
             {
                 this.OnNewMailClicked(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Xbc_OnDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnDeleteLinkClicked != null)
+            {
+                this.OnDeleteLinkClicked(sender, e);
             }
         }
         #endregion

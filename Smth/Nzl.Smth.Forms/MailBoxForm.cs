@@ -35,6 +35,7 @@
             InitializeComponent();
             this._mbcMails.OnMailLinkClicked += MbcMailBox_OnMailLinkClicked;
             this._mbcMails.OnUserLinkClicked += MbcMailBox_OnUserLinkClicked;
+            this._mbcMails.OnDeleteLinkClicked += MbcMailBox_OnDeleteLinkClicked;
             this._mbcMails.OnNewMailClicked += MbcMailBox_OnNewMailClicked;
 
             this._mbcMails.Top = 1;
@@ -115,6 +116,34 @@
 
                 this.Focus();
                 this.HideWhenDeactivate = true;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MbcMailBox_OnDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                if (string.IsNullOrEmpty(e.Link.LinkData.ToString()) == false)
+                {
+                    MessageForm form = new MessageForm("Confirm", "Do you want to delete this mail?");
+                    form.StartPosition = FormStartPosition.CenterParent;
+                    this.Tag = null;
+                    this.HideWhenDeactivate = false;
+                    if (form.ShowDialog(this._parentForm) == DialogResult.OK)
+                    {
+                        e.Link.Tag = "Yes";
+                        e.Link.Visited = true;
+                    }
+
+                    this.Focus();
+                    this.HideWhenDeactivate = true;
+                }
             }
         }
 

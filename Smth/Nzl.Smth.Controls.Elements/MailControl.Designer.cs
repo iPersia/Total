@@ -33,13 +33,15 @@
             this.panel = new System.Windows.Forms.Panel();
             this.lblIndex = new System.Windows.Forms.Label();
             this.linklblTitle = new System.Windows.Forms.LinkLabel();
+            this.linklblDelete = new System.Windows.Forms.LinkLabel();
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // linklblAuthor
             // 
             this.linklblAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linklblAuthor.Location = new System.Drawing.Point(434, 15);
+            this.linklblAuthor.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblAuthor.Location = new System.Drawing.Point(381, 15);
             this.linklblAuthor.Name = "linklblAuthor";
             this.linklblAuthor.Size = new System.Drawing.Size(100, 14);
             this.linklblAuthor.TabIndex = 3;
@@ -51,6 +53,7 @@
             // 
             this.lblDT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDT.AutoSize = true;
+            this.lblDT.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblDT.Location = new System.Drawing.Point(542, 15);
             this.lblDT.Name = "lblDT";
             this.lblDT.Size = new System.Drawing.Size(140, 14);
@@ -59,6 +62,7 @@
             // 
             // panel
             // 
+            this.panel.Controls.Add(this.linklblDelete);
             this.panel.Controls.Add(this.lblIndex);
             this.panel.Controls.Add(this.linklblAuthor);
             this.panel.Controls.Add(this.lblDT);
@@ -72,6 +76,7 @@
             // lblIndex
             // 
             this.lblIndex.AutoSize = true;
+            this.lblIndex.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblIndex.Location = new System.Drawing.Point(19, 15);
             this.lblIndex.Name = "lblIndex";
             this.lblIndex.Size = new System.Drawing.Size(21, 14);
@@ -81,13 +86,24 @@
             // linklblTitle
             // 
             this.linklblTitle.AutoSize = true;
-            this.linklblTitle.Font = new System.Drawing.Font("宋体", 9F);
-            this.linklblTitle.Location = new System.Drawing.Point(49, 17);
+            this.linklblTitle.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblTitle.Location = new System.Drawing.Point(46, 15);
             this.linklblTitle.Name = "linklblTitle";
-            this.linklblTitle.Size = new System.Drawing.Size(65, 12);
+            this.linklblTitle.Size = new System.Drawing.Size(77, 14);
             this.linklblTitle.TabIndex = 0;
             this.linklblTitle.TabStop = true;
             this.linklblTitle.Text = "Mail Title";
+            // 
+            // linklblDelete
+            // 
+            this.linklblDelete.AutoSize = true;
+            this.linklblDelete.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblDelete.Location = new System.Drawing.Point(487, 15);
+            this.linklblDelete.Name = "linklblDelete";
+            this.linklblDelete.Size = new System.Drawing.Size(49, 14);
+            this.linklblDelete.TabIndex = 5;
+            this.linklblDelete.TabStop = true;
+            this.linklblDelete.Text = "Delete";
             // 
             // MailControl
             // 
@@ -110,6 +126,6 @@
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.LinkLabel linklblTitle;
         private System.Windows.Forms.Label lblIndex;
-
+        private System.Windows.Forms.LinkLabel linklblDelete;
     }
 }

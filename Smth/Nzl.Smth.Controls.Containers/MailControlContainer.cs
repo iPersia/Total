@@ -31,6 +31,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnDeleteLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
 
         /// <summary>
@@ -146,6 +151,7 @@
                 ctl.Name = "mc" + item.Url;
                 ctl.OnMailLinkClicked += Tc_OnMailLinkClicked;
                 ctl.OnUserLinkClicked += Tc_OnUserLinkClicked;
+                ctl.OnDeleteLinkClicked += Tc_OnDeleteLinkClicked;
             }
         }
 
@@ -160,6 +166,7 @@
             {
                 ctl.OnMailLinkClicked -= Tc_OnMailLinkClicked;
                 ctl.OnUserLinkClicked -= Tc_OnUserLinkClicked;
+                ctl.OnDeleteLinkClicked -= Tc_OnDeleteLinkClicked;
             }
         }
 
@@ -238,6 +245,28 @@
             if (this.OnUserLinkClicked != null)
             {
                 this.OnUserLinkClicked(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tc_OnDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnDeleteLinkClicked != null)
+            {
+                this.OnDeleteLinkClicked(sender, e);
+                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Yes")
+                {
+                    PostLoader pl = new PostLoader(e.Link.LinkData.ToString());
+                    pl.Succeeded += MailDelete_Succeeded;
+                    pl.Failed += MailDelete_Failed;
+                    pl.Start();
+                }
+
+                e.Link.Tag = null;
             }
         }
 

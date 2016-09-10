@@ -19,6 +19,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnDeleteLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
 
         #region Properties
@@ -41,22 +46,29 @@
         {
             InitializeComponent();
             this.Height = MailControl.ControlHeight;
-            this.linklblAuthor.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblAuthor_LinkClicked);
-            this.linklblTitle.LinkClicked += new LinkLabelLinkClickedEventHandler(linklblTitle_LinkClicked);
-        }
+            this.linklblAuthor.LinkClicked += linklblAuthor_LinkClicked;
+            this.linklblTitle.LinkClicked += linklblTitle_LinkClicked;
+            this.linklblDelete.LinkClicked += LinklblDelete_LinkClicked;
+        }        
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mail"></param>
         public override void Initialize(Mail mail)
         {
             base.Initialize(mail);
             if (mail != null)
             {
                 this.lblIndex.Text = mail.Index.ToString("00");
-                this.linklblTitle.Text = CommonUtil.ReplaceSpecialChars(mail.Title);
-                this.linklblTitle.Links.Clear();
-                this.linklblTitle.Links.Add(0, this.linklblTitle.Text.Length, mail.Url);
-                this.linklblAuthor.Text = mail.Author;
-                this.linklblAuthor.Links.Clear();
-                this.linklblAuthor.Links.Add(0, mail.Author.Length, mail.Author);
+                this.InitializeLinkLabel(this.linklblTitle, CommonUtil.ReplaceSpecialChars(mail.Title), mail.Url);
+
+                string deleteUrl = mail.Url;
+                string tail = mail.Url.Substring(mail.Url.LastIndexOf("/"));
+                deleteUrl = deleteUrl.Replace(tail, "/delete" + tail);
+
+                this.InitializeLinkLabel(this.linklblDelete, deleteUrl);
+                this.InitializeLinkLabel(this.linklblAuthor, mail.Author, mail.Author);
                 this.lblDT.Text = mail.DateTime;
             }
         }
@@ -95,6 +107,19 @@
             if (this.OnMailLinkClicked != null)
             {
                 this.OnMailLinkClicked(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LinklblDelete_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnDeleteLinkClicked != null)
+            {
+                this.OnDeleteLinkClicked(sender, e);
             }
         }
     }
