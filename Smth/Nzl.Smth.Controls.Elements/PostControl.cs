@@ -171,13 +171,15 @@
                 ///Subject
                 this.lblSubject.Text = refer.Subject;
                 this.lblSubject.Visible = true;
+                this.linklblExpand.Tag = refer.Subject != null ? refer.Subject.Replace("主题:Re: ", "") : "";
+                this.linklblSubjectExpand.Tag = refer.Subject != null ? refer.Subject.Replace("主题:Re: ", "") : "";
 
                 ///ID
                 this.linklblID.Text = refer.Author;
 
                 ///Board
                 this.linklblBoard.Text = refer.Board;
-                
+                                    
                 ///Urls
                 this.InitializeLinkLabel(this.linklblBoard, refer.Board);
                 this.InitializeLinkLabel(this.linklblDelete, refer.DeleteUrl);

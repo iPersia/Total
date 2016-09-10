@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TabbedBrowserForm));
             this.tcTopics = new System.Windows.Forms.TabControl();
             this.scBrowser = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelMenu = new System.Windows.Forms.Panel();
             this.btnRefer = new System.Windows.Forms.Button();
             this.linklblUserID = new System.Windows.Forms.LinkLabel();
             this.btnMessge = new System.Windows.Forms.Button();
@@ -42,13 +42,13 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.btnBoardNavi = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelContainer = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.scBrowser)).BeginInit();
             this.scBrowser.Panel1.SuspendLayout();
             this.scBrowser.Panel2.SuspendLayout();
             this.scBrowser.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panelMenu.SuspendLayout();
+            this.panelContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcTopics
@@ -73,34 +73,34 @@
             // 
             // scBrowser.Panel1
             // 
-            this.scBrowser.Panel1.Controls.Add(this.panel1);
+            this.scBrowser.Panel1.Controls.Add(this.panelMenu);
             // 
             // scBrowser.Panel2
             // 
-            this.scBrowser.Panel2.Controls.Add(this.panel2);
+            this.scBrowser.Panel2.Controls.Add(this.panelContainer);
             this.scBrowser.Size = new System.Drawing.Size(1008, 729);
             this.scBrowser.SplitterDistance = 30;
             this.scBrowser.SplitterWidth = 1;
             this.scBrowser.TabIndex = 1;
             // 
-            // panel1
+            // panelMenu
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Window;
-            this.panel1.Controls.Add(this.btnRefer);
-            this.panel1.Controls.Add(this.linklblUserID);
-            this.panel1.Controls.Add(this.btnMessge);
-            this.panel1.Controls.Add(this.btnLoadTop);
-            this.panel1.Controls.Add(this.btnLogon);
-            this.panel1.Controls.Add(this.btnMail);
-            this.panel1.Controls.Add(this.btnFavor);
-            this.panel1.Controls.Add(this.btnClear);
-            this.panel1.Controls.Add(this.btnBoardNavi);
-            this.panel1.Controls.Add(this.btnSettings);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1008, 30);
-            this.panel1.TabIndex = 0;
+            this.panelMenu.BackColor = System.Drawing.SystemColors.Window;
+            this.panelMenu.Controls.Add(this.btnRefer);
+            this.panelMenu.Controls.Add(this.linklblUserID);
+            this.panelMenu.Controls.Add(this.btnMessge);
+            this.panelMenu.Controls.Add(this.btnLoadTop);
+            this.panelMenu.Controls.Add(this.btnLogon);
+            this.panelMenu.Controls.Add(this.btnMail);
+            this.panelMenu.Controls.Add(this.btnFavor);
+            this.panelMenu.Controls.Add(this.btnClear);
+            this.panelMenu.Controls.Add(this.btnBoardNavi);
+            this.panelMenu.Controls.Add(this.btnSettings);
+            this.panelMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMenu.Location = new System.Drawing.Point(0, 0);
+            this.panelMenu.Name = "panelMenu";
+            this.panelMenu.Size = new System.Drawing.Size(1008, 30);
+            this.panelMenu.TabIndex = 0;
             // 
             // btnRefer
             // 
@@ -208,16 +208,16 @@
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
-            // panel2
+            // panelContainer
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.tcTopics);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1008, 698);
-            this.panel2.TabIndex = 1;
+            this.panelContainer.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelContainer.Controls.Add(this.tcTopics);
+            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContainer.Location = new System.Drawing.Point(0, 0);
+            this.panelContainer.Name = "panelContainer";
+            this.panelContainer.Size = new System.Drawing.Size(1008, 698);
+            this.panelContainer.TabIndex = 1;
             // 
             // TabbedBrowserForm
             // 
@@ -236,9 +236,9 @@
             this.scBrowser.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scBrowser)).EndInit();
             this.scBrowser.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
+            this.panelMenu.ResumeLayout(false);
+            this.panelMenu.PerformLayout();
+            this.panelContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -248,10 +248,10 @@
         private System.Windows.Forms.TabControl tcTopics;
         //private Nzl.Controls.TabControlEx tcTopics;
         private System.Windows.Forms.SplitContainer scBrowser;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelContainer;
         private System.Windows.Forms.Button btnLoadTop;
         private System.Windows.Forms.Button btnMessge;
         private System.Windows.Forms.Button btnLogon;

@@ -96,6 +96,12 @@
 
     26、页面加载方式，目前为同步模式，当卡在某页面时，将导致后续页面需要等待。
 
+	27、PostControl中的Expand链接包含有s=(pid）参数，该参数将导致分页导航失败，因为此参数用于定位Post的位置（页码、在页面中的位置等），p=pagenumber将失效。（已解决）
+
+	    现有方法，在ThreadControlContainer的WorkCompleted中重置Topic的Url，去除所有参数，包括p和au和s。
+
+		后面将评估放入BaseControlContainer中。
+
 经验
 
   1、不要奢望能够直接改动Dock=Fill控件的大小，只能通过改变其容器的大小来达到目的。

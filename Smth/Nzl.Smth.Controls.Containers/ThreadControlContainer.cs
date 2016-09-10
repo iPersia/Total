@@ -244,7 +244,6 @@ namespace Nzl.Smth.Controls.Containers
                 this.lblPage.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
                 this._resultUrlInfo = info;
 
-
                 ///Save the host thread.
                 if (info.Index == 1 &&                     
                     info.Result.Count > 0 &&
@@ -252,7 +251,7 @@ namespace Nzl.Smth.Controls.Containers
                     this._hostThread == null)
                 {
                     this._hostThread = info.Result[0];
-                }
+                }                                
 
                 ///Fetch next page when the container is not full.
                 if (this.GetPanel().Height < this.panelContainer.Height)

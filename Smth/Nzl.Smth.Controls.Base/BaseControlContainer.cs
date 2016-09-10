@@ -973,7 +973,16 @@
                 {
                     WorkCompletedBase(e);
                 }
+                ///Reset base url.
+                string url = this.GetCurrentUrl();
+                if (url != null && 
+                    url.Contains(Configuration.BaseUrl) &&
+                    url.IndexOf('?') > 0)
+                {
+                    this.SetBaseUrl(url.Substring(0, url.IndexOf('?')));
+                }
 
+                ///Set control enable.
                 this.SetControlEnabled(true);
             }
             catch (Exception exp)

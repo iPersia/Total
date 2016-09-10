@@ -93,8 +93,9 @@
             // 
             // btnNew
             // 
+            this.btnNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnNew.Location = new System.Drawing.Point(274, 1);
+            this.btnNew.Location = new System.Drawing.Point(549, 1);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(56, 23);
             this.btnNew.TabIndex = 20;
@@ -107,7 +108,7 @@
             // btnRefresh
             // 
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRefresh.Location = new System.Drawing.Point(335, 1);
+            this.btnRefresh.Location = new System.Drawing.Point(273, 1);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(56, 23);
             this.btnRefresh.TabIndex = 19;

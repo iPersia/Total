@@ -167,7 +167,6 @@
 #if (DEBUG)
             ////Just for testing.
             {
-
             }
 #endif
         }
@@ -721,16 +720,6 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PostControlContainer_OnUserClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void PostControlContainer_OnTransferClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             throw new NotImplementedException();
@@ -743,7 +732,11 @@
         /// <param name="e"></param>
         private void PostControlContainer_OnSubjectExpandClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            throw new NotImplementedException();
+            LinkLabel lbl = sender as LinkLabel;
+            if (lbl != null)
+            {
+                this.AddTopic(e.Link.LinkData.ToString(), lbl.Tag.ToString());
+            }
         }
 
         /// <summary>
@@ -783,7 +776,11 @@
         /// <param name="e"></param>
         private void PostControlContainer_OnExpandClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            throw new NotImplementedException();
+            LinkLabel lbl = sender as LinkLabel;
+            if (lbl != null)
+            {
+                this.AddTopic(e.Link.LinkData.ToString(), lbl.Tag.ToString());
+            }
         }
 
         /// <summary>
