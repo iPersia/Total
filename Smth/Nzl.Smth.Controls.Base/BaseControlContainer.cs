@@ -488,7 +488,8 @@
                 }
 
                 if (wp.Html.Contains("<div class=\"sp hl f\">指定的版面不存在</div>") ||
-                    wp.Html.Contains("<div class=\"sp hl f\">指定的文章不存在或链接错误</div>"))
+                    wp.Html.Contains("<div class=\"sp hl f\">指定的文章不存在或链接错误</div>") ||
+                    wp.Html.Contains("<div class=\"sp hl f\">未指定版面或链接错误</div>"))
                 {
                     info.Status = PageStatus.NotFound;
                     return false;

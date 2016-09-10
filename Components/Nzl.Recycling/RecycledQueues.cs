@@ -103,7 +103,9 @@
             List<string> list = new List<string>();
             foreach (KeyValuePair<Type, Queue<IRecycled>> pair in _dictRecycledQueues)
             {
-                list.Add("\t" + pair.Key.ToString() + "\t" + pair.Value.Count + "\n");
+                string infor = "\t" + pair.Key.ToString();
+                infor += pair.Value.Count.ToString().PadLeft(80-infor.Length, ' ') + "\n";
+                list.Add(infor);
                 //msg += "\t" + pair.Key.ToString() + "\t" + pair.Value.Count + "\n";
             }
 

@@ -85,6 +85,10 @@
             this.richtxtContent.WordWrap = true;
             this.richtxtContent.ScrollBars = RichTextBoxScrollBars.None;
             this.richtxtContent.ContentsResized += new ContentsResizedEventHandler(richtxtContent_ContentsResized);
+
+#if (DEBUG)
+            //this.richtxtContent.BorderStyle = BorderStyle.FixedSingle;
+#endif
         }
 
         /// <summary>

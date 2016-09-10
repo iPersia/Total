@@ -6,24 +6,24 @@
 
 	03、资源管理器，查看到大量用户对象，而且不断在增加，需要调整资源释放（已初步完成）
 
-	   参考4，控件的重复回收利用。
+	    参考4，控件的重复回收利用。
 
 	04、控件的重复利用。（已完成）
 
-	   通过Nzl.Recycling，基础控件已完成复用。
-	   后面添加：
-		   TopicBrowserControl
-		   BoardBrowserControl
+	    通过Nzl.Recycling，基础控件已完成复用。
+	    后面添加：
+		    TopicBrowserControl
+		    BoardBrowserControl
 
 	05、查看同一ID时，鼠标滚轮导致原浏览页面也跟着滚动。(已解决)
 
 	06、邮件明细窗口，第三次打开时异常，无法显示内容。（已解决）
  
-	   明细窗口为函数内临时变量，同时使用ShowDialog方式执行，关闭后窗口Dispose时导致MailDetailControl的析构，所以再次重复使用时出现异常。
+	    明细窗口为函数内临时变量，同时使用ShowDialog方式执行，关闭后窗口Dispose时导致MailDetailControl的析构，所以再次重复使用时出现异常。
 
 	07、邮件窗口打开时间较长，出现卡断。（已解决）
 
-	   Release版本没有此问题，怀疑和Debug版受监控有关。
+	    Release版本没有此问题，怀疑和Debug版受监控有关。
 
 	08、邮件自动更新过程中的，新邮件提醒功能。（已完成）
 
@@ -31,7 +31,9 @@
 
 	10、Boards需要加入Recycling.（已解决）
 
-	11、Thread中，若某个图片下载失败，导致构建ThreadControl时出现索引越界异常。
+	11、Thread中，若某个图片下载失败，导致构建ThreadControl时出现索引越界异常。（已解决）
+
+	    加载图片失败时，在页面进行提示。
 
 	12、设置里面添加 (已完成)
 			界面设置：Panel和PanelContainer的位置设置
@@ -50,8 +52,8 @@
 
     15、Container如果正在FetchPage，则不应该被回收。（已完成）
 	
-	   原因是可能有些被创建的控件（临时变量）还没来得及被添加到View中，这些控件将继续往前被用于添加到Panel中。
-	   在新控件被加入到Panel时，若正好在回收，则会出现一些异常情况。
+	    原因是可能有些被创建的控件（临时变量）还没来得及被添加到View中，这些控件将继续往前被用于添加到Panel中。
+	    在新控件被加入到Panel时，若正好在回收，则会出现一些异常情况。
 
     16、回复帖子、删除帖子等改为异步。（已解决）
 
@@ -71,15 +73,17 @@
 
 	    目前解决办法：调整了CreateControl的位置，以及MailDetailControlContainer中InitializeSize的位置。
 
+		有可能和MailBoxControl加载时，没有登陆有关。
+
 	20、查询客户，发送邮件。（已完成）
 
 	21、查询板块功能，收藏板块功能。
 
-	22、Refer开发。
+	22、Refer开发。（已完成）
 
-	23、Refer明细查看开发。
+	23、Refer明细查看开发。（已完成）
 
-	24、版面浏览方式
+	24、版面浏览方式（已完成）
 
 	        同主题
 			回复
@@ -89,6 +93,8 @@
     25、BaseControlContainer.IsWorking=true时，不做回收。如果一直处于Working状态，重复利用时，将导致不能FetchPage。（基本解决）
 
 	    Finally中加入IsWorking=false的处理。
+
+    26、页面加载方式，目前为同步模式，当卡在某页面时，将导致后续页面需要等待。
 
 经验
 

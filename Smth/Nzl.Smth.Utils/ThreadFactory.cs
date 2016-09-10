@@ -7,7 +7,6 @@
     using Nzl.Recycling;
     using Nzl.Smth.Configs;
     using Nzl.Smth.Datas;    
-    using Nzl.Smth.Interfaces;
     using Nzl.Smth.Logger;
     using Nzl.Web.Page;
     using Nzl.Web.Util;
@@ -260,113 +259,7 @@
             }
 
             return null;
-        }
-
-        /*
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="html"></param>
-        /// <returns></returns>
-        private static IList<Thread> CreateThreads(WebPage page, IContainsThread iContainThread)
-        {
-            try
-            {
-                MatchCollection mtContentCollection = CommonUtil.GetMatchCollection("<div class=\"sp\">", page.Html);
-                //MatchCollection mtNaviCollection = CommonUtil.GetMatchCollection("<div class=\"nav hl\">", page.Html);
-                IList<Thread> threadList = ThreadFactory.GetThreads(page.Html);
-                string htmlNavi = page.Html;
-                string htmlContent = page.Html;
-                if (threadList.Count == mtContentCollection.Count)
-                {
-                    for (int i = 0; i < threadList.Count; i++)
-                    {
-                        Match mt = mtContentCollection[i];
-                        Thread thread = threadList[i];
-                        if (mt.Success)
-                        {
-                            int startPos = htmlContent.IndexOf(mt.Groups[0].Value.ToString());
-                            htmlContent = htmlContent.Substring(startPos);
-                            string endStr = @"</div>";
-                            int endPos = htmlContent.IndexOf(endStr);
-                            string divstr = htmlContent.Substring(0, endPos + endStr.Length);
-                            htmlContent = htmlContent.Substring(endPos);
-                            if (thread != null)
-                            {
-                                thread.Content = GetThreadContent(divstr);
-                                thread.Tag = thread.Content;
-
-                                ///Check whether the thread is already saved
-                                ///If so, check whether the content has been changed.
-                                ///       if so, get the new thread's detail info subsquently;
-                                ///       if not, get the saved thread.
-                                ///If not, get the new thread's detail info subsquently.
-                                Thread savedThread = iContainThread.GetSavedThread(thread.ID);
-                                if (savedThread != null && savedThread.Content == thread.Content)
-                                {
-                                    savedThread.DeleteUrl = thread.DeleteUrl;
-                                    savedThread.EditUrl = thread.EditUrl;
-                                    savedThread.MailUrl = thread.MailUrl;
-                                    savedThread.ReplyUrl = thread.ReplyUrl;
-                                    savedThread.TransferUrl = thread.TransferUrl;
-                                    threadList[i] = savedThread;
-                                    continue;
-                                }
-
-                                string content = thread.Content;
-                                IList<string> imageUrlList = GetImageUrls(ref content);
-                                if (imageUrlList.Count > 0)
-                                {
-                                    IList<Image> imageList = new List<Image>();
-                                    foreach (string imageUrl in imageUrlList)
-                                    {
-                                        Image image = CommonUtil.GetWebImage(imageUrl);
-                                        if (image != null)
-                                        {
-                                            image.Tag = imageUrl.Replace("/middle", "")
-                                                      + ThreadFactory.TokenPrefix
-                                                      + ThreadFactory.ImageToken
-                                                      + ThreadFactory.TokenSuffix
-                                                      + RtfUtil.GetRtfCode(image);
-                                            imageList.Add(image);
-                                        }
-                                    }
-
-                                    thread.ImageList = imageList;
-                                }
-
-                                IList<string> iconUrlList = GetIconUrls(ref content);
-                                if (iconUrlList.Count > 0)
-                                {
-                                    IList<Image> iconList = new List<Image>();
-                                    foreach (string iconUrl in iconUrlList)
-                                    {
-                                        iconList.Add(CommonUtil.GetWebImage(iconUrl));
-                                    }
-
-                                    thread.IconList = iconList;
-                                }
-
-                                thread.AnchorList = GetAnchorUrls(ref content);
-                                thread.Content = content;
-                            }
-                        }
-                    }
-                }
-
-                return threadList;
-            }
-            catch (Exception e)
-            {
-                if (Logger.Enabled)
-                {
-                    Logger.Instance.Error(e.Message + "\n" + e.StackTrace);
-                }
-
-                return null;
-            }
-        }
-        */
+        }       
         #endregion
 
         #region Privates

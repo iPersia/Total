@@ -41,6 +41,14 @@
             this._updatingTimer.Interval = 1000;
             this._updatingTimer.Tick += _updatingTimer_Tick;
             this._updatingTimer.Start();
+
+#if (DEBUG)
+            this.scContainer.SplitterDistance = 360;
+#else            
+            this.scContainer.SplitterDistance = 25;
+            this.scContainer.IsSplitterFixed = true;
+            this.txtCache.ReadOnly = true;
+#endif
         }
 
         /// <summary>

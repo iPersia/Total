@@ -1023,7 +1023,7 @@ namespace Nzl.Smth.Controls.Containers
                 this.linklblBoard.Visible = true;
                 this.linklblBoard.Text = chnBoardName;
                 this.linklblBoard.Links.Clear();
-                this.linklblBoard.Links.Add(0, board.Length, "http://m.newsmth.net/board/" + engBoardName);
+                this.linklblBoard.Links.Add(0, board.Length, engBoardName);
             }
 
             this.linklblReply.Visible = LogStatus.Instance.IsLogin;
