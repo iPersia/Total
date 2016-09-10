@@ -202,6 +202,65 @@
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        public static string GetReplyContent(string user, string html)
+        {
+            if (html != null && user != null)
+            {
+                html = html.Replace("<br />", "\n");
+                html = html.Replace("<br/>", "\n");
+                html = html.Replace("<br>", "\n");
+                html = html.Replace("<div class=\"sp\">", "");
+                html = html.Replace("&nbsp;", " ");
+                html = html.Replace("</div>", "");
+
+                Regex regex = new Regex(@"\s*--\sFROM\s[\d, \., \*]+");
+                string content = regex.Replace(CommonUtil.ReplaceSpecialChars(html), "");
+
+                //删除上层回复
+                regex = new Regex(@"【\s在\s.+\s的大作中提到\: 】");
+                content = TrimUrls(CommonUtil.ReplaceSpecialChars(content));
+                //content = new Regex(@"(?m)<a[^>]*>(\w|\W)*?</a[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(content, "");
+                MatchCollection mtCollection = regex.Matches(content);
+                if (mtCollection != null && mtCollection.Count > 0)
+                {
+                    content = content.Substring(0, content.IndexOf(mtCollection[0].Groups[0].Value.ToString()));
+                }
+
+                //替换多次换行
+                content = new Regex(@"[\n]+", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(content, "\n");
+                content = new Regex(@"[\r]+", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(content, "\n");
+
+                //删除尾部换行
+                content = content.TrimEnd('\n');
+
+                //保留一定的回复行数 （saveLastReplyLineCount + 1）
+                mtCollection = new Regex(@"[\n]+", RegexOptions.Multiline | RegexOptions.IgnoreCase).Matches(content);
+                int saveLastReplyLineCount = 5;
+                string tail = string.Empty;
+                string head = "\n\n【 在 " + user + " 的大作中提到: 】\n: ";
+                if (mtCollection != null && mtCollection.Count > saveLastReplyLineCount)
+                {
+                    for (int i = mtCollection.Count; i > saveLastReplyLineCount; i--)
+                    {
+                        content = content.Substring(0, content.LastIndexOf("\n"));
+                    }
+
+                    tail += "\n: ...................";
+                }
+
+                //添加回复头和尾
+                content = head + content.Replace("\n", "\n: ") + tail;
+                return content;
+            }
+
+            return null;
+        }
+
 
         /// <summary>
         /// 

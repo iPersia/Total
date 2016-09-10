@@ -29,6 +29,7 @@
             : this()
         {
             this.txtSendTo.Text = userID;
+            this.txtSendTo.ReadOnly = true;
         }
 
         /// <summary>
@@ -58,8 +59,8 @@
         public string GetPostString()
         {
             string postData = "id=" + this.txtSendTo.Text
-                + "&title=" + this.txtTitle.Text
-                + "&content=" + this.richtxtContent.Text;
+                            + "&title=" + this.txtTitle.Text
+                            + "&content=" + this.richtxtContent.Text;
             if (this.ckbBackup.Checked)
             {
                 postData += "&backup=on";

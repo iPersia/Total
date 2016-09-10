@@ -193,25 +193,7 @@
             base.OnShown(e);
             this.TopicReply_PageLoaded(this, new EventArgs());
         }
-#endif
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void UserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                UserForm userForm = new UserForm(e.Link.LinkData.ToString());
-                userForm.StartPosition = FormStartPosition.CenterParent;
-                userForm.ShowDialog(this);
-                e.Link.Visited = true;
-            }
-        }
+#endif       
         #endregion
 
         #region Topic
@@ -253,18 +235,18 @@
                 tbc.Name = "tbc" + url;
                 tbc.Url = url;
                 tbc.Dock = DockStyle.Fill;
-                tbc.OnThreadDeleteLinkClicked += ThreadControlContainer_OnThreadDeleteLinkClicked;
-                tbc.OnThreadEditLinkClicked += ThreadControlContainer_OnThreadEditLinkClicked;
-                tbc.OnThreadMailLinkClicked += ThreadControlContainer_OnThreadMailLinkClicked;
+                tbc.OnThreadDeleteLinkClicked += Common_OnThreadDeleteLinkClicked;
+                tbc.OnThreadEditLinkClicked += Common_OnThreadEditLinkClicked;
+                tbc.OnThreadMailLinkClicked += Common_OnThreadMailLinkClicked;
                 tbc.OnThreadQueryTypeLinkClicked += ThreadControlContainer_OnThreadQueryTypeLinkClicked;
-                tbc.OnThreadReplyLinkClicked += ThreadControlContainer_OnThreadReplyLinkClicked;
-                tbc.OnThreadTransferLinkClicked += ThreadControlContainer_OnThreadTransferLinkClicked;
-                tbc.OnThreadUserLinkClicked += UserLinkClicked;
+                tbc.OnThreadReplyLinkClicked += Common_OnThreadReplyLinkClicked;
+                tbc.OnThreadTransferLinkClicked += Common_OnThreadTransferLinkClicked;
+                tbc.OnThreadUserLinkClicked += Common_OnUserLinkClicked;
                 tbc.OnTopicReplyLinkClicked += ThreadControlContainer_OnTopicReplyLinkClicked;
-                tbc.OnThreadContentLinkClicked += RichTextBoxContentLinkClicked;
+                tbc.OnThreadContentLinkClicked += Common_OnRichTextBoxContentLinkClicked;
                 tbc.OnBoardLinkClicked += ThreadControlContainer_OnBoardLinkClicked;
-                tbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
-                tbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
+                tbc.OnWorkerFailed += Common_OnWorkerFailed;
+                tbc.OnWorkerCancelled += Common_OnWorkerCancelled;
                 tbc.OnTopicSettingsClicked += ThreadControlContainer_OnTopicSettingsClicked;
                 tp.Controls.Add(tbc);
 
@@ -295,33 +277,6 @@
                     e.BrowserType = form.Settings.BrowserType;
                     e.UpdatingInterval = form.Settings.UpdatingInterval;
                     e.Tag = "Updated";
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RichTextBoxContentLinkClicked(object sender, LinkClickedEventArgs e)
-        {
-            int index = e.LinkText.LastIndexOf("http:");
-            if (index < 0)
-            {
-                index = e.LinkText.LastIndexOf("https:");
-            }
-
-            if (index > 0)
-            {
-                string url = e.LinkText.Substring(index);
-                if (url.Contains(@"att.newsmth.net"))
-                {
-                    ShowFormOnCenterParent((new WebBrowserForm(url)));
-                }
-                else
-                {
-                    CommonUtil.OpenUrl(url);
                 }
             }
         }
@@ -366,42 +321,6 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ThreadControlContainer_OnThreadTransferLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            ///throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ThreadControlContainer_OnThreadReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                Thread thread = linkLabel.Tag as Thread;
-                if (thread != null)
-                {
-                    NewThreadForm threadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText,
-                                                                    "Re: " + this.tcTopics.SelectedTab.ToolTipText,
-                                                                    SmthUtil.GetReplyContent(thread),
-                                                                    true);
-                    threadForm.StartPosition = FormStartPosition.CenterParent;
-                    if (DialogResult.OK == threadForm.ShowDialog(this))
-                    {
-                        e.Link.Tag = threadForm.GetPostString();
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ThreadControlContainer_OnThreadQueryTypeLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LinkLabel linkLabel = sender as LinkLabel;
@@ -412,84 +331,6 @@
                 topicForm.StartPosition = FormStartPosition.CenterParent;
                 topicForm.ShowDialog(this);
                 e.Link.Visited = true;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ThreadControlContainer_OnThreadMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                Thread thread = linkLabel.Tag as Thread;
-                if (thread != null)
-                {
-                    NewMailForm mailForm = new NewMailForm(thread.User,
-                                                           "Re: " + this.tcTopics.SelectedTab.ToolTipText,
-                                                           SmthUtil.GetReplyContent(thread));
-                    mailForm.StartPosition = FormStartPosition.CenterParent;
-                    if (mailForm.ShowDialog(this) == DialogResult.OK)
-                    {
-                        e.Link.Tag = mailForm.GetPostString();
-                        e.Link.Visited = true;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ThreadControlContainer_OnThreadEditLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                Thread thread = linkLabel.Tag as Thread;
-                if (thread != null)
-                {
-                    Regex regex = new Regex(@"\s*FROM\s[\d, \., \*]+");
-                    string content = regex.Replace(thread.Tag.ToString(), "");
-                    content = CommonUtil.ReplaceSpecialChars(content);
-                    content = SmthUtil.TrimUrls(content);
-                    NewThreadForm threadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText,
-                                                                    "Re: " + this.tcTopics.SelectedTab.ToolTipText,
-                                                                    content,
-                                                                    false);
-                    threadForm.StartPosition = FormStartPosition.CenterParent;
-                    if (DialogResult.OK == threadForm.ShowDialog(this))
-                    {
-                        e.Link.Tag = threadForm.GetPostString();
-                        e.Link.Visited = true;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ThreadControlContainer_OnThreadDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel linkLabel = sender as LinkLabel;
-            if (linkLabel != null)
-            {
-                MessageForm confirmForm = new MessageForm("提示", "确认删除此信息？");
-                confirmForm.StartPosition = FormStartPosition.CenterParent;
-                DialogResult dlgResult = confirmForm.ShowDialog(this);
-                if (dlgResult == DialogResult.OK)
-                {
-                    e.Link.Tag = "Yes";
-                    e.Link.Visited = true;
-                }
             }
         }
         #endregion
@@ -534,10 +375,10 @@
                 bbc.BrowserType = browserType;
                 bbc.OnTopicLinkClicked += TopicControlContainer_OnTopicLinkClicked;
                 bbc.OnPostLinkClicked += TopicControlContainer_OnPostLinkClicked;
-                bbc.OnTopicCreateIDLinkClicked += UserLinkClicked;
-                bbc.OnTopicLastIDLinkClicked += UserLinkClicked;
-                bbc.OnWorkerFailed += TabbedBrowserForm_OnWorkerFailed;
-                bbc.OnWorkerCancelled += TabbedBrowserFrom_OnWorkerCancelled;
+                bbc.OnTopicCreateIDLinkClicked += Common_OnUserLinkClicked;
+                bbc.OnTopicLastIDLinkClicked += Common_OnUserLinkClicked;
+                bbc.OnWorkerFailed += Common_OnWorkerFailed;
+                bbc.OnWorkerCancelled += Common_OnWorkerCancelled;
                 bbc.OnBoardSettingsClicked += TopicControlContainer_OnBoardSettingsClicked;
                 bbc.Dock = DockStyle.Fill;
                 tp.Controls.Add(bbc);
@@ -575,32 +416,6 @@
                     e.Tag = "Updated";
                 }
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TabbedBrowserFrom_OnWorkerCancelled(object sender, MessageEventArgs e)
-        {
-            MessageForm msgForm = new MessageForm("Geting page Cancelled", e.Message);
-            msgForm.StartPosition = FormStartPosition.CenterParent;
-            this.Activate();
-            msgForm.ShowDialog(this);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TabbedBrowserForm_OnWorkerFailed(object sender, MessageEventArgs e)
-        {
-            MessageForm msgForm = new MessageForm("Geting page failed", e.Message);
-            msgForm.StartPosition = FormStartPosition.CenterParent;
-            this.Activate();
-            msgForm.ShowDialog(this);
         }
 
         /// <summary>
@@ -674,18 +489,18 @@
                 pcc.Name = "pcc" + url;
                 pcc.Url = url;
                 pcc.OnBoardClicked += PostControlContainer_OnBoardClicked;
-                pcc.OnContentLinkClicked += RichTextBoxContentLinkClicked;
-                pcc.OnDeleteClicked += PostControlContainer_OnDeleteClicked;
-                pcc.OnEditClicked += PostControlContainer_OnEditClicked;
+                pcc.OnContentLinkClicked += Common_OnRichTextBoxContentLinkClicked;
+                pcc.OnDeleteClicked += Common_OnThreadDeleteLinkClicked;
+                pcc.OnEditClicked += Common_OnThreadEditLinkClicked;
                 pcc.OnExpandClicked += PostControlContainer_OnExpandClicked;
-                pcc.OnMailClicked += PostControlContainer_OnMailClicked;
+                pcc.OnMailClicked += Common_OnThreadMailLinkClicked;
                 pcc.OnNewClicked += PostControlContainer_OnNewClicked;
-                pcc.OnReplyClicked += PostControlContainer_OnReplyClicked;
+                pcc.OnReplyClicked += Common_OnThreadReplyLinkClicked;
                 pcc.OnSubjectExpandClicked += PostControlContainer_OnSubjectExpandClicked;
-                pcc.OnTransferClicked += PostControlContainer_OnTransferClicked;
-                pcc.OnUserClicked += UserLinkClicked;
-                pcc.OnWorkerCancelled += PostControlContainer_OnWorkerCancelled;
-                pcc.OnWorkerFailed += PostControlContainer_OnWorkerFailed;
+                pcc.OnTransferClicked += Common_OnThreadTransferLinkClicked;
+                pcc.OnUserClicked += Common_OnUserLinkClicked;
+                pcc.OnWorkerCancelled += Common_OnWorkerCancelled;
+                pcc.OnWorkerFailed += Common_OnWorkerFailed;
                 pcc.Dock = DockStyle.Fill;
                 tp.Controls.Add(pcc);
 
@@ -693,36 +508,6 @@
                 pcc.RefreshingOnSizeChanged(true);
                 pcc.Reusing();
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PostControlContainer_OnWorkerFailed(object sender, MessageEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PostControlContainer_OnWorkerCancelled(object sender, MessageEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PostControlContainer_OnTransferClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -744,31 +529,11 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PostControlContainer_OnReplyClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void PostControlContainer_OnNewClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             throw new NotImplementedException();
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PostControlContainer_OnMailClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -781,36 +546,6 @@
             {
                 this.AddTopic(e.Link.LinkData.ToString(), lbl.Tag.ToString());
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PostControlContainer_OnEditClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PostControlContainer_OnDeleteClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PostControlContainer_OnContentLinkClicked(object sender, LinkClickedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1061,18 +796,18 @@
         {
             if (tbc != null)
             {
-                tbc.OnThreadDeleteLinkClicked -= ThreadControlContainer_OnThreadDeleteLinkClicked;
-                tbc.OnThreadEditLinkClicked -= ThreadControlContainer_OnThreadEditLinkClicked;
-                tbc.OnThreadMailLinkClicked -= ThreadControlContainer_OnThreadMailLinkClicked;
+                tbc.OnThreadDeleteLinkClicked -= Common_OnThreadDeleteLinkClicked;
+                tbc.OnThreadEditLinkClicked -= Common_OnThreadEditLinkClicked;
+                tbc.OnThreadMailLinkClicked -= Common_OnThreadMailLinkClicked;
                 tbc.OnThreadQueryTypeLinkClicked -= ThreadControlContainer_OnThreadQueryTypeLinkClicked;
-                tbc.OnThreadReplyLinkClicked -= ThreadControlContainer_OnThreadReplyLinkClicked;
-                tbc.OnThreadTransferLinkClicked -= ThreadControlContainer_OnThreadTransferLinkClicked;
-                tbc.OnThreadUserLinkClicked -= UserLinkClicked;
+                tbc.OnThreadReplyLinkClicked -= Common_OnThreadReplyLinkClicked;
+                tbc.OnThreadTransferLinkClicked -= Common_OnThreadTransferLinkClicked;
+                tbc.OnThreadUserLinkClicked -= Common_OnUserLinkClicked;
                 tbc.OnTopicReplyLinkClicked -= ThreadControlContainer_OnTopicReplyLinkClicked;
-                tbc.OnThreadContentLinkClicked -= RichTextBoxContentLinkClicked;
+                tbc.OnThreadContentLinkClicked -= Common_OnRichTextBoxContentLinkClicked;
                 tbc.OnBoardLinkClicked -= ThreadControlContainer_OnBoardLinkClicked;
-                tbc.OnWorkerFailed -= TabbedBrowserForm_OnWorkerFailed;
-                tbc.OnWorkerCancelled -= TabbedBrowserFrom_OnWorkerCancelled;
+                tbc.OnWorkerFailed -= Common_OnWorkerFailed;
+                tbc.OnWorkerCancelled -= Common_OnWorkerCancelled;
                 tbc.OnTopicSettingsClicked -= ThreadControlContainer_OnTopicSettingsClicked;
                 RecycledQueues.AddRecycled<ThreadControlContainer>(tbc);
             }
@@ -1088,10 +823,10 @@
             {
                 bbc.OnTopicLinkClicked -= TopicControlContainer_OnTopicLinkClicked;
                 bbc.OnPostLinkClicked -= TopicControlContainer_OnPostLinkClicked;
-                bbc.OnTopicCreateIDLinkClicked -= UserLinkClicked;
-                bbc.OnTopicLastIDLinkClicked -= UserLinkClicked;
-                bbc.OnWorkerFailed -= TabbedBrowserForm_OnWorkerFailed;
-                bbc.OnWorkerCancelled -= TabbedBrowserFrom_OnWorkerCancelled;
+                bbc.OnTopicCreateIDLinkClicked -= Common_OnUserLinkClicked;
+                bbc.OnTopicLastIDLinkClicked -= Common_OnUserLinkClicked;
+                bbc.OnWorkerFailed -= Common_OnWorkerFailed;
+                bbc.OnWorkerCancelled -= Common_OnWorkerCancelled;
                 bbc.OnBoardSettingsClicked -= TopicControlContainer_OnBoardSettingsClicked;
                 RecycledQueues.AddRecycled<TopicControlContainer>(bbc);
             }
@@ -1106,18 +841,18 @@
             if (pcc != null)
             {
                 pcc.OnBoardClicked -= PostControlContainer_OnBoardClicked;
-                pcc.OnContentLinkClicked -= RichTextBoxContentLinkClicked;
-                pcc.OnDeleteClicked -= PostControlContainer_OnDeleteClicked;
-                pcc.OnEditClicked -= PostControlContainer_OnEditClicked;
+                pcc.OnContentLinkClicked -= Common_OnRichTextBoxContentLinkClicked;
+                pcc.OnDeleteClicked -= Common_OnThreadDeleteLinkClicked;
+                pcc.OnEditClicked -= Common_OnThreadEditLinkClicked;
                 pcc.OnExpandClicked -= PostControlContainer_OnExpandClicked;
-                pcc.OnMailClicked -= PostControlContainer_OnMailClicked;
+                pcc.OnMailClicked -= Common_OnThreadMailLinkClicked;
                 pcc.OnNewClicked -= PostControlContainer_OnNewClicked;
-                pcc.OnReplyClicked -= PostControlContainer_OnReplyClicked;
+                pcc.OnReplyClicked -= Common_OnThreadReplyLinkClicked;
                 pcc.OnSubjectExpandClicked -= PostControlContainer_OnSubjectExpandClicked;
-                pcc.OnTransferClicked -= PostControlContainer_OnTransferClicked;
-                pcc.OnUserClicked -= UserLinkClicked;
-                pcc.OnWorkerCancelled -= PostControlContainer_OnWorkerCancelled;
-                pcc.OnWorkerFailed -= PostControlContainer_OnWorkerFailed;
+                pcc.OnTransferClicked -= Common_OnThreadTransferLinkClicked;
+                pcc.OnUserClicked -= Common_OnUserLinkClicked;
+                pcc.OnWorkerCancelled -= Common_OnWorkerCancelled;
+                pcc.OnWorkerFailed -= Common_OnWorkerFailed;
                 RecycledQueues.AddRecycled<PostControlContainer>(pcc);
             }
         }
@@ -1268,6 +1003,193 @@
         }
         #endregion
 
+        #region Common
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Common_OnUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                UserForm userForm = new UserForm(e.Link.LinkData.ToString());
+                userForm.StartPosition = FormStartPosition.CenterParent;
+                userForm.ShowDialog(this);
+                e.Link.Visited = true;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Common_OnRichTextBoxContentLinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            int index = e.LinkText.LastIndexOf("http:");
+            if (index < 0)
+            {
+                index = e.LinkText.LastIndexOf("https:");
+            }
+
+            if (index > 0)
+            {
+                string url = e.LinkText.Substring(index);
+                if (url.Contains(@"att.newsmth.net"))
+                {
+                    ShowFormOnCenterParent((new WebBrowserForm(url)));
+                }
+                else
+                {
+                    CommonUtil.OpenUrl(url);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Common_OnWorkerCancelled(object sender, MessageEventArgs e)
+        {
+            MessageForm msgForm = new MessageForm("Geting page Cancelled", e.Message);
+            msgForm.StartPosition = FormStartPosition.CenterParent;
+            this.Activate();
+            msgForm.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Common_OnWorkerFailed(object sender, MessageEventArgs e)
+        {
+            MessageForm msgForm = new MessageForm("Geting page failed", e.Message);
+            msgForm.StartPosition = FormStartPosition.CenterParent;
+            this.Activate();
+            msgForm.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Common_OnThreadMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null && linkLabel.Tag != null)
+            {
+                string replyContent = linkLabel.Tag.ToString();
+                if (replyContent != null)
+                {
+                    NewMailForm mailForm = new NewMailForm(replyContent.Substring(0, replyContent.IndexOf("<User>")),
+                                                           "Re: " + this.tcTopics.SelectedTab.ToolTipText,
+                                                           replyContent.Substring(replyContent.IndexOf("<User>") + 6));
+                    mailForm.StartPosition = FormStartPosition.CenterParent;
+                    if (mailForm.ShowDialog(this) == DialogResult.OK)
+                    {
+                        e.Link.Tag = mailForm.GetPostString();
+                        e.Link.Visited = true;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Common_OnThreadEditLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null && linkLabel.Tag != null)
+            {
+                string replyContent = linkLabel.Tag.ToString();
+                if (replyContent != null)
+                {
+                    Regex regex = new Regex(@"\s*FROM\s[\d, \., \*]+");
+                    string content = regex.Replace(replyContent, "");
+                    content = CommonUtil.ReplaceSpecialChars(content);
+                    content = SmthUtil.TrimUrls(content);
+                    NewThreadForm threadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText,
+                                                                    "Re: " + this.tcTopics.SelectedTab.ToolTipText,
+                                                                    content,
+                                                                    false);
+                    threadForm.StartPosition = FormStartPosition.CenterParent;
+                    if (DialogResult.OK == threadForm.ShowDialog(this))
+                    {
+                        e.Link.Tag = threadForm.GetPostString();
+                        e.Link.Visited = true;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Common_OnThreadDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null)
+            {
+                MessageForm confirmForm = new MessageForm("提示", "确认删除此信息？");
+                confirmForm.StartPosition = FormStartPosition.CenterParent;
+                DialogResult dlgResult = confirmForm.ShowDialog(this);
+                if (dlgResult == DialogResult.OK)
+                {
+                    e.Link.Tag = "Yes";
+                    e.Link.Visited = true;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Common_OnThreadTransferLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ///throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Common_OnThreadReplyLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            if (linkLabel != null && linkLabel.Tag != null)
+            {
+                string replyContent = linkLabel.Tag.ToString();
+                if (replyContent != null)
+                {
+                    NewThreadForm threadForm = new NewThreadForm(this.tcTopics.SelectedTab.ToolTipText,
+                                                                    "Re: " + this.tcTopics.SelectedTab.ToolTipText,
+                                                                    replyContent,//SmthUtil.GetReplyContent(thread),
+                                                                    true);
+                    threadForm.StartPosition = FormStartPosition.CenterParent;
+                    if (DialogResult.OK == threadForm.ShowDialog(this))
+                    {
+                        e.Link.Tag = threadForm.GetPostString();
+                    }
+                }
+            }
+        }
+        #endregion
+
         #region Private
         /// <summary>
         /// 
@@ -1298,8 +1220,8 @@
                             this.linklblUserID.Text = welcomeStr + LogStatus.Instance.UserID + "!";
                             this.linklblUserID.Links.Clear();
                             this.linklblUserID.Links.Add(welcomeStr.Length, LogStatus.Instance.UserID.Length, LogStatus.Instance.UserID);
-                            this.linklblUserID.LinkClicked -= new LinkLabelLinkClickedEventHandler(UserLinkClicked);
-                            this.linklblUserID.LinkClicked += new LinkLabelLinkClickedEventHandler(UserLinkClicked);
+                            this.linklblUserID.LinkClicked -= new LinkLabelLinkClickedEventHandler(Common_OnUserLinkClicked);
+                            this.linklblUserID.LinkClicked += new LinkLabelLinkClickedEventHandler(Common_OnUserLinkClicked);
                             this.btnLogon.Text = "Log Out";
                         }
                         else

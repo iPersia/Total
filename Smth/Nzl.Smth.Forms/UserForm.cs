@@ -49,6 +49,7 @@
             this.Text = "Query User - " + this._userID;
             LoadUserInfor();
             this.txtUser.ContentsResized += TxtUser_ContentsResized;
+            this.btnSendMail.Enabled = LogStatus.Instance.IsLogin;
         }
 
         /// <summary>

@@ -6,9 +6,11 @@ namespace Nzl.Smth.Controls.Containers
     using System.ComponentModel;
     using System.Windows.Forms;
     using Nzl.Recycling;
-    using Nzl.Smth.Datas;
+    using Nzl.Smth.Configs;
     using Nzl.Smth.Controls.Base;
     using Nzl.Smth.Controls.Elements;
+    using Nzl.Smth.Datas;
+    using Nzl.Smth.Loaders;
     using Nzl.Smth.Utils;
     using Nzl.Web.Page;
     /// <summary>
@@ -267,8 +269,45 @@ namespace Nzl.Smth.Controls.Containers
             if (this.OnEditClicked != null)
             {
                 this.OnEditClicked(sender, e);
+                if (e.Link.Tag != null)
+                {
+                    string postString = e.Link.Tag.ToString();
+                    if (string.IsNullOrEmpty(postString) == false)
+                    {
+                        PostLoader pl = new PostLoader(e.Link.LinkData.ToString(), postString);
+                        pl.Succeeded += ThreadEdit_Succeeded;
+                        pl.Failed += ThreadEdit_Failed;
+                        pl.Start();
+                    }
+                }
+
+                e.Link.Tag = null;
             }
         }
+
+        #region ThreadEdit - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadEdit_Succeeded(object sender, EventArgs e)
+        {
+            this.ShowInformation("Editting the thread is completed, the page will be refreshed!");
+            this.SetUrlInfo(false);
+            this.FetchLastPage();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadEdit_Failed(object sender, EventArgs e)
+        {
+            this.ShowInformation("Editting the thread failed!");
+        }
+        #endregion
 
         /// <summary>
         /// 
@@ -280,8 +319,41 @@ namespace Nzl.Smth.Controls.Containers
             if (this.OnDeleteClicked != null)
             {
                 this.OnDeleteClicked(sender, e);
+                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Yes")
+                {
+                    PostLoader pl = new PostLoader(e.Link.LinkData.ToString());
+                    pl.Succeeded += ThreadDelete_Succeeded;
+                    pl.Failed += ThreadDelete_Failed;
+                    pl.Start();
+                }
+
+                e.Link.Tag = null;
             }
         }
+
+        #region ThreadDelete - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadDelete_Succeeded(object sender, EventArgs e)
+        {
+            this.ShowInformation("Deleting the thread is completed, the page will be refreshed!");
+            this.SetUrlInfo(false);
+            this.FetchPage();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadDelete_Failed(object sender, EventArgs e)
+        {
+            this.ShowInformation("Deleting the thread failed!");
+        }
+        #endregion
 
         /// <summary>
         /// 
@@ -381,8 +453,45 @@ namespace Nzl.Smth.Controls.Containers
             if (this.OnReplyClicked != null)
             {
                 this.OnReplyClicked(sender, e);
+                if (e.Link.Tag != null)
+                {
+                    string postString = e.Link.Tag.ToString();
+                    if (string.IsNullOrEmpty(postString) == false)
+                    {
+                        PostLoader pl = new PostLoader(e.Link.LinkData.ToString(), postString);
+                        pl.Succeeded += ThreadReply_Succeeded;
+                        pl.Failed += ThreadReply_Failed;
+                        pl.Start();
+                    }
+                }
+
+                e.Link.Tag = null;
             }
         }
+
+        #region ThreadReply - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadReply_Succeeded(object sender, EventArgs e)
+        {
+            this.ShowInformation("Replying the thread is completed, the page will be refreshed!");
+            this.SetUrlInfo(false);
+            this.FetchLastPage();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadReply_Failed(object sender, EventArgs e)
+        {
+            this.ShowInformation("Replying the thread failed!");
+        }
+        #endregion
 
         /// <summary>
         /// 
@@ -419,8 +528,43 @@ namespace Nzl.Smth.Controls.Containers
             if (this.OnMailClicked != null)
             {
                 this.OnMailClicked(sender, e);
+                if (e.Link.Tag != null)
+                {
+                    string postString = e.Link.Tag as string;
+                    if (string.IsNullOrEmpty(postString) == false)
+                    {
+                        PostLoader pl = new PostLoader(Configuration.SendMailUrl, postString);
+                        pl.Succeeded += ThreadMail_Succeeded;
+                        pl.Failed += ThreadMail_Failed;
+                        pl.Start();
+                    }
+                }
+
+                e.Link.Tag = null;
             }
         }
+
+        #region ThreadMail - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadMail_Succeeded(object sender, EventArgs e)
+        {
+            this.ShowInformation("Sending mail is completed!");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreadMail_Failed(object sender, EventArgs e)
+        {
+            this.ShowInformation("Sending mail failed!");
+        }
+        #endregion
 
         /// <summary>
         /// 
