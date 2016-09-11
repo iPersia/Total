@@ -87,6 +87,7 @@
             this.btnReadAll.TabIndex = 0;
             this.btnReadAll.Text = "Read all";
             this.btnReadAll.UseVisualStyleBackColor = true;
+            this.btnReadAll.Click += new System.EventHandler(this.btnReadAll_Click);
             // 
             // ReferControl
             // 

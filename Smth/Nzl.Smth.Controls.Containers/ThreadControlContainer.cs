@@ -182,7 +182,6 @@ namespace Nzl.Smth.Controls.Containers
         {
             InitializeComponent();
             this._updatingTimer.Tick += _updatingTimer_Tick;
-            LogStatus.Instance.OnLoginStatusChanged += LogStatus_OnLoginStatusChanged;
             this.Text = "Topic";
             {
                 this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
@@ -251,7 +250,16 @@ namespace Nzl.Smth.Controls.Containers
                     this._hostThread == null)
                 {
                     this._hostThread = info.Result[0];
-                }                                
+                }
+
+                ///Reset base url.
+                string url = this.GetCurrentUrl();
+                if (url != null &&
+                    url.Contains(Configuration.BaseUrl) &&
+                    url.IndexOf('?') > 0)
+                {
+                    this.SetBaseUrl(url.Substring(0, url.IndexOf('?')));
+                }
 
                 ///Fetch next page when the container is not full.
                 if (this.GetPanel().Height < this.panelContainer.Height)
@@ -452,6 +460,15 @@ namespace Nzl.Smth.Controls.Containers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="isLogin"></param>
+        protected override void OnLoginStatusChanged(bool isLogin)
+        {
+            this.linklblReply.Visible = isLogin && string.IsNullOrEmpty(this._postUrl) == false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="disposing"></param>
         public override void Recycling()
         {
@@ -480,25 +497,6 @@ namespace Nzl.Smth.Controls.Containers
         #endregion
 
         #region Event handler
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LogStatus_OnLoginStatusChanged(object sender, LogStatusEventArgs e)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new MethodInvoker(delegate () {
-                    this.linklblReply.Visible = e.IsLogin && string.IsNullOrEmpty(this._postUrl) == false;
-                }));
-            }
-            else
-            {
-                this.linklblReply.Visible = e.IsLogin && string.IsNullOrEmpty(this._postUrl) == false;
-            }
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -702,6 +700,7 @@ namespace Nzl.Smth.Controls.Containers
                     if (string.IsNullOrEmpty(postString) == false)
                     {
                         PostLoader pl = new PostLoader(this._postUrl, postString);
+                        pl.ErrorAccured += PostLoader_ErrorAccured;
                         pl.Succeeded += ThreadReply_Succeeded;
                         pl.Failed += ThreadReply_Failed;
                         pl.Start();
@@ -712,7 +711,17 @@ namespace Nzl.Smth.Controls.Containers
             }
         }
 
-        #region ThreadReply - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostLoader_ErrorAccured(object sender, MessageEventArgs e)
+        {
+            this.ShowInformation(e.Message);
+        }
+
+        #region ThreadReply - Succeeded & Failed
         /// <summary>
         /// 
         /// </summary>
@@ -791,6 +800,7 @@ namespace Nzl.Smth.Controls.Containers
                     if (string.IsNullOrEmpty(postString) == false)
                     {
                         PostLoader pl = new PostLoader(e.Link.LinkData.ToString(), postString);
+                        pl.ErrorAccured += PostLoader_ErrorAccured;
                         pl.Succeeded += ThreadReply_Succeeded;
                         pl.Failed += ThreadReply_Failed;
                         pl.Start();
@@ -817,6 +827,7 @@ namespace Nzl.Smth.Controls.Containers
                     if (string.IsNullOrEmpty(postString) == false)
                     {
                         PostLoader pl = new PostLoader(Configuration.SendMailUrl, postString);
+                        pl.ErrorAccured += PostLoader_ErrorAccured;
                         pl.Succeeded += ThreadMail_Succeeded;
                         pl.Failed += ThreadMail_Failed;
                         pl.Start();
@@ -827,7 +838,7 @@ namespace Nzl.Smth.Controls.Containers
             }
         }
 
-        #region ThreadMail - PageLoaded & PageFailed
+        #region ThreadMail - Succeeded & Failed
         /// <summary>
         /// 
         /// </summary>
@@ -878,6 +889,7 @@ namespace Nzl.Smth.Controls.Containers
                     if (string.IsNullOrEmpty(postString) == false)
                     {
                         PostLoader pl = new PostLoader(e.Link.LinkData.ToString(), postString);
+                        pl.ErrorAccured += PostLoader_ErrorAccured;
                         pl.Succeeded += ThreadEdit_Succeeded;
                         pl.Failed += ThreadEdit_Failed;
                         pl.Start();
@@ -888,7 +900,7 @@ namespace Nzl.Smth.Controls.Containers
             }
         }
 
-        #region ThreadEdit - PageLoaded & PageFailed
+        #region ThreadEdit - Succeeded & Failed
         /// <summary>
         /// 
         /// </summary>
@@ -925,6 +937,7 @@ namespace Nzl.Smth.Controls.Containers
                 if (e.Link.Tag != null && e.Link.Tag.ToString() == "Yes")
                 {
                     PostLoader pl = new PostLoader(e.Link.LinkData.ToString());
+                    pl.ErrorAccured += PostLoader_ErrorAccured;
                     pl.Succeeded += ThreadDelete_Succeeded;
                     pl.Failed += ThreadDelete_Failed;
                     pl.Start();
@@ -934,7 +947,7 @@ namespace Nzl.Smth.Controls.Containers
             }
         }
 
-        #region ThreadDelete - PageLoaded & PageFailed
+        #region ThreadDelete - Succeeded & Failed
         /// <summary>
         /// 
         /// </summary>

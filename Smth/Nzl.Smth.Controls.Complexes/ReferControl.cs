@@ -3,9 +3,10 @@
     using System;
     using System.Drawing;
     using System.Windows.Forms;
-    using Nzl.Smth;
     using Nzl.Smth.Configs;
     using Nzl.Smth.Controls.Containers;
+    using Nzl.Smth.Loaders;
+    using Nzl.Web.Page;
 
     /// <summary>
     /// 
@@ -29,7 +30,16 @@
         public event LinkLabelLinkClickedEventHandler OnUserLinkClicked;
         #endregion
 
-        #region variable        
+        #region variable
+        /// <summary>
+        /// 
+        /// </summary>
+        private AtControlContainer _atControlContainer = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private ReplyControlContainer _replyControlContainer = null;
         #endregion
 
         #region Ctor.
@@ -47,14 +57,14 @@
                 tp.Text = "@me";
                 this.tcRefer.TabPages.Add(tp);
 
-                AtControlContainer acc = new AtControlContainer();
-                acc.Dock = DockStyle.Fill;
-                acc.CreateControl();
-                acc.SetParent(tp);
-                acc.OnDeleteLinkClicked += ReplyControlContainer_OnDeleteLinkClicked;
-                acc.OnReplyLinkClicked += ReplyControlContainer_OnReplyLinkClicked;
-                acc.OnUserLinkClicked += ReplyControlContainer_OnUserLinkClicked;
-                tp.Controls.Add(acc);
+                this._atControlContainer = new AtControlContainer();
+                this._atControlContainer.Dock = DockStyle.Fill;
+                this._atControlContainer.CreateControl();
+                this._atControlContainer.SetParent(tp);
+                this._atControlContainer.OnDeleteLinkClicked += ReplyControlContainer_OnDeleteLinkClicked;
+                this._atControlContainer.OnReplyLinkClicked += ReplyControlContainer_OnReplyLinkClicked;
+                this._atControlContainer.OnUserLinkClicked += ReplyControlContainer_OnUserLinkClicked;
+                tp.Controls.Add(this._atControlContainer);
             }
 
             ///Refer
@@ -64,14 +74,14 @@
                 tp.Text = "Refer";
                 this.tcRefer.TabPages.Add(tp);
 
-                ReplyControlContainer rcc = new ReplyControlContainer();
-                rcc.Dock = DockStyle.Fill;
-                rcc.CreateControl();
-                rcc.SetParent(tp);
-                rcc.OnDeleteLinkClicked += ReplyControlContainer_OnDeleteLinkClicked;
-                rcc.OnReplyLinkClicked += ReplyControlContainer_OnReplyLinkClicked;
-                rcc.OnUserLinkClicked += ReplyControlContainer_OnUserLinkClicked;
-                tp.Controls.Add(rcc);
+                this._replyControlContainer = new ReplyControlContainer();
+                this._replyControlContainer.Dock = DockStyle.Fill;
+                this._replyControlContainer.CreateControl();
+                this._replyControlContainer.SetParent(tp);
+                this._replyControlContainer.OnDeleteLinkClicked += ReplyControlContainer_OnDeleteLinkClicked;
+                this._replyControlContainer.OnReplyLinkClicked += ReplyControlContainer_OnReplyLinkClicked;
+                this._replyControlContainer.OnUserLinkClicked += ReplyControlContainer_OnUserLinkClicked;
+                tp.Controls.Add(this._replyControlContainer);
             }
         }
         #endregion
@@ -124,6 +134,50 @@
         private void ReferControl_SizeChanged(object sender, EventArgs e)
         {
             this.btnReadAll.Left = (this.panelMenu.Width - this.btnReadAll.Width) / 2;
+        }
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReadAll_Click(object sender, EventArgs e)
+        {
+            PageLoader pl = new PageLoader(Configuration.ReadAllReferUrl);
+            pl.PageLoaded += ReadAll_Succeeded;
+            pl.PageFailed += ReadAll_Failed;
+            PageDispatcher.Instance.Add(pl);
+        }
+
+        #region ReadAll - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReadAll_Succeeded(object sender, EventArgs e)
+        {
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                WebPage wp = pl.GetResult() as WebPage;
+                if (wp != null && wp.IsGood && wp.Html.Contains("class=\"top\"") == false)
+                {
+                    this._atControlContainer.Reload();
+                    this._replyControlContainer.Reload();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReadAll_Failed(object sender, EventArgs e)
+        {
+            ///Do nothing...
         }
         #endregion
     }

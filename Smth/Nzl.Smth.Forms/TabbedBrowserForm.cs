@@ -237,7 +237,7 @@
                 tbc.Dock = DockStyle.Fill;
                 tbc.OnThreadDeleteLinkClicked += Common_OnThreadDeleteLinkClicked;
                 tbc.OnThreadEditLinkClicked += Common_OnThreadEditLinkClicked;
-                tbc.OnThreadMailLinkClicked += Common_OnThreadMailLinkClicked;
+                tbc.OnThreadMailLinkClicked += Common_OnThreadMailLinkClicked;                
                 tbc.OnThreadQueryTypeLinkClicked += ThreadControlContainer_OnThreadQueryTypeLinkClicked;
                 tbc.OnThreadReplyLinkClicked += Common_OnThreadReplyLinkClicked;
                 tbc.OnThreadTransferLinkClicked += Common_OnThreadTransferLinkClicked;
@@ -373,6 +373,7 @@
                 bbc.Name = "bbc" + boardCode;
                 bbc.Board = boardCode;
                 bbc.BrowserType = browserType;
+                bbc.OnNewClicked += Common_OnNewClicked;
                 bbc.OnTopicLinkClicked += TopicControlContainer_OnTopicLinkClicked;
                 bbc.OnPostLinkClicked += TopicControlContainer_OnPostLinkClicked;
                 bbc.OnTopicCreateIDLinkClicked += Common_OnUserLinkClicked;
@@ -386,6 +387,21 @@
                 ///
                 bbc.RefreshingOnSizeChanged(true);
                 bbc.Reusing();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Common_OnNewClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            NewThreadForm threadForm = new NewThreadForm("New post","");
+            threadForm.StartPosition = FormStartPosition.CenterParent;
+            if (DialogResult.OK == threadForm.ShowDialog(this))
+            {
+                e.Link.Tag = threadForm.GetPostString();
             }
         }
 
@@ -494,7 +510,7 @@
                 pcc.OnEditClicked += Common_OnThreadEditLinkClicked;
                 pcc.OnExpandClicked += PostControlContainer_OnExpandClicked;
                 pcc.OnMailClicked += Common_OnThreadMailLinkClicked;
-                pcc.OnNewClicked += PostControlContainer_OnNewClicked;
+                pcc.OnNewClicked += Common_OnNewClicked;
                 pcc.OnReplyClicked += Common_OnThreadReplyLinkClicked;
                 pcc.OnSubjectExpandClicked += PostControlContainer_OnSubjectExpandClicked;
                 pcc.OnTransferClicked += Common_OnThreadTransferLinkClicked;
@@ -523,17 +539,7 @@
                 this.AddTopic(e.Link.LinkData.ToString(), lbl.Tag.ToString());
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PostControlContainer_OnNewClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-        
+       
         /// <summary>
         /// 
         /// </summary>
@@ -821,6 +827,7 @@
         {
             if (bbc != null)
             {
+                bbc.OnNewClicked -= Common_OnNewClicked;
                 bbc.OnTopicLinkClicked -= TopicControlContainer_OnTopicLinkClicked;
                 bbc.OnPostLinkClicked -= TopicControlContainer_OnPostLinkClicked;
                 bbc.OnTopicCreateIDLinkClicked -= Common_OnUserLinkClicked;
@@ -846,7 +853,7 @@
                 pcc.OnEditClicked -= Common_OnThreadEditLinkClicked;
                 pcc.OnExpandClicked -= PostControlContainer_OnExpandClicked;
                 pcc.OnMailClicked -= Common_OnThreadMailLinkClicked;
-                pcc.OnNewClicked -= PostControlContainer_OnNewClicked;
+                pcc.OnNewClicked -= Common_OnNewClicked;
                 pcc.OnReplyClicked -= Common_OnThreadReplyLinkClicked;
                 pcc.OnSubjectExpandClicked -= PostControlContainer_OnSubjectExpandClicked;
                 pcc.OnTransferClicked -= Common_OnThreadTransferLinkClicked;

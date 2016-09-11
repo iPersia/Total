@@ -69,7 +69,7 @@
                 postStr += SmthUtil.GetReplyTail();
 #endif
 
-                postStr += "&subject=" + this._subject;
+                postStr += "&subject=" + this.txtTitle.Text;
 
                 if (this.ckbSendMail.Checked)
                 {
@@ -99,15 +99,15 @@
         /// <param name="e"></param>
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.txtContent.Text) == false)
+            if (string.IsNullOrEmpty(this.txtContent.Text) == false && 
+                string.IsNullOrEmpty(this.txtTitle.Text) == false)
             {
-                string postStr = "content=" + this.txtContent.Text;
+                string postStr = "subject=" + this.txtTitle.Text;
+                postStr += "&content=" + this.txtContent.Text;
 
 #if (true)
                 postStr += SmthUtil.GetReplyTail();
 #endif
-
-                postStr += "&subject=" + this._subject;
 
                 if (this.ckbSendMail.Checked)
                 {
@@ -116,6 +116,7 @@
 
                 this.txtContent.ReadOnly = true;
                 this.btnSubmit.Enabled = true;
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
         }

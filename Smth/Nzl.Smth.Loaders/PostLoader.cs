@@ -19,6 +19,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public EventHandler<MessageEventArgs> ErrorAccured;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public EventHandler Failed;
 
         /// <summary>
@@ -84,7 +89,7 @@
             }
         }
 
-        #region NewMail - PageLoaded & PageFailed
+        #region  PageLoaded & PageFailed
         /// <summary>
         /// 
         /// </summary>
@@ -106,11 +111,21 @@
                 }
 
                 string result = CommonUtil.GetMatch(@"<div id=\Wm_main\W><div class=\Wsp hl f\W>(?'Result'\w+)</div>", html, "Result");
-                if (result != null && result.Contains(this.SuccessString))
+                if (result != null)
                 {
-                    if (this.Succeeded != null)
+                    if (result.Contains(this.SuccessString))
                     {
-                        this.Succeeded(this, new EventArgs());
+                        if (this.Succeeded != null)
+                        {
+                            this.Succeeded(this, new EventArgs());
+                        }
+                    }
+                    else
+                    {
+                        if (this.ErrorAccured != null)
+                        {
+                            this.ErrorAccured(this, new MessageEventArgs(result));
+                        }
                     }
                 }
             }

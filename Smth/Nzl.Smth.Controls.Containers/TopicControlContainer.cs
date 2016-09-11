@@ -5,8 +5,10 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
+    using Nzl.Smth.Configs;
     using Nzl.Smth.Controls.Base;
     using Nzl.Smth.Controls.Elements;
+    using Nzl.Smth.Loaders;
     using Nzl.Smth.Datas;
     using Nzl.Smth.Utils;
     using Nzl.Smth.Logger;
@@ -37,7 +39,12 @@
         /// <summary>
         /// 
         /// </summary>
-        public event LinkLabelLinkClickedEventHandler OnPostLinkClicked; 
+        public event LinkLabelLinkClickedEventHandler OnPostLinkClicked;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event LinkLabelLinkClickedEventHandler OnNewClicked;
 
         /// <summary>
         /// 
@@ -151,6 +158,7 @@
             base.WorkCompleted(info);
             this.UpdateBoardTitle(info.WebPage);
             this.lblPage.Text = info.Index.ToString().PadLeft(6, '0') + "/" + info.Total.ToString().PadLeft(6, '0');
+
             if (this.GetPanel().Height < this.panelContainer.Height)
             {
                 this.SetUrlInfo(true);
@@ -249,6 +257,15 @@
             this.txtGoTo.Enabled = flag;
 
             this.btnRefresh.Enabled = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isLogin"></param>
+        protected override void OnLoginStatusChanged(bool isLogin)
+        {
+            this.btnNew.Visible = isLogin;
         }
 
         /// <summary>
@@ -370,8 +387,61 @@
         /// <param name="e"></param>
         private void btnNew_Click(object sender, EventArgs e)
         {
+            if (this.OnNewClicked != null)
+            {
+                LinkLabel.Link link = new LinkLabel.Link(0, 1, Configs.Configuration.BaseUrl + "/article/" + this.Board + "/post");
+                LinkLabelLinkClickedEventArgs lllce = new LinkLabelLinkClickedEventArgs(link);
+                this.OnNewClicked(sender, lllce);
+                if (lllce.Link.Tag != null)
+                {
+                    string postString = lllce.Link.Tag.ToString();
+                    if (string.IsNullOrEmpty(postString) == false)
+                    {
+                        PostLoader pl = new PostLoader(lllce.Link.LinkData.ToString(), postString);
+                        pl.ErrorAccured += PostLoader_ErrorAccured;
+                        pl.Succeeded += NewTopic_Succeeded;
+                        pl.Failed += NewTopic_Failed;
+                        pl.Start();
+                    }
+                }
 
+                lllce.Link.Tag = null;
+            }
         }
+
+        #region NewTopic - Succeeded & Failed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostLoader_ErrorAccured(object sender, MessageEventArgs e)
+        {
+            this.ShowInformation(e.Message);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NewTopic_Succeeded(object sender, EventArgs e)
+        {
+            this.ShowInformation("Creating new post is completed, the page will be refreshed!");
+            this.SetUrlInfo(false);
+            this.FetchPage();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NewTopic_Failed(object sender, EventArgs e)
+        {
+            this.ShowInformation("Creating new post failed!");
+        }
+        #endregion
 
         /// <summary>
         /// 

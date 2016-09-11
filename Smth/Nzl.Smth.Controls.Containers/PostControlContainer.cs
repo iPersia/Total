@@ -264,6 +264,16 @@ namespace Nzl.Smth.Controls.Containers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void PostLoader_ErrorAccured(object sender, MessageEventArgs e)
+        {
+            this.ShowInformation(e.Message);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReferDetailControl_OnEditClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (this.OnEditClicked != null)
@@ -275,6 +285,7 @@ namespace Nzl.Smth.Controls.Containers
                     if (string.IsNullOrEmpty(postString) == false)
                     {
                         PostLoader pl = new PostLoader(e.Link.LinkData.ToString(), postString);
+                        pl.ErrorAccured += PostLoader_ErrorAccured;
                         pl.Succeeded += ThreadEdit_Succeeded;
                         pl.Failed += ThreadEdit_Failed;
                         pl.Start();
@@ -285,7 +296,7 @@ namespace Nzl.Smth.Controls.Containers
             }
         }
 
-        #region ThreadEdit - PageLoaded & PageFailed
+        #region ThreadEdit - Succeeded & Failed
         /// <summary>
         /// 
         /// </summary>
@@ -322,6 +333,7 @@ namespace Nzl.Smth.Controls.Containers
                 if (e.Link.Tag != null && e.Link.Tag.ToString() == "Yes")
                 {
                     PostLoader pl = new PostLoader(e.Link.LinkData.ToString());
+                    pl.ErrorAccured += PostLoader_ErrorAccured;
                     pl.Succeeded += ThreadDelete_Succeeded;
                     pl.Failed += ThreadDelete_Failed;
                     pl.Start();
@@ -331,7 +343,7 @@ namespace Nzl.Smth.Controls.Containers
             }
         }
 
-        #region ThreadDelete - PageLoaded & PageFailed
+        #region ThreadDelete - Succeeded & Failed
         /// <summary>
         /// 
         /// </summary>
@@ -459,6 +471,7 @@ namespace Nzl.Smth.Controls.Containers
                     if (string.IsNullOrEmpty(postString) == false)
                     {
                         PostLoader pl = new PostLoader(e.Link.LinkData.ToString(), postString);
+                        pl.ErrorAccured += PostLoader_ErrorAccured;
                         pl.Succeeded += ThreadReply_Succeeded;
                         pl.Failed += ThreadReply_Failed;
                         pl.Start();
@@ -469,7 +482,7 @@ namespace Nzl.Smth.Controls.Containers
             }
         }
 
-        #region ThreadReply - PageLoaded & PageFailed
+        #region ThreadReply - Succeeded & Failed
         /// <summary>
         /// 
         /// </summary>
@@ -515,8 +528,44 @@ namespace Nzl.Smth.Controls.Containers
             if (this.OnNewClicked != null)
             {
                 this.OnNewClicked(sender, e);
+                if (e.Link.Tag != null)
+                {
+                    string postString = e.Link.Tag as string;
+                    if (string.IsNullOrEmpty(postString) == false)
+                    {
+                        PostLoader pl = new PostLoader(e.Link.LinkData.ToString(), postString);
+                        pl.ErrorAccured += PostLoader_ErrorAccured;
+                        pl.Succeeded += New_Succeeded;
+                        pl.Failed += New_Failed;
+                        pl.Start();
+                    }
+                }
+
+                e.Link.Tag = null;
             }
         }
+
+        #region New - Succeeded & Failed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void New_Succeeded(object sender, EventArgs e)
+        {
+            this.ShowInformation("Creating new post is completed!");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void New_Failed(object sender, EventArgs e)
+        {
+            this.ShowInformation("Creating new post failed!");
+        }
+        #endregion
 
         /// <summary>
         /// 
@@ -534,6 +583,7 @@ namespace Nzl.Smth.Controls.Containers
                     if (string.IsNullOrEmpty(postString) == false)
                     {
                         PostLoader pl = new PostLoader(Configuration.SendMailUrl, postString);
+                        pl.ErrorAccured += PostLoader_ErrorAccured;
                         pl.Succeeded += ThreadMail_Succeeded;
                         pl.Failed += ThreadMail_Failed;
                         pl.Start();
@@ -544,7 +594,7 @@ namespace Nzl.Smth.Controls.Containers
             }
         }
 
-        #region ThreadMail - PageLoaded & PageFailed
+        #region ThreadMail - Succeeded & Failed
         /// <summary>
         /// 
         /// </summary>

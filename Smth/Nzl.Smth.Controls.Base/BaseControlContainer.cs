@@ -63,7 +63,8 @@
             this.IsWorking = false;
             this.IsRecycled = false;
             this.Status = RecycledStatus.Using;
-            Configuration.OnLocationMarginChanged += Configuration_OnLocationMarginChanged;
+            //Configuration.OnLocationMarginChanged += Configuration_OnLocationMarginChanged;
+            LogStatus.Instance.OnLoginStatusChanged += LogStatus_OnLoginStatusChanged;
         }
         #endregion
 
@@ -678,6 +679,14 @@
             //    this.FetchPrevPage();
             //}
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isLogin"></param>
+        protected virtual void OnLoginStatusChanged(bool isLogin)
+        {
+        }
         #endregion
 
         #region protected
@@ -961,6 +970,10 @@
         {
             try
             {
+                ///The work is done actually in here.
+                this.IsWorking = false;
+
+                ///Judge the work result.
                 if (e.Error != null)
                 {
                     WorkFailedBase(e);
@@ -973,15 +986,7 @@
                 {
                     WorkCompletedBase(e);
                 }
-                ///Reset base url.
-                string url = this.GetCurrentUrl();
-                if (url != null && 
-                    url.Contains(Configuration.BaseUrl) &&
-                    url.IndexOf('?') > 0)
-                {
-                    this.SetBaseUrl(url.Substring(0, url.IndexOf('?')));
-                }
-
+                
                 ///Set control enable.
                 this.SetControlEnabled(true);
             }
@@ -1097,6 +1102,13 @@
                     SetControlEnabled(false);
                     return true;
                 }
+                else
+                {
+                    if (this.IsWorking)
+                    {
+                        this.ShowInformation("Page loading is already in progess!");
+                    }
+                }
 
                 return false;
             }
@@ -1209,6 +1221,24 @@
         #endregion
 
         #region eventhandler
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LogStatus_OnLoginStatusChanged(object sender, LogStatusEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(delegate () {
+                    this.LogStatus_OnLoginStatusChanged(sender, e);
+                }));
+            }
+            else
+            {
+                this.OnLoginStatusChanged(e.IsLogin);
+            }
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -160,6 +160,7 @@
             if (newMailForm.ShowDialog(this) == DialogResult.OK)
             {
                 PostLoader pl = new PostLoader(Configuration.SendMailUrl, newMailForm.GetPostString());
+                pl.ErrorAccured += PostLoader_ErrorAccured;
                 pl.Succeeded += NewMail_Succeeded;
                 pl.Failed += NewMail_Failed;
                 pl.Start();
@@ -167,6 +168,30 @@
         }
 
         #region NewMail - PageLoaded & PageFailed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostLoader_ErrorAccured(object sender, MessageEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(delegate () {
+                    this.NewMail_Succeeded(sender, e);
+                }));
+            }
+            else
+            {
+                if (this.Visible)
+                {
+                    MessageForm form = new MessageForm("Information", e.Message);
+                    form.StartPosition = FormStartPosition.CenterParent;
+                    form.ShowDialog(this);
+                }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

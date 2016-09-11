@@ -82,6 +82,11 @@
         /// 
         /// </summary>
         private static string staticAtUrl = @"http://m.newsmth.net/refer/at";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static string staticReadAllReferUrl = @"http://m.newsmth.net/refer/reply/read?index=all";
 #if (DEBUG)
         /// <summary>
         /// The interval to update the section tops in SectionTopControl.
@@ -148,7 +153,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private static int staticTitleWordCount = 6;
+        private static int staticTitleWordCount = 6;        
         #endregion
 
 
@@ -348,6 +353,17 @@
             get
             {
                 return staticTitleWordCount;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string ReadAllReferUrl
+        {
+            get
+            {
+                return staticReadAllReferUrl;
             }
         }        
         #endregion

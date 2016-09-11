@@ -67,7 +67,7 @@
 
 	     <font color="#DC143C"><font face="黑体">
 
-    18、板块上应添加新帖功能。
+    18、板块上应添加新帖功能。（已完成）
 
 	19、邮件详情窗口，首次加载，竟然不FecthPage，原因是没有OnLoad。(比较诡异，已基本解决)
 
@@ -94,9 +94,9 @@
 
 	    Finally中加入IsWorking=false的处理。
 
-    26、页面加载方式，目前为同步模式，当卡在某页面时，将导致后续页面需要等待。
+    26、页面加载方式，目前为同步模式，当卡在某页面时，将导致后续页面需要等待。（经评估，采用同步模式更为合理）
 
-	27、PostControl中的Expand链接包含有s=(pid）参数，该参数将导致分页导航失败，因为此参数用于定位Post的位置（页码、在页面中的位置等），p=pagenumber将失效。（已解决）
+	27、PostControl中的Expand链接包含有s=(pid）参数，该参数将导致ThreadControlContainer分页导航失败，因为此参数用于定位Post的位置（页码、在页面中的位置等），p=pagenumber将失效。（已解决）
 
 	    现有方法，在ThreadControlContainer的WorkCompleted中重置Topic的Url，去除所有参数，包括p和au和s。
 
@@ -104,7 +104,15 @@
 
     28、邮件删除功能放在前台。（已完成）
 
+	29、加载完成后，重置Url放在Base中，导致PostControlContainer在相应SizeChanged时间重新FetchPage时失败。（已修正）
 
+	    关联问题27。
+
+		重置Url不能放在BaseControlContainer，放在ThreadControlContainer即可。
+
+	30、WorkComplete自动加载下一页，有bug。（已解决）
+
+	    如果首次加载本身失败，根据Container的大小逻辑，紧接着进行第二次加载，此时第二次加载时IsWorking为True。应放在IsWorking=fasle时进行第二次加载更为合理。
 
 经验
 

@@ -226,132 +226,11 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="thread"></param>
-        /// <returns></returns>
-        private MailControl CreateMailControl(Mail mail)
+        /// <param name="isLogin"></param>
+        protected override void OnLoginStatusChanged(bool isLogin)
         {
-            MailControl mc = new MailControl();
-
-            return mc;
+            this.btnNew.Visible = isLogin;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Tc_OnUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (this.OnUserLinkClicked != null)
-            {
-                this.OnUserLinkClicked(sender, e);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Tc_OnDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (this.OnDeleteLinkClicked != null)
-            {
-                this.OnDeleteLinkClicked(sender, e);
-                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Yes")
-                {
-                    PostLoader pl = new PostLoader(e.Link.LinkData.ToString());
-                    pl.Succeeded += MailDelete_Succeeded;
-                    pl.Failed += MailDelete_Failed;
-                    pl.Start();
-                }
-
-                e.Link.Tag = null;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Tc_OnMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (this.OnMailLinkClicked != null)
-            {
-                this.OnMailLinkClicked(sender, e);
-                if (e.Link.Tag != null)
-                {
-                    string infor = e.Link.Tag.ToString();
-                    ///Deleting mail.
-                    if (infor.Contains("ConfirmToDelete"))
-                    {
-                        PostLoader pl = new PostLoader(infor.Replace("ConfirmToDelete", ""));
-                        pl.Succeeded += MailDelete_Succeeded;
-                        pl.Failed += MailDelete_Failed;
-                        pl.Start();
-                    }
-
-                    ///Replying mail.
-                    if (infor.Contains("ReplyMail"))
-                    {
-                        PostLoader pl = new PostLoader(Configuration.SendMailUrl, infor.Replace("ReplyMail", ""));
-                        pl.Succeeded += MailReply_Succeeded;
-                        pl.Failed += MailReply_Failed;
-                        pl.Start();
-                    }
-                }
-
-                e.Link.Tag = null;
-            }
-        }
-
-        #region MailReply - PageLoaded & PageFailed
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MailReply_Succeeded(object sender, EventArgs e)
-        {
-            this.ShowInformation("Replying the mail is completed!");   
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MailReply_Failed(object sender, EventArgs e)
-        {
-            this.ShowInformation("Replying the mail failed!");
-        }
-        #endregion
-
-        #region MailDelete - PageLoaded & PageFailed
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MailDelete_Succeeded(object sender, EventArgs e)
-        {
-            this.ShowInformation("Deleting the mail is completed!");
-            this.SetUrlInfo(false);
-            this.FetchPage();      
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MailDelete_Failed(object sender, EventArgs e)
-        {
-            this.ShowInformation("Deleting the mail failed!");
-        }
-        #endregion
-
         #endregion
 
         #region event handler.
@@ -468,6 +347,7 @@
                     if (string.IsNullOrEmpty(postString) == false)
                     {
                         PostLoader pl = new PostLoader(Configuration.SendMailUrl, postString);
+                        pl.ErrorAccured += PostLoader_ErrorAccured;
                         pl.Succeeded += NewMail_Succeeded;
                         pl.Failed += NewMail_Failed;
                         pl.Start();
@@ -476,7 +356,7 @@
             }
         }
 
-        #region NewMail - PageLoaded & PageFailed
+        #region NewMail - Succeeded & Failed
         /// <summary>
         /// 
         /// </summary>
@@ -499,6 +379,136 @@
             this.ShowInformation("Sending mail failed!");
         }
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tc_OnUserLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnUserLinkClicked != null)
+            {
+                this.OnUserLinkClicked(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tc_OnDeleteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnDeleteLinkClicked != null)
+            {
+                this.OnDeleteLinkClicked(sender, e);
+                if (e.Link.Tag != null && e.Link.Tag.ToString() == "Yes")
+                {
+                    PostLoader pl = new PostLoader(e.Link.LinkData.ToString());
+                    pl.ErrorAccured += PostLoader_ErrorAccured;
+                    pl.Succeeded += MailDelete_Succeeded;
+                    pl.Failed += MailDelete_Failed;
+                    pl.Start();
+                }
+
+                e.Link.Tag = null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PostLoader_ErrorAccured(object sender, MessageEventArgs e)
+        {
+            this.ShowInformation(e.Message);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tc_OnMailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.OnMailLinkClicked != null)
+            {
+                this.OnMailLinkClicked(sender, e);
+                if (e.Link.Tag != null)
+                {
+                    string infor = e.Link.Tag.ToString();
+                    ///Deleting mail.
+                    if (infor.Contains("ConfirmToDelete"))
+                    {
+                        PostLoader pl = new PostLoader(infor.Replace("ConfirmToDelete", ""));
+                        pl.ErrorAccured += PostLoader_ErrorAccured;
+                        pl.Succeeded += MailDelete_Succeeded;
+                        pl.Failed += MailDelete_Failed;
+                        pl.Start();
+                    }
+
+                    ///Replying mail.
+                    if (infor.Contains("ReplyMail"))
+                    {
+                        PostLoader pl = new PostLoader(Configuration.SendMailUrl, infor.Replace("ReplyMail", ""));
+                        pl.ErrorAccured += PostLoader_ErrorAccured;
+                        pl.Succeeded += MailReply_Succeeded;
+                        pl.Failed += MailReply_Failed;
+                        pl.Start();
+                    }
+                }
+
+                e.Link.Tag = null;
+            }
+        }
+
+        #region MailReply - Succeeded & Failed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MailReply_Succeeded(object sender, EventArgs e)
+        {
+            this.ShowInformation("Replying the mail is completed!");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MailReply_Failed(object sender, EventArgs e)
+        {
+            this.ShowInformation("Replying the mail failed!");
+        }
+        #endregion
+
+        #region MailDelete - Succeeded & Failed
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MailDelete_Succeeded(object sender, EventArgs e)
+        {
+            this.ShowInformation("Deleting the mail is completed!");
+            this.SetUrlInfo(false);
+            this.FetchPage();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MailDelete_Failed(object sender, EventArgs e)
+        {
+            this.ShowInformation("Deleting the mail failed!");
+        }
+        #endregion
         #endregion
 
         #region private
@@ -518,6 +528,18 @@
                         + dHeight
                         + Configuration.BaseControlContainerLocationMargin * 2
                         + this.GetPanelContainerBoarderMargin();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="thread"></param>
+        /// <returns></returns>
+        private MailControl CreateMailControl(Mail mail)
+        {
+            MailControl mc = new MailControl();
+
+            return mc;
         }
         #endregion
     }

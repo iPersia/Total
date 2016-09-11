@@ -65,6 +65,15 @@
         {
             this._parentControl = ctl;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Reload()
+        {
+            this.SetUrlInfo(false);
+            this.FetchPage();
+        }
         #endregion
 
         #region override
