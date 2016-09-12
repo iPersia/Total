@@ -1353,7 +1353,6 @@
                         {
                             this.btnMail.ForeColor = System.Drawing.Color.Red;
                             this.btnMail.Text = "New mail!";
-
                             this._mailToolTip.ShowAlways = true;
                             this._mailToolTip.SetToolTip(this.btnMail, "You have " + newMailCount + " new mail" + (newMailCount == 1 ? "!" : "s!"));
                         }
@@ -1399,7 +1398,6 @@
                         {
                             this.btnRefer.ForeColor = System.Drawing.Color.Red;
                             this.btnRefer.Text = "New refer!";
-
                             this._referToolTip.ShowAlways = true;
                             this._referToolTip.SetToolTip(this.btnRefer, "You have " + newCount + " new refer" + (newCount == 1 ? "!" : "s!"));
                         }
@@ -1408,7 +1406,7 @@
                             this.btnRefer.ForeColor = System.Drawing.Color.Black;
                             this.btnRefer.Text = "Refers";
                             this._referToolTip.ShowAlways = false;
-                            this._referToolTip.SetToolTip(this.btnRefer, "You have no new refers!");
+                            this._referToolTip.SetToolTip(this.btnRefer, "You have no new refer!");
                         }
                     }
                 }
