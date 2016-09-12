@@ -5,7 +5,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class MailStatusEventArgs : EventArgs
+    public class AtStatusEventArgs : EventArgs
     {
         /// <summary>
         /// 

@@ -76,7 +76,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private static string staticReferUrl = @"http://m.newsmth.net/refer/reply";
+        private static string staticReplyUrl = @"http://m.newsmth.net/refer/reply";
 
         /// <summary>
         /// 
@@ -249,11 +249,11 @@
         /// <summary>
         /// 
         /// </summary>
-        public static string ReferUrl
+        public static string ReplyUrl
         {
             get
             {
-                return staticReferUrl;
+                return staticReplyUrl;
             }
         }
 

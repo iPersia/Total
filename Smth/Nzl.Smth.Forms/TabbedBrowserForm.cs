@@ -66,7 +66,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private Timer _newMailUpdateTimer = new Timer();
+        private Timer _checkNewInforTimer = new Timer();
         #endregion
 
         #region Ctor
@@ -77,9 +77,11 @@
         {
             InitializeComponent();
             LogStatus.Instance.OnLoginStatusChanged += LogStatusInstance_OnLoginStatusChanged;
-            MailStatus.Instance.OnNewMaiArrived += MailStatusInstance_OnNewMaiArrived;
+            AtStatus.Instance.OnNewArrived += AtStatusInstance_OnNewArrived;
+            MailStatus.Instance.OnNewArrived += MailStatusInstance_OnNewArrived;
+            ReplyStatus.Instance.OnNewArrived += ReplyStatusInstance_OnNewArrived;
             Configuration.OnNewMailUpdatingIntervalChanged += Configuration_OnNewMailUpdatingIntervalChanged;
-            this._newMailUpdateTimer.Tick += _newMailUpdateTimer_Tick;
+            this._checkNewInforTimer.Tick += CheckNewInforTimer_Tick;
             this._uahKey.KeyUp += new EventHandler<KeyExEventArgs>(Global_KeyUp);
             this._uahKey.Start();
             this.HideWhenDeactivate = false;
@@ -950,13 +952,30 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void _newMailUpdateTimer_Tick(object sender, EventArgs e)
+        private void CheckNewInforTimer_Tick(object sender, EventArgs e)
         {
             if (LogStatus.Instance.IsLogin)
             {
-                PageLoader pl = new PageLoader(Configuration.InboxUrl);
-                pl.PageLoaded += NewMailUpdating_PageLoaded;
-                PageDispatcher.Instance.Add(pl);
+                ///Check mail.
+                {
+                    PageLoader pl = new PageLoader(Configuration.InboxUrl);
+                    pl.PageLoaded += CheckNewMail_PageLoaded;
+                    PageDispatcher.Instance.Add(pl);
+                }
+
+                ///Check reply.
+                {
+                    PageLoader pl = new PageLoader(Configuration.ReplyUrl);
+                    pl.PageLoaded += CheckNewReply_PageLoaded;
+                    PageDispatcher.Instance.Add(pl);
+                }
+
+                ///Check at.
+                {
+                    PageLoader pl = new PageLoader(Configuration.AtUrl);
+                    pl.PageLoaded += CheckNewAt_PageLoaded;
+                    PageDispatcher.Instance.Add(pl);
+                }
             }
         }
 
@@ -965,7 +984,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NewMailUpdating_PageLoaded(object sender, EventArgs e)
+        private void CheckNewMail_PageLoaded(object sender, EventArgs e)
         {
             PageLoader pl = sender as PageLoader;
             if (pl != null)
@@ -980,9 +999,59 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MailStatusInstance_OnNewMaiArrived(object sender, MailStatusEventArgs e)
+        private void CheckNewReply_PageLoaded(object sender, EventArgs e)
         {
-            this.SetNewMailStatus(e.NewCount);
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                LogStatus.Instance.UpdateStatus(pl.GetResult() as WebPage);
+                ReplyStatus.Instance.UpdateStatus(pl.GetResult() as WebPage);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CheckNewAt_PageLoaded(object sender, EventArgs e)
+        {
+            PageLoader pl = sender as PageLoader;
+            if (pl != null)
+            {
+                LogStatus.Instance.UpdateStatus(pl.GetResult() as WebPage);
+                AtStatus.Instance.UpdateStatus(pl.GetResult() as WebPage);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AtStatusInstance_OnNewArrived(object sender, AtStatusEventArgs e)
+        {
+            this.SetNewReferStatus(e.NewArrivedCount);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MailStatusInstance_OnNewArrived(object sender, MailStatusEventArgs e)
+        {
+            this.SetNewMailStatus(e.NewArrivedCount);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReplyStatusInstance_OnNewArrived(object sender, ReplyStatusEventArgs e)
+        {
+            this.SetNewReferStatus(e.NewArrivedCount);
         }
 
         /// <summary>
@@ -1002,11 +1071,11 @@
         /// <param name="e"></param>
         private void Configuration_OnNewMailUpdatingIntervalChanged(object sender, EventArgs e)
         {
-            this._newMailUpdateTimer.Stop();
+            this._checkNewInforTimer.Stop();
             if (LogStatus.Instance.IsLogin)
             {
-                this._newMailUpdateTimer.Interval = Configuration.NewMailCheckingInterval;
-                this._newMailUpdateTimer.Stop();
+                this._checkNewInforTimer.Interval = Configuration.NewMailCheckingInterval;
+                this._checkNewInforTimer.Stop();
             }
         }
         #endregion
@@ -1239,11 +1308,11 @@
                             this.btnLogon.Text = "Log In";
                         }
 
-                        this._newMailUpdateTimer.Stop();
+                        this._checkNewInforTimer.Stop();
                         if (flag)
                         {
-                            this._newMailUpdateTimer.Interval = Configuration.NewMailCheckingInterval;
-                            this._newMailUpdateTimer.Start();
+                            this._checkNewInforTimer.Interval = Configuration.NewMailCheckingInterval;
+                            this._checkNewInforTimer.Start();
                         }
                     }
 
@@ -1303,50 +1372,47 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        private T GetRegisteredForm<T>()
-            where T : class, new()
-        {
-            string key = typeof(T).ToString();
-            if (this._dicWindows.ContainsKey(key))
-            {
-                Form form = this._dicWindows[key] as Form;
-                if (form.IsDisposed == false)
-                {
-                    return this._dicWindows[key] as T;
-                }
-            }
-
-            T t = new T();
-            this._dicWindows.Remove(key);
-            this._dicWindows.Add(key, t);
-            return t;
-        }
+        private ToolTip _referToolTip = new ToolTip();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        private T GetRegisteredForm<T>(string key)
-            where T : class, new()
+        private void SetNewReferStatus(object obj)
         {
-            if (this._dicWindows.ContainsKey(key))
+            if (this.IsHandleCreated)
             {
-                Form form = this._dicWindows[key] as Form;
-                if (form.IsDisposed == false)
+                if (this.InvokeRequired)
                 {
-                    return this._dicWindows[key] as T;
+                    System.Threading.Thread.Sleep(0);
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
+                        this.SetNewReferStatus(obj);
+                    }));
+                    System.Threading.Thread.Sleep(0);
+                }
+                else
+                {
+                    lock (this.btnRefer)
+                    {
+                        int newCount = Convert.ToInt32(obj);
+                        if (newCount > 0)
+                        {
+                            this.btnRefer.ForeColor = System.Drawing.Color.Red;
+                            this.btnRefer.Text = "New refer!";
+
+                            this._referToolTip.ShowAlways = true;
+                            this._referToolTip.SetToolTip(this.btnRefer, "You have " + newCount + " new refer" + (newCount == 1 ? "!" : "s!"));
+                        }
+                        else
+                        {
+                            this.btnRefer.ForeColor = System.Drawing.Color.Black;
+                            this.btnRefer.Text = "Refers";
+                            this._referToolTip.ShowAlways = false;
+                            this._referToolTip.SetToolTip(this.btnRefer, "You have no new refers!");
+                        }
+                    }
                 }
             }
-
-            T t = new T();
-            this._dicWindows.Remove(key);
-            this._dicWindows.Add(key, t);
-            return t;
         }
 
         /// <summary>

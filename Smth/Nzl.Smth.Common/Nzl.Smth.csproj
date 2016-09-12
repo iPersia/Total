@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardSettingEventArgs.cs" />
+    <Compile Include="AtStatusEventArgs.cs" />
+    <Compile Include="ReplyStatusEventArgs.cs" />
     <Compile Include="ThreadBrowserType.cs" />
     <Compile Include="LogStatusEventArgs.cs" />
     <Compile Include="MailBoxType.cs" />

@@ -61,13 +61,14 @@
         /// </summary>
         public static void Clear()
         {
-            lock(_staticDictionary)
+            lock (_staticDictionary)
             {
                 try
                 {
                     _staticDictionary.Clear();
                 }
-                catch { }                
+                catch { }
+            }
         }
     }
 }

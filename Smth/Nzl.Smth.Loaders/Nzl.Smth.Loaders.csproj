@@ -42,6 +42,8 @@
     <Compile Include="BoardNode.cs" />
     <Compile Include="Boards.cs" />
     <Compile Include="LogStatus.cs" />
+    <Compile Include="AtStatus.cs" />
+    <Compile Include="ReplyStatus.cs" />
     <Compile Include="PostLoader.cs" />
     <Compile Include="MailStatus.cs" />
     <Compile Include="PageDispatcher.cs" />

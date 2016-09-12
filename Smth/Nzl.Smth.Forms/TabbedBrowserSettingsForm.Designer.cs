@@ -40,6 +40,7 @@
             this.cmbSectionTopUpdatingInterval = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelContainer = new System.Windows.Forms.Panel();
+            this.btnClearCache = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -48,7 +49,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.cmbBaseControlContainerLocationMargin = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.btnClearCache = new System.Windows.Forms.Button();
             this.gpAutoUpdating.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -211,6 +211,17 @@
             this.panelContainer.Size = new System.Drawing.Size(332, 374);
             this.panelContainer.TabIndex = 6;
             // 
+            // btnClearCache
+            // 
+            this.btnClearCache.Location = new System.Drawing.Point(207, 294);
+            this.btnClearCache.Name = "btnClearCache";
+            this.btnClearCache.Size = new System.Drawing.Size(98, 23);
+            this.btnClearCache.TabIndex = 7;
+            this.btnClearCache.TabStop = false;
+            this.btnClearCache.Text = "Clear cache";
+            this.btnClearCache.UseVisualStyleBackColor = true;
+            this.btnClearCache.Click += new System.EventHandler(this.btnClearCache_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label7);
@@ -306,18 +317,6 @@
             this.label12.Size = new System.Drawing.Size(137, 12);
             this.label12.TabIndex = 4;
             this.label12.Text = "Panel container margin";
-            // 
-            // btnClearCache
-            // 
-            this.btnClearCache.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnClearCache.Location = new System.Drawing.Point(207, 294);
-            this.btnClearCache.Name = "btnClearCache";
-            this.btnClearCache.Size = new System.Drawing.Size(98, 23);
-            this.btnClearCache.TabIndex = 7;
-            this.btnClearCache.TabStop = false;
-            this.btnClearCache.Text = "Clear cache";
-            this.btnClearCache.UseVisualStyleBackColor = true;
-            this.btnClearCache.Click += new System.EventHandler(this.btnClearCache_Click);
             // 
             // TabbedBrowserSettingsForm
             // 

@@ -7,20 +7,20 @@
     using Nzl.Web.Page;
     using Nzl.Smth.Utils;
 
-    public class MailStatus
+    public class AtStatus
     {
         #region Sington
         /// <summary>
         /// 
         /// </summary>
-        public static readonly MailStatus Instance = new MailStatus();
+        public static readonly AtStatus Instance = new AtStatus();
         #endregion
 
         #region Event
         /// <summary>
         /// 
         /// </summary>
-        public event EventHandler<MailStatusEventArgs> OnNewArrived;
+        public event EventHandler<AtStatusEventArgs> OnNewArrived;
         #endregion
 
         #region variable
@@ -54,10 +54,10 @@
             lock (_objLocker)
             {
                 int srcNewCount = this._newCount;
-                this._newCount = SmthUtil.GetNewMailCount(html);
+                this._newCount = SmthUtil.GetNewAtCount(html);
                 if (this._newCount != srcNewCount)
                 {
-                    MailStatusEventArgs e = new MailStatusEventArgs();
+                    AtStatusEventArgs e = new AtStatusEventArgs();
                     e.HasNewArrived = this._newCount > 0;
                     e.NewArrivedCount = this._newCount;
                     if (this.OnNewArrived != null)

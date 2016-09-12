@@ -120,6 +120,52 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public static int GetNewAtCount(string html)
+        {
+            if (string.IsNullOrEmpty(html) == false)
+            {
+                string pattern = @"<li( class=\Whla\W)?><div><a href=\W"
+                               + @"(?'Url'/refer/at/read\?index=\d+)\W"
+                               + @"(?'IsNew' class=\Wtop\W)>"
+                               + @"(?'Title'[^<]*)</a></div><div><a href=\W"
+                               + @"(?'DeleteUrl'/refer/at/delete\?index=\d+)\W>删除</a>"
+                               + @"(?'DateTime'[^<]*)<a href=\W/user/query/"
+                               + @"(?'Author'[a-zA-z][a-zA-Z0-9]{1,11})\W>[a-zA-z][a-zA-Z0-9]{1,11}</a></div></li>";
+
+                MatchCollection mc = CommonUtil.GetMatchCollection(pattern, html);
+                return mc == null ? 0 : mc.Count;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static int GetNewReplyCount(string html)
+        {
+            if (string.IsNullOrEmpty(html) == false)
+            {
+                string pattern = @"<li( class=\Whla\W)?><div><a href=\W"
+                               + @"(?'Url'/refer/reply/read\?index=\d+)\W"
+                               + @"(?'IsNew' class=\Wtop\W)>"
+                               + @"(?'Title'[^<]*)</a></div><div><a href=\W"
+                               + @"(?'DeleteUrl'/refer/reply/delete\?index=\d+)\W>删除</a>"
+                               + @"(?'DateTime'[^<]*)<a href=\W/user/query/"
+                               + @"(?'Author'[a-zA-z][a-zA-Z0-9]{1,11})\W>[a-zA-z][a-zA-Z0-9]{1,11}</a></div></li>";
+
+                MatchCollection mc = CommonUtil.GetMatchCollection(pattern, html);
+                return mc == null ? 0 : mc.Count;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="wp"></param>
         /// <returns></returns>
         public static string GetBoard(WebPage wp)
