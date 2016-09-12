@@ -159,11 +159,17 @@
             this.UpdateBoardTitle(info.WebPage);
             this.lblPage.Text = info.Index.ToString().PadLeft(6, '0') + "/" + info.Total.ToString().PadLeft(6, '0');
 
-            //if (this.GetPanel().Height < this.panelContainer.Height)
-            //{
-            //    this.SetUrlInfo(true);
-            //    this.FetchNextPage();
-            //}
+            ///Fetch next page when the container is not full.
+            ///The condition is the previous loading is good.
+            if (info.WebPage != null &&
+                info.WebPage.IsGood &&
+                info.Result != null &&
+                info.Result.Count > 0 && 
+                this.GetPanel().Height < this.panelContainer.Height)
+            {
+                this.SetUrlInfo(true);
+                this.FetchNextPage();
+            }
         }
 
         /// <summary>
