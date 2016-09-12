@@ -52,6 +52,12 @@
     <Compile Include="CommonUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Components\Nzl.Repository\Nzl.Repository.csproj">
+      <Project>{34e73dff-0b1d-4820-9df9-f9efe29e23ac}</Project>
+      <Name>Nzl.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

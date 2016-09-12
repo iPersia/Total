@@ -20,12 +20,19 @@
         public static T GetValue<T>(string key)
             where T : class
         {
-            if (_staticDictionary.ContainsKey(key))
+            try
             {
-                return _staticDictionary[key] as T;
-            }
+                if (_staticDictionary.ContainsKey(key))
+                {
+                    return _staticDictionary[key] as T;
+                }
 
-            return default(T);
+                return default(T);
+            }
+            catch
+            {
+                return default(T);
+            }            
         }
 
         /// <summary>
@@ -38,11 +45,29 @@
         {
             lock(_staticDictionary)
             {
-                if (_staticDictionary.ContainsKey(key) == false)
+                try
                 {
-                    _staticDictionary.Add(key, value);
+                    if (_staticDictionary.ContainsKey(key) == false)
+                    {
+                        _staticDictionary.Add(key, value);
+                    }
                 }
+                catch { }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void Clear()
+        {
+            lock(_staticDictionary)
+            {
+                try
+                {
+                    _staticDictionary.Clear();
+                }
+                catch { }                
         }
     }
 }

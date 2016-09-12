@@ -263,6 +263,10 @@
       <Project>{dc293647-8798-4539-bea1-77185e5c66c1}</Project>
       <Name>Nzl.Recycling</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Components\Nzl.Repository\Nzl.Repository.csproj">
+      <Project>{34e73dff-0b1d-4820-9df9-f9efe29e23ac}</Project>
+      <Name>Nzl.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Components\Nzl.Util\Nzl.Utils.csproj">
       <Project>{b9de9cff-d84e-4bf9-a615-cf7f4519f139}</Project>
       <Name>Nzl.Utils</Name>

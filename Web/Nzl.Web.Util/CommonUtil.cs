@@ -9,6 +9,7 @@
     using System.Runtime.Serialization.Formatters;
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Text.RegularExpressions;
+    using Nzl.Repository;
 
     /// <summary>
     /// Util class.
@@ -444,17 +445,25 @@
         {
             try
             {
-                using (WebDownload wd = new WebDownload())
+                Image image = Repository.GetValue<Image>(url);
+                if (image == null)
                 {
-                    byte[] bytes = wd.DownloadData(url);
-                    if (bytes != null)
+                    using (WebDownload wd = new WebDownload())
                     {
-                        System.IO.MemoryStream ms = new System.IO.MemoryStream(bytes, 0, bytes.Length);
-                        return Image.FromStream(ms);
+                        byte[] bytes = wd.DownloadData(url);
+                        if (bytes != null)
+                        {
+                            System.IO.MemoryStream ms = new System.IO.MemoryStream(bytes, 0, bytes.Length);
+                            image = Image.FromStream(ms);
+                            if (image != null)
+                            {
+                                Repository.Add<Image>(url, image);
+                            }
+                        }                        
                     }
-
-                    return null;
                 }
+
+                return image;
             }
             catch
             {

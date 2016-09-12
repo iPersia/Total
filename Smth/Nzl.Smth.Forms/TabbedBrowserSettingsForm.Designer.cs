@@ -41,13 +41,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panelContainer = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbBaseControlLocationMargin = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.cmbBaseControlContainerLocationMargin = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.btnClearCache = new System.Windows.Forms.Button();
             this.gpAutoUpdating.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -56,7 +57,7 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(127, 284);
+            this.btnOK.Location = new System.Drawing.Point(127, 337);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 4;
@@ -200,13 +201,14 @@
             // panelContainer
             // 
             this.panelContainer.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panelContainer.Controls.Add(this.btnClearCache);
             this.panelContainer.Controls.Add(this.groupBox1);
             this.panelContainer.Controls.Add(this.btnOK);
             this.panelContainer.Controls.Add(this.gpAutoUpdating);
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(332, 323);
+            this.panelContainer.Size = new System.Drawing.Size(332, 374);
             this.panelContainer.TabIndex = 6;
             // 
             // groupBox1
@@ -224,6 +226,16 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "UI settings";
+            // 
+            // label7
+            // 
+            this.label7.ForeColor = System.Drawing.Color.Red;
+            this.label7.Location = new System.Drawing.Point(4, 95);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(300, 23);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "UI settings take effect need restart the App.";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label9
             // 
@@ -295,21 +307,23 @@
             this.label12.TabIndex = 4;
             this.label12.Text = "Panel container margin";
             // 
-            // label7
+            // btnClearCache
             // 
-            this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(4, 95);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(300, 23);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "UI settings take effect need restart the App.";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnClearCache.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnClearCache.Location = new System.Drawing.Point(207, 294);
+            this.btnClearCache.Name = "btnClearCache";
+            this.btnClearCache.Size = new System.Drawing.Size(98, 23);
+            this.btnClearCache.TabIndex = 7;
+            this.btnClearCache.TabStop = false;
+            this.btnClearCache.Text = "Clear cache";
+            this.btnClearCache.UseVisualStyleBackColor = true;
+            this.btnClearCache.Click += new System.EventHandler(this.btnClearCache_Click);
             // 
             // TabbedBrowserSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 323);
+            this.ClientSize = new System.Drawing.Size(332, 374);
             this.Controls.Add(this.panelContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "TabbedBrowserSettingsForm";
@@ -344,5 +358,6 @@
         private System.Windows.Forms.ComboBox cmbBaseControlContainerLocationMargin;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnClearCache;
     }
 }
