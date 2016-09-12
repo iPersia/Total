@@ -53,6 +53,7 @@
     <Compile Include="AtControl.Designer.cs">
       <DependentUpon>AtControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlUtil.cs" />
     <Compile Include="ReplyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

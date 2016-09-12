@@ -170,6 +170,12 @@ namespace Nzl.Smth.Controls.Containers
             set
             {
                 this._targetUserID = value;
+                if (string.IsNullOrEmpty(this._targetUserID) == false)
+                {
+                    this.btnSettings.Visible = false;
+                    this.linklblBoard.Visible = false;
+                    this.linklblReply.Visible = false;
+                }
             }
         }
         #endregion
@@ -351,6 +357,10 @@ namespace Nzl.Smth.Controls.Containers
                 ctl.OnTransferLinkClicked += new LinkLabelLinkClickedEventHandler(ThreadControl_OnTransferLinkClicked);
                 ctl.OnTextBoxLinkClicked += ThreadControl_OnTextBoxLinkClicked;
                 ctl.OnTextBoxMouseWheel += this.Container_MouseWheel;
+                if (string.IsNullOrEmpty(this._targetUserID) == false)
+                {
+                    ctl.IsPlainView = true;
+                }
             }
         }
 
@@ -468,7 +478,11 @@ namespace Nzl.Smth.Controls.Containers
         /// <param name="isLogin"></param>
         protected override void OnLoginStatusChanged(bool isLogin)
         {
-            this.linklblReply.Visible = isLogin && string.IsNullOrEmpty(this._postUrl) == false;
+            this.linklblReply.Visible = false;
+            if (string.IsNullOrEmpty(this._targetUserID) == false)
+            {
+                this.linklblReply.Visible = isLogin && string.IsNullOrEmpty(this._postUrl) == false;
+            }
         }
 
         /// <summary>
@@ -1033,7 +1047,8 @@ namespace Nzl.Smth.Controls.Containers
             }
 
             string board = SmthUtil.GetBoard(wp);
-            if (board != null)
+            this.linklblBoard.Visible = false;
+            if (board != null && string.IsNullOrEmpty(this._targetUserID))
             {
                 string engBoardName = CommonUtil.GetMatch(@"\((?'Board'.+)\)", board, "Board");
                 string chnBoardName = board.Replace("(" + engBoardName + ")", "");

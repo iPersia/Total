@@ -33,8 +33,8 @@
         public TopicForm(string uri)
             : this()
         {
-            this.tbcTopic.SetParent(this);
-            this.tbcTopic.Url = uri;
+            this.tccTopic.SetParent(this);
+            this.tccTopic.Url = uri;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@
         public TopicForm(string uri, string userID)
             : this(uri)
         {
-            this.tbcTopic.TargetUserID = userID;
+            this.tccTopic.TargetUserID = userID;
         }
         #endregion
     }

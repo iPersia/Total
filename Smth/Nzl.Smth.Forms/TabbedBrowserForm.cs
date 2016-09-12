@@ -234,6 +234,7 @@
 
                 tbc.Name = "tbc" + url;
                 tbc.Url = url;
+                tbc.TargetUserID = null;
                 tbc.Dock = DockStyle.Fill;
                 tbc.OnThreadDeleteLinkClicked += Common_OnThreadDeleteLinkClicked;
                 tbc.OnThreadEditLinkClicked += Common_OnThreadEditLinkClicked;

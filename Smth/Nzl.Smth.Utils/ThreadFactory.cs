@@ -277,6 +277,8 @@
                 divstr = divstr.Replace("&nbsp;", " ");
                 divstr = divstr.Replace("</div>", "");
                 divstr = divstr.Replace("</font>", "");
+                //divstr = divstr.Replace("<b>", "『");
+                //divstr = divstr.Replace("</b>", "』");
                 string pattern = "<font[^>]*>";
                 Regex regex = new Regex(pattern);
                 divstr = regex.Replace(divstr, "");

@@ -140,16 +140,7 @@
                 {
                     this.lblFloor.Text = thread.Floor.PadLeft(5);
                 }
-
-                ///User
-                this.linklblID.Visible = true;
-                this.linklblID.Text = thread.User;
-                if (thread.User != null)
-                {
-                    this.linklblID.Links.Clear();
-                    this.linklblID.Links.Add(0, this.linklblID.Text.Length, thread.User);
-                }
-
+                
                 ///DateTime
                 this.lblDateTime.Visible = true;
                 this.lblDateTime.Text = thread.DateTime;
@@ -164,62 +155,19 @@
                     this.linklblQuryType.Text = "Spreads";
                 }
 
-                ///Query url
-                if (thread.QueryUrl != null)
-                {
-                    this.linklblQuryType.Links.Clear();
-                    this.linklblQuryType.Links.Add(0, this.linklblQuryType.Text.Length, thread.QueryUrl);
-                }
-
-                ///Reply url
-                this.linklblReply.Visible = false;
-                if (string.IsNullOrEmpty(thread.ReplyUrl) == false)
-                {
-                    this.linklblReply.Visible = true;
-                    this.linklblReply.Links.Clear();
-                    this.linklblReply.Links.Add(0, this.linklblReply.Text.Length, thread.ReplyUrl);                    
-                }
-
-                ///Mail url
-                this.linklblMail.Visible = false;
-                if (string.IsNullOrEmpty(thread.MailUrl) == false)
-                {
-                    this.linklblMail.Visible = true;
-                    this.linklblMail.Links.Clear();
-                    this.linklblMail.Links.Add(0, this.linklblMail.Text.Length, thread.MailUrl);
-                }
-
-                ///Transfer url
-                this.linklblTransfer.Visible = false;
-                if (string.IsNullOrEmpty(thread.TransferUrl) == false)
-                {
-                    this.linklblTransfer.Visible = true;
-                    this.linklblTransfer.Links.Clear();
-                    this.linklblTransfer.Links.Add(0, this.linklblTransfer.Text.Length, thread.TransferUrl);
-                }
-
-                ///Edit url
-                this.linklblEdit.Visible = false;
-                if (string.IsNullOrEmpty(thread.EditUrl) == false)
-                {
-                    this.linklblEdit.Visible = true;
-                    this.linklblEdit.Links.Clear();
-                    this.linklblEdit.Links.Add(0, this.linklblEdit.Text.Length, thread.EditUrl);
-                }
-
-                ///Delete url
-                this.linklblDelete.Visible = false;
-                if (string.IsNullOrEmpty(thread.DeleteUrl) == false)
-                {
-                    this.linklblDelete.Visible = true;
-                    this.linklblDelete.Links.Clear();
-                    this.linklblDelete.Links.Add(0, this.linklblDelete.Text.Length, thread.DeleteUrl);
-                }
+                this.InitializeLinkLabel(this.linklblQuryType, thread.QueryUrl);
+                this.InitializeLinkLabel(this.linklblReply, thread.ReplyUrl);
+                this.InitializeLinkLabel(this.linklblMail, thread.MailUrl);
+                this.InitializeLinkLabel(this.linklblTransfer, thread.TransferUrl);
+                this.InitializeLinkLabel(this.linklblEdit, thread.EditUrl);
+                this.InitializeLinkLabel(this.linklblDelete, thread.DeleteUrl);
+                this.InitializeLinkLabel(this.linklblID, thread.User, thread.User);
 
                 ///Add content.
                 this.Name = "tc" + thread.ID;
                 this.richtxtContent.Clear();
-                this.AddContent(thread);
+                ControlUtil.AddContent(this.richtxtContent, thread);
+                //this.AddContent(thread);
                 this.Height = this.richtxtContent.Height + 48;
                 this.richtxtContent.ReadOnly = true;
                 this.richtxtContent.ShortcutsEnabled = false;
@@ -423,152 +371,6 @@
                 e.Link.Visited = true;
             }
         }
-        #endregion
-
-        #region Privates
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="richTextBox"></param>
-        /// <param name="thread"></param>
-        private void AddContent(Thread thread)
-        {
-            if (thread != null)
-            {
-                string content = CommonUtil.ReplaceSpecialChars(thread.Content);
-                {
-                    string tokenPattern = ThreadFactory.TokenPrefix + "(?'Type'[A-Z]+)" + ThreadFactory.TokenSuffix;
-                    MatchCollection mtCollection = CommonUtil.GetMatchCollection(tokenPattern, thread.Content);
-                    int iconCounter = 0;
-                    int imageCounter = 0;
-                    int anchorCounter = 0;
-                    if (thread.ImageUrls != null || thread.IconUrls != null || thread.Anchors != null)
-                    {
-                        foreach (Match mt in mtCollection)
-                        {
-                            string token = mt.Groups[0].Value.ToString();
-                            int pos = content.IndexOf(token);
-                            string tempContent = content.Substring(0, pos);
-                            {
-                                //去除HTTP标签
-                                tempContent = new Regex(@"(?m)<script[^>]*>(\w|\W)*?</script[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(tempContent, "");
-                                tempContent = new Regex(@"(?m)<style[^>]*>(\w|\W)*?</style[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(tempContent, "");
-                                tempContent = new Regex(@"(?m)<select[^>]*>(\w|\W)*?</select[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(tempContent, "");
-                                Regex objReg = new System.Text.RegularExpressions.Regex("(<[.^>]+?>)|&nbsp;", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-                                tempContent = objReg.Replace(tempContent, "");
-                            }
-
-                            this.richtxtContent.AppendText(tempContent);
-                            content = content.Substring(pos + token.Length);
-
-                            //Image
-                            if (mt.Groups["Type"].Value.ToString() == ThreadFactory.ImageToken)
-                            {
-                                string url = thread.ImageUrls[imageCounter++];
-#if (DEBUG)
-                                System.Diagnostics.Debug.WriteLine(url);
-#endif
-                                if (thread.Images.ContainsKey(url))
-                                {
-                                    string data = thread.Images[url].Tag.ToString();
-                                    this.richtxtContent.InsertLink(data, url, this.richtxtContent.Text.Length);
-                                }
-                                else
-                                {
-                                    this.richtxtContent.InsertLink(RtfUtil.GetRtfCode("图片下载失败"), 
-                                                                   url,
-                                                                   this.richtxtContent.Text.Length);
-                                }
-                                                               
-                            }
-
-                            //Icon
-                            if (mt.Groups["Type"].Value.ToString() == ThreadFactory.IconToken)
-                            {
-                                string url = thread.IconUrls[iconCounter++];
-#if (DEBUG)
-                                System.Diagnostics.Debug.WriteLine(url);
-#endif
-                                if (thread.Images.ContainsKey(url))
-                                {
-                                    this.richtxtContent.InsertImage(thread.Icons[url]);
-                                }
-                                else
-                                {
-                                    this.richtxtContent.InsertLink(RtfUtil.GetRtfCode("图片下载失败"), 
-                                                                   url,
-                                                                   this.richtxtContent.Text.Length);
-                                }
-                            }
-
-                            //Anchor
-                            if (mt.Groups["Type"].Value.ToString() == ThreadFactory.AnchorToken)
-                            {
-                                this.richtxtContent.InsertLink(RtfUtil.GetRtfCode(thread.Anchors[anchorCounter].Text),
-                                                               thread.Anchors[anchorCounter++].Url,
-                                                               this.richtxtContent.Text.Length);
-                            }
-                        }
-                    }
-
-                    this.richtxtContent.AppendText(content);
-
-                    ///Colored the replied thread content.
-                    {
-                        string text = this.richtxtContent.Text;
-                        string replayPattern = @"【 在 [a-zA-z][a-zA-Z0-9]{1,11} (\((.+)?\) )?的大作中提到: 】[^\r^\n]*[\r\n]+(\:.*[\r\n]*)*";
-                        MatchCollection mc = CommonUtil.GetMatchCollection(replayPattern, text);
-                        if (mc != null && mc.Count > 0)
-                        {
-                            foreach (Match mt in mc)
-                            {
-                                string from = mt.Groups[0].Value;
-                                int index = this.richtxtContent.Text.IndexOf(from);
-                                if (index >= 0)
-                                {
-                                    this.richtxtContent.Select(index, from.Length);
-                                    this.richtxtContent.SelectionColor = Color.FromArgb(96, 96, 96);
-                                    this.richtxtContent.SelectionFont = new Font(this.richtxtContent.Font.FontFamily, 9, FontStyle.Regular);
-                                    this.richtxtContent.DeselectAll();
-                                }
-                            }
-                        }
-                    }
-
-                    ///Colored the From IP.
-                    {
-                        string text = this.richtxtContent.Text;
-                        string ipPattern = @"--[\r\n]+(修改:[a-zA-z][a-zA-Z0-9]{1,11} FROM (\d+\.){3}(\*|\d+)[\r\n]+)?FROM (\d+\.){3}(\*|\d+)";
-                        MatchCollection mc = CommonUtil.GetMatchCollection(ipPattern, text);
-                        if (mc != null && mc.Count > 0)
-                        {
-                            string from = mc[mc.Count - 1].Groups[0].Value;
-                            int index = this.richtxtContent.Text.LastIndexOf(from);
-                            if (index >= 0)
-                            {
-                                this.richtxtContent.Select(index, from.Length);
-                                this.richtxtContent.SelectionColor = Color.FromArgb(160, 160, 160);
-                                this.richtxtContent.SelectionFont = new Font(this.richtxtContent.Font.FontFamily, 9, FontStyle.Regular);
-                                this.richtxtContent.DeselectAll();
-                            }
-                        }
-                    }
-
-                    ///Colored the reply tail.
-                    {
-                        string text = this.richtxtContent.Text;
-                        string repleyContent = SmthUtil.GetReplyText();
-                        int index = text.IndexOf(repleyContent);
-                        if (index >= 0)
-                        {
-                            this.richtxtContent.Select(index, repleyContent.Length);
-                            this.richtxtContent.SelectionFont = new Font(this.richtxtContent.SelectionFont.FontFamily, 9, FontStyle.Regular);
-                            this.richtxtContent.DeselectAll();
-                        }
-                    }
-                }
-            }
-        }        
         #endregion
     }
 }

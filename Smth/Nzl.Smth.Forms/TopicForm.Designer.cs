@@ -28,31 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tbcTopic = new Nzl.Smth.Controls.Containers.ThreadControlContainer();
+            this.tccTopic = new Nzl.Smth.Controls.Containers.ThreadControlContainer();
             this.SuspendLayout();
             // 
-            // tbcTopic
+            // tccTopic
             // 
-            this.tbcTopic.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbcTopic.Location = new System.Drawing.Point(0, 0);
-            this.tbcTopic.Name = "tbcTopic";
-            this.tbcTopic.Size = new System.Drawing.Size(756, 569);
-            this.tbcTopic.TabIndex = 0;
-            this.tbcTopic.TargetUserID = null;
-            this.tbcTopic.Url = null;
+            this.tccTopic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tccTopic.IsRecycled = false;
+            this.tccTopic.Location = new System.Drawing.Point(0, 0);
+            this.tccTopic.Name = "tccTopic";
+            this.tccTopic.Size = new System.Drawing.Size(756, 569);
+            this.tccTopic.Status = Nzl.Recycling.RecycledStatus.Using;
+            this.tccTopic.TabIndex = 0;
+            this.tccTopic.TargetUserID = null;
+            this.tccTopic.Url = null;
             // 
             // TopicForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(756, 569);
-            this.Controls.Add(this.tbcTopic);
+            this.Controls.Add(this.tccTopic);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Name = "TopicForm";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.Text = "Topic";
             this.ResumeLayout(false);
 
@@ -60,7 +60,7 @@
 
         #endregion
 
-        private Controls.Containers.ThreadControlContainer tbcTopic;
+        private Controls.Containers.ThreadControlContainer tccTopic;
 
     }
 }
