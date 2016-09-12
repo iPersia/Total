@@ -211,12 +211,7 @@
         {
             if (html != null && user != null)
             {
-                html = html.Replace("<br />", "\n");
-                html = html.Replace("<br/>", "\n");
-                html = html.Replace("<br>", "\n");
-                html = html.Replace("<div class=\"sp\">", "");
-                html = html.Replace("&nbsp;", " ");
-                html = html.Replace("</div>", "");
+                html = ThreadFactory.TrimHtmlTag(html);
 
                 Regex regex = new Regex(@"\s*--\sFROM\s[\d, \., \*]+");
                 string content = regex.Replace(CommonUtil.ReplaceSpecialChars(html), "");

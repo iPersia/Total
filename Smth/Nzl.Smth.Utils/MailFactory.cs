@@ -130,12 +130,7 @@
             string content = CommonUtil.GetMatch(pattern, html, "Content");
             if (content != null)
             {
-                content = content.Replace("<br />", "\n");
-                content = content.Replace("<br/>", "\n");
-                content = content.Replace("<br>", "\n");
-                content = content.Replace("<div class=\"sp\">", "");
-                content = content.Replace("&nbsp;", " ");
-                content = content.Replace("</div>", "");
+                content = ThreadFactory.TrimHtmlTag(content);
                 content = CommonUtil.ReplaceSpecialChars(content);
                 mail.Content = content;
             }

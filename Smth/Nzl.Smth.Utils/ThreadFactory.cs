@@ -131,7 +131,7 @@
                             htmlContent = htmlContent.Substring(endPos);
                             if (thread != null)
                             {
-                                thread.Content = GetThreadContent(divstr);
+                                thread.Content = TrimHtmlTag(divstr);
                                 thread.Tag = thread.Content;
                                 string content = thread.Content;
                                 IList<string> imageUrls = GetImageUrls(ref content);
@@ -209,7 +209,7 @@
                 {
                     thread = new Thread();
                 }
-                content = GetThreadContent(content);
+                content = TrimHtmlTag(content);
                 thread.Content = content;
                 thread.Tag = thread.Content;
                 IList<string> imageUrls = GetImageUrls(ref content);
@@ -259,16 +259,14 @@
             }
 
             return null;
-        }       
-        #endregion
+        }
 
-        #region Privates
         /// <summary>
         /// 
         /// </summary>
         /// <param name="divstr"></param>
         /// <returns></returns>
-        private static string GetThreadContent(string divstr)
+        public static string TrimHtmlTag(string divstr)
         {
             if (string.IsNullOrEmpty(divstr) == false)
             {
@@ -278,12 +276,18 @@
                 divstr = divstr.Replace("<div class=\"sp\">", "");
                 divstr = divstr.Replace("&nbsp;", " ");
                 divstr = divstr.Replace("</div>", "");
+                divstr = divstr.Replace("</font>", "");
+                string pattern = "<font[^>]*>";
+                Regex regex = new Regex(pattern);
+                divstr = regex.Replace(divstr, "");
                 return divstr;
             }
 
             return string.Empty;
         }
+        #endregion
 
+        #region Privates
         /// <summary>
         /// 
         /// </summary>
