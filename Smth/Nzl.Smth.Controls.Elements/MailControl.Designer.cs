@@ -31,9 +31,9 @@
             this.linklblAuthor = new System.Windows.Forms.LinkLabel();
             this.lblDT = new System.Windows.Forms.Label();
             this.panel = new System.Windows.Forms.Panel();
+            this.linklblDelete = new System.Windows.Forms.LinkLabel();
             this.lblIndex = new System.Windows.Forms.Label();
             this.linklblTitle = new System.Windows.Forms.LinkLabel();
-            this.linklblDelete = new System.Windows.Forms.LinkLabel();
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,6 +73,18 @@
             this.panel.Size = new System.Drawing.Size(696, 45);
             this.panel.TabIndex = 1;
             // 
+            // linklblDelete
+            // 
+            this.linklblDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklblDelete.AutoSize = true;
+            this.linklblDelete.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblDelete.Location = new System.Drawing.Point(487, 15);
+            this.linklblDelete.Name = "linklblDelete";
+            this.linklblDelete.Size = new System.Drawing.Size(49, 14);
+            this.linklblDelete.TabIndex = 5;
+            this.linklblDelete.TabStop = true;
+            this.linklblDelete.Text = "Delete";
+            // 
             // lblIndex
             // 
             this.lblIndex.AutoSize = true;
@@ -93,17 +105,6 @@
             this.linklblTitle.TabIndex = 0;
             this.linklblTitle.TabStop = true;
             this.linklblTitle.Text = "Mail Title";
-            // 
-            // linklblDelete
-            // 
-            this.linklblDelete.AutoSize = true;
-            this.linklblDelete.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblDelete.Location = new System.Drawing.Point(487, 15);
-            this.linklblDelete.Name = "linklblDelete";
-            this.linklblDelete.Size = new System.Drawing.Size(49, 14);
-            this.linklblDelete.TabIndex = 5;
-            this.linklblDelete.TabStop = true;
-            this.linklblDelete.Text = "Delete";
             // 
             // MailControl
             // 
