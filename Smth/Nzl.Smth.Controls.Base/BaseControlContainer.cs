@@ -1199,10 +1199,10 @@
         /// <param name="info"></param>
         private void WorkFailed(string msg)
         {
+            this.ShowInformation("Loading failed!\n" + msg);
             if (this.OnWorkerFailed != null)
             {
                 this.OnWorkerFailed(this, new MessageEventArgs(msg));
-                ShowInformation("Loading failed!");
             }
         }
 
@@ -1212,10 +1212,10 @@
         /// <param name="info"></param>
         private void WorkCancelled(string msg)
         {
+            this.ShowInformation("Loading cancelled!\n" + msg);
             if (this.OnWorkerCancelled != null)
             {
                 this.OnWorkerCancelled(this, new MessageEventArgs(msg));
-                ShowInformation("Loading cancelled!");
             }
         }
         #endregion

@@ -1062,10 +1062,10 @@
         /// <param name="e"></param>
         private void Common_OnWorkerCancelled(object sender, MessageEventArgs e)
         {
-            MessageForm msgForm = new MessageForm("Geting page Cancelled", e.Message);
-            msgForm.StartPosition = FormStartPosition.CenterParent;
-            this.Activate();
-            msgForm.ShowDialog(this);
+            //MessageForm msgForm = new MessageForm("Geting page Cancelled", e.Message);
+            //msgForm.StartPosition = FormStartPosition.CenterParent;
+            //this.Activate();
+            //msgForm.ShowDialog(this);
         }
 
         /// <summary>
@@ -1075,10 +1075,10 @@
         /// <param name="e"></param>
         private void Common_OnWorkerFailed(object sender, MessageEventArgs e)
         {
-            MessageForm msgForm = new MessageForm("Geting page failed", e.Message);
-            msgForm.StartPosition = FormStartPosition.CenterParent;
-            this.Activate();
-            msgForm.ShowDialog(this);
+            //MessageForm msgForm = new MessageForm("Geting page failed", e.Message);
+            //msgForm.StartPosition = FormStartPosition.CenterParent;
+            //this.Activate();
+            //msgForm.ShowDialog(this);
         }
 
         /// <summary>
