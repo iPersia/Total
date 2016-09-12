@@ -40,8 +40,8 @@
                             string token = mt.Groups[0].Value.ToString();
                             int pos = content.IndexOf(token);
                             string tempContent = content.Substring(0, pos);
+                            ///Trim html tag.
                             {
-                                //Trim html tag.
                                 tempContent = new Regex(@"(?m)<script[^>]*>(\w|\W)*?</script[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(tempContent, "");
                                 tempContent = new Regex(@"(?m)<style[^>]*>(\w|\W)*?</style[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(tempContent, "");
                                 tempContent = new Regex(@"(?m)<select[^>]*>(\w|\W)*?</select[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(tempContent, "");
