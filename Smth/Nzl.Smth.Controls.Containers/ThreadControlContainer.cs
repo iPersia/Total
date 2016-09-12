@@ -1041,7 +1041,7 @@ namespace Nzl.Smth.Controls.Containers
                 this._postUrl.Replace("%5F", "_");
                 this._postUrl = Configuration.BaseUrl + this._postUrl;
 
-                this.linklblReply.Visible = true;
+                this.linklblReply.Visible = string.IsNullOrEmpty(this._targetUserID);
                 this.linklblReply.Links.Clear();
                 this.linklblReply.Links.Add(0, 5, this._postUrl);
             }
@@ -1058,7 +1058,7 @@ namespace Nzl.Smth.Controls.Containers
                 this.linklblBoard.Links.Add(0, board.Length, engBoardName);
             }
 
-            this.linklblReply.Visible = LogStatus.Instance.IsLogin;
+            this.linklblReply.Visible = LogStatus.Instance.IsLogin && string.IsNullOrEmpty(this._targetUserID);
         }
         #endregion
 #endif
