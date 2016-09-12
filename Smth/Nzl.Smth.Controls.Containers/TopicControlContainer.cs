@@ -159,11 +159,11 @@
             this.UpdateBoardTitle(info.WebPage);
             this.lblPage.Text = info.Index.ToString().PadLeft(6, '0') + "/" + info.Total.ToString().PadLeft(6, '0');
 
-            if (this.GetPanel().Height < this.panelContainer.Height)
-            {
-                this.SetUrlInfo(true);
-                this.FetchNextPage();
-            }
+            //if (this.GetPanel().Height < this.panelContainer.Height)
+            //{
+            //    this.SetUrlInfo(true);
+            //    this.FetchNextPage();
+            //}
         }
 
         /// <summary>

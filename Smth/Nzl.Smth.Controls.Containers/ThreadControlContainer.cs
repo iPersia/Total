@@ -262,7 +262,12 @@ namespace Nzl.Smth.Controls.Containers
                 }
 
                 ///Fetch next page when the container is not full.
-                if (this.GetPanel().Height < this.panelContainer.Height)
+                ///The condition is the previous loading is good.
+                if (info.WebPage != null && 
+                    info.WebPage.IsGood &&
+                    info.Result != null &&
+                    info.Result.Count > 0 &&
+                    this.GetPanel().Height < this.panelContainer.Height)
                 {
                     if (this._Settings.BrowserType == ThreadBrowserType.FirstReply)
                     {
