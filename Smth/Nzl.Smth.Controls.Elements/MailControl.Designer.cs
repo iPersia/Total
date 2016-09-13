@@ -40,8 +40,8 @@
             // linklblAuthor
             // 
             this.linklblAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linklblAuthor.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblAuthor.Location = new System.Drawing.Point(381, 15);
+            this.linklblAuthor.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblAuthor.Location = new System.Drawing.Point(404, 16);
             this.linklblAuthor.Name = "linklblAuthor";
             this.linklblAuthor.Size = new System.Drawing.Size(100, 14);
             this.linklblAuthor.TabIndex = 3;
@@ -53,10 +53,10 @@
             // 
             this.lblDT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDT.AutoSize = true;
-            this.lblDT.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblDT.Location = new System.Drawing.Point(542, 15);
+            this.lblDT.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblDT.Location = new System.Drawing.Point(565, 16);
             this.lblDT.Name = "lblDT";
-            this.lblDT.Size = new System.Drawing.Size(140, 14);
+            this.lblDT.Size = new System.Drawing.Size(119, 12);
             this.lblDT.TabIndex = 2;
             this.lblDT.Text = "2013-02-01 01:01:01";
             // 
@@ -77,10 +77,10 @@
             // 
             this.linklblDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblDelete.AutoSize = true;
-            this.linklblDelete.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblDelete.Location = new System.Drawing.Point(487, 15);
+            this.linklblDelete.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblDelete.Location = new System.Drawing.Point(510, 16);
             this.linklblDelete.Name = "linklblDelete";
-            this.linklblDelete.Size = new System.Drawing.Size(49, 14);
+            this.linklblDelete.Size = new System.Drawing.Size(41, 12);
             this.linklblDelete.TabIndex = 5;
             this.linklblDelete.TabStop = true;
             this.linklblDelete.Text = "Delete";
@@ -88,20 +88,20 @@
             // lblIndex
             // 
             this.lblIndex.AutoSize = true;
-            this.lblIndex.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblIndex.Location = new System.Drawing.Point(19, 15);
+            this.lblIndex.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblIndex.Location = new System.Drawing.Point(23, 18);
             this.lblIndex.Name = "lblIndex";
-            this.lblIndex.Size = new System.Drawing.Size(21, 14);
+            this.lblIndex.Size = new System.Drawing.Size(17, 12);
             this.lblIndex.TabIndex = 4;
             this.lblIndex.Text = "00";
             // 
             // linklblTitle
             // 
             this.linklblTitle.AutoSize = true;
-            this.linklblTitle.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linklblTitle.Location = new System.Drawing.Point(46, 15);
+            this.linklblTitle.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linklblTitle.Location = new System.Drawing.Point(46, 18);
             this.linklblTitle.Name = "linklblTitle";
-            this.linklblTitle.Size = new System.Drawing.Size(77, 14);
+            this.linklblTitle.Size = new System.Drawing.Size(65, 12);
             this.linklblTitle.TabIndex = 0;
             this.linklblTitle.TabStop = true;
             this.linklblTitle.Text = "Mail Title";

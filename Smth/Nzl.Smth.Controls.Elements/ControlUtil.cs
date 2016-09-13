@@ -82,7 +82,7 @@
                                 if (thread.Images.ContainsKey(url))
                                 {
                                     string data = thread.Images[url].Tag.ToString();
-                                    richtxtContent.InsertLink(data, url, richtxtContent.Text.Length);
+                                    richtxtContent.InsertLink(data, url.Replace("/middle", ""), richtxtContent.Text.Length);
                                 }
                                 else
                                 {

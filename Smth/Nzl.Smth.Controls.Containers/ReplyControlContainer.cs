@@ -53,7 +53,7 @@
         public ReplyControlContainer()
         {
             InitializeComponent();
-            this.SetBaseUrl(Configuration.ReferUrl);
+            this.SetBaseUrl(Configuration.ReplyUrl);
             this.Text = "Reply Container";
         }
 

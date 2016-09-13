@@ -71,6 +71,7 @@
                     this.InitializeLabel(this.lblReplies, "（" + topic.Replies + "）");
                     this.lblReplies.Left = this.linklblTopic.Left + this.linklblTopic.Width + 1;
                     this.InitializeLabel(this.lblCreateDT, topic.CreateDateTime);
+                    this.InitializeLabel(this.lblLastDT, topic.LastThreadDateTime);
                     this.InitializeLinkLabel(this.linklblCreateID, topic.CreateID, topic.CreateID);
                     this.InitializeLinkLabel(this.linklblLastID, topic.LastThreadID, topic.LastThreadID);
                 }                
