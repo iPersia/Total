@@ -44,13 +44,14 @@
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
+        protected override void OnShown(EventArgs e)
         {
-            base.OnLoad(e);
-            this.rbLatestReply.Checked = this._topicSetting.BrowserType == ThreadBrowserType.LastReply;
-            this.rbFirstReply.Checked = this._topicSetting.BrowserType == ThreadBrowserType.FirstReply;
-            this.ckbAutoUpdating.Checked = this._topicSetting.AutoUpdating;
-            this.cmbInterval.Text = this._topicSetting.UpdatingInterval.ToString();
+            base.OnShown(e);
+            this.rbLatestReply.Checked = this.Settings.BrowserType == ThreadBrowserType.LastReply;
+            this.rbFirstReply.Checked = this.Settings.BrowserType == ThreadBrowserType.FirstReply;
+            this.ckbAutoUpdating.Checked = this.Settings.AutoUpdating;
+            this.cmbInterval.Text = this.Settings.UpdatingInterval.ToString();
+            this.gpAutoUpdating.Enabled = this.rbLatestReply.Checked;
         }
         #endregion
 

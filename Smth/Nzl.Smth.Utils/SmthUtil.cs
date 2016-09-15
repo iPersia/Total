@@ -356,12 +356,21 @@
         /// <returns></returns>
         public static string GetReplyTail()
         {
+#if (DEBUG)
             return "\n\n\n"
                  + "------------------"
                  + "\n"
                  + "->>[b][url=" 
                  + GetReplyUrl()
                  + "]水木PC客户端[/url][/b]<<-";
+#else
+           return "\n\n\n"
+                 + "------------------"
+                 + "\n"
+                 + "->>[url=" 
+                 + GetReplyUrl()
+                 + "]水木PC客户端[/url]<<-";
+#endif
         }
 
         /// <summary>
@@ -370,7 +379,7 @@
         /// <returns></returns>
         public static string GetReplyUrl()
         {
-            return "http://www.cnblogs.com/junier/archive/2013/03/25/2980547.html";
+            return "http://www.cnblogs.com/junier/p/5869972.html";
         }
 
         /// <summary>
