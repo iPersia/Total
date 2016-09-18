@@ -145,6 +145,7 @@
         {
             base.WorkCompleted(info);
             this.lblPage.Text = info.Index.ToString().PadLeft(3, '0') + "/" + info.Total.ToString().PadLeft(3, '0');
+            ReplyStatus.Instance.UpdateStatus(info.WebPage);
         }
 
         /// <summary>
