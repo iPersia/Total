@@ -164,7 +164,7 @@
             if (info.WebPage != null &&
                 info.WebPage.IsGood &&
                 info.Result != null &&
-                info.Result.Count > 0 && 
+                info.Result.Count > 0 &&
                 this.GetPanel().Height < this.panelContainer.Height)
             {
                 this.SetUrlInfo(true);
@@ -186,10 +186,13 @@
                 {
                     ctl.ForeColor = Color.Red;
                 }
-
-                if (ctl.Data.Mode == TopicStatus.Magic)
+                else if (ctl.Data.Mode == TopicStatus.Magic)
                 {
                     ctl.ForeColor = Color.FromArgb(255, 128, 128);
+                }
+                else
+                {
+                    ctl.ForeColor = Color.Blue;
                 }
             }
         }
@@ -226,7 +229,7 @@
                 ctl.OnTopicLinkClicked += TopicControl_OnTopicLinkClicked;
                 ctl.OnPostLinkClicked += TopicControl_OnPostLinkClicked;
                 ctl.OnCreateIDLinkClicked += TopicControl_OnCreateIDLinkClicked;
-                ctl.OnLastIDLinkClicked +=TopicControl_OnLastIDLinkClicked;
+                ctl.OnLastIDLinkClicked += TopicControl_OnLastIDLinkClicked;
             }
         }
 
@@ -367,7 +370,7 @@
                 {
                     pageIndex = System.Convert.ToInt32(this.txtGoTo.Text);
                 }
-         
+
 
                 this.SetUrlInfo(pageIndex, false);
                 this.FetchPage();
