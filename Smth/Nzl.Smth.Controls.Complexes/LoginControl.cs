@@ -66,13 +66,13 @@
         /// <param name="e"></param>
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);            
+            base.OnLoad(e);
             this.txtUserID.Left = this.panelContainer.Width / 2 - this.txtUserID.Width / 2;
             this.txtPassword.Left = this.panelContainer.Width / 2 - this.txtPassword.Width / 2;
             this.ckbSave.Left = this.panelContainer.Width / 2 - this.ckbSave.Width / 2;
             this.btnLogon.Left = this.panelContainer.Width / 2 - this.btnLogon.Width / 2;
             this.btnLogout.Left = this.panelUp.Width / 2 - this.btnLogout.Width / 2;
-            this.lblNote.Left = this.panelUp.Width / 2 - this.lblNote.Width / 2;            
+            this.lblNote.Left = this.panelUp.Width / 2 - this.lblNote.Width / 2;
 
             TextBoxUtil.SetWatermark(this.txtUserID, "Input username...");
             TextBoxUtil.SetWatermark(this.txtPassword, "Input password...");
@@ -196,7 +196,7 @@
                     this.SetControlEnabled(true);
                     this.SetLogStatus(LogStatus.Instance.IsLogin);
                 }
-            }            
+            }
         }
 
         /// <summary>
@@ -488,14 +488,16 @@
         {
             try
             {
+                string key = this.GetKey();
                 UserInformation ui = new UserInformation();
-                ui.UserName = Nzl.Utils.EncryptUtil.Encrypt(this.txtUserID.Text, this._filename);
-                ui.Password = Nzl.Utils.EncryptUtil.Encrypt(this.txtPassword.Text, this._filename);
+                ui.UserName = Nzl.Utils.EncryptUtil.Encrypt(this.txtUserID.Text, key);
+                ui.Password = Nzl.Utils.EncryptUtil.Encrypt(this.txtPassword.Text, key);
                 byte[] datas = BufferHelper.Serialize(ui);
                 byte[] eDatas = Nzl.Utils.EncryptUtil.Encrypt(datas, System.Text.Encoding.Default.GetBytes(this._filename));
-                Stream fStream = new FileStream(this._filename, FileMode.Create, FileAccess.ReadWrite);
-                fStream.Write(eDatas, 0, eDatas.Length);
-                fStream.Close();
+                using (Stream fStream = new FileStream(this._filename, FileMode.Create, FileAccess.ReadWrite))
+                {
+                    fStream.Write(eDatas, 0, eDatas.Length);
+                }
             }
             catch (Exception exp)
             {
@@ -518,21 +520,22 @@
             {
                 if (File.Exists(this._filename))
                 {
-                    Stream fStream = new FileStream(this._filename, FileMode.Open, FileAccess.ReadWrite);
-                    if (fStream != null && fStream.Length > 0)
+                    using (Stream fStream = new FileStream(this._filename, FileMode.Open, FileAccess.ReadWrite))
                     {
-                        byte[] edatas = new byte[fStream.Length];
-                        fStream.Read(edatas, 0, (int)fStream.Length);
-                        byte[] datas = EncryptUtil.Decrypt(edatas, System.Text.Encoding.Default.GetBytes(this._filename));
-                        UserInformation ui = (UserInformation)BufferHelper.Deserialize(datas, 0);
-                        if (ui != null)
+                        if (fStream != null && fStream.Length > 0)
                         {
-                            this.txtUserID.Text = EncryptUtil.Decrypt(ui.UserName, this._filename);
-                            this.txtPassword.Text = EncryptUtil.Decrypt(ui.Password, this._filename);
+                            string key = this.GetKey();
+                            byte[] edatas = new byte[fStream.Length];
+                            fStream.Read(edatas, 0, (int)fStream.Length);
+                            byte[] datas = EncryptUtil.Decrypt(edatas, System.Text.Encoding.Default.GetBytes(this._filename));
+                            UserInformation ui = (UserInformation)BufferHelper.Deserialize(datas, 0);
+                            if (ui != null)
+                            {
+                                this.txtUserID.Text = EncryptUtil.Decrypt(ui.UserName, key);
+                                this.txtPassword.Text = EncryptUtil.Decrypt(ui.Password, key);
+                            }
                         }
                     }
-
-                    fStream.Close();
                 }
             }
             catch (Exception exp)
@@ -545,6 +548,19 @@
                 Nzl.Web.Util.CommonUtil.ShowMessage(exp.Message);
 #endif
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private string GetKey()
+        {
+            return HardwareUtil.GetCpuID() +
+                   "_" + 
+                   HardwareUtil.GetMacAddress() +
+                   "_" +
+                   Application.StartupPath + @"\" + this._filename;
         }
         #endregion
 

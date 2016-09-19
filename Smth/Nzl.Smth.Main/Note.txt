@@ -118,7 +118,9 @@
 	   
 	32、黑体（<b></b>）的处理。（已完成）
 
-	33、浏览帖子页面设置时，First Reply需要禁用AutoUpdating.
+	33、浏览帖子页面设置时，First Reply需要禁用AutoUpdating.（已完成）
+
+	34、加密个人信息，加入CPUID、MAC等信息。
 
 经验
 
