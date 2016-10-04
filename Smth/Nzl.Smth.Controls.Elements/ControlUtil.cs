@@ -134,7 +134,8 @@
                     ///Colored the replied thread content.
                     {
                         string text = richtxtContent.Text;
-                        string replayPattern = @"【 在 [a-zA-z][a-zA-Z0-9]{1,11} (\((.+)?\) )?的大作中提到: 】[^\r^\n]*[\r\n]+(\:.*[\r\n]*)*";
+                        //string replayPattern = @"【 在 [a-zA-z][a-zA-Z0-9]{1,11} (\((.+)?\) )?的大作中提到: 】[^\r^\n]*[\r\n]+(\:.*[\r\n]*)*";
+                        string replayPattern = @"【 在 [a-zA-z][a-zA-Z0-9]{1,11} (\((.+)?\) )?的大作中提到: 】\S*\s+(:( )?.*\s+)*";
                         MatchCollection mc = CommonUtil.GetMatchCollection(replayPattern, text);
                         if (mc != null && mc.Count > 0)
                         {
