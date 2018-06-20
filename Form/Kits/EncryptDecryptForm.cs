@@ -28,6 +28,7 @@
             }
             catch(Exception exc){
                 MessageForm form = new MessageForm("Error", exc.Message);
+             //   form.StartPosition = FormStartPosition.CenterParent;
                 form.ShowDialog(this);
             }            
         }
@@ -44,6 +45,7 @@
             catch (Exception exc)
             {
                 MessageForm form = new MessageForm("Error", exc.Message);
+               // form.StartPosition = FormStartPosition.CenterParent;
                 form.ShowDialog(this);
             }
         }

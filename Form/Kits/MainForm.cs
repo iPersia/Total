@@ -106,8 +106,8 @@ namespace Nzl.Forms.Kits
         private void cryptographyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EncryptDecryptForm form = new EncryptDecryptForm();
-            form.MdiParent = this;
-            form.Show();
+            form.StartPosition = FormStartPosition.CenterParent;
+            form.ShowDialog(this);
         }
     }
 }

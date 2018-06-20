@@ -14,6 +14,8 @@
         public MessageForm()
         {
             InitializeComponent();
+
+            this.StartPosition = FormStartPosition.CenterParent;
         }
 
         /// <summary>
