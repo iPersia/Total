@@ -66,7 +66,7 @@
         /// <summary>
         /// The base url of smth.
         /// </summary>
-        private static string staticAttachmentBaseUrl = @"http://att.newsmth.net/nForum";
+        private static string staticAttachmentBaseUrl = @"//att.newsmth.net/nForum";
 
         /// <summary>
         /// The base url of smth.

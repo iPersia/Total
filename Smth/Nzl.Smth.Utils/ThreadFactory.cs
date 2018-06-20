@@ -297,9 +297,9 @@
         /// <returns></returns>
         private static IList<string> GetImageUrls(ref string content)
         {
-            string pattern = @"<a target=\W_blank\W href=\W("
+            string pattern = @"<a target=\W_blank\W href=\W((http:)?"
                            + Configuration.AttachmentBaseUrl
-                           + @")?/att/[\w, %2E, %5F]+/\d+/\d+\W><img border=\W0\W title=\W单击此查看原图\W src=\W(?'ImageUrl'(?'HostUrl'"
+                           + @")?/att/[\w, %2E, %5F]+/\d+/\d+\W><img border=\W0\W title=\W单击此查看原图\W src=\W(?'ImageUrl'(?'HostUrl'(http:)?"
                            + Configuration.AttachmentBaseUrl
                            + @")?/att/[\w, %2E, %5F]+/\d+/\d+/middle)\W class=\Wresizeable\W /></a>";
             MatchCollection mtCollection = CommonUtil.GetMatchCollection(pattern, content);
@@ -309,7 +309,7 @@
                 foreach (Match mt in mtCollection)
                 {
                     string hostUrl = string.IsNullOrEmpty(mt.Groups["HostUrl"].Value.ToString()) ? Configuration.AttachmentBaseUrl : "";
-                    string imageUrl = hostUrl + mt.Groups["ImageUrl"].Value.ToString();
+                    string imageUrl = "http:" +　hostUrl + mt.Groups["ImageUrl"].Value.ToString();
                     imageUrlList.Add(imageUrl);
                     content = content.Replace(mt.Groups[0].Value.ToString(), ThreadFactory.TokenPrefix
                                                                            + ThreadFactory.ImageToken
